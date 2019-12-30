@@ -5,7 +5,27 @@
             <h6 class="mb-0">RESULTS</h6>
         </template>
         <div>
-            <b-table striped :items= "items" :fields= "fields" sticky-header head-variant="light" ></b-table>
+          <b-table 
+            :items= "items" 
+            :fields= "fields" 
+            sticky-header 
+            head-variant="light" 
+            ref="selectableTable"
+            selectable
+            :select-mode="selectMode"
+            @row-selected="onRowSelected"
+            responsive="sm">
+              <template v-slot:cell(selected)="{ rowSelected }">
+                 <template v-if="rowSelected">
+                    <span aria-hidden="true">&check;</span>
+                    <span class="sr-only">Selected</span>
+                  </template>
+                  <template v-else>
+                    <span aria-hidden="true">&nbsp;</span>
+                    <span class="sr-only">Not selected</span>
+                  </template>
+              </template>
+          </b-table>
         </div>
 
       <!--
@@ -58,6 +78,10 @@ export default {
             key: 'personPlaceCh',
             label: '地名(人)',
             sortable: true,
+          },
+          {
+            key: 'selected',
+            sortable: false,
           }
         ],
         items: [

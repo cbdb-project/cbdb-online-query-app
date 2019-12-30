@@ -1,5 +1,5 @@
 # cbdb-vue
-##Project Structure
+## Project Structure  
 
 ```
 /src

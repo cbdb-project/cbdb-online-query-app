@@ -1,7 +1,7 @@
 <template>
     <div>
         <b-button pill variant="outline-primary"  v-b-modal.select-entry-table
-        class = "query-condition-button" size="sm">SELECT ENTRY</b-button>
+        class = "query-condition-button" size="sm">{{$t('selectEntry.selectButton')}}</b-button>
         <b-modal id="select-entry-table" title="BootstrapVue">
             <p class="my-4">Select Entry</p>
         </b-modal>

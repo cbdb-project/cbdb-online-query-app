@@ -4,7 +4,9 @@ import Vuex from 'vuex'
 Vue.use(Vuex);
 
 const state = {
-  lang: 'zh-TW',
+  //注意和i18n中的索引一致
+  //参考：RFC 5646
+  lang: 'zh-cmn-Hant',
   user:{
     uid:"114514",
     name:"北京大學"

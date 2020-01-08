@@ -40,7 +40,7 @@
 
 <script>
 export default {
-  name: 'NavbarLeft',
+  name: 'navbarLeft',
   data () {
     return {
       /*

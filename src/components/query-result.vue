@@ -12,7 +12,7 @@
             head-variant="light" 
             ref="selectableTable"
             selectable
-            :select-mode="selectMode"
+            select-mode="multi"
             @row-selected="onRowSelected"
             responsive="sm">
               <template v-slot:cell(selected)="{ rowSelected }">
@@ -104,7 +104,18 @@ export default {
     queryFormular(){
       return `office-ch-name:'同安縣主簿',person-ch-place:'泉州府',index-year:'${this.formData.indexYear}';`
     }
-  }
+  },
+  methods: {
+      onRowSelected(items) {
+        this.selected = items
+      },
+      selectAllRows() {
+        this.$refs.selectableTable.selectAllRows()
+      },
+      clearSelected() {
+        this.$refs.selectableTable.clearSelected()
+      }
+    }
 }
 </script>
 

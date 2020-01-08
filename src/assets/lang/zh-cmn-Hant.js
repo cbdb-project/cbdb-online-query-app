@@ -13,6 +13,21 @@ module.exports = {
             logOut:"登出"
         }
     },
+    navbarLeft:{
+        home:"首頁",
+        entityQuery:"實體查詢",
+        entityQueryByPerson:"通過人物查詢",
+        entityQueryByOffice:"通過官職查詢",
+        entityQueryByEntry:"通過入仕途經查詢",
+        entityQueryByPlace:"通過地點查詢",
+        relationQuery:"關係查詢",
+        relationQueryByKinship:"通過親屬關係查詢",
+        relationQueryByAssociation:"通過社會關係查詢",
+        relationQueryBySocialNetwork:"查詢關係網絡",
+        relationQueryTwoPerson:"查詢兩人關係",
+        visualization:"可視化分析",
+        statistics:"統計分析"
+    },
     selectPerson:{
         selectButton:"選擇人物"
     },

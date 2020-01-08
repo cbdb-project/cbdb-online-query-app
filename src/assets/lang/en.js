@@ -13,6 +13,21 @@ module.exports = {
             logOut:"Log Out"
         }
     },
+    navbarLeft:{
+        home:"Home",
+        entityQuery:"Entity Query",
+        entityQueryByPerson:"By Person",
+        entityQueryByOffice:"By Office",
+        entityQueryByEntry:"By Entry",
+        entityQueryByPlace:"By Place",
+        relationQuery:"Relation Query",
+        relationQueryByKinship:"By Kinship",
+        relationQueryByAssociation:"By Association",
+        relationQueryBySocialNetwork:"Social Network",
+        relationQueryTwoPerson:"Two Persons Relation",
+        visualization:"Visualization",
+        statistics:"Statistics"
+    },
     selectPerson:{
         selectButton:"SELECT PERSON"
     },

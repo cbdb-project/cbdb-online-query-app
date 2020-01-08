@@ -1,10 +1,10 @@
 <template>
   <b-nav vertical class="nav-left">
-    <b-nav-item exact to = "/index" exact-active-class="active">首頁</b-nav-item>
+    <b-nav-item exact to = "/index" exact-active-class="active">{{$t('navbarLeft.home')}}</b-nav-item>
     <b-nav-item> 
       <b-button v-b-toggle.collapse-a variant="link" class = "text-decoration-none" v-on:click="toogleIcon(1)">
         <!--text-decoration-none -> bootstrap 4.3  -->
-        <span class = "collapse-head-text">實體查詢</span>
+        <span class = "collapse-head-text">{{$t('navbarLeft.entityQuery')}}</span>
       </b-button>
       <svg  v-bind:class = "{rotate: isRotate1}"
       t="1575729721049" class="svg-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2110" width="200" height="200">
@@ -12,15 +12,15 @@
       </svg>
     </b-nav-item>
       <b-collapse id="collapse-a" class="mb-2" :visible = "true">
-        <b-nav-item exact to = "/q-entity/by-person" exact-active-class="active">通過人物查詢</b-nav-item>
-        <b-nav-item to = "/q-entity/by-office">通過官職查詢</b-nav-item>
-        <b-nav-item to = "/q-entity/by-entry">通過入仕途徑查詢</b-nav-item>
-        <b-nav-item to = "/q-entity/by-place">通過地點查詢</b-nav-item>
+        <b-nav-item exact to = "/q-entity/by-person" exact-active-class="active">{{$t('navbarLeft.entityQueryByPerson')}}</b-nav-item>
+        <b-nav-item to = "/q-entity/by-office">{{$t('navbarLeft.entityQueryByOffice')}}</b-nav-item>
+        <b-nav-item to = "/q-entity/by-entry">{{$t('navbarLeft.entityQueryByEntry')}}</b-nav-item>
+        <b-nav-item to = "/q-entity/by-place">{{$t('navbarLeft.entityQueryByPlace')}}</b-nav-item>
       </b-collapse>
     <b-nav-item> 
       <b-button v-b-toggle.collapse-b variant="link" class = "text-decoration-none" v-on:click="toogleIcon(2)">
         <!--text-decoration-none -> bootstrap 4.3  -->
-        <span class = "collapse-head-text">關係查詢</span>
+        <span class = "collapse-head-text">{{$t('navbarLeft.relationQuery')}}</span>
       </b-button>
       <svg  v-bind:class = "{rotate: isRotate2}"
       t="1575729721049" class="svg-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2110" width="200" height="200">
@@ -28,13 +28,13 @@
       </svg>
     </b-nav-item>
       <b-collapse id="collapse-b" class="mb-2" :visible = "true">
-        <b-nav-item to = "/q-relation/kinship">查詢親屬關係</b-nav-item>
-        <b-nav-item to = "/q-relation/association">查詢社會關係</b-nav-item>
-        <b-nav-item to = "/q-relation/social-network">查詢關係網絡</b-nav-item>
-        <b-nav-item to = "/q-relation/two-person">查詢兩人關係</b-nav-item>
+        <b-nav-item to = "/q-relation/kinship">{{$t('navbarLeft.relationQueryByKinship')}}</b-nav-item>
+        <b-nav-item to = "/q-relation/association">{{$t('navbarLeft.relationQueryByAssociation')}}</b-nav-item>
+        <b-nav-item to = "/q-relation/social-network">{{$t('navbarLeft.relationQueryBySocialNetwork')}}</b-nav-item>
+        <b-nav-item to = "/q-relation/two-person">{{$t('navbarLeft.relationQueryTwoPerson')}}</b-nav-item>
       </b-collapse>
-    <b-nav-item to = "/visualization">可視化分析</b-nav-item>
-    <b-nav-item to = "/statistics">統計分析</b-nav-item>
+    <b-nav-item to = "/visualization">{{$t('navbarLeft.visualization')}}</b-nav-item>
+    <b-nav-item to = "/statistics">{{$t('navbarLeft.statistics')}}</b-nav-item>
   </b-nav>
 </template>
 

@@ -4,9 +4,8 @@ import Vuex from 'vuex'
 Vue.use(Vuex);
 
 const state = {
-  //注意和i18n中的索引一致
-  //参考：RFC 5646
-  lang: 'zh-cmn-Hant',
+  //控制當前語言的變數改為用 VueI18n 管理
+  //在元件中使用 this.$i18n.locale 呼叫或修改
   user:{
     uid:"114514",
     name:"北京大學"

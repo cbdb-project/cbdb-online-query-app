@@ -29,22 +29,22 @@ module.exports = {
         statistics:"統計分析"
     },
     selectPerson:{
-        selectButton:"選擇人物"
+        selectButton:"選取人物"
     },
     selectEntry:{
-        selectButton:"選擇入仕途徑"
+        selectButton:"選取入仕途徑"
     },
     selectOffice:{
-        selectButton:"選擇官職"
+        selectButton:"選取官職"
     },
     selectPlace:{
-        selectButton:"選擇地點"
+        selectButton:"選取地點"
     },
     selectRelationship:{
-        selectButton:"選擇關係"
+        selectButton:"選取關係"
     },
     selectTime:{
-        selectButton:"選擇時間"
+        selectButton:"選取時間"
     },
     globalTerm:{
         //全局術語

@@ -6,6 +6,7 @@ Vue.use(Vuex);
 const state = {
   //控制當前語言的變數改為用 VueI18n 管理
   //在元件中使用 this.$i18n.locale 呼叫或修改
+  //語言設定存儲在 localStorage.lang 中
   user:{
     uid:"114514",
     name:"北京大學"

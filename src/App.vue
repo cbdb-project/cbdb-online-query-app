@@ -7,6 +7,7 @@
         </div>
         <div class = "inline-element" id = "main">
         <router-view/>
+        <p>sdvsvsvsvasvzdbzsbafbasb</p>
         </div>
       </b-row>
   </div>

@@ -63,11 +63,18 @@
         <b-row class = "px-3 mb-3">
           <b-col>
             <label for="start-time" class = "user-input-label">{{$t('globalTerm.startTime')}}:</label>
-            <b-form-input id="start-time" v-model="formData.startTime" placeholder="Enter your name"></b-form-input>
+            <b-form-input id="start-time" v-model="formData.startTime" placeholder="" 
+              :state="validation('startTime')"></b-form-input>
+              <b-form-invalid-feedback :state="validation('startTime')">
+                Invalid year 
+              </b-form-invalid-feedback>
             </b-col>
           <b-col>
              <label for="end-time" class = "user-input-label">{{$t('globalTerm.endTime')}}:</label>
-             <b-form-input id="end-time" v-model="formData.endTime" placeholder="Enter your name"></b-form-input>
+             <b-form-input id="end-time" v-model="formData.endTime" placeholder="" :state="validation('endTime')"></b-form-input>
+              <b-form-invalid-feedback :state="validation('endTime')">
+                Invalid year 
+              </b-form-invalid-feedback>
            </b-col>
            <b-col>
             <b-form-checkbox id="checkbox-1" v-model= "formData.indexYear" name="checkbox-1"
@@ -92,7 +99,7 @@
               ></b-form-textarea>
         </b-col>
         <b-col cols="2">
-            <b-button href="#" variant="primary" style = "width:100%;margin-top:70px">Go</b-button>
+            <b-button href="#" variant="primary" style = "width:100%;margin-top:70px" :disabled="isInvalid">Go</b-button>
         </b-col>
       </b-row>    
       <!--
@@ -157,12 +164,39 @@ export default {
       ]
     }
   },
-  computed:{
-    user(){
-      return this.$store.state.user
+  methods:{
+    //判斷輸入欄是否為空
+    isNull(idx){
+      return this.formData[idx] == ''
     },
+    validation(idx){
+      //如果輸入為空，視為有效
+      if(this.isNull(idx))return null;
+      let year = /^\d{1,4}$/;
+      //startTime 一欄只要輸入符合有且僅有1～4位數字的規則，視為有效
+      if(idx == 'startTime')return year.test(this.formData[idx])?null:false;
+      else if(idx == 'endTime'){
+        //先判斷 endTime 一欄是否符合有且僅有1～4位數字的規則，如果不符合，視為無效
+        if(year.test(this.formData[idx])){
+          //如果 endTime 有輸入數字，同時 startTime 也有輸入數字，判斷 endTime 的數字是否大於 startTime 的數字
+          //如果小於，則視為無效
+          if(this.validation('startTime') == null && this.isNull('startTime')==false){
+            let st = parseInt(this.formData['startTime'], 10);
+            let et = parseInt(this.formData['endTime'], 10);
+            return et>st?null:false;
+          }
+          else return null;
+        }
+        else return false;
+      }
+    }
+  },
+  computed:{
     queryFormular(){
       return `office-ch-name:'${this.formData.officeChName}',office-en-name:'${this.formData.officeEnName}',office-ch-type:'${this.formData.officeChType}',office-en-type:'${this.formData.officeEnType}',office-ch-place:'${this.formData.officeChPlace}',office-en-place:'${this.formData.officeEnPlace}',person-ch-place:'${this.formData.personChPlace}',person-en-place:'${this.formData.personEnPlace}',start-time:'${this.formData.startTime}',end-time:'${this.formData.endTime}'index-year:'${this.formData.indexYear}';`
+    },
+    isInvalid(){
+      return this.validation('startTime')==false || this.validation('endTime')==false
     }
   }
 }

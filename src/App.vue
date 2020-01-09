@@ -7,7 +7,7 @@
         </div>
         <div class = "inline-element" id = "main">
         <router-view/>
-        <p>sdvsvsvsvasvzdbzsbafbasb</p>
+        <nav-bottom id = "nav-bottom"></nav-bottom>
         </div>
       </b-row>
   </div>
@@ -16,12 +16,13 @@
 <script>
 import NavTop from './components/nav-top.vue'
 import NavLeft from './components/nav-left.vue'
+import NavBottom from './components/nav-bottom.vue'
 export default {
   components:
   {
       NavTop,
-      NavLeft 
-      
+      NavLeft,
+      NavBottom 
   },
   name: 'App'
 }
@@ -39,7 +40,7 @@ export default {
   min-width:100%;
     /* 主界面背景色 */
   background-color:#F0F2F5;
-  padding-bottom:10%
+  padding-bottom:8%
 }
 #nav-top{
   border-style:solid;
@@ -64,6 +65,10 @@ export default {
   border-width: 0 1px 0 0;
   border-color:#D4D4D4;
   background-color: #FFFFFF
+}
+#nav-bottom
+{
+  padding-top:32px;
 }
 #main{
   position:relative;

@@ -45,5 +45,27 @@ module.exports = {
     },
     selectTime:{
         selectButton:"選擇時間"
+    },
+    globalTerm:{
+        //全局術語
+        queryInput:"查詢式輸入",
+        queryConditionOptions:"條件選取",
+        userInput:"用戶輸入",
+        resultShow:"結果展現",
+        startTime:"開始時間",
+        endTime:"結束時間",
+        isIndexYear:"啟用指數年"
+    },
+    entityQueryByPerson:{
+        officeNameEn:"官職名-英文",
+        officeNameCh:"官職名-中文",
+        officeTypeEn:"官職類型-英文",
+        officeTypeCh:"官職類型-中文",
+        officePlaceEn:"官職地點-英文",
+        officePlaceCh:"官職地點-中文",
+        personPlaceEn:"人物地點-英文",
+        personPlaceCh:"人物地點-中文",
+        checkAndSearch:"檢索式確認",
+        checkRemind:"茲生成查詢式如下，請於檢索前核查確認"
     }
 }

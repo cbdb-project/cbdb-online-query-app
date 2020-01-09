@@ -20,7 +20,7 @@
             <em>{{user.name}}</em>
           </template>
           <b-dropdown-item href="#">{{$t('navbarTop.user.profile')}}</b-dropdown-item>
-          <b-dropdown-item href="#">{{$t('navbarTop.user.logOut')}}</b-dropdown-item>
+          <b-dropdown-item @click = "logOut">{{$t('navbarTop.user.logOut')}}</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
   </b-navbar>
@@ -47,8 +47,13 @@ export default {
   },
   methods:{
     changeLang: function(lang){
-      if(this.$i18n.locale != lang)
-        this.$i18n.locale = lang
+      if(this.$i18n.locale != lang){
+        this.$i18n.locale = lang;
+        localStorage.lang = lang
+      }
+    },
+    logOut:function(){
+
     }
   }
 }

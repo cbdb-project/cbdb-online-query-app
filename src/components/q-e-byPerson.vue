@@ -3,9 +3,9 @@
     <b-breadcrumb :items="items" class = "bread-crumb"></b-breadcrumb>
     <b-card header-tag="header" footer-tag="footer">
       <template v-slot:header>
-        <h6 class="mb-0">QUERY INPUT</h6>
+        <h6 class="mb-0">{{$t('globalTerm.queryInput')}}</h6>
       </template>
-      <b-card-text class = "card-item-title">Query Condition Options</b-card-text>             
+      <b-card-text class = "card-item-title">{{$t('globalTerm.queryConditionOptions')}}</b-card-text>             
       <div class = "card-item-body">
         <b-row>
           <b-col><select-person></select-person></b-col>
@@ -18,70 +18,70 @@
           <b-col><select-relationship></select-relationship></b-col>
         </b-row>
       </div>
-      <b-card-text class = "card-item-title">User Input</b-card-text>             
+      <b-card-text class = "card-item-title">{{$t('globalTerm.userInput')}}</b-card-text>             
       <div class  = "card-item-body px-3">
         <b-row class = "px-3 mb-3">
           <b-col>
-            <label for="office-en-name" class = "user-input-label">官職名-英文:</label>
+            <label for="office-en-name" class = "user-input-label">{{$t('entityQueryByPerson.officeNameEn')}}:</label>
             <b-form-input id="office-en-name" v-model="formData.officeEnName" placeholder="Enter your name"></b-form-input>
             </b-col>
           <b-col>
-             <label for="office-ch-name" class = "user-input-label">官職名-中文:</label>
+             <label for="office-ch-name" class = "user-input-label">{{$t('entityQueryByPerson.officeNameCh')}}:</label>
              <b-form-input id="office-ch-name" v-model="formData.officeChName" placeholder="Enter your name"></b-form-input>
            </b-col>
         </b-row>
         <b-row class = "px-3 mb-3">
           <b-col>
-            <label for="office-en-type" class = "user-input-label">官職類型-英文:</label>
+            <label for="office-en-type" class = "user-input-label">{{$t('entityQueryByPerson.officeTypeEn')}}:</label>
             <b-form-input id="office-en-type" v-model="formData.officeEnType" placeholder="Enter your name"></b-form-input>
             </b-col>
           <b-col>
-             <label for="office-ch-type" class = "user-input-label">官職類型-中文:</label>
+             <label for="office-ch-type" class = "user-input-label">{{$t('entityQueryByPerson.officeTypeCh')}}:</label>
              <b-form-input id="office-ch-type" v-model="formData.officeChType" placeholder="Enter your name"></b-form-input>
            </b-col>
         </b-row>
         <b-row class = "px-3 mb-3">
           <b-col>
-            <label for="office-en-place" class = "user-input-label">官職地點-英文:</label>
+            <label for="office-en-place" class = "user-input-label">{{$t('entityQueryByPerson.officePlaceEn')}}:</label>
             <b-form-input id="office-en-place" v-model="formData.officeEnPlace" placeholder="Enter your name"></b-form-input>
             </b-col>
           <b-col>
-             <label for="office-ch-place" class = "user-input-label">官職地點-中文:</label>
+             <label for="office-ch-place" class = "user-input-label">{{$t('entityQueryByPerson.officePlaceCh')}}:</label>
              <b-form-input id="office-ch-place" v-model="formData.officeChPlace" placeholder="Enter your name"></b-form-input>
            </b-col>
         </b-row>
         <b-row class = "px-3 mb-3">
           <b-col>
-            <label for="person-en-place" class = "user-input-label">人物地點-英文:</label>
+            <label for="person-en-place" class = "user-input-label">{{$t('entityQueryByPerson.personPlaceEn')}}:</label>
             <b-form-input id="person-en-place" v-model="formData.personEnPlace" placeholder="Enter your name"></b-form-input>
             </b-col>
           <b-col>
-             <label for="person-ch-place" class = "user-input-label">人物地點-中文:</label>
+             <label for="person-ch-place" class = "user-input-label">{{$t('entityQueryByPerson.personPlaceCh')}}:</label>
              <b-form-input id="person-ch-place" v-model="formData.personChPlace" placeholder="Enter your name"></b-form-input>
            </b-col>
         </b-row>
         <b-row class = "px-3 mb-3">
           <b-col>
-            <label for="start-time" class = "user-input-label">開始時間:</label>
+            <label for="start-time" class = "user-input-label">{{$t('globalTerm.startTime')}}:</label>
             <b-form-input id="start-time" v-model="formData.startTime" placeholder="Enter your name"></b-form-input>
             </b-col>
           <b-col>
-             <label for="end-time" class = "user-input-label">結束時間:</label>
+             <label for="end-time" class = "user-input-label">{{$t('globalTerm.endTime')}}:</label>
              <b-form-input id="end-time" v-model="formData.endTime" placeholder="Enter your name"></b-form-input>
            </b-col>
            <b-col>
             <b-form-checkbox id="checkbox-1" v-model= "formData.indexYear" name="checkbox-1"
               value="t" unchecked-value="f" style = "margin:38px 0;text-align:left">
-                使用指數年
+                {{$t('globalTerm.isIndexYear')}}
             </b-form-checkbox>
            </b-col>
            <b-col></b-col>
         </b-row>
       </div>
-      <b-card-text class = "card-item-title">Check and Search</b-card-text>
+      <b-card-text class = "card-item-title">{{$t('entityQueryByPerson.checkAndSearch')}}</b-card-text>
       <b-row class = "px-3 mb-3">
         <b-col cols="10">
-          <b-alert show variant="warning" style = "width:40%" class = "px-3 py-2 mb-2">茲生成查詢式如下，請於檢索前核查確認</b-alert>
+          <b-alert show variant="warning" style = "width:66%" class = "px-3 py-2 mb-2">{{$t('entityQueryByPerson.checkRemind')}}</b-alert>
           <b-form-textarea
                 id="advanced-search"
                 v-model= "queryFormular"

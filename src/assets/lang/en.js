@@ -45,5 +45,27 @@ module.exports = {
     },
     selectTime:{
         selectButton:"SELEC TIME"
+    },
+    globalTerm:{
+        //全局術語
+        queryInput:"Query Input",
+        queryConditionOptions:"Query Condition Options",
+        userInput:"User Input",
+        resultShow:"Results Show",
+        startTime:"Start Time",
+        endTime:"End Time",
+        isIndexYear:"Use Index"
+    },
+    entityQueryByPerson:{
+        officeNameEn:"English Office Name",
+        officeNameCh:"Chinese Office Name",
+        officeTypeEn:"English Office Type ",
+        officeTypeCh:"Chinese Office Type",
+        officePlaceEn:"English Office Place",
+        officePlaceCh:"Chinese Office Place",
+        personPlaceEn:"English Person Place",
+        personPlaceCh:"Chinese Person Place",
+        checkAndSearch:"Check And Search",
+        checkRemind:"The query is generated as the following. Please check it before your search."
     }
 }

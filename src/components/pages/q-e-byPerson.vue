@@ -113,13 +113,13 @@
 </template>
 
 <script>
-import queryResult from './utility/query-result.vue'
-import selectPerson from './utility/select-person.vue'
-import selectEntry from './utility/select-entry.vue'
-import selectOffice from './utility/select-office.vue'
-import selectTime from './utility/select-time.vue'
-import selectPlace from './utility/select-place.vue'
-import selectRelationship from './utility/select-relationship.vue'
+import queryResult from '../utility/query-result.vue'
+import selectPerson from '../utility/select-person.vue'
+import selectEntry from '../utility/select-entry.vue'
+import selectOffice from '../utility/select-office.vue'
+import selectTime from '../utility/select-time.vue'
+import selectPlace from '../utility/select-place.vue'
+import selectRelationship from '../utility/select-relationship.vue'
 export default {
   name: 'entityQueryByPerson',
   components:

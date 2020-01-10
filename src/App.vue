@@ -14,9 +14,9 @@
 </template>
 
 <script>
-import NavTop from './components/nav-top.vue'
-import NavLeft from './components/nav-left.vue'
-import NavBottom from './components/nav-bottom.vue'
+import NavTop from './components/global/nav-top.vue'
+import NavLeft from './components/global/nav-left.vue'
+import NavBottom from './components/global/nav-bottom.vue'
 export default {
   components:
   {

@@ -2,7 +2,7 @@
 <div>
   <b-navbar toggleable="lg" variant="faded" type="light" id = "navbar-body">
     <b-navbar-brand href="/">
-     <img src="../assets/logo.png" alt="Logo" id = "cbdb-logo" >
+     <img src="../../assets/logo.png" alt="Logo" id = "cbdb-logo" >
      <span style = "position:absolute;left:80px;top:12px">{{$t('navbarTop.title')}}</span>
     </b-navbar-brand>
       <!-- Right aligned nav items -->

@@ -97,14 +97,6 @@ export default {
         ]
     }
   },
-  computed:{
-    user(){
-      return this.$store.state.user
-    },
-    queryFormular(){
-      return `office-ch-name:'同安縣主簿',person-ch-place:'泉州府',index-year:'${this.formData.indexYear}';`
-    }
-  },
   methods: {
       onRowSelected(items) {
         this.selected = items

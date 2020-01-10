@@ -35,12 +35,6 @@ export default {
     }
   },
   computed:{
-    lang(){
-      switch(this.$store.state.lang) {
-          //
-      } 
-      return 'Language'
-    },
     user(){
       return this.$store.state.user
     }

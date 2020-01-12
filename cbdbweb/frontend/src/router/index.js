@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/components/pages/home'
-import entityQueryByPerson from '@/components/pages/q-e-byPerson'
+import Home from '@/components/views/home'
+import entityQueryByPerson from '@/components/views/q-e-byPerson'
 Vue.use(Router)
 
 export default new Router({

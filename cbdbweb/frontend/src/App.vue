@@ -5,9 +5,9 @@
         <div class = "inline-element" id = "nav-left">
           <nav-left></nav-left>
         </div>
-        <div class = "inline-element" id = "main">
-        <router-view/>
-        <nav-bottom id = "nav-bottom"></nav-bottom>
+        <div class = "inline-element" id = "main" style="min-width:800px;">
+          <router-view/>
+          <nav-bottom id = "nav-bottom"></nav-bottom>
         </div>
       </b-row>
   </div>

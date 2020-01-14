@@ -56,7 +56,7 @@ module.exports = {
         endTime:"結束時間",
         isIndexYear:"啟用指數年"
     },
-    entityQueryByPerson:{
+    entityQueryByOffice:{
         officeNameEn:"官職名-英文",
         officeNameCh:"官職名-中文",
         officeTypeEn:"官職類型-英文",
@@ -67,5 +67,10 @@ module.exports = {
         personPlaceCh:"人物地點-中文",
         checkAndSearch:"檢索式確認",
         checkRemind:"茲生成查詢式如下，請於檢索前核查確認"
+    },
+    entityQueryByPerson:{
+        personNameEn:"人名-英文",
+        personNameCh:"人名-中文",
+        
     }
 }

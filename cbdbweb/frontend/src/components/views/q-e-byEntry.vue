@@ -22,12 +22,42 @@
       <div class  = "card-item-body px-3">
         <b-row class = "px-3 mb-3">
           <b-col>
-            <label for="person-en-name" class = "user-input-label">{{$t('entityQueryByPerson.personNameEn')}}:</label>
-            <b-form-input id="person-en-name" v-model="formData.personEnName" placeholder="Enter your name"></b-form-input>
+            <label for="office-en-name" class = "user-input-label">{{$t('entityQueryByPerson.officeNameEn')}}:</label>
+            <b-form-input id="office-en-name" v-model="formData.officeEnName" placeholder="Enter your name"></b-form-input>
             </b-col>
           <b-col>
-             <label for="person-ch-name" class = "user-input-label">{{$t('entityQueryByPerson.personNameCh')}}:</label>
-             <b-form-input id="person-ch-name" v-model="formData.personChName" placeholder="Enter your name"></b-form-input>
+             <label for="office-ch-name" class = "user-input-label">{{$t('entityQueryByPerson.officeNameCh')}}:</label>
+             <b-form-input id="office-ch-name" v-model="formData.officeChName" placeholder="Enter your name"></b-form-input>
+           </b-col>
+        </b-row>
+        <b-row class = "px-3 mb-3">
+          <b-col>
+            <label for="office-en-type" class = "user-input-label">{{$t('entityQueryByPerson.officeTypeEn')}}:</label>
+            <b-form-input id="office-en-type" v-model="formData.officeEnType" placeholder="Enter your name"></b-form-input>
+            </b-col>
+          <b-col>
+             <label for="office-ch-type" class = "user-input-label">{{$t('entityQueryByPerson.officeTypeCh')}}:</label>
+             <b-form-input id="office-ch-type" v-model="formData.officeChType" placeholder="Enter your name"></b-form-input>
+           </b-col>
+        </b-row>
+        <b-row class = "px-3 mb-3">
+          <b-col>
+            <label for="office-en-place" class = "user-input-label">{{$t('entityQueryByPerson.officePlaceEn')}}:</label>
+            <b-form-input id="office-en-place" v-model="formData.officeEnPlace" placeholder="Enter your name"></b-form-input>
+            </b-col>
+          <b-col>
+             <label for="office-ch-place" class = "user-input-label">{{$t('entityQueryByPerson.officePlaceCh')}}:</label>
+             <b-form-input id="office-ch-place" v-model="formData.officeChPlace" placeholder="Enter your name"></b-form-input>
+           </b-col>
+        </b-row>
+        <b-row class = "px-3 mb-3">
+          <b-col>
+            <label for="person-en-place" class = "user-input-label">{{$t('entityQueryByPerson.personPlaceEn')}}:</label>
+            <b-form-input id="person-en-place" v-model="formData.personEnPlace" placeholder="Enter your name"></b-form-input>
+            </b-col>
+          <b-col>
+             <label for="person-ch-place" class = "user-input-label">{{$t('entityQueryByPerson.personPlaceCh')}}:</label>
+             <b-form-input id="person-ch-place" v-model="formData.personChPlace" placeholder="Enter your name"></b-form-input>
            </b-col>
         </b-row>
         <b-row class = "px-3 mb-3">
@@ -106,8 +136,12 @@ export default {
     return {
       /*表單數據放這裡*/
       formData:{
-        personEnName:'',
-        personChName:'',
+        officeEnName:'',
+        officeChName:'',
+        officeEnType:'',
+        officeChType:'',
+        officeEnPlace:'',
+        officeChPlace:'',
         personEnPlace:'',
         personChPlace:'',
         startTime:'',
@@ -159,7 +193,7 @@ export default {
   },
   computed:{
     queryFormular(){
-      return `person-ch-name:'${this.formData.personChName}',person-en-name:'${this.formData.personEnName}',start-time:'${this.formData.startTime}',end-time:'${this.formData.endTime}'index-year:'${this.formData.indexYear}';`
+      return `office-ch-name:'${this.formData.officeChName}',office-en-name:'${this.formData.officeEnName}',office-ch-type:'${this.formData.officeChType}',office-en-type:'${this.formData.officeEnType}',office-ch-place:'${this.formData.officeChPlace}',office-en-place:'${this.formData.officeEnPlace}',person-ch-place:'${this.formData.personChPlace}',person-en-place:'${this.formData.personEnPlace}',start-time:'${this.formData.startTime}',end-time:'${this.formData.endTime}'index-year:'${this.formData.indexYear}';`
     },
     isInvalid(){
       return this.validation('startTime')==false || this.validation('endTime')==false

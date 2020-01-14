@@ -5,13 +5,17 @@
         <b-modal id="select-person" title="Select People from Database" size = "xl">
             <b-row>
                 <b-col :cols = 4 style = "text-align:right">
+                  <b-card>
                     <b-form-group label-cols="4" label="Person English Name" label-for="select-person-input-en-name">
                         <b-form-input id="select-person-input-en-name"></b-form-input>
                     </b-form-group>
                     <b-form-group label-cols="4" label="人物姓名-中文" label-for="select-person-input-ch-name">
                         <b-form-input id="select-person-input-ch-name"></b-form-input>
                     </b-form-group>
-                    <b-button variant="primary">Search</b-button>
+                    <b-form-group>
+                      <b-button variant="primary">Search</b-button>
+                    </b-form-group>
+                  </b-card>
                 </b-col>
                 <b-col :cols = 8>
                     <b-table 

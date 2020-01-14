@@ -22,12 +22,42 @@
       <div class  = "card-item-body px-3">
         <b-row class = "px-3 mb-3">
           <b-col>
-            <label for="person-en-name" class = "user-input-label">{{$t('entityQueryByPerson.personNameEn')}}:</label>
-            <b-form-input id="person-en-name" v-model="formData.personEnName" placeholder="Enter your name"></b-form-input>
+            <label for="office-en-name" class = "user-input-label">{{$t('entityQueryByOffice.officeNameEn')}}:</label>
+            <b-form-input id="office-en-name" v-model="formData.officeEnName" placeholder="Enter your name"></b-form-input>
             </b-col>
           <b-col>
-             <label for="person-ch-name" class = "user-input-label">{{$t('entityQueryByPerson.personNameCh')}}:</label>
-             <b-form-input id="person-ch-name" v-model="formData.personChName" placeholder="Enter your name"></b-form-input>
+             <label for="office-ch-name" class = "user-input-label">{{$t('entityQueryByOffice.officeNameCh')}}:</label>
+             <b-form-input id="office-ch-name" v-model="formData.officeChName" placeholder="Enter your name"></b-form-input>
+           </b-col>
+        </b-row>
+        <b-row class = "px-3 mb-3">
+          <b-col>
+            <label for="office-en-type" class = "user-input-label">{{$t('entityQueryByOffice.officeTypeEn')}}:</label>
+            <b-form-input id="office-en-type" v-model="formData.officeEnType" placeholder="Enter your name"></b-form-input>
+            </b-col>
+          <b-col>
+             <label for="office-ch-type" class = "user-input-label">{{$t('entityQueryByOffice.officeTypeCh')}}:</label>
+             <b-form-input id="office-ch-type" v-model="formData.officeChType" placeholder="Enter your name"></b-form-input>
+           </b-col>
+        </b-row>
+        <b-row class = "px-3 mb-3">
+          <b-col>
+            <label for="office-en-place" class = "user-input-label">{{$t('entityQueryByOffice.officePlaceEn')}}:</label>
+            <b-form-input id="office-en-place" v-model="formData.officeEnPlace" placeholder="Enter your name"></b-form-input>
+            </b-col>
+          <b-col>
+             <label for="office-ch-place" class = "user-input-label">{{$t('entityQueryByOffice.officePlaceCh')}}:</label>
+             <b-form-input id="office-ch-place" v-model="formData.officeChPlace" placeholder="Enter your name"></b-form-input>
+           </b-col>
+        </b-row>
+        <b-row class = "px-3 mb-3">
+          <b-col>
+            <label for="person-en-place" class = "user-input-label">{{$t('entityQueryByOffice.personPlaceEn')}}:</label>
+            <b-form-input id="person-en-place" v-model="formData.personEnPlace" placeholder="Enter your name"></b-form-input>
+            </b-col>
+          <b-col>
+             <label for="person-ch-place" class = "user-input-label">{{$t('entityQueryByOffice.personPlaceCh')}}:</label>
+             <b-form-input id="person-ch-place" v-model="formData.personChPlace" placeholder="Enter your name"></b-form-input>
            </b-col>
         </b-row>
         <b-row class = "px-3 mb-3">
@@ -55,10 +85,10 @@
            <b-col></b-col>
         </b-row>
       </div>
-      <b-card-text class = "card-item-title">{{$t('entityQueryByPerson.checkAndSearch')}}</b-card-text>
+      <b-card-text class = "card-item-title">{{$t('entityQueryByOffice.checkAndSearch')}}</b-card-text>
       <b-row class = "px-3 mb-3">
         <b-col cols="10">
-          <b-alert show variant="warning" style = "width:66%" class = "px-3 py-2 mb-2">{{$t('entityQueryByPerson.checkRemind')}}</b-alert>
+          <b-alert show variant="warning" style = "width:66%" class = "px-3 py-2 mb-2">{{$t('entityQueryByOffice.checkRemind')}}</b-alert>
           <b-form-textarea
                 id="advanced-search"
                 v-model= "queryFormular"
@@ -91,7 +121,7 @@ import selectTime from '../utility/select-time.vue'
 import selectPlace from '../utility/select-place.vue'
 import selectRelationship from '../utility/select-relationship.vue'
 export default {
-  name: 'entityQueryByPerson',
+  name: 'entityQueryByOffice',
   components:
   {
       queryResult,
@@ -106,8 +136,12 @@ export default {
     return {
       /*表單數據放這裡*/
       formData:{
-        personEnName:'',
-        personChName:'',
+        officeEnName:'',
+        officeChName:'',
+        officeEnType:'',
+        officeChType:'',
+        officeEnPlace:'',
+        officeChPlace:'',
         personEnPlace:'',
         personChPlace:'',
         startTime:'',
@@ -159,7 +193,7 @@ export default {
   },
   computed:{
     queryFormular(){
-      return `person-ch-name:'${this.formData.personChName}',person-en-name:'${this.formData.personEnName}',start-time:'${this.formData.startTime}',end-time:'${this.formData.endTime}'index-year:'${this.formData.indexYear}';`
+      return `office-ch-name:'${this.formData.officeChName}',office-en-name:'${this.formData.officeEnName}',office-ch-type:'${this.formData.officeChType}',office-en-type:'${this.formData.officeEnType}',office-ch-place:'${this.formData.officeChPlace}',office-en-place:'${this.formData.officeEnPlace}',person-ch-place:'${this.formData.personChPlace}',person-en-place:'${this.formData.personEnPlace}',start-time:'${this.formData.startTime}',end-time:'${this.formData.endTime}'index-year:'${this.formData.indexYear}';`
     },
     isInvalid(){
       return this.validation('startTime')==false || this.validation('endTime')==false

@@ -1,0 +1,18 @@
+.DS_Store
+/cbdbweb/frontend/node_modules/
+/cbdbweb/frontend/dist/
+/cbdbweb/frontend/npm-debug.log*
+/cbdbweb/frontend/yarn-debug.log*
+/cbdbweb/frontend/yarn-error.log*
+*.zip
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+.babelrc
+.editorconfig
+.postcssrc.js

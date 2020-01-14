@@ -86,7 +86,7 @@
                 </b-col>
             </b-row>
             <template v-slot:modal-footer>
-              <b-button size="xl" variant="primary" @click="show=false">
+              <b-button size="xl" variant="secondary" @click="show=false">
                 Cancel
               </b-button>
               <b-button size="xl" variant="primary" @click="haveSelected">

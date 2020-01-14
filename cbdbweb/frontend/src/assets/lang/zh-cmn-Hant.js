@@ -70,7 +70,18 @@ module.exports = {
     },
     entityQueryByPerson:{
         personNameEn:"人名-英文",
+        personNameCh:"人名-中文"
+    },
+    entityQueryByEntry:{
+        entryNameEn:"入仕途径-英文",
+        entryNameCh:"入仕途径-中文",
+        personNameEn:"人名-英文",
+        personNameCh:"人名-中文"
+    },
+    entityQueryByPlace:{
+        personNameEn:"人名-英文",
         personNameCh:"人名-中文",
-        
+        placeNameEn:"地名-英文",
+        placeNameCh:"地名-中文"
     }
 }

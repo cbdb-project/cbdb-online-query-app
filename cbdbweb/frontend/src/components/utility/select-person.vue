@@ -2,7 +2,12 @@
     <div>
         <b-button pill variant="outline-primary"  v-b-modal.select-person
         class = "query-condition-button" size="sm">{{$t('selectPerson.selectButton')}}</b-button>
-        <b-modal id="select-person" title="Select People from Database" size = "xl">
+        <b-modal 
+          id="select-person" 
+          title="Select People from Database" 
+          size = "xl"
+          v-model="show"
+        >
             <b-row>
                 <b-col :cols = 4 style = "text-align:right">
                   <b-card>
@@ -21,7 +26,7 @@
                     <b-table 
                         :items= "items" 
                         :fields= "fields" 
-                        sticky-header 
+                        sticky-header = "1000px"
                         head-variant="light" 
                         ref="selectableTable"
                         selectable
@@ -41,6 +46,14 @@
                     </b-table>
                 </b-col>
             </b-row>
+            <template v-slot:modal-footer>
+              <b-button size="xl" variant="primary" @click="show=false">
+                Cancel
+              </b-button>
+              <b-button size="xl" variant="primary" @click="haveSelected">
+                Select
+              </b-button>
+            </template>
         </b-modal>
     </div>
 </template>
@@ -50,15 +63,16 @@ export default {
   name:'selectPerson',
   data () {
     return {
+      show:false,
       /*表格子數據放這裡*/
         fields: [
           {
-            key: 'name',
+            key: 'personName',
             label:'Name',
             sortable: true
           },
           {
-            key: 'nameCh',
+            key: 'personNameCh',
             label:'姓名',
             sortable: true
           },
@@ -73,45 +87,41 @@ export default {
             sortable: true
           },
           {
-            key: 'placeType',
-            label:'地名類',
-            sortable: true
-          },
-          {
-            key: 'personPlace',
-            label: 'Place(Person)',
-            sortable: true,
-          },
-          {
-            key: 'personPlaceCh',
-            label: '地名(人)',
-            sortable: true,
-          },
-            {
             key: 'selected',
             sortable: false,
           }
         ],
         items: [
-          {name:'Liu Jun',nameCh:'劉俊',indexYear:'1086',female:false,placeType:'籍貫',personPlace:'Nan Yang',personPlaceCh:'南陽'},
-          {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'},        
-          {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'},       
-          {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'}, 
-          {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'}, 
-          {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'}, 
-          {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'}, 
-          {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'}, 
-          {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'}, 
+          {personName:"Zhu Youbao",personNameCh:"朱祐保",indexYear:"",female:"No"},
+          {personName:"Zhu Youbin",personNameCh:"朱祐檳",indexYear:"1538",female:"No"},
+          {personName:"Zhu Youceng",personNameCh:"朱右曾",indexYear:"1858",female:"No"},
+          {personName:"Zhu Youchen&#38;1",personNameCh:"朱幼成",indexYear:"1283",female:"No"},
+          {personName:"Zhu Youdao",personNameCh:"朱由道",indexYear:"1225",female:"No"},
+          {personName:"Zhu Youde",personNameCh:"朱有德",indexYear:"",female:"No"},
+          {personName:"Zhu Youdun",personNameCh:"朱有燉",indexYear:"",female:"No"},
+          {personName:"Zhu Youfu",personNameCh:"朱友輔",indexYear:"",female:"No"},
+          {personName:"Zhu Duokui",personNameCh:"朱多煃",indexYear:"",female:"No"},
+          {personName:"Zhu Duokun",personNameCh:"Zhu Duokun",indexYear:"",female:"No"},
+          {personName:"Zhu Duoliang",personNameCh:"朱多",indexYear:"1607",female:"No"},
+          {personName:"Zhu Duopu",personNameCh:"Zhu Duopu",indexYear:"1418",female:"No"},
+          {personName:"Zhu Duoyun",personNameCh:"朱多熅",indexYear:"",female:"No"},
+          {personName:"Zhu Duozheng",personNameCh:"朱多炡",indexYear:"1589",female:"No"},
         ],
         //选中的人物出现在这里
-        selected : []
+        selectedPerson : []
     }
   },
   methods: {
       onRowSelected(items) {
-        this.selected = items
+        this.selectedPerson = items
         //要把选中的结果传递给调用的父组件
-        console.log(this.selected)
+        console.log(this.selectedPerson)
+      },
+      haveSelected: function(){
+        //同步选中人物
+        console.log("成功");
+        this.$emit('getPersonName', this.selectedPerson);
+        this.show = false;
       },
       selectAllRows() {
         this.$refs.selectableTable.selectAllRows()

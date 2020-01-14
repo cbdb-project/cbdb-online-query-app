@@ -8,12 +8,16 @@
       <b-card-text class = "card-item-title">{{$t('globalTerm.queryConditionOptions')}}</b-card-text>             
       <div class = "card-item-body">
         <b-row>
-          <b-col><select-person></select-person></b-col>
-          <b-col><select-place></select-place></b-col>
-          <b-col><select-entry></select-entry></b-col>
+          <b-col><select-person
+            @getPersonName="handleGetPerson"></select-person></b-col>
+          <b-col><select-place
+            @getPlaceName="handleGetPlace"></select-place></b-col>
+          <b-col><select-entry
+            @getEntryName="handleGetEntry"></select-entry></b-col>
         </b-row>
         <b-row>
-          <b-col><select-office></select-office></b-col>
+          <b-col><select-office
+            @getOfficeName="handleGetOffice"></select-office></b-col>
           <b-col><select-time></select-time></b-col>
           <b-col><select-relationship></select-relationship></b-col>
         </b-row>
@@ -155,6 +159,11 @@ export default {
         }
         else return false;
       }
+    },
+    //获取查询的人物
+    handleGetPerson: function(selectedPerson){
+      this.formData.personEnName = selectedPerson[0]['personName'];
+      this.formData.personChName = selectedPerson[0]['personNameCh'];
     }
   },
   computed:{

@@ -1,0 +1,1351 @@
+[
+  {
+    "Id": 1,
+    "ObjectName": "唐朝",
+    "children": [
+      {
+        "Id": 2,
+        "ObjectName": "帝后制度类",
+        "children": [
+          {
+            "Id": 2,
+            "ObjectName": "帝后门",
+            "children":[
+              {
+                "Id":14,
+                "ObjectName":"内命妇"
+              }
+            ]
+          },
+          {
+            "Id": 2,
+            "ObjectName": "殿中省门",
+            "children": [
+              {
+                "Id":14,
+                "ObjectName":"尚食局【41-44】"
+              },
+              {
+                "Id":14,
+                "ObjectName":"尚药局"
+              },
+              {
+                "Id":14,
+                "ObjectName":"尚衣局"
+              },
+              {
+                "Id":14,
+                "ObjectName":"尚舍局"
+              },
+              {
+                "Id":14,
+                "ObjectName":"尚乘局"
+              },
+              {
+                "Id":14,
+                "ObjectName":"尚车局"
+              }
+            ]
+          },
+          {
+            "Id": 2,
+            "ObjectName": "内侍省门",
+            "children": [
+              {
+                "Id":14,
+                "ObjectName":"内谒者"
+              },
+              {
+                "Id":14,
+                "ObjectName":"掖庭局"
+              },
+              {
+                "Id":14,
+                "ObjectName":"宫闱局"
+              },
+              {
+                "Id":14,
+                "ObjectName":"奚官局"
+              },
+              {
+                "Id":14,
+                "ObjectName":"内仆局"
+              },
+              {
+                "Id":14,
+                "ObjectName":"太子内坊局"
+              },
+              {
+                "Id":14,
+                "ObjectName":"内府局"
+              }
+            ]
+          },
+          {
+            "Id": 2,
+            "ObjectName": "宫官门",
+            "children": [
+              {
+                "Id":14,
+                "ObjectName":"尚宫局"
+              },
+              {
+                "Id":14,
+                "ObjectName":"尚仪局"
+              },
+              {
+                "Id":14,
+                "ObjectName":"尚服局"
+              },
+              {
+                "Id":14,
+                "ObjectName":"尚食局【148】"
+              },
+              {
+                "Id":14,
+                "ObjectName":"尚寝局"
+              },
+              {
+                "Id":14,
+                "ObjectName":"尚功局"
+              },
+              {
+                "Id":14,
+                "ObjectName":"宫正"
+              }
+            ]
+          },
+          {
+            "Id":14,
+            "ObjectName":"公主与驸马门"
+          }
+        ]
+      },
+      {
+        "Id": 3,
+        "ObjectName": "东官官及王府官类",
+        "children": [
+          {
+            "Id": 2,
+            "ObjectName": "东宫官门",
+            "children": [
+              {
+                "Id": 2,
+                "ObjectName": "太子六傅",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "太子詹事府",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "太子左春坊",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "崇文馆",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "司经局",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "典膳局",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "药藏局",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "内直局",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "典设局",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "宫门局",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "太子右春坊",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "太子内官",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "太子家令寺",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "食官署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "典食署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "司藏署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "太子率更寺",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "太子仆寺",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "殿牧署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "太子左卫率府",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "太子右卫率府",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "亲府",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "动府",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "翊府",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "太子左司御率府",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "太子右司御率府",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "太子左清道率府",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "太子右清道率府",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "太子左监门率府",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "太子右监门率府",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "太子左内率府",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "太子右内率府",
+                "children": []
+              }
+            ]
+          },
+          {
+            "Id": 2,
+            "ObjectName": "亲王府与王府官门",
+            "children": [
+              {
+                "Id": 2,
+                "ObjectName": "亲事府",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "帐内府",
+                "children": []
+              }
+            ]
+          },
+          {
+            "Id": 2,
+            "ObjectName": "亲王国门",
+            "children": [
+              {
+                "Id": 2,
+                "ObjectName": "公主邑司门",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "Id": 9,
+        "ObjectName": "秘书省类",
+        "children": [
+          {
+            "Id": 2,
+            "ObjectName": "秘书省",
+            "children": [
+              {
+                "Id": 2,
+                "ObjectName": "著作局",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "太史局",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "Id": 12,
+        "ObjectName": "三省类",
+        "children": [
+          {
+            "Id": 2,
+            "ObjectName": "司天一【530-543】",
+            "children": []
+          },
+          {
+            "Id": 2,
+            "ObjectName": "门下省门",
+            "children": [
+              {
+                "Id": 2,
+                "ObjectName": "司天一【558】",
+                "children": [
+                  {
+                    "Id": 2,
+                    "ObjectName": "五官",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "Id": 2,
+                "ObjectName": "弘文馆/弘文馆/昭文官",
+                "children": [
+                  {
+                    "Id": 2,
+                    "ObjectName": "城门郎，符实郎与同事舍人",
+                    "children": []
+                  },
+                  {
+                    "Id": 2,
+                    "ObjectName": "奉宸府",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "Id": 2,
+                "ObjectName": "记注官",
+                "children": []
+              }
+            ]
+          },
+          {
+            "Id": 2,
+            "ObjectName": "中书省门",
+            "children": [
+              {
+                "Id": 2,
+                "ObjectName": "集贤殿书院",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "史馆",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "匦使院",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "翰林院",
+                "children": [
+                  {
+                    "Id": 2,
+                    "ObjectName": "翰林学士院",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "Id": 2,
+                "ObjectName": "内教坊",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "医药馆",
+                "children": []
+              }
+            ]
+          },
+          {
+            "Id": 2,
+            "ObjectName": "尚书省门",
+            "children": [
+              {
+                "Id": 2,
+                "ObjectName": "尚书都省",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "尚书省吏部",
+                "children": [
+                  {
+                    "Id": 2,
+                    "ObjectName": "吏部司",
+                    "children": []
+                  },
+                  {
+                    "Id": 2,
+                    "ObjectName": "司封司",
+                    "children": []
+                  },
+                  {
+                    "Id": 2,
+                    "ObjectName": "司动司",
+                    "children": []
+                  },
+                  {
+                    "Id": 2,
+                    "ObjectName": "考功司",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "Id": 2,
+                "ObjectName": "尚书省户部",
+                "children": [
+                  {
+                    "Id": 2,
+                    "ObjectName": "户部司",
+                    "children": []
+                  },
+                  {
+                    "Id": 2,
+                    "ObjectName": "度支司",
+                    "children": []
+                  },
+                  {
+                    "Id": 2,
+                    "ObjectName": "金部司",
+                    "children": []
+                  },
+                  {
+                    "Id": 2,
+                    "ObjectName": "仓部司",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "Id": 2,
+                "ObjectName": "尚书省礼部",
+                "children": [
+                  {
+                    "Id": 2,
+                    "ObjectName": "礼部司",
+                    "children": []
+                  },
+                  {
+                    "Id": 2,
+                    "ObjectName": "饲部司",
+                    "children": []
+                  },
+                  {
+                    "Id": 2,
+                    "ObjectName": "主客司",
+                    "children": []
+                  },
+                  {
+                    "Id": 2,
+                    "ObjectName": "膳部司",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "Id": 2,
+                "ObjectName": "尚书省兵部",
+                "children": [
+                  {
+                    "Id": 2,
+                    "ObjectName": "兵部司",
+                    "children": []
+                  },
+                  {
+                    "Id": 2,
+                    "ObjectName": "职方司",
+                    "children": []
+                  },
+                  {
+                    "Id": 2,
+                    "ObjectName": "驾部司",
+                    "children": []
+                  },
+                  {
+                    "Id": 2,
+                    "ObjectName": "库部司",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "Id": 2,
+                "ObjectName": "尚书省刑部",
+                "children": [
+                  {
+                    "Id": 2,
+                    "ObjectName": "刑部司",
+                    "children": []
+                  },
+                  {
+                    "Id": 2,
+                    "ObjectName": "都官司",
+                    "children": []
+                  },
+                  {
+                    "Id": 2,
+                    "ObjectName": "比部司",
+                    "children": []
+                  },
+                  {
+                    "Id": 2,
+                    "ObjectName": "司门司",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "Id": 2,
+                "ObjectName": "尚书省工部",
+                "children": [
+                  {
+                    "Id": 2,
+                    "ObjectName": "工部司",
+                    "children": []
+                  },
+                  {
+                    "Id": 2,
+                    "ObjectName": "屯田司",
+                    "children": []
+                  },
+                  {
+                    "Id": 2,
+                    "ObjectName": "虞部司",
+                    "children": []
+                  },
+                  {
+                    "Id": 2,
+                    "ObjectName": "税部司",
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Id": 2,
+            "ObjectName": "中书门下/政事堂门",
+            "children": [
+              {
+                "Id": 2,
+                "ObjectName": "吏房",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "户房",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "兵房",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "礼房",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "枢机房",
+                "children": []
+              }
+            ]
+          },
+          {
+            "Id": 2,
+            "ObjectName": "师保门",
+            "children": [
+              {
+                "Id": 2,
+                "ObjectName": "三师",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "三公",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "Id": 2,
+        "ObjectName": "御史台类",
+        "children": [
+          {
+            "Id": 2,
+            "ObjectName": "台院",
+            "children": []
+          },
+          {
+            "Id": 2,
+            "ObjectName": "殿院",
+            "children": []
+          },
+          {
+            "Id": 2,
+            "ObjectName": "察院",
+            "children": []
+          },
+          {
+            "Id": 2,
+            "ObjectName": "东都留台",
+            "children": []
+          }
+        ]
+      },
+      {
+        "Id": 2,
+        "ObjectName": "寺监类",
+        "children": [
+          {
+            "Id": 2,
+            "ObjectName": "太常寺门",
+            "children": [
+              {
+                "Id": 2,
+                "ObjectName": "太常寺",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "雨京郊社署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "诸陵署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "诸太子陵署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "太乐署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "鼓吹署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "太医署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "太卜署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "廪牲署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "汾祠署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "雨京齐太公庙",
+                "children": []
+              }
+            ]
+          },
+          {
+            "Id": 2,
+            "ObjectName": "光禄寺门",
+            "children": [
+              {
+                "Id": 2,
+                "ObjectName": "太官署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "珍羞署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "良醖署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "掌醢署",
+                "children": []
+              }
+            ]
+          },
+          {
+            "Id": 2,
+            "ObjectName": "卫尉寺门",
+            "children": [
+              {
+                "Id": 2,
+                "ObjectName": "雨京武库署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "武器署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "守宫署",
+                "children": []
+              }
+            ]
+          },
+          {
+            "Id": 2,
+            "ObjectName": "宗正寺门",
+            "children": [
+              {
+                "Id": 2,
+                "ObjectName": "诸陵台",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "崇玄署",
+                "children": []
+              }
+            ]
+          },
+          {
+            "Id": 2,
+            "ObjectName": "太仆寺门",
+            "children": [
+              {
+                "Id": 2,
+                "ObjectName": "乘黄署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "典厩署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "典牧署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "车府署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "诸牧监",
+                "children": [
+                  {
+                    "Id": 2,
+                    "ObjectName": "东宫诸牧监",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "Id": 2,
+                "ObjectName": "沙苑监",
+                "children": []
+              }
+            ]
+          },
+          {
+            "Id": 2,
+            "ObjectName": "鸿胪寺门",
+            "children": [
+              {
+                "Id": 2,
+                "ObjectName": "典客署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "司仪署",
+                "children": []
+              }
+            ]
+          },
+          {
+            "Id": 2,
+            "ObjectName": "司农寺门",
+            "children": [
+              {
+                "Id": 2,
+                "ObjectName": "上林署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "太仓署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "钩盾监",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "庆善监",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "诸仓署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "司竹署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "䆃官署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "石门监",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "温泉汤监",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "京都诸宫苑总监",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "京都诸园苑四面监",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "京都诸园苑四面监",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "九成宫总监",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "诸盐池监",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "诸屯监",
+                "children": []
+              }
+            ]
+          },
+          {
+            "Id": 2,
+            "ObjectName": "太府寺门",
+            "children": [
+              {
+                "Id": 2,
+                "ObjectName": "雨京诸寺署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "平准署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "左藏署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "右藏署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "常平署",
+                "children": []
+              }
+            ]
+          },
+          {
+            "Id": 2,
+            "ObjectName": "大理寺门",
+            "children": []
+          },
+          {
+            "Id": 2,
+            "ObjectName": "国子监门",
+            "children": [
+              {
+                "Id": 2,
+                "ObjectName": "国子学",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "太学",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "广文馆",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "四门学",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "律学",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "书学",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "算学",
+                "children": []
+              }
+            ]
+          },
+          {
+            "Id": 2,
+            "ObjectName": "少府监门",
+            "children": [
+              {
+                "Id": 2,
+                "ObjectName": "中尚署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "左尚署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "右尚署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "织染署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "掌冶署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "诸冶署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "互市监",
+                "children": []
+              }
+            ]
+          },
+          {
+            "Id": 2,
+            "ObjectName": "军器监门",
+            "children": [
+              {
+                "Id": 2,
+                "ObjectName": "甲坊署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "弩坊署",
+                "children": []
+              }
+            ]
+          },
+          {
+            "Id": 2,
+            "ObjectName": "将作监门",
+            "children": [
+              {
+                "Id": 2,
+                "ObjectName": "左校署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "右校署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "中校署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "甄官署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "百工署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "就谷监",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "库谷监",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "斜谷监",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "太阴监",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "伊阳监",
+                "children": []
+              }
+            ]
+          },
+          {
+            "Id": 2,
+            "ObjectName": "都水监门",
+            "children": [
+              {
+                "Id": 2,
+                "ObjectName": "舟楫署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "河渠署",
+                "children": []
+              },
+              {
+                "Id": 2,
+                "ObjectName": "诸津",
+                "children": []
+              }
+            ]
+          },
+          {
+            "Id": 2,
+            "ObjectName": "司天监门",
+            "children": []
+          }
+        ]
+      },
+      {
+        "Id": 2,
+        "ObjectName": "品位官类",
+        "children": [
+          {
+            "Id": 2,
+            "ObjectName": "文散官门",
+            "children": []
+          },
+          {
+            "Id": 2,
+            "ObjectName": "武散官门",
+            "children": []
+          }
+        ]
+      },
+      {
+        "Id": 2,
+        "ObjectName": "武官类",
+        "children": [
+          {
+            "Id": 2,
+            "ObjectName": "六军门",
+            "children": []
+          },
+          {
+            "Id": 2,
+            "ObjectName": "天策上军府",
+            "children": []
+          },
+          {
+            "Id": 2,
+            "ObjectName": "中央卫军十率府",
+            "children": []
+          },
+          {
+            "Id": 2,
+            "ObjectName": "北衙禁军门",
+            "children": []
+          },
+          {
+            "Id": 2,
+            "ObjectName": "诸盐池监",
+            "children": []
+          },
+          {
+            "Id": 2,
+            "ObjectName": "诸屯监",
+            "children": []
+          },
+          {
+            "Id": 2,
+            "ObjectName": "诸盐池监",
+            "children": []
+          },
+          {
+            "Id": 2,
+            "ObjectName": "诸屯监",
+            "children": []
+          },
+          {
+            "Id": 2,
+            "ObjectName": "诸盐池监",
+            "children": []
+          },
+          {
+            "Id": 2,
+            "ObjectName": "诸屯监",
+            "children": []
+          },
+          {
+            "Id": 2,
+            "ObjectName": "诸盐池监",
+            "children": []
+          },
+          {
+            "Id": 2,
+            "ObjectName": "诸屯监",
+            "children": []
+          }
+        ]
+      },
+      {
+        "Id": 2,
+        "ObjectName": "府州郡县官类",
+        "children": []
+      },
+      {
+        "Id": 2,
+        "ObjectName": "使职差遣类",
+        "children": []
+      },
+      {
+        "Id": 2,
+        "ObjectName": "周边政权职官类",
+        "children": []
+      },
+      {
+        "Id": 2,
+        "ObjectName": "勋爵类",
+        "children": []
+      }
+    ]
+  },
+  {
+    "Id": 13,
+    "ObjectName": "宋朝",
+    "children": [
+      {
+        "Id": 14,
+        "ObjectName": "宫廷制度类",
+        "children": [
+          {
+            "Id": 15,
+            "ObjectName": "帝后门",
+            "children": []
+          },
+          {
+            "Id": 15,
+            "ObjectName": "尚书内省门",
+            "children": []
+          }
+        ]
+      },
+      {
+        "Id": 16,
+        "ObjectName": "宰执官类",
+        "children": [
+          {
+            "Id": 15,
+            "ObjectName": "宰相门",
+            "children": []
+          },
+          {
+            "Id": 15,
+            "ObjectName": "平章军国事门",
+            "children": []
+          }
+        ]
+      },
+      {
+        "Id": 17,
+        "ObjectName": "中枢机构类",
+        "children": [
+          {
+            "Id": 15,
+            "ObjectName": "中枢机构类（前）",
+            "children": []
+          },
+          {
+            "Id": 15,
+            "ObjectName": "中枢机构类（后）",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Id": 16,
+    "ObjectName":"辽朝",
+    "children":[]
+  },
+  {
+    "Id": 17,
+    "ObjectName":"元朝",
+    "children":[]
+  },
+  {
+    "Id": 18,
+    "ObjectName":"明朝",
+    "children":[
+      {
+        "Id": 18,
+        "ObjectName":"明朝",
+        "children":[
+          {
+            "Id": 18,
+            "ObjectName":"明朝",
+            "children":[]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Id": 19,
+    "ObjectName":"清朝",
+    "children":[]
+  }
+]

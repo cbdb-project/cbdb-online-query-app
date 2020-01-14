@@ -8,12 +8,16 @@
       <b-card-text class = "card-item-title">{{$t('globalTerm.queryConditionOptions')}}</b-card-text>             
       <div class = "card-item-body">
         <b-row>
-          <b-col><select-person></select-person></b-col>
-          <b-col><select-place></select-place></b-col>
-          <b-col><select-entry></select-entry></b-col>
+          <b-col><select-person
+            @getPersonName="handleGetPerson"></select-person></b-col>
+          <b-col><select-place
+            @getPlaceName="handleGetPlace"></select-place></b-col>
+          <b-col><select-entry
+            @getEntryName="handleGetEntry"></select-entry></b-col>
         </b-row>
         <b-row>
-          <b-col><select-office></select-office></b-col>
+          <b-col><select-office
+            @getOfficeName="handleGetOffice"></select-office></b-col>
           <b-col><select-time></select-time></b-col>
           <b-col><select-relationship></select-relationship></b-col>
         </b-row>
@@ -30,7 +34,7 @@
              <b-form-input id="office-ch-name" v-model="formData.officeChName" placeholder="Enter your name"></b-form-input>
            </b-col>
         </b-row>
-        <b-row class = "px-3 mb-3">
+        <!-- <b-row class = "px-3 mb-3">
           <b-col>
             <label for="office-en-type" class = "user-input-label">{{$t('entityQueryByOffice.officeTypeEn')}}:</label>
             <b-form-input id="office-en-type" v-model="formData.officeEnType" placeholder="Enter your name"></b-form-input>
@@ -39,7 +43,7 @@
              <label for="office-ch-type" class = "user-input-label">{{$t('entityQueryByOffice.officeTypeCh')}}:</label>
              <b-form-input id="office-ch-type" v-model="formData.officeChType" placeholder="Enter your name"></b-form-input>
            </b-col>
-        </b-row>
+        </b-row> -->
         <b-row class = "px-3 mb-3">
           <b-col>
             <label for="office-en-place" class = "user-input-label">{{$t('entityQueryByOffice.officePlaceEn')}}:</label>
@@ -50,7 +54,7 @@
              <b-form-input id="office-ch-place" v-model="formData.officeChPlace" placeholder="Enter your name"></b-form-input>
            </b-col>
         </b-row>
-        <b-row class = "px-3 mb-3">
+        <!-- <b-row class = "px-3 mb-3">
           <b-col>
             <label for="person-en-place" class = "user-input-label">{{$t('entityQueryByOffice.personPlaceEn')}}:</label>
             <b-form-input id="person-en-place" v-model="formData.personEnPlace" placeholder="Enter your name"></b-form-input>
@@ -59,7 +63,7 @@
              <label for="person-ch-place" class = "user-input-label">{{$t('entityQueryByOffice.personPlaceCh')}}:</label>
              <b-form-input id="person-ch-place" v-model="formData.personChPlace" placeholder="Enter your name"></b-form-input>
            </b-col>
-        </b-row>
+        </b-row> -->
         <b-row class = "px-3 mb-3">
           <b-col>
             <label for="start-time" class = "user-input-label">{{$t('globalTerm.startTime')}}:</label>
@@ -99,7 +103,7 @@
               ></b-form-textarea>
         </b-col>
         <b-col cols="2">
-            <b-button href="#" variant="primary" style = "width:100%;margin-top:70px" :disabled="isInvalid">Go</b-button>
+            <b-button href="#" variant="primary" style = "width:100%;margin-top:70px" :disabled="isInvalid" @click="testData">Go</b-button>
         </b-col>
       </b-row>    
       <!--
@@ -189,6 +193,27 @@ export default {
         }
         else return false;
       }
+    },
+    //获取查询的官职名
+    handleGetOffice: function(selectedOffice){
+      this.formData.officeChName = selectedOffice[0]['officeName'];
+      this.formData.officeEnName = selectedOffice[0]['officeNameCh'];
+      // this.formData.officeEnType = selectedOffice[0]['typeName'];
+      // this.formData.officeChType = selectedOffice[0]['typeNameCh'];
+    },
+    //获取查询的人物地点
+    // handleGetPlace: function(selectedPlace){
+    //   this.formData.personEnPlace = selectedPlace[0]['placeName'];
+    //   this.formData.personChPlace = selectedPlace[0]['placeNameCh'];
+    // },
+    //获取官职地点
+    handleGetPlace: function(selectedPlace){
+      this.formData.officeEnPlace = selectedPlace[0]['placeName'];
+      this.formData.officeChPlace = selectedPlace[0]['placeNameCh'];
+    },
+    testData: function(){
+      console.log("测试");
+      console.log(this.formData.officeChPlace);
     }
   },
   computed:{

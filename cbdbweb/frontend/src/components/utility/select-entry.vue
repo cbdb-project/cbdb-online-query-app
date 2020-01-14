@@ -2,7 +2,12 @@
     <div>
         <b-button pill variant="outline-primary"  v-b-modal.select-entry-table
         class = "query-condition-button" size="sm">{{$t('selectEntry.selectButton')}}</b-button>
-        <b-modal id="select-entry-table" title="Select Entry from Database" size = "xl">
+        <b-modal 
+            id="select-entry-table" 
+            title="Select Entry from Database" 
+            size = "xl"
+            v-model = "show"
+        >
             <b-row>
                 <b-col :cols = 4 style = "text-align:right">
                     <b-card>
@@ -46,6 +51,14 @@
                     </b-table>
                 </b-col>
             </b-row>
+            <template v-slot:modal-footer>
+              <b-button size="xl" variant="primary" @click="show=false">
+                Cancel
+              </b-button>
+              <b-button size="xl" variant="primary" @click="haveSelected">
+                Select
+              </b-button>
+            </template>
         </b-modal>
     </div>
 </template>
@@ -57,62 +70,40 @@
         name:'selectEntry',
         data() {
             return {
-            treeDataSource: dataJson,
-            /*表格子數據放這裡*/
-            fields: [
-            {
-                key: 'name',
-                label:'Name',
-                sortable: true
-            },
-            {
-                key: 'nameCh',
-                label:'姓名',
-                sortable: true
-            },
-            {
-                key: 'indexYear',
-                label: 'Index Year',
-                sortable: true,
-            },
-            {
-                key: 'female',
-                label:'Female',
-                sortable: true
-            },
-            {
-                key: 'placeType',
-                label:'地名類',
-                sortable: true
-            },
-            {
-                key: 'personPlace',
-                label: 'Place(Person)',
-                sortable: true,
-            },
-            {
-                key: 'personPlaceCh',
-                label: '地名(人)',
-                sortable: true,
-            },
-                {
-                key: 'selected',
-                sortable: false,
-            }
-            ],
-            items: [
-            {name:'Liu Jun',nameCh:'劉俊',indexYear:'1086',female:false,placeType:'籍貫',personPlace:'Nan Yang',personPlaceCh:'南陽'},
-            {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'},        
-            {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'},       
-            {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'}, 
-            {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'}, 
-            {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'}, 
-            {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'}, 
-            {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'}, 
-            {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'}, 
-            ],
-            //选中的人物出现在这里
-            selected : []
+                show:false,
+                treeDataSource: dataJson,
+                /*表格子數據放這裡*/
+                fields: [
+                    {
+                        key: 'entryName',
+                        label:'Method of Entry',
+                        sortable: true
+                    },
+                    {
+                        key: 'entryNameCh',
+                        label:'入仕法',
+                        sortable: true
+                    },
+                    {
+                        key: 'selected',
+                        sortable: false,
+                    }
+                ],
+                items: [
+                    {entryName:"[Missing Data]",entryNameCh:"[Missing Data]"},
+                    {entryName:"not available/applicable",entryNameCh:"未知"},
+                    {entryName:"abdication of previous emperor",entryNameCh:"前帝遜位"},
+                    {entryName:"To be Deleted: betrothal",entryNameCh:"臨時保留，待考。"},
+                    {entryName:"promotion from clerical positions",entryNameCh:"胥吏出職"},
+                    {entryName:"purchase",entryNameCh:"進納補官"},
+                    {entryName:"yin privilege: Grand Sacrifice",entryNameCh:"恩蔭: 大禮蔭補"},
+                    {entryName:"deposed previous emperor",entryNameCh:"廢前帝自立"},
+                    {entryName:"direct appointment to painting academy",entryNameCh:"畫院待詔"},
+                    {entryName:"imperial summons",entryNameCh:"徵辟"},
+                    {entryName:"direct recruitment into military service",entryNameCh:"募入軍伍"}
+                ],
+                //选中的人物出现在这里
+                selectedEntry : []
             }
         },
         components: {
@@ -120,9 +111,15 @@
         },
         methods: {
             onRowSelected(items) {
-                this.selected = items
+                this.selectedEntry = items
                 //要把选中的结果传递给调用的父组件
-                console.log(this.selected)
+                console.log(this.selectedEntry)
+            },
+            haveSelected: function(){
+                //同步选中入仕途径
+                console.log("成功");
+                this.$emit('getEntryName', this.selectedEntry);
+                this.show = false;
             },
             selectAllRows() {
                 this.$refs.selectableTable.selectAllRows()

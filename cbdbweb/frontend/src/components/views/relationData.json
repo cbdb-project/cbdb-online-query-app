@@ -1,0 +1,202 @@
+[
+  {
+    "Id": 1,
+    "ObjectName": "社会关系（笼统）",
+    "children": [
+      {
+        "Id": 2,
+        "ObjectName": "社会关系（笼统）"
+      },
+      {
+        "Id": 3,
+        "ObjectName": "同为……之成员"
+      },
+      {
+        "Id": 9,
+        "ObjectName": "社会交际"
+      }
+    ]
+  },
+  {
+    "Id": 13,
+    "ObjectName": "学术关系类",
+    "children": [
+      {
+        "Id": 14,
+        "ObjectName": "师生关系"
+      },
+      {
+        "Id": 16,
+        "ObjectName": "学术交往"
+      },
+      {
+        "Id": 17,
+        "ObjectName": "学术主题相近"
+      },
+      {
+        "Id":14,
+        "ObjectName":"同为……之成员"
+      },
+      {
+        "Id":14,
+        "ObjectName":"学术襄助"
+      },
+      {
+        "Id":14,
+        "ObjectName":"文学艺术交往"
+      },
+      {
+        "Id":14,
+        "ObjectName":"学术攻讦"
+      }
+    ]
+  },
+  {
+    "Id":14,
+    "ObjectName":"朋友关系类",
+    "children":[
+      {
+        "Id":14,
+        "ObjectName":"朋友关系（笼统）"
+      }
+    ]
+  },
+  {
+    "Id":14,
+    "ObjectName":"政治关系类",
+    "children":[
+      {
+        "Id":14,
+        "ObjectName":"政治关系（笼统）"
+      },
+      {
+        "Id":14,
+        "ObjectName":"官场关系（平级）"
+      },
+      {
+        "Id":14,
+        "ObjectName":"官场关系（下属）"
+      },
+      {
+        "Id":14,
+        "ObjectName":"官场关系（上司）"
+      },
+      {
+        "Id":14,
+        "ObjectName":"政治奥援"
+      },
+      {
+        "Id":14,
+        "ObjectName":"荐举保任"
+      },
+      {
+        "Id":14,
+        "ObjectName":"政治对抗"
+      }
+    ]
+  },
+  {
+    "Id":14,
+    "ObjectName":"著述关系类",
+    "children":[
+      {
+        "Id":14,
+        "ObjectName":"著述关系（笼统）"
+      },
+      {
+        "Id":14,
+        "ObjectName":"记咏文字"
+      },
+      {
+        "Id":14,
+        "ObjectName":"墓志文字"
+      },
+      {
+        "Id":14,
+        "ObjectName":"序跋文字"
+      },
+      {
+        "Id":14,
+        "ObjectName":"礼仪文字"
+      },
+      {
+        "Id":14,
+        "ObjectName":"传记文字"
+      },
+      {
+        "Id":14,
+        "ObjectName":"论说文字"
+      },
+      {
+        "Id":14,
+        "ObjectName":"箴铭文字"
+      },
+      {
+        "Id":14,
+        "ObjectName":"书札文字"
+      },
+      {
+        "Id":14,
+        "ObjectName":"应酬文字"
+      }
+    ]
+  },
+  {
+    "Id":14,
+    "ObjectName":"军事关系类",
+    "children":[
+      {
+        "Id":14,
+        "ObjectName":"军事关系（笼统）"
+      },
+      {
+        "Id":14,
+        "ObjectName":"军事支持"
+      },
+      {
+        "Id":14,
+        "ObjectName":"军事对抗"
+      }
+    ]
+  },
+  {
+    "Id":14,
+    "ObjectName":"医疗关系类",
+    "children":[
+      {
+        "Id":14,
+        "ObjectName":"医疗关系"
+      }
+    ]
+  },
+  {
+    "Id":14,
+    "ObjectName":"宗教关系类",
+    "children":[
+      {
+        "Id":14,
+        "ObjectName":"宗教关系（笼统）"
+      }
+    ]
+  },
+  {
+    "Id":14,
+    "ObjectName":"家庭关系类",
+    "children":[
+      {
+        "Id":14,
+        "ObjectName":"家庭关系（笼统）"
+      }
+    ]
+  },
+  {
+    "Id":14,
+    "ObjectName":"财务关系类",
+    "children":[
+      {
+        "Id":14,
+        "ObjectName":"财务关系（笼统）"
+      }
+    ]
+  }
+]

@@ -1,5 +1,21 @@
 [
   {
+    "Id":14,
+    "ObjectName":"未知入仕途径"
+  },
+  {
+    "Id":14,
+    "ObjectName":"宫廷门"
+  },
+  {
+    "Id":14,
+    "ObjectName":"血亲门"
+  },
+  {
+    "Id":14,
+    "ObjectName":"姻亲门"
+  },
+  {
     "Id": 1,
     "ObjectName": "科举门",
     "children": [
@@ -41,22 +57,58 @@
   },
   {
     "Id":14,
-    "ObjectName":"宫廷门",
+    "ObjectName":"恩荫门",
     "children":[]
   },
   {
     "Id":14,
-    "ObjectName":"血亲门",
+    "ObjectName":"徵召门",
     "children":[]
   },
   {
     "Id":14,
-    "ObjectName":"姻亲门",
+    "ObjectName":"荐举门",
     "children":[]
   },
   {
     "Id":14,
-    "ObjectName":"技进门",
+    "ObjectName":"军功补授门",
     "children":[]
+  },
+  {
+    "Id":14,
+    "ObjectName":"技进门"
+  },
+  {
+    "Id":14,
+    "ObjectName":"归降门"
+  },
+  {
+    "Id":14,
+    "ObjectName":"进纳门"
+  },
+  {
+    "Id":14,
+    "ObjectName":"特旨门"
+  },
+  {
+    "Id":14,
+    "ObjectName":"宗教门"
+  },
+  {
+    "Id":14,
+    "ObjectName":"求官不得门"
+  },
+  {
+    "Id":14,
+    "ObjectName":"七色补官门"
+  },
+  {
+    "Id":14,
+    "ObjectName":"其他入仕途径"
+  },
+  {
+    "Id":14,
+    "ObjectName":"Temp"
   }
 ]

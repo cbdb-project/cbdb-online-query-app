@@ -2,14 +2,19 @@
     <div>
         <b-button pill variant="outline-primary"  v-b-modal.select-office-table
             class = "query-condition-button" size="sm">{{$t('selectOffice.selectButton')}}</b-button>
-        <b-modal id="select-office-table" title="Select Office from Database" size = "xl">
+        <b-modal 
+          id="select-office-table" 
+          title="Select Office from Database" 
+          size = "xl"
+          v-model="show"  
+        >
             <b-row>
                 <b-col :cols = 4 style = "text-align:right">
                   <b-card>
                     <b-form-group label-cols="4" label="Office English Name" label-for="select-office-input-en-name">
                         <b-form-input id="select-office-input-en-name"></b-form-input>
                     </b-form-group>
-                    <b-form-group label-cols="4" label="官职名称-中文" label-for="select-office-input-ch-name">
+                    <b-form-group label-cols="4" label="官职名-中文" label-for="select-office-input-ch-name">
                         <b-form-input id="select-office-input-ch-name"></b-form-input>
                     </b-form-group>
                     <b-form-group>
@@ -46,6 +51,14 @@
                     </b-table>
                 </b-col>
             </b-row>
+            <template v-slot:modal-footer>
+              <b-button size="xl" variant="primary" @click="show=false">
+                Cancel
+              </b-button>
+              <b-button size="xl" variant="primary" @click="haveSelected">
+                Select
+              </b-button>
+            </template>
         </b-modal>
     </div>
 </template>
@@ -57,62 +70,39 @@ export default {
     name:'selectOffice',
     data() {
         return {
-        treeDataSource: dataJson,
-        /*表格子數據放這裡*/
-        fields: [
-          {
-            key: 'name',
-            label:'Name',
-            sortable: true
-          },
-          {
-            key: 'nameCh',
-            label:'姓名',
-            sortable: true
-          },
-          {
-            key: 'indexYear',
-            label: 'Index Year',
-            sortable: true,
-          },
-          {
-            key: 'female',
-            label:'Female',
-            sortable: true
-          },
-          {
-            key: 'placeType',
-            label:'地名類',
-            sortable: true
-          },
-          {
-            key: 'personPlace',
-            label: 'Place(Person)',
-            sortable: true,
-          },
-          {
-            key: 'personPlaceCh',
-            label: '地名(人)',
-            sortable: true,
-          },
+          show:false,
+          treeDataSource: dataJson,
+          /*表格子數據放這裡*/
+          fields: [
             {
-            key: 'selected',
-            sortable: false,
-          }
-        ],
-        items: [
-          {name:'Liu Jun',nameCh:'劉俊',indexYear:'1086',female:false,placeType:'籍貫',personPlace:'Nan Yang',personPlaceCh:'南陽'},
-          {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'},        
-          {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'},       
-          {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'}, 
-          {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'}, 
-          {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'}, 
-          {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'}, 
-          {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'}, 
-          {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'}, 
-        ],
-        //选中的人物出现在这里
-        selected : []
+              key: 'officeName',
+              label:'Office Name',
+              sortable: true
+            },
+            {
+              key: 'officeNameCh',
+              label:'官名',
+              sortable: true
+            },
+            {
+              key: 'selected',
+              sortable: false,
+            }
+          ],
+          items: [
+            {officeName:"Supervisor (Hucker)",officeNameCh:"提舉"},
+            {officeName:"Investigations Office of the State Finance Commission",officeNameCh:"三司推勘院"},
+            {officeName:"Comptroller",officeNameCh:"催欠司"},
+            {officeName:"General Comptroller‘s Office of the State Finance Commission (Hucker)",officeNameCh:"三司都勾院"},
+            {officeName:"General Deficits Monitoring Office of the State Finance Commission (Hucker)",officeNameCh:"三司都理欠司"},
+            {officeName:"General Accounting Office of the State Finance Commission (Hucker)",officeNameCh:"三司都磨勘司"},
+            {officeName:"Recorder of the Directorate of Waterways (Hucker)　",officeNameCh:"都水監主簿"},
+            {officeName:"Institute of General Accounts",officeNameCh:"三司度支勾院"},
+            {officeName:"Certificate Validation Office of the Bureau of General Accounts (Hucker)",officeNameCh:"度支憑由司"},
+            {officeName:"Judge of the Bureau of General Accounts (Hucker)",officeNameCh:"度支推官"},
+          ],
+          //选中的人物出现在这里
+          selectedOffice : []
         }
     },
     components: {
@@ -120,9 +110,16 @@ export default {
     },
     methods: {
         onRowSelected(items) {
-            this.selected = items
+            this.selectedOffice = items
             //要把选中的结果传递给调用的父组件
             console.log(this.selected)
+
+        },
+        haveSelected: function(){
+          //同步选中官职
+          console.log("成功");
+          this.$emit('getOfficeName', this.selectedOffice);
+          this.show = false;
         },
         selectAllRows() {
             this.$refs.selectableTable.selectAllRows()

@@ -1,9 +1,9 @@
 .DS_Store
-node_modules/
-/dist/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+/cbdbweb/frontend/node_modules/
+/cbdbweb/frontend/dist/
+/cbdbweb/frontend/npm-debug.log*
+/cbdbweb/frontend/yarn-debug.log*
+/cbdbweb/frontend/yarn-error.log*
 *.zip
 
 # Editor directories and files

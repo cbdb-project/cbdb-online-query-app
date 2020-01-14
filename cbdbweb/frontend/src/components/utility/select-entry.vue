@@ -112,12 +112,10 @@
         methods: {
             onRowSelected(items) {
                 this.selectedEntry = items
-                //要把选中的结果传递给调用的父组件
-                console.log(this.selectedEntry)
             },
             haveSelected: function(){
                 //同步选中入仕途径
-                console.log("成功");
+                //console.log("成功");
                 this.$emit('getEntryName', this.selectedEntry);
                 this.show = false;
             },

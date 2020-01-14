@@ -114,8 +114,6 @@ export default {
   methods: {
       onRowSelected(items) {
         this.selectedPerson = items
-        //要把选中的结果传递给调用的父组件
-        console.log(this.selectedPerson)
       },
       haveSelected: function(){
         //同步选中人物

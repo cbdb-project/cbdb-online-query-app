@@ -110,13 +110,11 @@ export default {
     },
     methods: {
         onRowSelected(items) {
-            this.selectedOffice = items
-            //要把选中的结果传递给调用的父组件
-            console.log(this.selected)
-
+          //用户选中列表中的条目后，同步到selectedOffice中
+          this.selectedOffice = items
         },
         haveSelected: function(){
-          //同步选中官职
+          //同步选中官职给父组件（页面）
           console.log("成功");
           this.$emit('getOfficeName', this.selectedOffice);
           this.show = false;

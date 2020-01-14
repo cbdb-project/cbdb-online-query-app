@@ -67,5 +67,21 @@ module.exports = {
         personPlaceCh:"Chinese Person Place",
         checkAndSearch:"Check And Search",
         checkRemind:"The query is generated as the following. Please check it before your search."
+    },
+    entityQueryByPerson:{
+        personNameEn:"English Person Name",
+        personNameCh:"Chinese Person Name"
+    },
+    entityQueryByEntry:{
+        entryNameEn:"English Entry Name",
+        entryNameCh:"Chinese Entry Name",
+        personNameEn:"English Person Name",
+        personNameCh:"Chinese Person Name"
+    },
+    entityQueryByPlace:{
+        personNameEn:"English Person Name",
+        personNameCh:"Chinese Person Name",
+        placeNameEn:"English Place Name",
+        placeNameCh:"Chinese Place Name"
     }
 }

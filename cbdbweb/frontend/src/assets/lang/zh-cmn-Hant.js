@@ -73,8 +73,8 @@ module.exports = {
         personNameCh:"人名-中文"
     },
     entityQueryByEntry:{
-        entryNameEn:"入仕途径-英文",
-        entryNameCh:"入仕途径-中文",
+        entryNameEn:"入仕途徑-英文",
+        entryNameCh:"入仕途徑-中文",
         personNameEn:"人名-英文",
         personNameCh:"人名-中文"
     },

@@ -56,7 +56,10 @@ module.exports = {
         endTime:"結束時間",
         isIndexYear:"啟用指數年",
         importPeople:"從本地加載人物列表",
-        importLocations:"從本地加載地点列表"
+        importLocations:"從本地加載地点列表",
+        indexYear:"指數年",
+        gen:"性別",
+        personId:"人物代碼"
     },
     entityQueryByOffice:{
         officeNameEn:"官職名-英文",
@@ -71,12 +74,25 @@ module.exports = {
         checkRemind:"茲生成查詢式如下，請於檢索前核查確認"
     },
     entityQueryByPerson:{
-        personNameEn:"人名-英文",
+        personId:"人物代碼",
         personNameCh:"人名-中文",
-        checkAndSearch:"檢索式確認",
-        checkRemind:"茲生成查詢式如下，請於檢索前核查確認",
+        personNameEn:"人名-英文",
+        personIndexYear:"指數年",
+        checkAndSearch:"檢索條件確認",
+        checkRemind:"請於檢索前確認要查詢的人物信息",
         result:{
-            basicInfo:"人物基本信息"
+            basicInfo:"人物基本信息",
+            biSurnameEn:"(Pinyin)",
+            biSurnameCh:"姓(中文)",
+            biNameEn:"(Pinyin)",
+            biNameCh:"名(中文)",
+            biNote:"注",
+            birthDeath:"生卒年月",
+            address:"地址",
+            placeName:"地名",
+            placeType:"地址類別",
+            placeSeq:"遷徙次序",
+            placeIsMaternal:"娘家地址"
         }
     },
     entityQueryByEntry:{

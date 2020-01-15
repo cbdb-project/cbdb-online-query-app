@@ -54,9 +54,14 @@ module.exports = {
         resultShow:"Results Show",
         startTime:"Start Time",
         endTime:"End Time",
-        isIndexYear:"Use Index"
+        isIndexYear:"Use Index Year",
+        importPeople:"Import People List",
+        importLocations:"Import Places List",
+        indexYear:"Index Year",
+        gen:"Gender",
+        personId:"Person ID"
     },
-    entityQueryByPerson:{
+    entityQueryByOffice:{
         officeNameEn:"English Office Name",
         officeNameCh:"Chinese Office Name",
         officeTypeEn:"English Office Type ",
@@ -69,12 +74,25 @@ module.exports = {
         checkRemind:"The query is generated as the following. Please check it before your search."
     },
     entityQueryByPerson:{
-        personNameEn:"English Person Name",
+        personId:"Person ID",
+        personIndexYear:"index Year",
         personNameCh:"Chinese Person Name",
-        checkAndSearch:"Check And Search",
-        checkRemind:"The query is generated as the following. Please check it before your search.",
+        personNameEn:"English Person Name",
+        checkAndSearch:"Check Your Query Condition",
+        checkRemind:"Please check the query condition before your search.",
         result:{
-            basicInfo:"Basic Information"
+            basicInfo:"Basic Information",
+            biSurnameEn:"(Pinyin)",
+            biSurnameCh:"Surname(Chinese)",
+            biNameEn:"(Pinyin)",
+            biNameCh:"Name(Chinese)",
+            biNote:"Notes",
+            birthDeath:"Birth Death Years",
+            address:"Address",
+            placeName:"Place Name",
+            placeType:"Place Type",
+            placeSeq:"Sequence",
+            placeIsMaternal:"Is Maternal"
         }
     },
     entityQueryByEntry:{

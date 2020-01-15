@@ -8,34 +8,44 @@
       </template>
       <b-card-text class = "card-item-title">{{$t('globalTerm.userInput')}}</b-card-text>             
       <div class  = "card-item-body px-3">
-        <b-row class = "px-3 mb-3">
-          <b-col>
-            <label for="person-en-name" class = "user-input-label">{{$t('entityQueryByPerson.personNameEn')}}:</label>
-            <b-form-input id="person-en-name" v-model="formData.personEnName" placeholder="Enter your name"></b-form-input>
+        <b-row class = "p-3 mb-3">
+            <b-col>
+            <select-person
+            @getPersonName="handleGetPerson">
+            </select-person>
             </b-col>
-          <b-col>
-             <label for="person-ch-name" class = "user-input-label">{{$t('entityQueryByPerson.personNameCh')}}:</label>
-             <b-form-input id="person-ch-name" v-model="formData.personChName" placeholder="Enter your name"></b-form-input>
-           </b-col>
-            <b-col><select-person
-            @getPersonName="handleGetPerson"></select-person></b-col>
         </b-row>
       </div>
       <b-card-text class = "card-item-title">{{$t('entityQueryByPerson.checkAndSearch')}}</b-card-text>
+      <b-alert show variant="warning"  class = "px-3 py-2 mx-3" style = "width:66%">{{$t('entityQueryByPerson.checkRemind')}}</b-alert>
       <b-row class = "px-3 mb-3">
-        <b-col cols="10">
-          <b-alert show variant="warning" style = "width:66%" class = "px-3 py-2 mb-2">{{$t('entityQueryByPerson.checkRemind')}}</b-alert>
-          <b-form-textarea
-                id="advanced-search"
-                v-model= "queryFormular"
-                placeholder=""
-                rows="3"
-                max-rows="6"
-                disabled
-              ></b-form-textarea>
+        <b-col>
         </b-col>
-        <b-col cols="2">
-            <b-button href="#" variant="primary" style = "width:100%;margin-top:70px" :disabled="isInvalid">Go</b-button>
+        <b-col cols="8">
+         <b-row class = "py-3">
+           <b-col>
+             {{$t('entityQueryByPerson.personId')}}: <b>{{formData.personId}}</b>
+           </b-col>
+           <b-col>
+            {{$t('entityQueryByPerson.personNameCh')}}:  <b>{{formData.personNameCh}}</b>
+           </b-col>
+         </b-row>
+          <b-row class = "py-3">
+           <b-col>
+            {{$t('entityQueryByPerson.personIndexYear')}}: <b>{{formData.personIndexYear}}</b>
+            
+           </b-col>
+           <b-col>
+              {{$t('entityQueryByPerson.personNameEn')}}: <b>{{formData.personNameEn}}</b>
+           </b-col>
+         </b-row>       
+        </b-col>
+        <b-col cols="2" class = "p-3">
+            <b-button href="#" variant="primary" style = "width:100%;margin-top:22px" :disabled="isInvalid"
+              @click="handleSubmit"
+            >Go</b-button>
+        </b-col>
+        <b-col>
         </b-col>
       </b-row>    
       <!--
@@ -45,25 +55,73 @@
       -->
     </b-card>
   </div>
-    <div class="hello">
+    <!-- 按人查詢頁的結果和其他不太一樣，單獨寫出來-->
+    <div class="hello" v-if="Object.keys(this.personInfo).length!= 0">
     <b-card header-tag="header" footer-tag="footer">
         <template v-slot:header>
             <h6 class="mb-0">{{$t('globalTerm.resultShow')}}</h6>
         </template>
-        <b-card-text class = "card-item-title">{{$t('entityQueryByPerson.result.basicInfo')}}</b-card-text> 
-      <div class  = "card-item-body px-3">
-        <b-row class = "px-3 mb-3">
-          <b-col>
-
-          </b-col>
-          <b-col>
-
-          </b-col>
-          <b-col>
-
-          </b-col>
-        </b-row>
-      </div>
+        <div>
+          <b-tabs content-class="mt-3">
+            <!-- 人物基本信息 -->
+            <b-tab :title="$t('entityQueryByPerson.result.basicInfo')" active>                               
+              <b-row class = "px-3 mb-3">
+                <b-col>
+                  {{$t('entityQueryByPerson.result.biSurnameCh')}}:{{personInfo.basicInfo.cSurnameChn}}
+                </b-col>
+                <b-col>
+                  {{$t('entityQueryByPerson.result.biSurnameEn')}}:{{personInfo.basicInfo.cSurname}}
+                </b-col>
+                <b-col>
+                  {{$t('entityQueryByPerson.result.biNameCh')}}: {{personInfo.basicInfo.cMingziChn}}
+                </b-col>
+                <b-col>
+                  {{$t('entityQueryByPerson.result.biSurnameEn')}}: {{personInfo.basicInfo.cMingzi}}
+                </b-col>
+              </b-row>
+              <b-row class = "px-3 mb-3">
+                <b-col>
+                  {{$t('globalTerm.personId')}}: {{personInfo.basicInfo.cPersonId}}
+                </b-col>
+                <b-col>
+                  {{$t('globalTerm.gen')}}: {{personGen(personInfo.basicInfo.cFemale)}}
+                </b-col>
+                <b-col>
+                  {{$t('globalTerm.indexYear')}}: {{personInfo.basicInfo.cIndexYear}}
+                </b-col>
+                <b-col>
+                </b-col>
+              </b-row>
+              <b-row class = "px-3 mb-3">
+                <b-col>
+                注:<p>{{personInfo.basicInfo.cNotes}}</p>
+                </b-col>
+              </b-row>
+            </b-tab>
+             <!-- 生卒年月 -->
+            <b-tab :title="$t('entityQueryByPerson.result.birthDeath')">                               
+            </b-tab>
+             <!-- 地址 -->
+            <b-tab :title="$t('entityQueryByPerson.result.address')"> 
+              <div v-for="address in personInfo.address">
+                 <b-row class = "px-3 mb-3">
+                   <b-col>
+                     {{$t('entityQueryByPerson.result.placeName')}}: {{address.placeNameChn}}/ {{address.placeName}}
+                   </b-col>
+                    <b-col>
+                      {{$t('entityQueryByPerson.result.placeType')}}: {{address.typeChn}}/ {{address.type}}
+                   </b-col>
+                    <b-col>
+                    {{$t('entityQueryByPerson.result.placeSeq')}}: {{address.sequence}}
+                   </b-col>
+                    <b-col>
+                    {{$t('entityQueryByPerson.result.placeIsMaternal')}}: {{isMaternalAddress(address.isMaternal)}}
+                   </b-col>
+                 </b-row>
+              </div>                              
+            </b-tab>
+          </b-tabs>
+        </div>
       <!--
       <template v-slot:footer>
         <em>Footer Slot</em>
@@ -86,19 +144,89 @@ export default {
     return {
       /*表單數據放這裡*/
       formData:{
-        personEnName:'',
-        personChName:'',
+        personId:'',
+        personNameEn:'',
+        personNameCh:'',
+        personIndexYear:''
       },
       //後端傳回來的數據放這裡
-      personInfo:{
-        birthDeathYears:{
+      personInfo:{},
+      //這個是路由，待處理
+      items: [
+          {
+            text: 'Admin',
+            href: '#'
+          },
+          {
+            text: 'Manage',
+            href: '#'
+          },
+          {
+            text: 'Library',
+            active: true
+          }
+      ]
+    }
+  },
+  methods:{
+    personGen(isF){
+      if(isF === "false")return 'Male 男';
+      else if (isF === "true")return 'Female 女';
+      else return ''
+    },
+    isMaternalAddress(add){
+      if(add === "false")return 'False 否';
+      else if (add === "true")return 'True 是';
+      else return ''
+    },
+    //判斷輸入欄是否為空
+    isNull(idx){
+      return this.formData[idx] == ''
+    },
+    validation(idx){
+      //如果輸入為空，視為有效
+      if(this.isNull(idx))return null;
+      let year = /^\d{1,4}$/;
+      //startTime 一欄只要輸入符合有且僅有1～4位數字的規則，視為有效
+      if(idx == 'startTime')return year.test(this.formData[idx])?null:false;
+      else if(idx == 'endTime'){
+        //先判斷 endTime 一欄是否符合有且僅有1～4位數字的規則，如果不符合，視為無效
+        if(year.test(this.formData[idx])){
+          //如果 endTime 有輸入數字，同時 startTime 也有輸入數字，判斷 endTime 的數字是否大於 startTime 的數字
+          //如果小於，則視為無效
+          if(this.validation('startTime') == null && this.isNull('startTime')==false){
+            let st = parseInt(this.formData['startTime'], 10);
+            let et = parseInt(this.formData['endTime'], 10);
+            return et>st?null:false;
+          }
+          else return null;
+        }
+        else return false;
+      }
+    },
+    //获取查询的人物
+    handleGetPerson: function(selectedPerson){
+      this.formData.personId = selectedPerson[0]['personId'];
+      this.formData.personNameEn = selectedPerson[0]['personName'];
+      this.formData.personNameCh = selectedPerson[0]['personNameCh'];
+      this.formData.personIndexYear = selectedPerson[0]['indexYear'];
+    },
+    handleSubmit: function(){
+      //這裏未來要寫前後端交互
+      this.personInfo = {
+        basicInfo:{
+          cPersonId:this.formData.personId,
           cSurname:"Zhu",
           cSurnameChn:"朱",
           cMingzi:"Youxiao",
           cMingziChn:"由校",
-          cIndexYear:"1627",
+          cIndexYear:this.formData.personIndexYear,
           cFemale:"false",
-          cEthnicityCode:"0",
+          cNotes:"Zhu(1) Yoiuxiao [30164] Xizong or the Tianqi Emperor.See Documentation for Zhu(1) Yuanzhang [30149].",
+        },
+        birthDeathYears:{
+          cEthnicity:"",
+          cEthnicityChn:"",
           cBirthyear:"1605",
           cByNh:"",
           cByNhChn:"萬曆",
@@ -127,9 +255,8 @@ export default {
           cFlLyNh:"",//年號
           cFlLyNhYear:"",//多少年,
           cFlLyNotes:"",   
-          cNotes:"Zhu(1) Yoiuxiao [30164] Xizong or the Tianqi Emperor.See Documentation for Zhu(1) Yuanzhang [30149]."
         },
-        Address:[
+        address:[
           {
             placeName:"Daxing",
             placeNameChn:"大興",
@@ -301,62 +428,16 @@ export default {
         sources:[],
         institutions:[]
         
-      },
-      //這個是路由，待處理
-      items: [
-          {
-            text: 'Admin',
-            href: '#'
-          },
-          {
-            text: 'Manage',
-            href: '#'
-          },
-          {
-            text: 'Library',
-            active: true
-          }
-      ]
-    }
-  },
-  methods:{
-    //判斷輸入欄是否為空
-    isNull(idx){
-      return this.formData[idx] == ''
-    },
-    validation(idx){
-      //如果輸入為空，視為有效
-      if(this.isNull(idx))return null;
-      let year = /^\d{1,4}$/;
-      //startTime 一欄只要輸入符合有且僅有1～4位數字的規則，視為有效
-      if(idx == 'startTime')return year.test(this.formData[idx])?null:false;
-      else if(idx == 'endTime'){
-        //先判斷 endTime 一欄是否符合有且僅有1～4位數字的規則，如果不符合，視為無效
-        if(year.test(this.formData[idx])){
-          //如果 endTime 有輸入數字，同時 startTime 也有輸入數字，判斷 endTime 的數字是否大於 startTime 的數字
-          //如果小於，則視為無效
-          if(this.validation('startTime') == null && this.isNull('startTime')==false){
-            let st = parseInt(this.formData['startTime'], 10);
-            let et = parseInt(this.formData['endTime'], 10);
-            return et>st?null:false;
-          }
-          else return null;
-        }
-        else return false;
       }
-    },
-    //获取查询的人物
-    handleGetPerson: function(selectedPerson){
-      this.formData.personEnName = selectedPerson[0]['personName'];
-      this.formData.personChName = selectedPerson[0]['personNameCh'];
+
     }
   },
   computed:{
     queryFormular(){
-      return `person-ch-name:'${this.formData.personChName}',person-en-name:'${this.formData.personEnName}';`
+      return `person-id:'${this.formData.personId}';`
     },
     isInvalid(){
-      return this.isNull('personEnName')==true && this.isNull('personChName')==true
+      return this.isNull('personId')==true
     }
   }
 }

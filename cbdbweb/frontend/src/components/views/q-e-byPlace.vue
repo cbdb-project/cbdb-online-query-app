@@ -93,7 +93,6 @@
       </template>
       -->
     </b-card>
-    <query-result></query-result>   
   </div>
     <div class="hello">
     <b-card header-tag="header" footer-tag="footer">

@@ -30,7 +30,7 @@
       <b-collapse id="collapse-b" class="mb-2" :visible = "true">
         <b-nav-item to = "/q-relation/kinship">{{$t('navbarLeft.relationQueryByKinship')}}</b-nav-item>
         <b-nav-item to = "/q-relation/association">{{$t('navbarLeft.relationQueryByAssociation')}}</b-nav-item>
-        <b-nav-item to = "/q-relation/social-network">{{$t('navbarLeft.relationQueryBySocialNetwork')}}</b-nav-item>
+        <b-nav-item to = "/q-relation/by-social-network">{{$t('navbarLeft.relationQueryBySocialNetwork')}}</b-nav-item>
         <b-nav-item to = "/q-relation/two-person">{{$t('navbarLeft.relationQueryTwoPerson')}}</b-nav-item>
       </b-collapse>
     <b-nav-item to = "/visualization">{{$t('navbarLeft.visualization')}}</b-nav-item>

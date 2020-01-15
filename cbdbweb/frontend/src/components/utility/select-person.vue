@@ -134,6 +134,9 @@ export default {
 <style scoped>
 .query-condition-button{
   width:224px;
-  margin:6px 0;
+  margin-left:6px;
+  margin-right:6px;
+  /* 和表單中的輸入框對齊 */
+  margin-top:35px;
 }
 </style>

@@ -16,7 +16,7 @@ module.exports = {
     navbarLeft:{
         home:"Home",
         entityQuery:"Entity Query",
-        entityQueryByPerson:"By Person",
+        entityQueryByPerson:"Data on an Individual",
         entityQueryByOffice:"By Office",
         entityQueryByEntry:"By Entry",
         entityQueryByPlace:"By Place",
@@ -70,18 +70,27 @@ module.exports = {
     },
     entityQueryByPerson:{
         personNameEn:"English Person Name",
-        personNameCh:"Chinese Person Name"
+        personNameCh:"Chinese Person Name",
+        checkAndSearch:"Check And Search",
+        checkRemind:"The query is generated as the following. Please check it before your search.",
+        result:{
+            basicInfo:"Basic Information"
+        }
     },
     entityQueryByEntry:{
         entryNameEn:"English Entry Name",
         entryNameCh:"Chinese Entry Name",
         personNameEn:"English Person Name",
-        personNameCh:"Chinese Person Name"
+        personNameCh:"Chinese Person Name",
+        checkAndSearch:"Check And Search",
+        checkRemind:"The query is generated as the following. Please check it before your search."
     },
     entityQueryByPlace:{
         personNameEn:"English Person Name",
         personNameCh:"Chinese Person Name",
         placeNameEn:"English Place Name",
-        placeNameCh:"Chinese Place Name"
+        placeNameCh:"Chinese Place Name",
+        checkAndSearch:"Check And Search",
+        checkRemind:"The query is generated as the following. Please check it before your search."
     }
 }

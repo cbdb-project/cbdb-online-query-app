@@ -1,5 +1,5 @@
 <template>
-<div class="wrapper">
+  <div class="wrapper">
   <div class="hello">
     <b-breadcrumb :items="items" class = "bread-crumb"></b-breadcrumb>
     <b-card header-tag="header" footer-tag="footer">
@@ -13,58 +13,42 @@
             @getPersonName="handleGetPerson"></select-person></b-col>
           <b-col><select-place
             @getPlaceName="handleGetPlace"></select-place></b-col>
-          <b-col><select-entry
-            @getEntryName="handleGetEntry"></select-entry></b-col>
-        </b-row>
-        <b-row>
-          <b-col><select-office
-            @getOfficeName="handleGetOffice"></select-office></b-col>
-          <b-col><select-time></select-time></b-col>
-          <b-col><select-relationship></select-relationship></b-col>
+          <b-col><b-col><select-relationship></select-relationship></b-col></b-col>
         </b-row>
       </div>
       <b-card-text class = "card-item-title">{{$t('globalTerm.userInput')}}</b-card-text>             
       <div class  = "card-item-body px-3">
         <b-row class = "px-3 mb-3">
+          <!-- 这两个以后要拆成组件 -->
           <b-col>
-            <label for="office-en-name" class = "user-input-label">{{$t('entityQueryByOffice.officeNameEn')}}:</label>
-            <b-form-input id="office-en-name" v-model="formData.officeEnName" placeholder="Enter your name"></b-form-input>
-            </b-col>
+            <b-button pill variant="outline-primary"  v-b-modal.select-entry-table
+            class = "query-condition-button" size="sm">{{$t('globalTerm.importPeople')}}</b-button>
+          </b-col>
           <b-col>
-             <label for="office-ch-name" class = "user-input-label">{{$t('entityQueryByOffice.officeNameCh')}}:</label>
-             <b-form-input id="office-ch-name" v-model="formData.officeChName" placeholder="Enter your name"></b-form-input>
-           </b-col>
+            <b-button pill variant="outline-primary"  v-b-modal.select-entry-table
+            class = "query-condition-button" size="sm">{{$t('globalTerm.importLocations')}}</b-button>
+          </b-col>
         </b-row>
-        <!-- <b-row class = "px-3 mb-3">
-          <b-col>
-            <label for="office-en-type" class = "user-input-label">{{$t('entityQueryByOffice.officeTypeEn')}}:</label>
-            <b-form-input id="office-en-type" v-model="formData.officeEnType" placeholder="Enter your name"></b-form-input>
-            </b-col>
-          <b-col>
-             <label for="office-ch-type" class = "user-input-label">{{$t('entityQueryByOffice.officeTypeCh')}}:</label>
-             <b-form-input id="office-ch-type" v-model="formData.officeChType" placeholder="Enter your name"></b-form-input>
-           </b-col>
-        </b-row> -->
         <b-row class = "px-3 mb-3">
           <b-col>
-            <label for="office-en-place" class = "user-input-label">{{$t('entityQueryByOffice.officePlaceEn')}}:</label>
-            <b-form-input id="office-en-place" v-model="formData.officeEnPlace" placeholder="Enter your name"></b-form-input>
+            <label for="person-en-name" class = "user-input-label">{{$t('entityQueryByPlace.personNameEn')}}:</label>
+            <b-form-input id="person-en-name" v-model="formData.personEnName" placeholder="Enter your name"></b-form-input>
             </b-col>
           <b-col>
-             <label for="office-ch-place" class = "user-input-label">{{$t('entityQueryByOffice.officePlaceCh')}}:</label>
-             <b-form-input id="office-ch-place" v-model="formData.officeChPlace" placeholder="Enter your name"></b-form-input>
+             <label for="person-ch-name" class = "user-input-label">{{$t('entityQueryByPlace.personNameCh')}}:</label>
+             <b-form-input id="person-ch-name" v-model="formData.personChName" placeholder="Enter your name"></b-form-input>
            </b-col>
         </b-row>
-        <!-- <b-row class = "px-3 mb-3">
+        <b-row class = "px-3 mb-3">
           <b-col>
-            <label for="person-en-place" class = "user-input-label">{{$t('entityQueryByOffice.personPlaceEn')}}:</label>
-            <b-form-input id="person-en-place" v-model="formData.personEnPlace" placeholder="Enter your name"></b-form-input>
+            <label for="place-en-type" class = "user-input-label">{{$t('entityQueryByPlace.placeNameEn')}}:</label>
+            <b-form-input id="place-en-type" v-model="formData.placeEnName" placeholder="Enter your name"></b-form-input>
             </b-col>
           <b-col>
-             <label for="person-ch-place" class = "user-input-label">{{$t('entityQueryByOffice.personPlaceCh')}}:</label>
-             <b-form-input id="person-ch-place" v-model="formData.personChPlace" placeholder="Enter your name"></b-form-input>
+             <label for="place-ch-type" class = "user-input-label">{{$t('entityQueryByPlace.placeNameCh')}}:</label>
+             <b-form-input id="place-ch-type" v-model="formData.placeChName" placeholder="Enter your name"></b-form-input>
            </b-col>
-        </b-row> -->
+        </b-row>
         <b-row class = "px-3 mb-3">
           <b-col>
             <label for="start-time" class = "user-input-label">{{$t('globalTerm.startTime')}}:</label>
@@ -90,10 +74,10 @@
            <b-col></b-col>
         </b-row>
       </div>
-      <b-card-text class = "card-item-title">{{$t('entityQueryByOffice.checkAndSearch')}}</b-card-text>
+      <b-card-text class = "card-item-title">{{$t('entityQueryByPerson.checkAndSearch')}}</b-card-text>
       <b-row class = "px-3 mb-3">
         <b-col cols="10">
-          <b-alert show variant="warning" style = "width:66%" class = "px-3 py-2 mb-2">{{$t('entityQueryByOffice.checkRemind')}}</b-alert>
+          <b-alert show variant="warning" style = "width:66%" class = "px-3 py-2 mb-2">{{$t('entityQueryByPerson.checkRemind')}}</b-alert>
           <b-form-textarea
                 id="advanced-search"
                 v-model= "queryFormular"
@@ -113,8 +97,9 @@
       </template>
       -->
     </b-card>
+    <query-result></query-result>   
   </div>
-    <div class="hello">
+      <div class="hello">
     <b-card header-tag="header" footer-tag="footer">
       <template v-slot:header>
           <h6 class="mb-0">{{$t('globalTerm.resultShow')}}</h6>
@@ -122,7 +107,7 @@
       <query-result></query-result>
     </b-card>
   </div>
-</div>
+  </div>
 </template>
 
 <script>
@@ -134,7 +119,7 @@ import selectTime from '@/components/utility/select-time.vue'
 import selectPlace from '@/components/utility/select-place.vue'
 import selectRelationship from '@/components/utility/select-relationship.vue'
 export default {
-  name: 'entityQueryByOffice',
+  name: 'entityQueryByPerson',
   components:
   {
       queryResult,
@@ -149,14 +134,10 @@ export default {
     return {
       /*表單數據放這裡*/
       formData:{
-        officeEnName:'',
-        officeChName:'',
-        officeEnType:'',
-        officeChType:'',
-        officeEnPlace:'',
-        officeChPlace:'',
-        personEnPlace:'',
-        personChPlace:'',
+        personEnName:'',
+        personChName:'',
+        placeEnName:'',
+        placeChName:'',
         startTime:'',
         endTime:'',
         indexYear:'f'
@@ -203,31 +184,24 @@ export default {
         else return false;
       }
     },
-    //获取查询的官职名
-    handleGetOffice: function(selectedOffice){
-      this.formData.officeChName = selectedOffice[0]['officeName'];
-      this.formData.officeEnName = selectedOffice[0]['officeNameCh'];
-      // this.formData.officeEnType = selectedOffice[0]['typeName'];
-      // this.formData.officeChType = selectedOffice[0]['typeNameCh'];
+    //获取查询的人物
+    handleGetPerson: function(selectedPerson){
+      this.formData.personEnName = selectedPerson[0]['personName'];
+      this.formData.personChName = selectedPerson[0]['personNameCh'];
     },
-    //获取查询的人物地点
-    // handleGetPlace: function(selectedPlace){
-    //   this.formData.personEnPlace = selectedPlace[0]['placeName'];
-    //   this.formData.personChPlace = selectedPlace[0]['placeNameCh'];
-    // },
-    //获取官职地点
+    //获取查询的地点
     handleGetPlace: function(selectedPlace){
-      this.formData.officeEnPlace = selectedPlace[0]['placeName'];
-      this.formData.officeChPlace = selectedPlace[0]['placeNameCh'];
+      this.formData.placeEnName = selectedPlace[0]['placeName'];
+      this.formData.placeChName = selectedPlace[0]['placeNameCh'];
     },
     testData: function(){
       console.log("测试");
-      console.log(this.formData.officeChPlace);
+      console.log(this.formData.placeEnName);
     }
   },
   computed:{
     queryFormular(){
-      return `office-ch-name:'${this.formData.officeChName}',office-en-name:'${this.formData.officeEnName}',office-ch-type:'${this.formData.officeChType}',office-en-type:'${this.formData.officeEnType}',office-ch-place:'${this.formData.officeChPlace}',office-en-place:'${this.formData.officeEnPlace}',person-ch-place:'${this.formData.personChPlace}',person-en-place:'${this.formData.personEnPlace}',start-time:'${this.formData.startTime}',end-time:'${this.formData.endTime}'index-year:'${this.formData.indexYear}';`
+      return `person-ch-name:'${this.formData.personChName}',person-en-name:'${this.formData.personEnName}',person-ch-type:'${this.formData.personChType}',place-en-name:'${this.formData.placeEnName}',place-ch-name:'${this.formData.placeChName}',start-time:'${this.formData.startTime}',end-time:'${this.formData.endTime}'index-year:'${this.formData.indexYear}';`
     },
     isInvalid(){
       return this.validation('startTime')==false || this.validation('endTime')==false

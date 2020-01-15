@@ -1,9 +1,4 @@
 <template>
-  <div class="hello">
-    <b-card header-tag="header" footer-tag="footer">
-        <template v-slot:header>
-            <h6 class="mb-0">RESULTS</h6>
-        </template>
         <div>
           <b-table 
             :items= "items" 
@@ -33,8 +28,6 @@
         <em>Footer Slot</em>
       </template>
       -->
-    </b-card>   
-  </div>
 </template>
 
 <script>
@@ -128,10 +121,6 @@ export default {
 .bread-crumb{
   width:30%;
   background-color: transparent
-}
-.hello{
-  margin:24px 0;
-  text-align: left;
 }
 .card-item-title{
   font-weight: bold;

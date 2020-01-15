@@ -5,6 +5,7 @@ import entityQueryByPerson from '@/components/views/q-e-byPerson'
 import entityQueryByEntry from '@/components/views/q-e-byEntry'
 import entityQueryByPlace from '@/components/views/q-e-byPlace'
 import entityQueryByOffice from '@/components/views/q-e-byOffice'
+import relationQueryBySocialNetwork from '@/components/views/q-r-bySocialNetwork'
 Vue.use(Router)
 
 export default new Router({
@@ -42,6 +43,10 @@ export default new Router({
       name: 'Entity Query: By Entry',
       component: entityQueryByEntry
     },
-
+    {
+      path: '/q-relation/by-social-network',
+      name: 'Entity Query: By Entry',
+      component: relationQueryBySocialNetwork
+    }
   ]
 })

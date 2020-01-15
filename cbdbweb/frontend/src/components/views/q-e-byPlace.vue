@@ -1,4 +1,5 @@
 <template>
+  <div class="wrapper">
   <div class="hello">
     <b-breadcrumb :items="items" class = "bread-crumb"></b-breadcrumb>
     <b-card header-tag="header" footer-tag="footer">
@@ -93,6 +94,15 @@
       -->
     </b-card>
     <query-result></query-result>   
+  </div>
+    <div class="hello">
+    <b-card header-tag="header" footer-tag="footer">
+      <template v-slot:header>
+          <h6 class="mb-0">{{$t('globalTerm.resultShow')}}</h6>
+      </template>
+      <query-result></query-result>
+    </b-card>
+  </div>
   </div>
 </template>
 

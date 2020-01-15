@@ -16,7 +16,7 @@ module.exports = {
     navbarLeft:{
         home:"首頁",
         entityQuery:"實體查詢",
-        entityQueryByPerson:"通過人物查詢",
+        entityQueryByPerson:"按人查詢",
         entityQueryByOffice:"通過官職查詢",
         entityQueryByEntry:"通過入仕途經查詢",
         entityQueryByPlace:"通過地點查詢",
@@ -54,7 +54,9 @@ module.exports = {
         resultShow:"結果展現",
         startTime:"開始時間",
         endTime:"結束時間",
-        isIndexYear:"啟用指數年"
+        isIndexYear:"啟用指數年",
+        importPeople:"從本地加載人物列表",
+        importLocations:"從本地加載地点列表"
     },
     entityQueryByOffice:{
         officeNameEn:"官職名-英文",
@@ -70,18 +72,27 @@ module.exports = {
     },
     entityQueryByPerson:{
         personNameEn:"人名-英文",
-        personNameCh:"人名-中文"
+        personNameCh:"人名-中文",
+        checkAndSearch:"檢索式確認",
+        checkRemind:"茲生成查詢式如下，請於檢索前核查確認",
+        result:{
+            basicInfo:"人物基本信息"
+        }
     },
     entityQueryByEntry:{
         entryNameEn:"入仕途徑-英文",
         entryNameCh:"入仕途徑-中文",
         personNameEn:"人名-英文",
-        personNameCh:"人名-中文"
+        personNameCh:"人名-中文",
+        checkAndSearch:"檢索式確認",
+        checkRemind:"茲生成查詢式如下，請於檢索前核查確認"
     },
     entityQueryByPlace:{
         personNameEn:"人名-英文",
         personNameCh:"人名-中文",
         placeNameEn:"地名-英文",
-        placeNameCh:"地名-中文"
+        placeNameCh:"地名-中文",
+        checkAndSearch:"檢索式確認",
+        checkRemind:"茲生成查詢式如下，請於檢索前核查確認"
     }
 }

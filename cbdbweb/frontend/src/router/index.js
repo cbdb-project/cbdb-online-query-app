@@ -45,7 +45,7 @@ export default new Router({
     },
     {
       path: '/q-relation/by-social-network',
-      name: 'Entity Query: By Entry',
+      name: 'Entity Query: By Socialnetwork',
       component: relationQueryBySocialNetwork
     }
   ]

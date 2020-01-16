@@ -111,7 +111,7 @@ export default {
           {personId:"1655",personName:"Zhu Duopu",personNameCh:"Zhu Duopu",indexYear:"1418",female:"No"},
           {personId:"1656",personName:"Zhu Duoyun",personNameCh:"朱多熅",indexYear:"",female:"No"},
           {personId:"1657",personName:"Zhu Duozheng",personNameCh:"朱多炡",indexYear:"1589",female:"No"},
-          {personId:"1700",personName:"Zhu YouXiao",personNameCh:"朱由校",indexYear:"1627",female:"No"},
+          {personId:"30164",personName:"Zhu YouXiao",personNameCh:"朱由校",indexYear:"1627",female:"No"},
         ],
         //选中的人物出现在这里
         selectedPerson : []

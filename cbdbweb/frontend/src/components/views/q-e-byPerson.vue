@@ -62,10 +62,10 @@
             <h6 class="mb-0">{{$t('globalTerm.resultShow')}}</h6>
         </template>
         <div>
+          <h6 class="m-3">[{{personInfo.basicInfo.cPersonId}}] {{personInfo.basicInfo.cName}} {{personInfo.basicInfo.cNameChn}}</h6>
           <b-tabs content-class="mt-3">
             <!-- 人物基本信息 -->
             <b-tab :title="$t('entityQueryByPerson.result.basicInfo')" active>
-              <h6 class="m-3">{{personInfo.basicInfo.cName}} {{personInfo.basicInfo.cNameChn}}</h6>
               <b-card>
                  <!-- 第一行：姓 姓的拼音 名 名的拼音 -->
                 <b-row class = "px-3 mb-3">
@@ -137,7 +137,7 @@
                         <b-row>
                           <b-col cols = 9>
                             <!-- intercalary: 閏-->
-                            {{personInfo.birthDeathYears.cByNhChn}}<span v-if="personInfo.birthDeathYears.cByNhChn&&personInfo.birthDeathYears.cByNh">/ </span>{{personInfo.birthDeathYears.cByNh}}
+                            {{personInfo.birthDeathYears.cByNhChn}}<span v-if="personInfo.birthDeathYears.cByNhChn&&personInfo.birthDeathYears.cByNh">/ {{personInfo.birthDeathYears.cByNh}}</span>
                             <span v-if="isValidNum(personInfo.birthDeathYears.cByNhYear)">{{personInfo.birthDeathYears.cByNhYear}} {{$t('globalTerm.year')}} </span> 
                             <span v-if="personInfo.birthDeathYears.cByIntercalary==='true'">{{$t('globalTerm.intercalary')}} </span> 
                             <span v-if="isValidNum(personInfo.birthDeathYears.cByMonth)">{{personInfo.birthDeathYears.cByMonth}} {{$t('globalTerm.month')}} </span>
@@ -163,7 +163,7 @@
                         <b-row class>
                           <b-col cols = 9>
                             <!-- intercalary: 閏-->
-                            {{personInfo.birthDeathYears.cDyNhChn}}<span v-if="personInfo.birthDeathYears.cDyNhChn&&personInfo.birthDeathYears.cDyNh">/ </span>{{personInfo.birthDeathYears.cDyNh}}
+                            {{personInfo.birthDeathYears.cDyNhChn}}<span v-if="personInfo.birthDeathYears.cDyNhChn&&personInfo.birthDeathYears.cDyNh">/ {{personInfo.birthDeathYears.cDyNh}}</span>
                             <span v-if="isValidNum(personInfo.birthDeathYears.cDyNhYear)">{{personInfo.birthDeathYears.cDyNhYear}} {{$t('globalTerm.year')}} </span> 
                             <span v-if="personInfo.birthDeathYears.cDyIntercalary==='true'">{{$t('globalTerm.intercalary')}} </span> 
                             <span v-if="isValidNum(personInfo.birthDeathYears.cDyMonth)">{{personInfo.birthDeathYears.cDyMonth}} {{$t('globalTerm.month')}} </span>
@@ -233,38 +233,42 @@
             </b-tab>
              <!-- 地址 -->
             <b-tab :title="$t('entityQueryByPerson.result.address')"> 
-              <b-card v-for="(address,index) in personInfo.address">
-                <!-- 第一行：地名 地名類型 遷徙順序 是否娘家-->
+              <b-card v-for="(address,index) in personInfo.address" :key="index">
+                <!-- 第一行：地名 次序-->
+                <b-row class = "px-3 mb-3">
+                  <b-col cols="9">
+                    <b>{{address.placeNameChn}}/ {{address.placeName}}</b>
+                  </b-col>
+                  <b-col cols = "3">
+                    [{{$t('entityQueryByPerson.result.placeSeq')}}: {{address.sequence}}]
+                   </b-col>
+                </b-row>
+                <!-- 第二行：地名類型 是否娘家-->
                  <b-row class = "px-3 mb-3">
-                   <b-col>
-                     {{$t('entityQueryByPerson.result.placeName')}}: {{address.placeNameChn}}/ {{address.placeName}}
-                   </b-col>
-                    <b-col>
+                    <b-col cols = "6">
                       {{$t('entityQueryByPerson.result.placeType')}}: {{address.typeChn}}/ {{address.type}}
-                   </b-col>
-                    <b-col>
-                    {{$t('entityQueryByPerson.result.placeSeq')}}: {{address.sequence}}
-                   </b-col>
-                    <b-col>
-                    {{$t('entityQueryByPerson.result.placeIsMaternal')}}: {{isMaternalAddress(address.isMaternal)}}
+                   </b-col >
+                    <b-col cols = "6">
+                    {{$t('entityQueryByPerson.result.placeIsMaternal')}}: {{isOrNot(address.isMaternal)}}
                    </b-col>
                  </b-row>
-                 <!-- 第二行：起止時間-->
+                 <!-- 第三行：起止時間-->
                  <b-row class = "px-3 mb-3">
+                   <!-- 開始時間 -->
                     <b-col cols = 6>
                       <b-row class = "px-3">
                         {{$t('globalTerm.fromYear')}}: {{address.pFromYear}} 
                         <span v-if="isValidNum(address.pFyRange)">({{judgeRange(address.pFyRange)}})</span>
-                        <b-button v-b-toggle="'from-year-details-' + index" size="sm" pill variant="outline-info"
+                        <b-button v-b-toggle="genDetails('from',index)" size="sm" pill variant="outline-info"
                           style = "position:relative;bottom:5px;left:5px">
                           {{$t('globalTerm.details')}}
                         </b-button>
                       </b-row>
-                      <b-collapse :id ="fromYearDetails(index)">
+                      <b-collapse :id ="genDetails('from',index)">
                         <b-row>
                           <b-col cols = 9>
                             <!-- intercalary: 閏-->
-                            {{address.pFyNhChn}}<span v-if="address.pFyNhChn&&address.pFyNh">/ </span>{{address.pFyNh}}
+                            {{address.pFyNhChn}}<span v-if="address.pFyNhChn&&address.pFyNh">/ {{address.pFyNh}}</span>
                             <span v-if="isValidNum(address.pFyNhYear)">{{address.pFyNhYear}} {{$t('globalTerm.year')}} </span> 
                             <span v-if="address.pFyIntercalary==='true'">{{$t('globalTerm.intercalary')}} </span> 
                             <span v-if="isValidNum(address.pFyMonth)">{{address.pFyMonth}} {{$t('globalTerm.month')}} </span>
@@ -276,21 +280,22 @@
                             </span>
                           </b-col>
                         </b-row>
-                    </b-collapse>
+                      </b-collapse>
                    </b-col>
+                    <!-- 結束時間 -->
                     <b-col cols = 6>
-                    <b-row class = "px-3">
+                      <b-row class = "px-3">
                      {{$t('globalTerm.toYear')}}: {{address.pToYear}} 
                      <span v-if="isValidNum(address.pTyRange)">({{judgeRange(address.pTyRange)}})</span>
-                      <b-button  v-b-toggle="'to-year-details-' + index" size="sm" pill variant="outline-info" style = "position:relative;bottom:5px;left:5px">
+                      <b-button  v-b-toggle="genDetails('to',index)" size="sm" pill variant="outline-info" style = "position:relative;bottom:5px;left:5px">
                         {{$t('globalTerm.details')}}
                       </b-button>
                       </b-row>
-                      <b-collapse :id ="toYearDetails(index)">
+                      <b-collapse :id ="genDetails('to',index)">
                         <b-row>
                           <b-col cols = 9>
                             <!-- intercalary: 閏-->
-                            {{address.pTyNhChn}}<span v-if="address.pTyNhChn&&address.pTyNh">/ </span>{{address.pTyNh}}
+                            {{address.pTyNhChn}}<span v-if="address.pTyNhChn&&address.pTyNh">/ {{address.pTyNh}}</span>
                             <span v-if="isValidNum(address.pTyNhYear)">{{address.pTyNhYear}} {{$t('globalTerm.year')}} </span> 
                             <span v-if="address.pTyIntercalary==='true'">{{$t('globalTerm.intercalary')}} </span> 
                             <span v-if="isValidNum(address.pTyMonth)">{{address.pTyMonth}} {{$t('globalTerm.month')}} </span>
@@ -302,19 +307,19 @@
                             </span>
                           </b-col>
                         </b-row>
-                    </b-collapse>
+                      </b-collapse>
                    </b-col>
                  </b-row>
-                  <!-- 第三行：來源 頁碼-->
+                  <!-- 第四行：來源 頁碼-->
                  <b-row class = "px-3 mb-3">
-                   <b-col cols = 10>
-                    {{$t('globalTerm.source')}}: {{address.pSourceChn}}/ {{address.pSource}}
+                   <b-col>
+                    {{$t('globalTerm.source')}}: {{address.pSourceChn}}<span v-if="address.pSource&&address.pSourceChn">/ {{address.pSource}}</span>
                    </b-col>
-                  <b-col cols = 2>
+                  <b-col v-if="address.psPages">
                     {{$t('globalTerm.pages')}}: {{address.psPages}}
                   </b-col>
                  </b-row>
-                 <!-- 第四行：註 -->
+                 <!-- 第五行：註 -->
                 <b-row class = "px-3">
                   <b-col>
                   {{$t('globalTerm.notes')}}:<p>{{address.pNotes}}</p>
@@ -322,7 +327,390 @@
                 </b-row>
               </b-card>                              
             </b-tab>
-            
+            <!-- 別名 -->
+            <b-tab :title="$t('entityQueryByPerson.result.altName')"> 
+              <b-card v-for="(altName,index) in personInfo.altNames" :key="index">
+                <!-- 第一行：別名 拼音-->
+                 <b-row class = "px-3 mb-3">
+                   <b-col>
+                    <b> {{altName.nameChn}}（{{altName.name}}）</b>
+                   </b-col>
+                 </b-row>
+                <!-- 第二行：類別-->
+                 <b-row class = "px-3 mb-3">
+                   <b-col>
+                    {{$t('entityQueryByPerson.result.altNameType')}}: {{altName.nTypeChn}}<span v-if="altName.nTypeChn&&altName.nType">/ {{altName.nType}}</span>
+                   </b-col>
+                 </b-row>
+                  <!-- 第三行：來源 頁碼-->
+                 <b-row class = "px-3 mb-3">
+                   <b-col>
+                    {{$t('globalTerm.source')}}: {{altName.nSourceChn}}<span v-if="altName.nSourceChn&&altName.nSource">/ {{altName.nSource}}</span>
+                   </b-col>
+                  <b-col v-if="altName.nsPages">{{$t('globalTerm.pages')}}: {{altName.nsPages}}</b-col>
+                 </b-row>
+                 <!-- 第四行：註 -->
+                <b-row class = "px-3">
+                  <b-col>
+                  {{$t('globalTerm.notes')}}:<p>{{altName.nNotes}}</p>
+                  </b-col>
+                </b-row>
+              </b-card>                              
+            </b-tab>   
+            <!-- 著述 -->  
+             <b-tab :title="$t('entityQueryByPerson.result.writings')"> 
+               <b-card v-for="(writing,index) in personInfo.writings" :key="index">
+                  <!-- 第一行：著述名 -->
+                  <b-row class = "px-3 mb-3">
+                    <b-col>
+                      <b>{{writing.wTextChn}}/ {{writing.wText}}</b>
+                    </b-col>
+                  </b-row>
+                  <!-- 第二行：角色-->
+                  <b-row class = "px-3 mb-3">
+                    <b-col>
+                      {{$t('entityQueryByPerson.result.writingRole')}}: {{writing.wRoleChn}}
+                    </b-col>
+                  </b-row>
+                  <!-- 第三行：來源 頁碼-->
+                 <b-row class = "px-3 mb-3">
+                   <b-col>
+                    {{$t('globalTerm.source')}}: {{writing.wSourceChn}}<span v-if="writing.wSourceChn&&writing.wSource">/ {{writing.wSource}}</span>
+                   </b-col>
+                  <b-col v-if="writing.wsPages">
+                    {{$t('globalTerm.pages')}}: {{writing.wsPages}}
+                  </b-col>
+                 </b-row>
+                 <!-- 第四行：註 -->
+                <b-row class = "px-3">
+                  <b-col>
+                  {{$t('globalTerm.notes')}}:<p>{{writing.wNotes}}</p>
+                  </b-col>
+                </b-row>
+              </b-card>                              
+            </b-tab>             
+            <!-- 職官 -->
+            <b-tab :title="$t('entityQueryByPerson.result.postings')"> 
+              <b-card v-for="(post,index) in personInfo.postings" :key="index">
+                <!-- 第一行：地名 次序-->
+                <b-row class = "px-3 mb-3">
+                  <b-col cols="9">
+                    <b>{{post.postNameChn}}/ {{post.postName}}</b>
+                  </b-col>
+                  <b-col cols = "3">
+                    [{{$t('globalTerm.sequence')}}: {{post.postSeq}}]
+                   </b-col>
+                </b-row>
+                <!-- 第二行：category type isAssumedPost -->
+                 <b-row class = "px-3 mb-3">
+                    <b-col cols = "3">
+                      {{$t('entityQueryByPerson.result.postCategory')}}: {{post.postCategoryChn}}<span v-if="post.postCategory&&post.postCategoryChn">/ {{post.postCategory}}</span>
+                   </b-col >
+                   <b-col cols = "3">
+                      {{$t('entityQueryByPerson.result.postType')}}: {{post.postTypeChn}}<span v-if="post.postType&&post.postTypeChn">/ {{post.postType}}</span>
+                   </b-col>
+                    <b-col cols = "3">
+                    {{$t('entityQueryByPerson.result.assumedPost')}}: {{post.assumedPostChn}}<span v-if="post.assumedPost&&post.assumedPostChn">/ {{post.assumedPost}}</span>
+                   </b-col>
+                 </b-row>
+                 <!-- 第三行：起止時間-->
+                 <b-row class = "px-3 mb-3">
+                   <!-- 開始時間 -->
+                    <b-col cols = 6>
+                      <b-row class = "px-3">
+                        {{$t('globalTerm.fromYear')}}: {{post.pFromYear}} 
+                        <span v-if="isValidNum(post.pFyRange)">({{judgeRange(post.pFyRange)}})</span>
+                        <b-button v-b-toggle="genDetails('post-from',index)" size="sm" pill variant="outline-info"
+                          style = "position:relative;bottom:5px;left:5px">
+                          {{$t('globalTerm.details')}}
+                        </b-button>
+                      </b-row>
+                      <b-collapse :id ="genDetails('post-from',index)">
+                        <b-row>
+                          <b-col cols = 9>
+                            <!-- intercalary: 閏-->
+                            {{post.pFyNhChn}}<!-- 只有中文年號！ -->
+                            <span v-if="isValidNum(post.pFyNhYear)">{{post.pFyNhYear}} {{$t('globalTerm.year')}} </span> 
+                            <span v-if="post.pFyIntercalary==='true'">{{$t('globalTerm.intercalary')}} </span> 
+                            <span v-if="isValidNum(post.pFyMonth)">{{post.pFyMonth}} {{$t('globalTerm.month')}} </span>
+                            <span v-if="isValidNum(post.pFyDay)">{{post.pFyDay}} {{$t('globalTerm.day')}} </span>
+                          </b-col>
+                          <b-col cols = 3>
+                            <span v-if="post.pFyDayGz">
+                              {{post.pFyDayGz}}{{$t('globalTerm.ganzhi')}}
+                            </span>
+                          </b-col>
+                        </b-row>
+                      </b-collapse>
+                   </b-col>
+                    <!-- 結束時間 -->
+                    <b-col cols = 6>
+                      <b-row class = "px-3">
+                      {{$t('globalTerm.toYear')}}: {{post.pToYear}} 
+                      <span v-if="isValidNum(post.pTyRange)">({{judgeRange(post.pTyRange)}})</span>
+                      <b-button  v-b-toggle="genDetails('post-to',index)" size="sm" pill variant="outline-info" style = "position:relative;bottom:5px;left:5px">
+                        {{$t('globalTerm.details')}}
+                      </b-button>
+                      </b-row>
+                      <b-collapse :id ="genDetails('post-to',index)">
+                        <b-row>
+                          <b-col cols = 9>
+                            <!-- intercalary: 閏-->
+                            {{post.pTyNhChn}}<span v-if="post.pTyNhChn&&post.pTyNh">/ {{post.pTyNh}}</span>
+                            <span v-if="isValidNum(post.pTyNhYear)">{{post.pTyNhYear}} {{$t('globalTerm.year')}} </span> 
+                            <span v-if="post.pTyIntercalary==='true'">{{$t('globalTerm.intercalary')}} </span> 
+                            <span v-if="isValidNum(post.pTyMonth)">{{post.pTyMonth}} {{$t('globalTerm.month')}} </span>
+                            <span v-if="isValidNum(post.pTyDay)">{{post.pTyDay}} {{$t('globalTerm.day')}} </span>
+                          </b-col>
+                          <b-col cols = 3>
+                            <span v-if="post.pFyDayGz">
+                              {{post.pTyDayGz}}{{$t('globalTerm.ganzhi')}}
+                            </span>
+                          </b-col>
+                        </b-row>
+                      </b-collapse>
+                   </b-col>
+                 </b-row>
+                  <!-- 第四行：地點-->
+                 <b-row class = "px-3 mb-3">
+                   <b-col v-if="personInfo.postings[index].pPlace.length>0">
+                    {{$t('globalTerm.place')}}: {{personInfo.postings[index].pPlace[0].pNameChn}}<span v-if="personInfo.postings[index].pPlace[0].pNameChn&&personInfo.postings[index].pPlace[0].pName">/ {{personInfo.postings[index].pPlace[0].pName}}</span>
+                    <span v-if="personInfo.postings[index].pPlace.length>1">
+                      {{$t('globalTerm.and')}} {{personInfo.postings[index].pPlace.length-1}} {{$t('entityQueryByPerson.result.otherPlaces')}}
+                        <b-button  v-b-toggle="genDetails('other-places',index)" size="sm" pill variant="outline-info" style = "position:relative;bottom:5px;left:5px">
+                          {{$t('globalTerm.details')}}
+                        </b-button>
+                    </span>
+                 <b-collapse :id ="genDetails('other-places',index)">
+                   <b-row class = "px-3">  
+                     <b-col>               
+                     <span v-for="(p,i) in personInfo.postings[index].pPlace">
+                        <span v-if="i!=0">{{p.pNameChn}}<span v-if="p.pNameChn&&p.pName">/ {{p.pName}} </span></span>
+                     </span> 
+                     </b-col>                 
+                  </b-row>
+                </b-collapse>                       
+                   </b-col>                
+                 </b-row>
+                <!-- 第五行 來源 頁碼-->
+                <b-row class = "px-3 mb-3">
+                   <b-col>
+                    {{$t('globalTerm.source')}}: {{post.pSourceChn}}<span v-if="post.pSource&&post.pSourceChn">/ {{post.pSource}}</span>
+                   </b-col>
+                  <b-col v-if="post.psPages">
+                    {{$t('globalTerm.pages')}}: {{post.psPages}}
+                  </b-col>
+                 </b-row>
+                 <!-- 第六行：註 -->
+                <b-row class = "px-3">
+                  <b-col>
+                  {{$t('globalTerm.notes')}}:<p>{{post.pNotes}}</p>
+                  </b-col>
+                </b-row>
+              </b-card>                              
+            </b-tab>    
+            <!-- 入仕 -->  
+            <b-tab :title="$t('entityQueryByPerson.result.entry')"> 
+              <b-card v-for="(entry,index) in personInfo.entry" :key="index">  
+                <b-row class = "px-3 mb-3">
+                  <b-col cols="9">
+                  <b>{{entry.entryNameChn}}<span v-if="entry.entryNameChn&&entry.entryName">/ {{entry.entryName}}</span></b>
+                  </b-col>  
+                  <b-col cols = "3">
+                      [{{$t('entityQueryByPerson.result.entrySequence')}}: {{entry.seqNo}}]
+                  </b-col>                
+                </b-row>
+                <!-- 第一行：地點 順序 科舉名次 雙親狀態-->
+                 <b-row class = "px-3 mb-3">
+                   <b-col cols = "3">
+                     {{$t('entityQueryByPerson.result.entryPlace')}}: {{entry.entryPlaceChn}}<span v-if="entry.entryPlaceChn&&entry.entryPlace">/ {{entry.entryPlace}}</span>
+                   </b-col>
+                    <b-col cols = "3">
+                    {{$t('entityQueryByPerson.result.entryRank')}}: {{entry.rank}}
+                   </b-col>
+                    <b-col cols = "3">
+                    {{$t('entityQueryByPerson.result.entryParentalStatus')}}: {{entry.parentalStatusChn}}<span v-if="entry.parentalStatusChn&&entry.parentalStatus">/ {{entry.parentalStatus}}</span>
+                   </b-col>
+                 </b-row>
+                 <!-- 第二行：時間 年齡-->
+                 <b-row class = "px-3 mb-3">
+                   <!-- 入仕時間 -->
+                   <b-col cols = "6">
+                      <b-row class = "px-3">
+                        {{$t('entityQueryByPerson.result.entryYear')}}: {{entry.entryYear}} 
+                        <span v-if="isValidNum(entry.eyRange)">({{judgeRange(entry.eyRange)}})</span>
+                        <b-button v-b-toggle="genDetails('entry',index)" size="sm" pill variant="outline-info"
+                          style = "position:relative;bottom:5px;left:5px">
+                          {{$t('globalTerm.details')}}
+                        </b-button>
+                      </b-row>
+                      <b-collapse :id ="genDetails('entry',index)">
+                        <b-row>
+                          <b-col>
+                            {{entry.eyNhChn}}<span v-if="entry.eyNhChn&&entry.eyNh">/ {{entry.eyNh}}</span>
+                            <span v-if="isValidNum(entry.eyNhYear)">{{entry.eyNhYear}} {{$t('globalTerm.year')}} </span> 
+                          </b-col>
+                        </b-row>
+                      </b-collapse>
+                   </b-col>
+                    <!-- 年齡 -->
+                    <b-col cols = "6">
+                       {{$t('entityQueryByPerson.result.entryAge')}}: {{entry.entryAge}}
+                    </b-col>
+                 </b-row>
+                 <!-- 第三行親屬關係 -->
+                 <b-row class = "px-3 mb-3" v-if="entry.kinship!=='U'">
+                    <b-col cols = "6">
+                      {{$t('entityQueryByPerson.result.entryKinship')}}: {{entry.kinshipChn}}<span v-if="entry.kinshipChn&&entry.kinship"> /{{entry.kinship}}</span>
+                   </b-col>
+                    <b-col cols = "6">
+                      {{$t('entityQueryByPerson.result.entryKinName')}}: {{entry.kinName}}<span v-if="entry.kinName&&entry.kinName"> /{{entry.kinName}}</span>
+                   </b-col>
+                 </b-row>
+                 <!-- 第四行社會關係 -->
+                 <b-row class = "px-3 mb-3" v-if="entry.association!=='[Undefined]'">
+                    <b-col cols = "6">
+                      {{$t('entityQueryByPerson.result.entryAssociation')}}: {{entry.associationChn}}<span v-if="entry.associationChn&&entry.association"> /{{entry.association}}</span>
+                   </b-col>
+                    <b-col cols = "6">
+                      {{$t('entityQueryByPerson.result.entryAssociate')}}: {{entry.associateChn}}<span v-if="entry.associateChn&&entry.associate"> /{{entry.associate}}</span>
+                   </b-col>
+                 </b-row>
+                 <!-- 第五行釋褐官注 -->
+                 <b-row class = "px-3 mb-3" v-if="entry.firstPostingNote!=='0000000'">
+                   {{$t('entityQueryByPerson.result.firstPostingNote')}}: {{entry.firstPostingNote}}
+                 </b-row>
+                 <!-- 第六行來源、頁碼 -->
+                 <b-row class = "px-3 mb-3">
+                    <b-col>
+                    {{$t('globalTerm.source')}}: {{entry.entrySourceChn}}<span v-if="entry.entrySourceChn&&entry.entrySource">/ {{entry.entrySource}}</span>
+                    </b-col>
+                    <b-col v-if="entry.esPages">{{$t('globalTerm.pages')}}: {{entry.esPages}}</b-col>
+                 </b-row>
+                 <!-- 第七行註釋 -->
+                 <b-row class = "px-3">
+                  <b-col>
+                  {{$t('globalTerm.notes')}}:<p>{{entry.eNotes}}</p>
+                  </b-col>
+                 </b-row>
+              </b-card>                              
+            </b-tab> 
+            <!-- 親屬關係 -->
+            <b-tab :title="$t('entityQueryByPerson.result.kinship')"> 
+              <b-card v-for="(kinship,index) in personInfo.kinship" :key="index">  
+                <b-row class = "px-3 mb-3">
+                   <b-col>
+                    <b>{{kinship.rPersonNameChn}}<span v-if="kinship.rPersonNameChn&&kinship.rPersonName">/ {{kinship.rPersonName}}</span></b>
+                   </b-col>                  
+                </b-row>
+                <!-- 第一行：關係類型-->
+                 <b-row class = "px-3 mb-3">
+                   <b-col>
+                     {{$t('entityQueryByPerson.result.kinshipType')}}: {{kinship.relationChn}}<span v-if="kinship.relationChn&&kinship.relation">/ {{kinship.relation}}</span>
+                   </b-col>
+                 </b-row>
+                 <!-- 第二行來源、頁碼 -->
+                 <b-row class = "px-3 mb-3">
+                    <b-col>
+                    {{$t('globalTerm.source')}}: {{kinship.relationSourceChn}}<span v-if="kinship.relationSourceChn&&kinship.relationSource">/ {{kinship.relationSource}}</span>
+                    </b-col>
+                    <b-col v-if="kinship.rsPages">{{$t('globalTerm.pages')}}: {{kinship.rsPages}}</b-col>
+                 </b-row>
+                 <!-- 第七行註釋 -->
+                 <b-row class = "px-3">
+                  <b-col>
+                  {{$t('globalTerm.notes')}}:<p>{{kinship.rNotes}}</p>
+                  </b-col>
+                 </b-row>
+              </b-card>                              
+            </b-tab>  
+            <!-- 地位 --> 
+            <b-tab :title="$t('globalTerm.status')"> 
+              <b-card v-for="(status,index) in personInfo.status" :key="index">
+                <!-- 第一行：社會地位名 -->
+                <b-row class = "px-3 mb-3">
+                  <b-col cols="9">
+                    <b>{{status.statusNameChn}}/ {{status.statusName}}</b>
+                  </b-col>
+                  <b-col cols = "3">
+                    [{{$t('globalTerm.sequence')}}: {{status.sequence}}]
+                  </b-col>
+                </b-row>
+                <!-- 第二行：起止時間-->
+                <b-row class = "px-3 mb-3">
+                   <!-- 開始時間 -->
+                    <b-col cols = 6>
+                      <b-row class = "px-3">
+                        {{$t('globalTerm.fromYear')}}: {{status.statusBeginYear}} 
+                        <span v-if="isValidNum(status.sByRange)">({{judgeRange(status.sByRange)}})</span>
+                        <b-button v-b-toggle="genDetails('status-from',index)" size="sm" pill variant="outline-info"
+                          style = "position:relative;bottom:5px;left:5px">
+                          {{$t('globalTerm.details')}}
+                        </b-button>
+                      </b-row>
+                      <b-collapse :id ="genDetails('status-from',index)">
+                        <b-row>
+                          <b-col cols = 9>
+                            <!-- intercalary: 閏-->
+                            {{status.sByNhChn}}<span v-if="status.sByNhChn&&status.sByNh">/ {{status.sByNh}}</span>
+                            <span v-if="isValidNum(status.sByNhYear)">{{status.sByNhYear}} {{$t('globalTerm.year')}} </span> 
+                            <span v-if="status.sByIntercalary==='true'">{{$t('globalTerm.intercalary')}} </span> 
+                            <span v-if="isValidNum(status.sByMonth)">{{status.sByMonth}} {{$t('globalTerm.month')}} </span>
+                            <span v-if="isValidNum(status.sByDay)">{{status.sByDay}} {{$t('globalTerm.day')}} </span>
+                          </b-col>
+                          <b-col cols = 3>
+                            <span v-if="status.sByDayGz">
+                              {{status.sByDayGz}}{{$t('globalTerm.ganzhi')}}
+                            </span>
+                          </b-col>
+                        </b-row>
+                      </b-collapse>
+                   </b-col>
+                    <!-- 結束時間 -->
+                    <b-col cols = 6>
+                      <b-row class = "px-3">
+                     {{$t('globalTerm.toYear')}}: {{status.statusEndYear}} 
+                     <span v-if="isValidNum(status.sEyRange)">({{judgeRange(status.sEyRange)}})</span>
+                      <b-button  v-b-toggle="genDetails('status-to',index)" size="sm" pill variant="outline-info" style = "position:relative;bottom:5px;left:5px">
+                        {{$t('globalTerm.details')}}
+                      </b-button>
+                      </b-row>
+                      <b-collapse :id ="genDetails('status-to',index)">
+                        <b-row>
+                          <b-col cols = 9>
+                            <!-- intercalary: 閏-->
+                            {{status.sEyNhChn}}<span v-if="status.sEyNhChn&&status.sEyNh">/ {{status.sEyNh}}</span>
+                            <span v-if="isValidNum(status.sEyNhYear)">{{status.sEyNhYear}} {{$t('globalTerm.year')}} </span> 
+                            <span v-if="status.sEyIntercalary==='true'">{{$t('globalTerm.intercalary')}} </span> 
+                            <span v-if="isValidNum(status.sEyMonth)">{{status.sEyMonth}} {{$t('globalTerm.month')}} </span>
+                            <span v-if="isValidNum(status.sEyDay)">{{status.sEyDay}} {{$t('globalTerm.day')}} </span>
+                          </b-col>
+                          <b-col cols = 3>
+                            <span v-if="status.sEyDayGz">
+                              {{status.sEyDayGz}}{{$t('globalTerm.ganzhi')}}
+                            </span>
+                          </b-col>
+                        </b-row>
+                      </b-collapse>
+                   </b-col>
+                 </b-row>
+                  <!-- 第三行：來源 頁碼-->
+                 <b-row class = "px-3 mb-3">
+                   <b-col>
+                    {{$t('globalTerm.source')}}: {{status.sSourceChn}}<span v-if="status.sSourceChn&&status.sSource">/ {{status.sSource}}</span>
+                   </b-col>
+                  <b-col v-if="status.ssPages">
+                    {{$t('globalTerm.pages')}}: {{status.ssPages}}
+                  </b-col>
+                 </b-row>
+                 <!-- 第四行：註 -->
+                <b-row class = "px-3">
+                  <b-col>
+                  {{$t('globalTerm.notes')}}:<p>{{status.sNotes}}</p>
+                  </b-col>
+                </b-row>
+              </b-card>                              
+            </b-tab>                                        
           </b-tabs>
         </div>
       <!--
@@ -337,11 +725,12 @@
 
 <script>
 import selectPerson from '@/components/utility/select-person.vue'
+import dataJson from '@/assets/person_data_dev.json'
 export default {
   name: 'entityQueryByPerson',
   components:
   {
-      selectPerson
+    selectPerson
   },
   data () {
     return {
@@ -353,7 +742,9 @@ export default {
         personIndexYear:''
       },
       //後端傳回來的數據放這裡
-      personInfo:{},
+      personInfo:{
+
+      },
       //這個是路由，待處理
       items: [
           {
@@ -372,38 +763,44 @@ export default {
     }
   },
   methods:{
-    //生成from-year-details 和 to-year-details 的id
-    fromYearDetails(i){
-      return "from-year-details-"+i
+    //沒鳥用的方法，拿來模擬等待服務器響應。。。
+    waitForServer(time){
+
     },
-    toYearDetails(i){
-      return "to-year-details-"+i
+    //生成各種年份詳情 xxx-year-details-xxx 的id
+    genDetails(n,i){
+      console.log(n+"-details-"+i)
+      return n+"-details-"+i
     },
-    //判斷年份範圍
+    //判斷年份範圍（是在之前還是之後？）
+    //0的情況不管
     judgeRange(r){
       let n = parseInt(r, 10);
       if(r<0)return this.$t('globalTerm.before')
       else if(r>0) return this.$t('globalTerm.after')
     },
-    //判斷數字是否有效（非空且不為0）
+    //判斷數字是否有效（非空）
     isValidNum(n){
         if(n&&n.length != 0&&n!=='0')return true
         else return false 
     },
+    //判斷人物的性別
     personGen(isF){
       if(isF === "false")return this.$t('globalTerm.male');
       else if (isF === "true")return this.$t('globalTerm.female');
       else return ''
     },
-    isMaternalAddress(add){
-      if(add === "false")return this.$t('globalTerm.false');
-      else if (add === "true")return this.$t('globalTerm.true');
+    //判斷是否
+    isOrNot(str){
+      if(str === "false")return this.$t('globalTerm.false');
+      else if (str === "true")return this.$t('globalTerm.true');
       else return ''
     },
     //判斷輸入欄是否為空
     isNull(idx){
       return this.formData[idx] == ''
     },
+    //判斷年代輸入是否有效
     validation(idx){
       //如果輸入為空，視為有效
       if(this.isNull(idx))return null;
@@ -434,262 +831,7 @@ export default {
     },
     handleSubmit: function(){
       //這裏未來要寫前後端交互
-      this.personInfo = {
-        basicInfo:{
-          cName:this.formData.personNameEn,
-          cNameChn:this.formData.personNameCh,
-          cPersonId:this.formData.personId,
-          cSurname:"Zhu",
-          cSurnameChn:"朱",
-          cMingzi:"Youxiao",
-          cMingziChn:"由校",
-          cIndexYear:this.formData.personIndexYear,
-          cFemale:"false",
-          cNotes:"Zhu(1) Yoiuxiao [30164] Xizong or the Tianqi Emperor.See Documentation for Zhu(1) Yuanzhang [30149].",
-        },
-        birthDeathYears:{
-          cDynasty:"Ming",
-          cDynastyChn:"明",
-          cChoronym:"[Unknown]",
-          cChoronymChn:"【未詳】",
-          cHouseholdStatus:"Unknown",
-          cHouseholdStatusChn:"未詳",
-          cEthnicity:"Unknown",
-          cEthnicityChn:"未詳",
-          cBirthYear:"1605",
-          cByNh:"",
-          cByNhChn:"萬曆",
-          cByNhYear:"33",
-          cByRange:"",
-          cByIntercalary:"false",
-          cByMonth:"",
-          cByDay:"",
-          cByDayGz:"",//干支
-          cDyIntercalary:"false",
-          cDyMonth:"",
-          cDyDay:"",
-          cDyDayGz:"",
-          cDeathYear:"1627",
-          cDyNh:"",
-          cDyNhChn:"天啟",
-          cDyNhYear:"7",
-          cDyRange:"",
-          cDeathAge:"23",
-          cDeathAgeRange:"",
-          cFlEarliestYear:"",//在世始年
-          cFlEyNh:"Unknown",//年號
-          cFlEyNhChn:"未詳",
-          cFlEyNhYear:"",//多少年,
-          cFlEyNotes:"",
-          cFlLatestYear:"",//在世末年
-          cFlLyNh:"Unknown",//年號
-          cFlLyNhChn:"未詳",//年號
-          cFlLyNhYear:"",//多少年,
-          cFlLyNotes:"",   
-        },
-        address:[
-          {
-            placeName:"Daxing",
-            placeNameChn:"大興",
-            type:"Basic Affiliation",
-            typeChn:"籍貫（基本地址）",
-            isMaternal:"false",
-            sequence:"0",
-            pFromYear:"0",
-            pFyRange:"-1",
-            pFyNh:"unknown",
-            pFyNhChn:"未詳",
-            pFyNhYear:"1",
-            pFyIntercalary:"true",
-            pFyMonth:"1",
-            pFyDay:"1",
-            pFyDayGz:"",//干支
-            pToYear:"0",
-            pTyRange:"",
-            pTyNh:"unknown",
-            pTyNhChn:"未詳",
-            pTyNhYear:"",
-            pTyIntercalary:"false",
-            pTyMonth:"",
-            pTyDay:"",
-            pTyDayGz:"",//干支
-            pSource:"Renming quanwei ziliao (Zhongyang yanjiuyuan Lishi yuyan yanjiusuo)",
-            pSourceChn:"人名權威資料（中央研究院歷史語言研究所）",
-            psPages:"9537",
-            pNotes:"北直隸·順天府（祖籍南直隸·鳳陽府）（中央研究院人名權威資料）。"
-          },
-          {
-            placeName:"Daxing",
-            placeNameChn:"大興",
-            type:"Basic Affiliation",
-            typeChn:"籍貫（基本地址）",
-            isMaternal:"false",
-            sequence:"0",
-            pFromYear:"0",
-            pFyRange:"-1",
-            pFyNh:"unknown",
-            pFyNhChn:"未詳",
-            pFyNhYear:"1",
-            pFyIntercalary:"true",
-            pFyMonth:"1",
-            pFyDay:"1",
-            pFyDayGz:"",//干支
-            pToYear:"0",
-            pTyRange:"",
-            pTyNh:"unknown",
-            pTyNhChn:"未詳",
-            pTyNhYear:"",
-            pTyIntercalary:"false",
-            pTyMonth:"",
-            pTyDay:"",
-            pTyDayGz:"",//干支
-            pSource:"Renming quanwei ziliao (Zhongyang yanjiuyuan Lishi yuyan yanjiusuo)",
-            pSourceChn:"人名權威資料（中央研究院歷史語言研究所）",
-            psPages:"9537",
-            pNotes:"北直隸·順天府（祖籍南直隸·鳳陽府）（中央研究院人名權威資料）。"
-          }
-        ],
-        AltNames:[
-          {
-            name:"Datianchandaodunxiaoduyouzhangwenxiangwujingmuzhuangqinzhehuangdi",
-            nameChn:"達天闡道敦孝篤友章文襄武靖穆莊勤悊皇帝",
-            nType:"Posthumous Name",
-            nTypeChn:"諡號",
-            nSourceChn:"人名權威資料（中央研究院歷史語言研究所）",
-            nsPages:"9537",
-            nNotes:"參見《新校本明史》"
-          },
-          {
-            name:"Datianchandaodunxiaoduyouzhangwenxiangwujingmuzhuangqinzhehuangdi",
-            nameChn:"達天闡道敦孝篤友章文襄武靖穆莊勤哲皇帝",
-            nType:"Posthumous Name",
-            nTypeChn:"諡號",
-            nSourceChn:"",
-            nsPages:"",
-            nNotes:""
-          },
-          {
-            name:"Tianqi",
-            nameChn:"天啓",
-            nType:"Unknown",
-            nTypeChn:"未詳",
-            nSourceChn:"人名權威資料（中央研究院歷史語言研究所）",
-            nsPages:"9537",
-            nNotes:"參見《新校本明史》"
-          },
-          {
-            name:"Xi Zong",
-            nameChn:"熹宗",
-            nType:"Unknown",
-            nTypeChn:"未詳",
-            nSourceChn:"人名權威資料（中央研究院歷史語言研究所）",
-            nsPages:"9537",
-            nNotes:"參見《新校本明史》"
-          },
-          {
-            name:"Xi Zong",
-            nameChn:"熹宗",
-            nType:"Temple Name",
-            nTypeChn:"廟號",
-            nSourceChn:"",
-            nsPages:"",
-            nNotes:""
-          },
-          {
-            name:"Zhe Di",
-            nameChn:"悊帝",
-            nType:"Unknown",
-            nTypeChn:"未詳",
-            nSourceChn:"",
-            nsPages:"",
-            nNotes:""
-          }
-        ],
-        writings:[],
-        postings:[],
-        entry:[
-          {
-            entryName:"investiture as heir apparent",
-            entryNameChn:"立儲",
-            entryPlace:"",
-            entryPlaceChn:"",
-            entryYear:"1620",
-            eyNh:"Unknown",
-            eyNhChn:"未詳",
-            eyNhYear:"0",
-            eyRange:"",
-            entryAge:"16",
-            seqNo:"1",
-            rank:"0",
-            parentalStatus:"Unknown",
-            parentalStatus:"未詳",
-            //親屬信息，用於恩蔭
-            kinship:"U",
-            kinshipChn:"未詳",
-            kinName:"Wei Xiang",
-            kinNameChn:"未詳",
-            association:"[Undefined]",
-            associationChn:"未詳",
-            associate:"Wei Xiang",
-            associateChn:"未詳",
-            firstPostingNote:"0000000",
-            entrySource:"Weizhi",
-            entrySourceChn:"未知",
-            esPages:"",
-            eNotes:""
-          }
-        ],
-        events:[],
-        status:[
-          {
-            statusName:"emperor",
-            statusNameChn:"[皇帝]",
-            sequence:"1",
-            statusBeginYear:"0",
-            sbyNh:"unknown",
-            sbyNhChn:"未詳",
-            sbyNhYear:"",
-            sbyRange:"",
-            statusEndYear:"0",
-            seyNh:"unknown",
-            seyNhChn:"未詳",
-            seyNhYear:"",   
-            seyRange:"",
-            statusSource:"Weizhi",
-            statusSourceChn:"未知",
-            ssPages:"",
-            sNotes:""
-          }
-        ],
-        kinship:[
-          {
-            relation:"F",
-            relationChn:"父",
-            rPersonName:"Zhu Yijun",
-            rPersonNameChn:"朱翊均",
-            relationSource:"Weizhi",
-            relationSourceChn:"未知",
-            rsPages:"",
-            rNotes:""
-          },
-          {
-            relation:"W",
-            relationChn:"妻",
-            rPersonName:"Zhang Shi(Wife of Zhu Youjiao)",
-            rPersonNameChn:"張氏(朱由校妻)",
-            relationSource:"Ming Qing funv zhuzuo shujuku",
-            relationSourceChn:"明清婦女著作數據庫",
-            rsPages:"MQWW PoetID #3093",
-            rNotes:""
-          }
-        ],
-        associations:[],
-        possessions:[],
-        //sources 要做成個表！！！
-        sources:[],
-        institutions:[]
-        
-      }
+      this.personInfo = dataJson 
     }
   },
   computed:{

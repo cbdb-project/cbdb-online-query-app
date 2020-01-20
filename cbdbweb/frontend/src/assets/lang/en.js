@@ -16,10 +16,9 @@ module.exports = {
     navbarLeft:{
         home:"Home",
         entityQuery:"Entity Query",
-        entityQueryByPerson:"Data on an Individual",
-        entityQueryByOffice:"By Office",
-        entityQueryByEntry:"By Entry",
-        entityQueryByPlace:"By Place",
+        entityQueryByPerson:"Look up Data on an Individual",
+        entityQueryByOffice:"Query Office Holding",
+        entityQueryByEntry:"Query by Methods of Entry into Government",
         relationQuery:"Relation Query",
         relationQueryByKinship:"By Kinship",
         relationQueryByAssociation:"By Association",
@@ -48,6 +47,8 @@ module.exports = {
     },
     globalTerm:{
         //全局術語
+        time:"Time",
+        place:"Place",
         queryInput:"Query Input",
         queryConditionOptions:"Query Condition Options",
         userInput:"User Input",
@@ -84,8 +85,10 @@ module.exports = {
         deathAge:"Death Age",
         deathAgeRange:"Death Age Range",
         status:"Status",
+        posessions:"Possesions",
         sequence:"Sequence",
-        and:"And"
+        and:"And",
+        invalidInput:"Your input is invalid, please check."
 
     },
     entityQueryByOffice:{
@@ -143,13 +146,14 @@ module.exports = {
             assumedPost:"Assumed Post?",
             kinshipType:"Kinship Type",
             kinName:"Kin's Name",
-            entryAssociation:"Association",
-            entryAssociate:"Associate", 
+            association:"Association",
+            associate:"Associate", 
             firstPostingNote:"First Posting Note",
             kinship:"Kinship",
             writingRole:"Role",
             writings:"Writings",
-            otherPlaces:"other places"
+            otherPlaces:"other places",
+            association:"Associations"
         }
     },
     entityQueryByEntry:{

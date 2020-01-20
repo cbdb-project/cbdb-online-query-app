@@ -3,7 +3,6 @@ import Router from 'vue-router'
 import Home from '@/components/views/home'
 import entityQueryByPerson from '@/components/views/q-e-byPerson'
 import entityQueryByEntry from '@/components/views/q-e-byEntry'
-import entityQueryByPlace from '@/components/views/q-e-byPlace'
 import entityQueryByOffice from '@/components/views/q-e-byOffice'
 import relationQueryBySocialNetwork from '@/components/views/q-r-bySocialNetwork'
 Vue.use(Router)
@@ -22,11 +21,6 @@ export default new Router({
       path: '/help',
       name: 'Help',
      
-    },
-    {
-      path: '/q-entity/by-place',
-      name: 'Entity Query: By Place',
-      component: entityQueryByPlace
     },
     {
       path: '/q-entity/by-person',

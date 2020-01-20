@@ -17,9 +17,11 @@ module.exports = {
         home:"首頁",
         entityQuery:"實體查詢",
         entityQueryByPerson:"按人查詢",
-        entityQueryByOffice:"通過官職查詢",
-        entityQueryByEntry:"通過入仕途經查詢",
-        entityQueryByPlace:"通過地點查詢",
+        entityQueryByPersonIntro:"選擇一個人物，查看其生卒年月、著作、任官經歷、人際關係等詳細信息",
+        entityQueryByOffice:"查詢職官",
+        entityQueryByOfficeIntro:"「查詢職官」不僅可以找到擔任特定官職的人， 還可以找到官僚系統中擔任較低(或較高級別)官職的群體。",
+        entityQueryByEntry:"查詢入仕",
+        entityQueryByEntryIntro:"「查詢入仕」可以找到在特定時段通過特定途 徑取得做官資格的群體。",
         relationQuery:"關係查詢",
         relationQueryByKinship:"通過親屬關係查詢",
         relationQueryByAssociation:"通過社會關係查詢",
@@ -48,6 +50,8 @@ module.exports = {
     },
     globalTerm:{
         //全局術語
+        time:"時間",
+        place:"地點",
         queryInput:"查詢式輸入",
         queryConditionOptions:"條件選取",
         userInput:"用戶輸入",
@@ -84,7 +88,10 @@ module.exports = {
         deathAge:"享年",
         deathAgeRange:"享年範圍",
         status:"社會地位",
-        sequence:"次序",     
+        posessions:"財產",
+        sequence:"次序",  
+        and:"和其他",
+        invalidInput:"您的輸入不符合檢索要求，請檢查"   
     },
     entityQueryByOffice:{
         officeNameEn:"官職名-英文",
@@ -96,7 +103,7 @@ module.exports = {
         personPlaceEn:"人物地點-英文",
         personPlaceCh:"人物地點-中文",
         checkAndSearch:"檢索式確認",
-        checkRemind:"茲生成查詢式如下，請於檢索前核查確認"
+        checkRemind:"茲生成查詢式如下，請於檢索前核查確認",
     },
     entityQueryByPerson:{
         personId:"人物代碼",
@@ -119,6 +126,8 @@ module.exports = {
             ethnicity:"種族",
             birthYear:"生年",
             deathYear:"卒年",
+            earliestYear:"最早在世年",
+            latestYear:"最晚在世年",
             address:"地址",
             placeName:"地名",
             placeType:"地址類別",
@@ -138,12 +147,14 @@ module.exports = {
             postings:"官職",
             kinshipType:"親屬關係類別",
             kinName:"親戚姓名",
-            entryAssociation:"社會關係類別",
-            entryAssociate:"社會關係人",    
+            associationType:"社會關係類別",
+            associate:"社會關係人",    
             firstPostingNote:"釋褐官註",
             kinship:"親屬關係",
             writingRole:"角色",
-            writings:"著述"
+            writings:"著述",
+            otherPlaces:"個地點",
+            association:"社會關係"
                    
         }
     },

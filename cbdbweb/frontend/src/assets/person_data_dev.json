@@ -40,11 +40,11 @@
         "cDyRange":"",
         "cDeathAge":"23",
         "cDeathAgeRange":"",
-        "cFlEarliestYear":"",
+        "cFlEarliestYear":"0",
         "cFlEyNh":"Unknown",
         "cFlEyNhChn":"未詳",
-        "cFlEyNhYear":"",
-        "cFlEyNotes":"",
+        "cFlEyNhYear":"0",
+        "cFlEyNotes":"test",
         "cFlLatestYear":"",
         "cFlLyNh":"Unknown",
         "cFlLyNhChn":"未詳",
@@ -242,10 +242,58 @@
     ],
     "associations":[
       {
-
+        "rPersonName":"Ouyang Xiu",
+        "rPersonNameChn":"歐陽修",
+        "seqNo":"0",
+        "relation":"Coalition leader of",
+        "relationChn":"黨魁為Y",
+        "assYear":"",
+        "ayRange":"",
+        "ayNh":"Unknown",
+        "ayNhChn":"未詳",
+        "ayNhYear":"",
+        "ayMonth":"",
+        "ayDay":"",
+        "ayDayGz":"",
+        "assPlaceChn":"",
+        "assPlace":"",
+        "relationSourceChn":"",
+        "rsPages":"",
+        "rNotes":""
       }
     ],
     "possessions":[],
-    "sources":[],
+    "sources":{
+      "fields":[
+        {
+          "key":"sName",
+          "label":"English Name",
+          "sortable":"true"
+        },
+        {
+          "key":"sNameChn",
+          "label":"Chinese Name",
+          "sortable":"true"
+        },
+        {
+          "key":"pages",
+          "label":"Pages/ ID",
+          "sortable":"false"
+        },        
+        {
+          "key":"notes",
+          "label":"Notes",
+          "sortable":"true"
+        }
+      ],
+      "data":[
+        {
+          "sNameChn":"人名權威資料（中央研究院歷史語言研究所）",
+          "sName":"Renming quanwei ziliao (Zhongyang yanjiuyuan Lishi yuyan yanjiusuo)",
+          "pages":"",
+          "notes":""
+        }
+      ]
+    },
     "institutions":[]
   }

@@ -126,19 +126,8 @@
                     {{$t('entityQueryByPerson.result.altNameType')}}: {{altName.nTypeChn}}<span v-if="altName.nTypeChn&&altName.nType">/ {{altName.nType}}</span>
                    </b-col>
                  </b-row>
-                  <!-- 第三行：來源 頁碼-->
-                 <b-row class = "px-3 mb-3">
-                   <b-col>
-                    {{$t('globalTerm.source')}}: {{altName.nSourceChn}}<span v-if="altName.nSourceChn&&altName.nSource">/ {{altName.nSource}}</span>
-                   </b-col>
-                  <b-col v-if="altName.nsPages">{{$t('globalTerm.pages')}}: {{altName.nsPages}}</b-col>
-                 </b-row>
-                 <!-- 第四行：註 -->
-                <b-row class = "px-3">
-                  <b-col>
-                  {{$t('globalTerm.notes')}}:<p>{{altName.nNotes}}</p>
-                  </b-col>
-                </b-row>
+                  <show-source :sNameChn="altName.nSourceChn" :sName="altName.nSource" :sPages="altName.nsPages" :sNotes="altName.nNotes">
+                  </show-source> 
               </b-card>                              
             </b-tab>  
              <!-- 生卒年月 -->
@@ -234,21 +223,8 @@
                       ></show-year>   
                    </b-col>
                  </b-row>
-                  <!-- 第四行：來源 頁碼-->
-                 <b-row class = "px-3 mb-3">
-                   <b-col>
-                    {{$t('globalTerm.source')}}: {{address.pSourceChn}}<span v-if="address.pSource&&address.pSourceChn">/ {{address.pSource}}</span>
-                   </b-col>
-                  <b-col v-if="address.psPages">
-                    {{$t('globalTerm.pages')}}: {{address.psPages}}
-                  </b-col>
-                 </b-row>
-                 <!-- 第五行：註 -->
-                <b-row class = "px-3">
-                  <b-col>
-                  {{$t('globalTerm.notes')}}:<p>{{address.pNotes}}</p>
-                  </b-col>
-                </b-row>
+                  <show-source :sNameChn="address.pSourceChn" :sName="address.pSource" :sPages="address.psPages" :sNotes="address.pNotes">
+                  </show-source> 
               </b-card>                              
             </b-tab> 
             <!-- 著述 -->  
@@ -266,21 +242,8 @@
                       {{$t('entityQueryByPerson.result.writingRole')}}: {{writing.wRoleChn}}
                     </b-col>
                   </b-row>
-                  <!-- 第三行：來源 頁碼-->
-                 <b-row class = "px-3 mb-3">
-                   <b-col>
-                    {{$t('globalTerm.source')}}: {{writing.wSourceChn}}<span v-if="writing.wSourceChn&&writing.wSource">/ {{writing.wSource}}</span>
-                   </b-col>
-                  <b-col v-if="writing.wsPages">
-                    {{$t('globalTerm.pages')}}: {{writing.wsPages}}
-                  </b-col>
-                 </b-row>
-                 <!-- 第四行：註 -->
-                <b-row class = "px-3">
-                  <b-col>
-                  {{$t('globalTerm.notes')}}:<p>{{writing.wNotes}}</p>
-                  </b-col>
-                </b-row>
+                  <show-source :sName="writing.wSource" :sNameChn="writing.wSourceChn" :sPages="writing.wsPages" :sNotes="writing.wNotes">
+                  </show-source>
               </b-card>                              
             </b-tab>             
             <!-- 職官 -->
@@ -346,21 +309,8 @@
                 </b-collapse>                       
                    </b-col>                
                  </b-row>
-                <!-- 第五行 來源 頁碼-->
-                <b-row class = "px-3 mb-3">
-                   <b-col>
-                    {{$t('globalTerm.source')}}: {{post.pSourceChn}}<span v-if="post.pSource&&post.pSourceChn">/ {{post.pSource}}</span>
-                   </b-col>
-                  <b-col v-if="post.psPages">
-                    {{$t('globalTerm.pages')}}: {{post.psPages}}
-                  </b-col>
-                 </b-row>
-                 <!-- 第六行：註 -->
-                <b-row class = "px-3">
-                  <b-col>
-                  {{$t('globalTerm.notes')}}:<p>{{post.pNotes}}</p>
-                  </b-col>
-                </b-row>
+                <show-source :sName="post.pSource" :sNameChn="post.pSourceChn" :sPages="post.psPages" :sNotes="post.pNotes">
+                </show-source>                 
               </b-card>                              
             </b-tab>    
             <!-- 入仕 -->  
@@ -421,19 +371,8 @@
                  <b-row class = "px-3 mb-3" v-if="entry.firstPostingNote!=='0000000'">
                    {{$t('entityQueryByPerson.result.firstPostingNote')}}: {{entry.firstPostingNote}}
                  </b-row>
-                 <!-- 第六行來源、頁碼 -->
-                 <b-row class = "px-3 mb-3">
-                    <b-col>
-                    {{$t('globalTerm.source')}}: {{entry.entrySourceChn}}<span v-if="entry.entrySourceChn&&entry.entrySource">/ {{entry.entrySource}}</span>
-                    </b-col>
-                    <b-col v-if="entry.esPages">{{$t('globalTerm.pages')}}: {{entry.esPages}}</b-col>
-                 </b-row>
-                 <!-- 第七行註釋 -->
-                 <b-row class = "px-3">
-                  <b-col>
-                  {{$t('globalTerm.notes')}}:<p>{{entry.eNotes}}</p>
-                  </b-col>
-                 </b-row>
+                <show-source :sName="entry.entrySource" :sNameChn="entry.entrySourceChn" :sPages="entry.esPages" :sNotes="entry.eNotes">
+                </show-source>  
               </b-card>                              
             </b-tab> 
             <!-- 親屬關係 -->
@@ -450,19 +389,8 @@
                      {{$t('entityQueryByPerson.result.kinshipType')}}: {{kinship.relationChn}}<span v-if="kinship.relationChn&&kinship.relation">/ {{kinship.relation}}</span>
                    </b-col>
                  </b-row>
-                 <!-- 第二行來源、頁碼 -->
-                 <b-row class = "px-3 mb-3">
-                    <b-col>
-                    {{$t('globalTerm.source')}}: {{kinship.relationSourceChn}}<span v-if="kinship.relationSourceChn&&kinship.relationSource">/ {{kinship.relationSource}}</span>
-                    </b-col>
-                    <b-col v-if="kinship.rsPages">{{$t('globalTerm.pages')}}: {{kinship.rsPages}}</b-col>
-                 </b-row>
-                 <!-- 第三行註釋 -->
-                 <b-row class = "px-3">
-                  <b-col>
-                  {{$t('globalTerm.notes')}}:<p>{{kinship.rNotes}}</p>
-                  </b-col>
-                 </b-row>
+                <show-source :sName="kinship.relationSource" :sNameChn="kinship.relationSourceChn" :sPages="kinship.rsPages" :sNotes="kinship.rNotes">
+                </show-source>  
               </b-card>                              
             </b-tab>  
             <!-- 社會關係 -->
@@ -487,7 +415,7 @@
                   <b-row class = "px-3 mb-3">
                    <b-col cols = "6">
                     <show-year :title="$t('globalTerm.time')" name="ass-year" :id="index" :range="ass.ayRange"
-                      :year="ass.assYear" :nhChn="ass.ayNhChn" :nh="ayNh" :nhCount="ass.ayNhYear"
+                      :year="ass.assYear" :nhChn="ass.ayNhChn" :nh="ass.ayNh" :nhCount="ass.ayNhYear"
                       :month="ass.ayMonth" :isIntc="ass.ayIntercalary" :day="ass.ayDay" :gz="ass.ayDayGz"
                     ></show-year>                     
                    </b-col> 
@@ -495,20 +423,9 @@
                    <b-col cols = "6">
                      {{$t('globalTerm.place')}}: {{ass.assPlaceChn}}<span v-if="ass.assPlaceChn&&ass.assPlace">/ {{ass.assPlace}}</span>
                    </b-col> 
-                 </b-row>             
-                 <!-- 第三行來源、頁碼 -->
-                 <b-row class = "px-3 mb-3">
-                    <b-col>
-                    {{$t('globalTerm.source')}}: {{ass.relationSourceChn}}<span v-if="ass.relationSourceChn&&ass.relationSource">/ {{ass.relationSource}}</span>
-                    </b-col>
-                    <b-col v-if="ass.rsPages">{{$t('globalTerm.pages')}}: {{ass.rsPages}}</b-col>
                  </b-row>
-                 <!-- 第四行註釋 -->
-                 <b-row class = "px-3">
-                  <b-col>
-                  {{$t('globalTerm.notes')}}:<p>{{ass.rNotes}}</p>
-                  </b-col>
-                 </b-row>
+                <show-source :sName="ass.relationSource" :sNameChn="ass.relationSourceChn" :sPages="ass.rsPages" :sNotes="ass.rNotes">
+                </show-source>               
               </b-card>                              
             </b-tab>  
             <!-- 地位 --> 
@@ -527,32 +444,19 @@
                 <b-row class = "px-3 mb-3">
                   <!-- 開始時間 -->
                   <b-col cols = 6>
-                    <show-year :title="$t('globalTerm.fromYear')" name="status-from-year" :id="index" :range="ass.status.sByRange"
+                    <show-year :title="$t('globalTerm.fromYear')" name="status-from-year" :id="index" :range="status.sByRange"
                       :year="status.statusBeginYear" :nhChn="status.sByNhChn" :nh="status.sByNh" :nhCount="status.sByNhYear"
                     ></show-year>   
                   </b-col>
                   <!-- 結束時間 -->
                     <b-col cols = 6>
-                    <show-year :title="$t('globalTerm.toYear')" name="status-to-year" :id="index" :range="ass.status.sEyRange"
+                    <show-year :title="$t('globalTerm.toYear')" name="status-to-year" :id="index" :range="status.sEyRange"
                       :year="status.statusEndYear" :nhChn="status.sEyNhChn" :nh="status.sEyNh" :nhCount="status.sEyNhYear"
                     ></show-year> 
                    </b-col>
                  </b-row>
-                  <!-- 第三行：來源 頁碼-->
-                 <b-row class = "px-3 mb-3">
-                   <b-col>
-                    {{$t('globalTerm.source')}}: {{status.sSourceChn}}<span v-if="status.sSourceChn&&status.sSource">/ {{status.sSource}}</span>
-                   </b-col>
-                  <b-col v-if="status.ssPages">
-                    {{$t('globalTerm.pages')}}: {{status.ssPages}}
-                  </b-col>
-                 </b-row>
-                 <!-- 第四行：註 -->
-                <b-row class = "px-3">
-                  <b-col>
-                  {{$t('globalTerm.notes')}}:<p>{{status.sNotes}}</p>
-                  </b-col>
-                </b-row>
+                 <show-source :sName="status.sSource" :sNameChn="status.sSourceChn" :sPages="status.ssPages" :sNotes="astatus.sNotes">
+                 </show-source> 
                </b-card>                              
             </b-tab>                                        
           </b-tabs>
@@ -571,12 +475,14 @@
 import selectPerson from '@/components/utility/select-person.vue'
 import dataJson from '@/assets/person_data_dev.json'
 import showYear from'@/components/utility/show-year.vue'
+import showSource from '@/components/utility/show-source.vue'
 export default {
   name: 'entityQueryByPerson',
   components:
   {
     selectPerson,
-    showYear
+    showYear,
+    showSource
   },
   data () {
     return {

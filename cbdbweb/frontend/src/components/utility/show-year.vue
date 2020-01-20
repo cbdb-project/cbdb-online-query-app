@@ -51,11 +51,8 @@ export default {
     //isIntc:是否閏年
     data(){
     return {
-        name:'default',
-        id:0,
-        title:this.$t('globalTerm.time'),
-        isIntc:'false'
-    }
+        name:'default'
+        }
     },
     methods:{
         //生成各種詳情 xxx-details-xxx 的id

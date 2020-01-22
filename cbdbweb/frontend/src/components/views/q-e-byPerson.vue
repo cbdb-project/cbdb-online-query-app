@@ -301,7 +301,7 @@
                  <b-collapse :id ="genDetails('other-places',index)">
                    <b-row class = "px-3">  
                      <b-col>               
-                     <span v-for="(p,i) in personInfo.postings[index].pPlace">
+                     <span v-for="(p,i) in personInfo.postings[index].pPlace" :key="i">
                         <span v-if="i!=0">{{p.pNameChn}}<span v-if="p.pNameChn&&p.pName">/ {{p.pName}} </span></span>
                      </span> 
                      </b-col>                 
@@ -455,7 +455,7 @@
                     ></show-year> 
                    </b-col>
                  </b-row>
-                 <show-source :sName="status.sSource" :sNameChn="status.sSourceChn" :sPages="status.ssPages" :sNotes="astatus.sNotes">
+                 <show-source :sName="status.sSource" :sNameChn="status.sSourceChn" :sPages="status.ssPages" :sNotes="status.sNotes">
                  </show-source> 
                </b-card>                              
             </b-tab>                                        

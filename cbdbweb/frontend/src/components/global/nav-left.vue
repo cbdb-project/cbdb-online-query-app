@@ -12,9 +12,9 @@
       </svg>
     </b-nav-item>
       <b-collapse id="collapse-a" class="mb-2" :visible = "true">
-        <b-nav-item exact to = "/q-entity/by-person" exact-active-class="active" v-b-tooltip.hover  :title="$t('navbarLeft.entityQueryByPersonIntro')">{{$t('navbarLeft.entityQueryByPerson')}}</b-nav-item>
-        <b-nav-item exact to = "/q-entity/by-office" exact-active-class="active" v-b-tooltip.hover  :title="$t('navbarLeft.entityQueryByOfficeIntro')">{{$t('navbarLeft.entityQueryByOffice')}}</b-nav-item>
-        <b-nav-item exact to = "/q-entity/by-entry" exact-active-class="active" v-b-tooltip.hover  :title="$t('navbarLeft.entityQueryByEntryIntro')">{{$t('navbarLeft.entityQueryByEntry')}}</b-nav-item>
+        <b-nav-item exact to = "/q-entity/by-person" exact-active-class="active" v-b-tooltip.hover.right  :title="$t('navbarLeft.entityQueryByPersonIntro')">{{$t('navbarLeft.entityQueryByPerson')}}</b-nav-item>
+        <b-nav-item exact to = "/q-entity/by-office" exact-active-class="active" v-b-tooltip.hover.right  :title="$t('navbarLeft.entityQueryByOfficeIntro')">{{$t('navbarLeft.entityQueryByOffice')}}</b-nav-item>
+        <b-nav-item exact to = "/q-entity/by-entry" exact-active-class="active" v-b-tooltip.hover.right  :title="$t('navbarLeft.entityQueryByEntryIntro')">{{$t('navbarLeft.entityQueryByEntry')}}</b-nav-item>
       </b-collapse>
     <b-nav-item> 
       <b-button v-b-toggle.collapse-b variant="link" class = "text-decoration-none" v-on:click="toggleIcon(2)">

@@ -28,13 +28,15 @@ module.exports = {
         statistics:"Statistics"
     },
     selectPerson:{
-        selectButton:"SELECT PERSON"
+        selectButton:"SELECT PERSON",
+        personName:"Person Name"
     },
     selectEntry:{
         selectButton:"SELECT ENTRY"
     },
     selectOffice:{
-        selectButton:"SELECT OFFICE"
+        selectButton:"SELECT OFFICE",
+        officeName:"Office Name"
     },
     selectPlace:{
         selectButton:"SELECT PLACE"
@@ -50,8 +52,8 @@ module.exports = {
         time:"Time",
         place:"Place",
         queryInput:"Query Input",
-        queryConditionOptions:"Query Condition Options",
-        userInput:"User Input",
+        alternativeInput:"Alternative Input",
+        requiredInput:"Required Input",
         resultShow:"Results Show",
         startTime:"Start Time",
         endTime:"End Time",
@@ -88,8 +90,8 @@ module.exports = {
         posessions:"Possesions",
         sequence:"Sequence",
         and:"And",
-        invalidInput:"Your input is invalid, please check."
-
+        invalidInput:"Your input is invalid, please check.",
+        cnOrPy:"In Chinese or Pinyin"
     },
     entityQueryByOffice:{
         officeNameEn:"English Office Name",
@@ -157,10 +159,8 @@ module.exports = {
         }
     },
     entityQueryByEntry:{
-        entryNameEn:"English Entry Name",
-        entryNameCh:"Chinese Entry Name",
-        personNameEn:"English Person Name",
-        personNameCh:"Chinese Person Name",
+        entryYearRange:"Entry Year Range",
+        indexYearRange:"Index Year Range",
         checkAndSearch:"Check And Search",
         checkRemind:"The query is generated as the following. Please check it before your search."
     },

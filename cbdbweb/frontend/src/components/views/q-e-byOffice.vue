@@ -1,110 +1,75 @@
 <template>
 <div class="wrapper">
+  <div class = "mt-3 pt-1 pl-1" style = "text-align:left">
+      <h5>{{$t('navbarLeft.entityQueryByOffice')}}</h5>
+  </div>
   <div class="hello">
-    <b-breadcrumb :items="items" class = "bread-crumb"></b-breadcrumb>
     <b-card header-tag="header" footer-tag="footer">
       <template v-slot:header>
         <h6 class="mb-0">{{$t('globalTerm.queryInput')}}</h6>
       </template>
-      <b-card-text class = "card-item-title">{{$t('globalTerm.queryConditionOptions')}}</b-card-text>             
+      <b-card-text class = "card-item-title">{{$t('globalTerm.requiredInput')}}</b-card-text>             
       <div class = "card-item-body">
-        <b-row>
-          <b-col><select-person
-            @getPersonName="handleGetPerson"></select-person></b-col>
+        <b-row class = "p-3 my-3">
           <b-col><select-place
             @getPlaceName="handleGetPlace"></select-place></b-col>
-          <b-col><select-entry
-            @getEntryName="handleGetEntry"></select-entry></b-col>
-        </b-row>
-        <b-row>
-          <b-col><select-office
-            @getOfficeName="handleGetOffice"></select-office></b-col>
-          <b-col><select-time></select-time></b-col>
-          <b-col><select-relationship></select-relationship></b-col>
         </b-row>
       </div>
-      <b-card-text class = "card-item-title">{{$t('globalTerm.userInput')}}</b-card-text>             
+      <b-card-text class = "card-item-title">{{$t('globalTerm.alternativeInput')}}</b-card-text>             
       <div class  = "card-item-body px-3">
         <b-row class = "px-3 mb-3">
-          <b-col>
-            <label for="office-en-name" class = "user-input-label">{{$t('entityQueryByOffice.officeNameEn')}}:</label>
-            <b-form-input id="office-en-name" v-model="formData.officeEnName" placeholder="Enter your name"></b-form-input>
-            </b-col>
-          <b-col>
-             <label for="office-ch-name" class = "user-input-label">{{$t('entityQueryByOffice.officeNameCh')}}:</label>
-             <b-form-input id="office-ch-name" v-model="formData.officeChName" placeholder="Enter your name"></b-form-input>
-           </b-col>
-        </b-row>
-        <!-- <b-row class = "px-3 mb-3">
-          <b-col>
-            <label for="office-en-type" class = "user-input-label">{{$t('entityQueryByOffice.officeTypeEn')}}:</label>
-            <b-form-input id="office-en-type" v-model="formData.officeEnType" placeholder="Enter your name"></b-form-input>
-            </b-col>
-          <b-col>
-             <label for="office-ch-type" class = "user-input-label">{{$t('entityQueryByOffice.officeTypeCh')}}:</label>
-             <b-form-input id="office-ch-type" v-model="formData.officeChType" placeholder="Enter your name"></b-form-input>
-           </b-col>
-        </b-row> -->
-        <b-row class = "px-3 mb-3">
-          <b-col>
-            <label for="office-en-place" class = "user-input-label">{{$t('entityQueryByOffice.officePlaceEn')}}:</label>
-            <b-form-input id="office-en-place" v-model="formData.officeEnPlace" placeholder="Enter your name"></b-form-input>
-            </b-col>
-          <b-col>
-             <label for="office-ch-place" class = "user-input-label">{{$t('entityQueryByOffice.officePlaceCh')}}:</label>
-             <b-form-input id="office-ch-place" v-model="formData.officeChPlace" placeholder="Enter your name"></b-form-input>
-           </b-col>
-        </b-row>
-        <!-- <b-row class = "px-3 mb-3">
-          <b-col>
-            <label for="person-en-place" class = "user-input-label">{{$t('entityQueryByOffice.personPlaceEn')}}:</label>
-            <b-form-input id="person-en-place" v-model="formData.personEnPlace" placeholder="Enter your name"></b-form-input>
-            </b-col>
-          <b-col>
-             <label for="person-ch-place" class = "user-input-label">{{$t('entityQueryByOffice.personPlaceCh')}}:</label>
-             <b-form-input id="person-ch-place" v-model="formData.personChPlace" placeholder="Enter your name"></b-form-input>
-           </b-col>
-        </b-row> -->
-        <b-row class = "px-3 mb-3">
-          <b-col>
-            <label for="start-time" class = "user-input-label">{{$t('globalTerm.startTime')}}:</label>
-            <b-form-input id="start-time" v-model="formData.startTime" placeholder="" 
-              :state="validation('startTime')"></b-form-input>
-              <b-form-invalid-feedback :state="validation('startTime')">
-                Invalid year 
-              </b-form-invalid-feedback>
-            </b-col>
-          <b-col>
-             <label for="end-time" class = "user-input-label">{{$t('globalTerm.endTime')}}:</label>
-             <b-form-input id="end-time" v-model="formData.endTime" placeholder="" :state="validation('endTime')"></b-form-input>
-              <b-form-invalid-feedback :state="validation('endTime')">
-                Invalid year 
-              </b-form-invalid-feedback>
-           </b-col>
            <b-col>
-            <b-form-checkbox id="checkbox-1" v-model= "formData.indexYear" name="checkbox-1"
-              value="t" unchecked-value="f" style = "margin:38px 0;text-align:left">
-                {{$t('globalTerm.isIndexYear')}}
+            <b-form-checkbox id="checkbox-2" v-model= "formData.indexYear" name="checkbox-2"
+              value="t" unchecked-value="f" style = "margin:38px 0;text-align:right">
+              {{$t('entityQueryByEntry.indexYearRange')}}
             </b-form-checkbox>
            </b-col>
-           <b-col></b-col>
+          <b-col>
+            <label for="index-start-time" class = "user-input-label">{{$t('globalTerm.startTime')}}:</label>
+            <b-form-input id="index-start-time" v-model="formData.startTime" placeholder="" 
+              :state="validation('indexStartTime')" :disabled="formData.indexYear==='f'?true:false"></b-form-input>
+              <b-form-invalid-feedback :state="validation('indexStartTime')">
+                Invalid year 
+              </b-form-invalid-feedback>
+            </b-col>
+          <b-col>
+             <label for="index-end-time" class = "user-input-label">{{$t('globalTerm.endTime')}}:</label>
+             <b-form-input id="index-end-time" v-model="formData.endTime" placeholder="" 
+             :state="validation('indexEndTime')" :disabled="formData.indexYear==='f'?true:false"></b-form-input>
+              <b-form-invalid-feedback :state="validation('indexEndTime')">
+                Invalid year 
+              </b-form-invalid-feedback>
+           </b-col>
+           <b-col cols="3"></b-col>
         </b-row>
       </div>
       <b-card-text class = "card-item-title">{{$t('entityQueryByOffice.checkAndSearch')}}</b-card-text>
       <b-row class = "px-3 mb-3">
         <b-col cols="10">
-          <b-alert show variant="warning" style = "width:66%" class = "px-3 py-2 mb-2">{{$t('entityQueryByOffice.checkRemind')}}</b-alert>
-          <b-form-textarea
-                id="advanced-search"
-                v-model= "queryFormular"
-                placeholder=""
-                rows="3"
-                max-rows="6"
-                disabled
-              ></b-form-textarea>
+          <!--
+            <b-alert show variant="warning" style = "width:66%" class = "px-3 py-2 mb-2">{{$t('entityQueryByOffice.checkRemind')}}</b-alert>
+          -->
+          <b-card>
+            <b-row class = "py-3">
+              <b-col>
+                {{$t('entityQueryByPerson.personId')}}: <b>{{formData.personId}}</b>
+              </b-col>
+              <b-col>
+                {{$t('entityQueryByPerson.personNameCh')}}:  <b>{{formData.personNameCh}}</b>
+              </b-col>
+            </b-row>
+            <b-row class = "py-3">
+              <b-col>
+                {{$t('entityQueryByPerson.personIndexYear')}}: <b>{{formData.personIndexYear}}</b>          
+              </b-col>
+              <b-col>
+                  {{$t('entityQueryByPerson.personNameEn')}}: <b>{{formData.personNameEn}}</b>
+              </b-col>
+            </b-row>  
+          </b-card>   
         </b-col>
-        <b-col cols="2">
-            <b-button href="#" variant="primary" style = "width:100%;margin-top:70px" :disabled="isInvalid" @click="testData">Go</b-button>
+        <b-col cols="2" class = "p-3">
+            <b-button href="#" variant="primary" style = "width:100%;margin-top:38px" :disabled="isInvalid">Go</b-button>
         </b-col>
       </b-row>    
       <!--
@@ -160,21 +125,7 @@ export default {
         startTime:'',
         endTime:'',
         indexYear:'f'
-      },
-      items: [
-          {
-            text: 'Admin',
-            href: '#'
-          },
-          {
-            text: 'Manage',
-            href: '#'
-          },
-          {
-            text: 'Library',
-            active: true
-          }
-      ]
+      }
     }
   },
   methods:{

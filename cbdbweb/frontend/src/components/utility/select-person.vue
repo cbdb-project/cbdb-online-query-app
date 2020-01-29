@@ -11,11 +11,8 @@
             <b-row>
                 <b-col :cols = 4 style = "text-align:right">
                   <b-card>
-                    <b-form-group label-cols="4" label="Person English Name" label-for="select-person-input-en-name">
-                        <b-form-input id="select-person-input-en-name"></b-form-input>
-                    </b-form-group>
-                    <b-form-group label-cols="4" label="人物姓名-中文" label-for="select-person-input-ch-name">
-                        <b-form-input id="select-person-input-ch-name"></b-form-input>
+                    <b-form-group label-cols="4" :label="$t('selectPerson.personName')" label-for="select-person-input-name">
+                        <b-form-input id="select-person-input-name" :placeholder="$t('globalTerm.cnOrPy')"></b-form-input>
                     </b-form-group>
                     <b-form-group>
                       <b-button variant="primary">Search</b-button>
@@ -30,7 +27,7 @@
                         head-variant="light" 
                         ref="selectableTable"
                         selectable
-                        select-mode="multi"
+                        :select-mode="selectMode"
                         @row-selected="onRowSelected"
                         responsive="sm">
                         <template v-slot:cell(selected)="{ rowSelected }">
@@ -61,6 +58,7 @@
 <script>
 export default {
   name:'selectPerson',
+  props:['selectMode'],
   data () {
     return {
       show:false,

@@ -11,10 +11,7 @@
             <b-row>
                 <b-col :cols = 4 style = "text-align:right">
                   <b-card>
-                    <b-form-group label-cols="4" label="Office English Name" label-for="select-office-input-en-name">
-                        <b-form-input id="select-office-input-en-name"></b-form-input>
-                    </b-form-group>
-                    <b-form-group label-cols="4" label="官职名-中文" label-for="select-office-input-ch-name">
+                    <b-form-group label-cols="4" :label="$t('selectOffice.officeName')" label-for="select-office-input-ch-name">
                         <b-form-input id="select-office-input-ch-name"></b-form-input>
                     </b-form-group>
                     <b-form-group>

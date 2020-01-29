@@ -31,13 +31,15 @@ module.exports = {
         statistics:"統計分析"
     },
     selectPerson:{
-        selectButton:"選取人物"
+        selectButton:"選取人物",
+        personName:"人物姓名"
     },
     selectEntry:{
         selectButton:"選取入仕途徑"
     },
     selectOffice:{
-        selectButton:"選取官職"
+        selectButton:"選取官職",
+        officeName:"官職名"
     },
     selectPlace:{
         selectButton:"選取地點"
@@ -53,8 +55,8 @@ module.exports = {
         time:"時間",
         place:"地點",
         queryInput:"查詢式輸入",
-        queryConditionOptions:"條件選取",
-        userInput:"用戶輸入",
+        alternativeInput:"可選條件",
+        requiredInput:"必選條件",
         resultShow:"結果展現",
         startTime:"開始時間",
         endTime:"結束時間",
@@ -91,7 +93,8 @@ module.exports = {
         posessions:"財產",
         sequence:"次序",  
         and:"和其他",
-        invalidInput:"您的輸入不符合檢索要求，請檢查"   
+        invalidInput:"您的輸入不符合檢索要求，請檢查",
+        cnOrPy:"可輸入漢字或拼音"   
     },
     entityQueryByOffice:{
         officeNameEn:"官職名-英文",
@@ -159,10 +162,8 @@ module.exports = {
         }
     },
     entityQueryByEntry:{
-        entryNameEn:"入仕途徑-英文",
-        entryNameCh:"入仕途徑-中文",
-        personNameEn:"人名-英文",
-        personNameCh:"人名-中文",
+        entryYearRange:"入仕年範圍",
+        indexYearRange:"指數年範圍",
         checkAndSearch:"檢索式確認",
         checkRemind:"茲生成查詢式如下，請於檢索前核查確認"
     },

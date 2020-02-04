@@ -54,6 +54,8 @@ module.exports = {
         //全局術語
         time:"時間",
         place:"地點",
+        person:"人物",
+        office:"官職",
         queryInput:"查詢式輸入",
         alternativeInput:"可選條件",
         requiredInput:"必選條件",
@@ -94,7 +96,8 @@ module.exports = {
         sequence:"次序",  
         and:"和其他",
         invalidInput:"您的輸入不符合檢索要求，請檢查",
-        cnOrPy:"可輸入漢字或拼音"   
+        cnOrPy:"可輸入漢字或拼音",
+        selectFromDb:"從數據庫選取"   
     },
     entityQueryByOffice:{
         officeNameEn:"官職名-英文",

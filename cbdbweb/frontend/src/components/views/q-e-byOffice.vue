@@ -11,8 +11,20 @@
       <b-card-text class = "card-item-title">{{$t('globalTerm.requiredInput')}}</b-card-text>             
       <div class = "card-item-body">
         <b-row class = "p-3 my-3">
-          <b-col><select-place
-            @getPlaceName="handleGetPlace"></select-place></b-col>
+          <b-col cols="8" style = "text-align:left">
+            <b-card-text class = "card-item-title">{{$t('globalTerm.office')}}</b-card-text>    
+            <b-card>
+              <b-row class="pl-3" style = "text-align:center">
+                <b-col>未選擇</b-col>
+              </b-row> 
+            </b-card>   
+          </b-col>
+          <b-col cols="2">
+            <select-office @getPlaceName="handleGetOffice" style = "margin-top:48px"></select-office>
+          </b-col>
+          <b-col cols="2">
+            <select-office @getPlaceName="handleGetOffice" style = "margin-top:48px"></select-office>
+          </b-col>
         </b-row>
       </div>
       <b-card-text class = "card-item-title">{{$t('globalTerm.alternativeInput')}}</b-card-text>             
@@ -43,34 +55,12 @@
            <b-col cols="3"></b-col>
         </b-row>
       </div>
-      <b-card-text class = "card-item-title">{{$t('entityQueryByOffice.checkAndSearch')}}</b-card-text>
       <b-row class = "px-3 mb-3">
-        <b-col cols="10">
-          <!--
-            <b-alert show variant="warning" style = "width:66%" class = "px-3 py-2 mb-2">{{$t('entityQueryByOffice.checkRemind')}}</b-alert>
-          -->
-          <b-card>
-            <b-row class = "py-3">
-              <b-col>
-                {{$t('entityQueryByPerson.personId')}}: <b>{{formData.personId}}</b>
-              </b-col>
-              <b-col>
-                {{$t('entityQueryByPerson.personNameCh')}}:  <b>{{formData.personNameCh}}</b>
-              </b-col>
-            </b-row>
-            <b-row class = "py-3">
-              <b-col>
-                {{$t('entityQueryByPerson.personIndexYear')}}: <b>{{formData.personIndexYear}}</b>          
-              </b-col>
-              <b-col>
-                  {{$t('entityQueryByPerson.personNameEn')}}: <b>{{formData.personNameEn}}</b>
-              </b-col>
-            </b-row>  
-          </b-card>   
-        </b-col>
-        <b-col cols="2" class = "p-3">
+        <b-col></b-col>
+        <b-col class = "p-3">
             <b-button href="#" variant="primary" style = "width:100%;margin-top:38px" :disabled="isInvalid">Go</b-button>
         </b-col>
+        <b-col></b-col>
       </b-row>    
       <!--
       <template v-slot:footer>
@@ -92,23 +82,12 @@
 
 <script>
 import queryResult from '@/components/utility/query-result.vue'
-import selectPerson from '@/components/utility/select-person.vue'
-import selectEntry from '@/components/utility/select-entry.vue'
 import selectOffice from '@/components/utility/select-office.vue'
-import selectTime from '@/components/utility/select-time.vue'
-import selectPlace from '@/components/utility/select-place.vue'
-import selectRelationship from '@/components/utility/select-relationship.vue'
 export default {
   name: 'entityQueryByOffice',
   components:
   {
-      queryResult,
-      selectPerson,
-      selectEntry,
       selectOffice,
-      selectTime,
-      selectPlace,
-      selectRelationship
   },
   data () {
     return {

@@ -132,7 +132,7 @@ export default {
 
 <style scoped>
 .query-condition-button{
-  width:224px;
+  width:128px;
   margin:6px 0;
 }
 </style>

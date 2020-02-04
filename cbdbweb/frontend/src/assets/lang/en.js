@@ -51,6 +51,8 @@ module.exports = {
         //全局術語
         time:"Time",
         place:"Place",
+        person:"Person",
+        office:"Office",
         queryInput:"Query Input",
         alternativeInput:"Alternative Input",
         requiredInput:"Required Input",
@@ -91,7 +93,8 @@ module.exports = {
         sequence:"Sequence",
         and:"And",
         invalidInput:"Your input is invalid, please check.",
-        cnOrPy:"In Chinese or Pinyin"
+        cnOrPy:"In Chinese or Pinyin",
+        selectFromDb:"SELECT FROM DATABASE"
     },
     entityQueryByOffice:{
         officeNameEn:"English Office Name",

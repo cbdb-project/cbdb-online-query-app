@@ -11,47 +11,44 @@
       <b-card-text class = "card-item-title">{{$t('globalTerm.requiredInput')}}</b-card-text>             
       <div class  = "card-item-body px-3">
         <b-row class = "p-3 my-3">
-            <b-col>
-            <select-person @getPersonName="handleGetPerson" selectMode='single'>
+          <b-col cols="10" style = "text-align:left">
+            <b-card-text class = "card-item-title">{{$t('globalTerm.person')}}</b-card-text>    
+            <b-card>
+              <b-row>
+                <b-col>
+                  {{$t('entityQueryByPerson.personId')}}: <b>{{formData.personId}}</b>
+                </b-col>
+                <b-col>
+                  {{$t('entityQueryByPerson.personNameCh')}}:  <b>{{formData.personNameCh}}</b>
+                </b-col>
+                <b-col>
+                    {{$t('entityQueryByPerson.personNameEn')}}: <b>{{formData.personNameEn}}</b>
+                </b-col>
+              </b-row>
+            </b-card>
+          </b-col>
+          <b-col cols="2">
+            <select-person @getPersonName="handleGetPerson" selectMode='single' style="margin-top:56px">
             </select-person>
-            </b-col>
+          </b-col>
         </b-row>
       </div>
-      <b-card-text class = "card-item-title">{{$t('entityQueryByPerson.checkAndSearch')}}</b-card-text>
       <!--
       <b-alert show variant="warning"  class = "px-3 py-2 mx-3" style = "width:66%">{{$t('entityQueryByPerson.checkRemind')}}</b-alert>
       -->
       <b-row class = "px-3 mb-3">
-        <b-col cols="10">
-          <b-card>
-            <b-row class = "py-3">
-              <b-col>
-                {{$t('entityQueryByPerson.personId')}}: <b>{{formData.personId}}</b>
-              </b-col>
-              <b-col>
-                {{$t('entityQueryByPerson.personNameCh')}}:  <b>{{formData.personNameCh}}</b>
-              </b-col>
-            </b-row>
-            <b-row class = "py-3">
-              <b-col>
-                {{$t('entityQueryByPerson.personIndexYear')}}: <b>{{formData.personIndexYear}}</b>          
-              </b-col>
-              <b-col>
-                  {{$t('entityQueryByPerson.personNameEn')}}: <b>{{formData.personNameEn}}</b>
-              </b-col>
-            </b-row>  
-          </b-card>
-        </b-col>
-        <b-col cols="2" class = "p-3">
+        <b-col></b-col>
+        <b-col class = "p-3">
           <a v-b-tooltip.hover  :title="isInvalid?$t('globalTerm.invalidInput'):''">
             <b-button href="#" variant="primary" 
-              style = "width:100%;margin-top:38px" :disabled="isInvalid||isBusy"
+              style = "width:100%;margin-top:16px" :disabled="isInvalid||isBusy"
               @click="handleSubmit">
               <span v-if="!isBusy">Go</span>
               <b-spinner small v-if="isBusy"></b-spinner>
             </b-button>
           </a>
         </b-col>
+        <b-col></b-col>
       </b-row>    
       <!--
       <template v-slot:footer>
@@ -471,6 +468,7 @@
 
 <script>
 import selectPerson from '@/components/utility/select-person.vue'
+//開發用的假數據
 import dataJson from '@/assets/person_data_dev.json'
 import showYear from'@/components/utility/show-year.vue'
 import showSource from '@/components/utility/show-source.vue'

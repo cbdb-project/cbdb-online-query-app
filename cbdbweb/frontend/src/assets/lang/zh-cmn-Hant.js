@@ -173,5 +173,9 @@ module.exports = {
         placeNameCh:"地名-中文",
         checkAndSearch:"檢索式確認",
         checkRemind:"茲生成查詢式如下，請於檢索前核查確認"
+    },
+    visualization:{
+        selectFromSystem:"系统导入",
+        localUpload:"本地上传",
     }
 }

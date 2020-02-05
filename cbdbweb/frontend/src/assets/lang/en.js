@@ -170,5 +170,10 @@ module.exports = {
         placeNameCh:"Chinese Place Name",
         checkAndSearch:"Check And Search",
         checkRemind:"The query is generated as the following. Please check it before your search."
+    },
+    visualization:{
+        selectFromSystem:"Select from Accociation Query Result",
+        localUpload:"Local Upload",
+
     }
 }

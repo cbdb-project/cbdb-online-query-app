@@ -25,6 +25,9 @@ module.exports = {
         relationQueryBySocialNetwork:"Social Network",
         relationQueryTwoPerson:"Two Persons Relation",
         visualization:"Visualization",
+        visualizationBySNA:"SNA Visualization",
+        visualizationByGIS:"GIS Visualization",
+        visualizationByGraphs:"Graphs Visualization",
         statistics:"Statistics"
     },
     selectPerson:{

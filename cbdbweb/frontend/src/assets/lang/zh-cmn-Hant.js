@@ -27,7 +27,10 @@ module.exports = {
         relationQueryByAssociation:"通過社會關係查詢",
         relationQueryBySocialNetwork:"查詢關係網絡",
         relationQueryTwoPerson:"查詢兩人關係",
-        visualization:"可視化分析",
+        visualization:"可视化",
+        visualizationBySNA:"网络关系可视化",
+        visualizationByGIS:"地理可视化",
+        visualizationByGraphs:"图表可视化",
         statistics:"統計分析"
     },
     selectPerson:{

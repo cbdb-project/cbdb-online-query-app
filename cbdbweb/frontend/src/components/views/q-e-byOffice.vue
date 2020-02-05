@@ -19,10 +19,7 @@
               </b-row> 
             </b-card>   
           </b-col>
-          <b-col cols="2">
-            <select-office @getPlaceName="handleGetOffice" style = "margin-top:48px"></select-office>
-          </b-col>
-          <b-col cols="2">
+          <b-col cols="4" style = "text-align:left">
             <select-office @getPlaceName="handleGetOffice" style = "margin-top:48px"></select-office>
           </b-col>
         </b-row>
@@ -30,12 +27,14 @@
       <b-card-text class = "card-item-title">{{$t('globalTerm.alternativeInput')}}</b-card-text>             
       <div class  = "card-item-body px-3">
         <b-row class = "px-3 mb-3">
-           <b-col>
+          <b-card-text class = "card-item-title mt-3">
             <b-form-checkbox id="checkbox-2" v-model= "formData.indexYear" name="checkbox-2"
-              value="t" unchecked-value="f" style = "margin:38px 0;text-align:right">
-              {{$t('entityQueryByEntry.indexYearRange')}}
-            </b-form-checkbox>
-           </b-col>
+              value="t" unchecked-value="f">
+              {{$t('entityQueryByOffice.indexYearRange')}}
+            </b-form-checkbox>  
+          </b-card-text> 
+        </b-row>
+        <b-row class = "px-3 mb-3"  v-if="formData.indexYear==='t'">
           <b-col>
             <label for="index-start-time" class = "user-input-label">{{$t('globalTerm.startTime')}}:</label>
             <b-form-input id="index-start-time" v-model="formData.startTime" placeholder="" 
@@ -52,7 +51,7 @@
                 Invalid year 
               </b-form-invalid-feedback>
            </b-col>
-           <b-col cols="3"></b-col>
+           <b-col cols="4"></b-col>
         </b-row>
       </div>
       <b-row class = "px-3 mb-3">

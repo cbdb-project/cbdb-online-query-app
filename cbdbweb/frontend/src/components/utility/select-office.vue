@@ -1,7 +1,13 @@
 <template>
     <div>
-        <b-button pill variant="outline-primary"  v-b-modal.select-office-table
-            class = "query-condition-button" size="sm">{{$t('selectOffice.selectButton')}}</b-button>
+      <b-button-group>
+        <b-button v-if="selectFromDb"  variant="outline-primary"  v-b-modal.select-office-table
+            class = "query-condition-button" size="sm">{{$t('globalTerm.selectFromDb')}}
+        </b-button>
+        <b-button v-if="importList"  variant="outline-primary"  
+            class = "query-condition-button" size="sm">{{$t('selectOffice.selectButton')}}
+        </b-button>
+      </b-button-group>
         <b-modal 
           id="select-office-table" 
           title="Select Office from Database" 
@@ -65,6 +71,14 @@ import dataJson from '../views/officeData.json'
 import treeTable from '../treeTable/tree-table.vue'
 export default {
     name:'selectOffice',
+    props:{
+      'selectFromDb':{
+        default:true
+      },
+      'importList':{
+        default:true
+      }
+    },
     data() {
         return {
           show:false,

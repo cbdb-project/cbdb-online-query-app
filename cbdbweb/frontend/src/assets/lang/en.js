@@ -56,6 +56,7 @@ module.exports = {
         place:"Place",
         person:"Person",
         office:"Office",
+        entry:"Entry",
         queryInput:"Query Input",
         alternativeInput:"Alternative Input",
         requiredInput:"Required Input",
@@ -79,7 +80,6 @@ module.exports = {
         intercalary:"(Intercalary)",
         source:"Source",
         pages:"Pages",
-        place:"Place",
         details:"Details",
         before:"Before",
         after:"After",
@@ -100,14 +100,7 @@ module.exports = {
         selectFromDb:"SELECT FROM DATABASE"
     },
     entityQueryByOffice:{
-        officeNameEn:"English Office Name",
-        officeNameCh:"Chinese Office Name",
-        officeTypeEn:"English Office Type ",
-        officeTypeCh:"Chinese Office Type",
-        officePlaceEn:"English Office Place",
-        officePlaceCh:"Chinese Office Place",
-        personPlaceEn:"English Person Place",
-        personPlaceCh:"Chinese Person Place",
+        indexYearRange:"Index Year Range",
         checkAndSearch:"Check And Search",
         checkRemind:"The query is generated as the following. Please check it before your search."
     },

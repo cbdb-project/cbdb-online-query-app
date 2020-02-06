@@ -69,6 +69,7 @@ module.exports = {
         indexYear:"Index Year",
         gen:"Gender",
         personId:"Person ID",
+        mCircle:"Mourning Circle",
         notes:"Notes",
         fromYear:"From",
         toYear:"To",
@@ -170,6 +171,12 @@ module.exports = {
         placeNameCh:"Chinese Place Name",
         checkAndSearch:"Check And Search",
         checkRemind:"The query is generated as the following. Please check it before your search."
+    },
+    relationQueryByKinship:{
+        maxAncestorGen:"Max Ancestor Gen",
+        maxDescendGen:"Max Descend Gen",
+        maxCollaternalLinks:"Max Collaternal Links",
+        maxMarriageLinks:"Max Marriage Links"
     },
     visualization:{
         selectFromSystem:"Select from Accociation Query Result",

@@ -20,7 +20,7 @@
             </b-card>   
           </b-col>
           <b-col cols="4" style = "text-align:left" >
-            <select-place @getPlaceName="handleGetPlace" style = "margin-top:48px"></select-place>
+            <select-place @getPlaceName="handleGetPlace" style = "margin-top:46px"></select-place>
           </b-col>
         </b-row>
         <b-row class = "p-3 my-3">
@@ -33,7 +33,7 @@
             </b-card>   
           </b-col>
           <b-col  cols="4" style = "text-align:left">
-            <select-entry @getEntryName="handleGetEntry" style = "margin-top:48px"></select-entry>
+            <select-entry @getEntryName="handleGetEntry" style = "margin-top:46px"></select-entry>
           </b-col>
         </b-row>
       </div>           
@@ -42,9 +42,9 @@
          <!-- 入仕年范围 -->
         <b-row class = "px-3 mb-3">
           <b-card-text class = "card-item-title mt-3">
-            <b-form-checkbox id="checkbox-1" v-model= "formData.entryYear" name="checkbox-1"
+            <b-form-checkbox switch size="lg" id="checkbox-1" v-model= "formData.entryYear" name="checkbox-1"
               value="t" unchecked-value="f">
-                {{$t('entityQueryByEntry.entryYearRange')}}
+                <span style="font-size:16px">{{$t('entityQueryByEntry.entryYearRange')}}</span>
             </b-form-checkbox>
           </b-card-text> 
         </b-row>
@@ -70,9 +70,9 @@
         <!-- 指数年范围 -->
         <b-row class = "px-3 mb-3">
           <b-card-text class = "card-item-title mt-3">
-            <b-form-checkbox id="checkbox-2" v-model= "formData.indexYear" name="checkbox-2"
+            <b-form-checkbox switch size="lg" id="checkbox-2" v-model= "formData.indexYear" name="checkbox-2"
               value="t" unchecked-value="f">
-              {{$t('entityQueryByOffice.indexYearRange')}}
+              <span style="font-size:16px">{{$t('entityQueryByOffice.indexYearRange')}}</span>
             </b-form-checkbox>  
           </b-card-text> 
         </b-row>
@@ -123,23 +123,15 @@
 
 <script>
 import queryResult from '@/components/utility/query-result.vue'
-import selectPerson from '@/components/utility/select-person.vue'
 import selectEntry from '@/components/utility/select-entry.vue'
-import selectOffice from '@/components/utility/select-office.vue'
-import selectTime from '@/components/utility/select-time.vue'
 import selectPlace from '@/components/utility/select-place.vue'
-import selectRelationship from '@/components/utility/select-relationship.vue'
 export default {
   name: 'entityQueryByPerson',
   components:
   {
       queryResult,
-      selectPerson,
       selectEntry,
-      selectOffice,
-      selectTime,
       selectPlace,
-      selectRelationship
   },
   data () {
     return {

@@ -72,6 +72,7 @@ module.exports = {
         indexYear:"指數年",
         gen:"性別",
         personId:"人物代碼",
+        mCircle:"五服",
         notes:"注",
         fromYear:"始年",
         toYear:"終年",
@@ -173,6 +174,12 @@ module.exports = {
         placeNameCh:"地名-中文",
         checkAndSearch:"檢索式確認",
         checkRemind:"茲生成查詢式如下，請於檢索前核查確認"
+    },
+    relationQueryByKinship:{
+        maxAncestorGen:"最大祖先距離(代)",
+        maxDescendGen:"最大後代距離(代)",
+        maxCollaternalLinks:"最大同輩距離(代)",
+        maxMarriageLinks:"最大姻屬距離(代)"
     },
     visualization:{
         selectFromSystem:"系统导入",

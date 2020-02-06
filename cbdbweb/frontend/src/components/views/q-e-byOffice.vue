@@ -20,7 +20,7 @@
             </b-card>   
           </b-col>
           <b-col cols="4" style = "text-align:left">
-            <select-office @getPlaceName="handleGetOffice" style = "margin-top:48px"></select-office>
+            <select-office @getPlaceName="handleGetOffice" style = "margin-top:46px"></select-office>
           </b-col>
         </b-row>
       </div>
@@ -28,9 +28,9 @@
       <div class  = "card-item-body px-3">
         <b-row class = "px-3 mb-3">
           <b-card-text class = "card-item-title mt-3">
-            <b-form-checkbox id="checkbox-2" v-model= "formData.indexYear" name="checkbox-2"
+            <b-form-checkbox switch size="lg" id="checkbox-2" v-model= "formData.indexYear" name="checkbox-2"
               value="t" unchecked-value="f">
-              {{$t('entityQueryByOffice.indexYearRange')}}
+              <span style="font-size:16px">{{$t('entityQueryByOffice.indexYearRange')}}</span>
             </b-form-checkbox>  
           </b-card-text> 
         </b-row>
@@ -86,6 +86,7 @@ export default {
   name: 'entityQueryByOffice',
   components:
   {
+      queryResult,
       selectOffice,
   },
   data () {

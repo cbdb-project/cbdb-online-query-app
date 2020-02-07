@@ -19,7 +19,7 @@
               </b-row>
             </b-card>
           </b-col>
-          <b-col cols="4">
+          <b-col cols="4" style = "text-align:left">
             <select-person @getPersonName="handleGetPerson" selectMode='single' style="margin-top:46px">
             </select-person>
           </b-col>
@@ -62,10 +62,20 @@
              <b-form-input id="max-marriage-links" v-model="formData.endTime" placeholder="" 
              :state="validation('indexEndTime')" :disabled="formData.indexYear==='f'?true:false"></b-form-input>
               <b-form-invalid-feedback :state="validation('indexEndTime')">
-                Invalid year 
+                Invalid number 
               </b-form-invalid-feedback>
            </b-col>
-           <b-col cols="4"></b-col>
+           <b-col>
+             <label for="max-loop" class = "user-input-label">{{$t('relationQueryByKinship.maxLoop')}}:
+               <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+              </label>
+             <b-form-input id="max-loop" v-model="formData.endTime" placeholder="" 
+             :state="validation('indexEndTime')" :disabled="formData.indexYear==='f'?true:false"></b-form-input>
+              <b-form-invalid-feedback :state="validation('indexEndTime')">
+                Invalid number
+              </b-form-invalid-feedback>
+           </b-col>
+           <b-col cols="2"></b-col>
         </b-row>
       </div>
       <!--
@@ -87,13 +97,13 @@
       </b-row>    
     </b-card>
   </div>
-    <div class="hello" v-if="Object.keys(this.personInfo).length!= 0">
+  <div class="hello">
     <b-card header-tag="header" footer-tag="footer">
-        <template v-slot:header>
-            <h6 class="mb-0">{{$t('globalTerm.resultShow')}}</h6>
-        </template>
+      <template v-slot:header>
+          <h6 class="mb-0">{{$t('globalTerm.resultShow')}}</h6>
+      </template>
       <query-result></query-result>
-    </b-card>   
+    </b-card>
   </div>
 </div>
 </template>
@@ -103,16 +113,12 @@ import queryResult from '@/components/utility/query-result.vue'
 import selectPerson from '@/components/utility/select-person.vue'
 //開發用的假數據
 import dataJson from '@/assets/person_data_dev.json'
-import showYear from'@/components/utility/show-year.vue'
-import showSource from '@/components/utility/show-source.vue'
 export default {
   name: 'relationQueryByKinship',
   components:
   {
     queryResult,
     selectPerson,
-    showYear,
-    showSource
   },
   data () {
     return {
@@ -222,6 +228,9 @@ export default {
     isInvalid(){
       return this.isNull('personId')==true
     }
+  },
+  watch:{
+
   }
 }
 </script>

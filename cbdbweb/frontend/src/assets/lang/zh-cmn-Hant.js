@@ -48,6 +48,7 @@ module.exports = {
         selectButton:"選取地點"
     },
     selectRelationship:{
+        association:"社會關係名",
         selectButton:"選取關係"
     },
     selectTime:{
@@ -60,6 +61,7 @@ module.exports = {
         person:"人物",
         office:"官職",
         entry:"入仕途徑",
+        association:"社會關係",
         queryInput:"查詢式輸入",
         alternativeInput:"可選條件",
         requiredInput:"必選條件",
@@ -176,10 +178,11 @@ module.exports = {
         checkRemind:"茲生成查詢式如下，請於檢索前核查確認"
     },
     relationQueryByKinship:{
-        maxAncestorGen:"最大祖先距離(代)",
-        maxDescendGen:"最大後代距離(代)",
+        maxAncestorGen:     "最大祖先距離(代)",
+        maxDescendGen:      "最大後代距離(代)",
         maxCollaternalLinks:"最大同輩距離(代)",
-        maxMarriageLinks:"最大姻屬距離(代)"
+        maxMarriageLinks:   "最大姻親距離(代)",
+        maxLoop:            "最大循环次数"
     },
     visualization:{
         selectFromSystem:"系统导入",

@@ -45,6 +45,7 @@ module.exports = {
         selectButton:"SELECT PLACE"
     },
     selectRelationship:{
+        association:"Association Name",
         selectButton:"SELECT RELATIONSHIP"
     },
     selectTime:{
@@ -57,6 +58,7 @@ module.exports = {
         person:"Person",
         office:"Office",
         entry:"Entry",
+        association:"association",
         queryInput:"Query Input",
         alternativeInput:"Alternative Input",
         requiredInput:"Required Input",
@@ -173,10 +175,11 @@ module.exports = {
         checkRemind:"The query is generated as the following. Please check it before your search."
     },
     relationQueryByKinship:{
-        maxAncestorGen:"Max Ancestor Gen",
-        maxDescendGen:"Max Descend Gen",
+        maxAncestorGen:     "Max Ancestor Gen.",
+        maxDescendGen:      "Max Descend Gen.",
         maxCollaternalLinks:"Max Collaternal Links",
-        maxMarriageLinks:"Max Marriage Links"
+        maxMarriageLinks:   "Max Marriage Links",
+        maxLoop:            "Max Loop"
     },
     visualization:{
         selectFromSystem:"Select from Accociation Query Result",

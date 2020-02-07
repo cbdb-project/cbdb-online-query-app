@@ -5,7 +5,7 @@ import entityQueryByPerson from '@/components/views/q-e-byPerson'
 import entityQueryByEntry from '@/components/views/q-e-byEntry'
 import entityQueryByOffice from '@/components/views/q-e-byOffice'
 import relationQueryByKinship from '@/components/views/q-r-byKinship'
-//import relationQueryByAssociation from '@/components/views/q-r-byAssociation'
+import relationQueryByAssociation from '@/components/views/q-r-byAssociation'
 import relationQueryBySocialNetwork from '@/components/views/q-r-bySocialNetwork'
 //import relationQueryTwoPerson from '@/components/views/q-r-byTwoPerson'
 import visualizationBySNA from '@/components/views/vis-bySNA'
@@ -49,13 +49,12 @@ export default new Router({
       name: 'Relation Query: By Kinship',
       component: relationQueryByKinship
     },
-   /* 
+   
     {
       path: '/q-relation/association',
       name: 'Relation Query: By Association',
       component: relationQueryByAssociation
     },
-     */
     {
       path: '/q-relation/by-social-network',
       name: 'Relation Query: By Socialnetwork',

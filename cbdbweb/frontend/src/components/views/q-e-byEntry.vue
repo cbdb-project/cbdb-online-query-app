@@ -9,8 +9,8 @@
         <h6 class="mb-0">{{$t('globalTerm.queryInput')}}</h6>
       </template>
       <b-card-text class = "card-item-title">{{$t('globalTerm.requiredInput')}}</b-card-text>             
-      <div class = "card-item-body">
-        <b-row class = "p-3 my-3">
+      <div class = "card-item-body px-3">
+        <b-row class = "py-3 my-3">
           <b-col cols="8" style = "text-align:left">
             <b-card-text class = "card-item-title">{{$t('globalTerm.place')}}</b-card-text>    
             <b-card>
@@ -23,7 +23,7 @@
             <select-place @getPlaceName="handleGetPlace" style = "margin-top:46px"></select-place>
           </b-col>
         </b-row>
-        <b-row class = "p-3 my-3">
+        <b-row class = "py-3 my-3">
           <b-col cols="8" style = "text-align:left">
             <b-card-text class = "card-item-title">{{$t('globalTerm.entry')}}</b-card-text>    
             <b-card>
@@ -37,7 +37,7 @@
           </b-col>
         </b-row>
       </div>           
-      <b-card-text class = "card-item-title">{{$t('globalTerm.alternativeInput')}}</b-card-text>          
+      <b-card-text class = "card-item-title pt-3">{{$t('globalTerm.alternativeInput')}}</b-card-text>          
       <div class  = "card-item-body px-3">
          <!-- 入仕年范围 -->
         <b-row class = "px-3 mb-3">

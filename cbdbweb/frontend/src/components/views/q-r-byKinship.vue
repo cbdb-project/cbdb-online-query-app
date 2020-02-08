@@ -10,7 +10,7 @@
       </template>
       <b-card-text class = "card-item-title">{{$t('globalTerm.requiredInput')}}</b-card-text>             
       <div class  = "card-item-body px-3">
-        <b-row class = "p-3 my-3">
+        <b-row class = "py-3 my-3">
           <b-col cols="8" style = "text-align:left">
             <b-card-text class = "card-item-title">{{$t('globalTerm.person')}}</b-card-text>    
             <b-card>

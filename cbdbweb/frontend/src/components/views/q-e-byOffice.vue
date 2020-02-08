@@ -24,7 +24,7 @@
           </b-col>
         </b-row>
       </div>
-      <b-card-text class = "card-item-title">{{$t('globalTerm.alternativeInput')}}</b-card-text>             
+      <b-card-text class = "card-item-title pt-3">{{$t('globalTerm.alternativeInput')}}</b-card-text>             
       <div class  = "card-item-body px-3">
         <b-row class = "px-3 mb-3">
           <b-card-text class = "card-item-title mt-3">

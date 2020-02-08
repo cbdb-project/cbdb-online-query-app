@@ -10,7 +10,7 @@
       </template>
       <b-card-text class = "card-item-title">{{$t('globalTerm.requiredInput')}}</b-card-text>             
       <div class  = "card-item-body px-3">
-        <b-row class = "p-3 my-3">
+        <b-row class = "py-3 my-3">
           <b-col cols="8" style = "text-align:left">
             <b-card-text class = "card-item-title">{{$t('globalTerm.association')}}</b-card-text>    
             <b-card>
@@ -26,7 +26,7 @@
           <b-col cols="2">
           </b-col>
         </b-row>
-        <b-row class = "p-3 my-3">
+        <b-row class = "py-3 my-3">
           <b-col cols="8" style = "text-align:left">
             <b-card-text class = "card-item-title">{{$t('globalTerm.place')}}</b-card-text>    
             <b-card>
@@ -40,7 +40,7 @@
           </b-col>
         </b-row>
       </div>
-      <b-card-text class = "card-item-title">{{$t('globalTerm.alternativeInput')}}</b-card-text>             
+      <b-card-text class = "card-item-title pt-3">{{$t('globalTerm.alternativeInput')}}</b-card-text>             
       <div class  = "card-item-body px-3">
         <b-row class = "px-3 mb-3">
           <b-card-text class = "card-item-title mt-3">
@@ -104,7 +104,7 @@ import selectPlace from '@/components/utility/select-place.vue'
 //開發用的假數據
 import dataJson from '@/assets/person_data_dev.json'
 export default {
-  name: 'relationQueryByKinship',
+  name: 'relationQueryByAssociation',
   components:
   {
     queryResult,

@@ -182,7 +182,7 @@ module.exports = {
         maxLoop:            "Max Loop"
     },
     visualization:{
-        selectFromSystem:"Select from Accociation Query Result",
+        selectFromSystem:"Select from System",
         localUpload:"Local Upload",
 
     }

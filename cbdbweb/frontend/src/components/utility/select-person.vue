@@ -109,11 +109,6 @@ export default {
             sortable: true,
           },
           {
-            key: 'female',
-            label:'Female',
-            sortable: true
-          },
-          {
             key: 'selected',
             label:"Selected",
             sortable: true,

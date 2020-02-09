@@ -467,6 +467,7 @@
 </template>
 
 <script>
+import {isNull} from '@/components/utility/utility-functions.js'
 import selectPerson from '@/components/utility/select-person.vue'
 //開發用的假數據
 import dataJson from '@/assets/person_data_dev.json'
@@ -519,32 +520,8 @@ export default {
       else if (str === "true")return this.$t('globalTerm.true');
       else return ''
     },
-    //判斷輸入欄是否為空
-    isNull(idx){
-      return this.formData[idx] == ''
-    },
-    //判斷年代輸入是否有效
-    validation(idx){
-      //如果輸入為空，視為有效
-      if(this.isNull(idx))return null;
-      let year = /^\d{1,4}$/;
-      //startTime 一欄只要輸入符合有且僅有1～4位數字的規則，視為有效
-      if(idx == 'startTime')return year.test(this.formData[idx])?null:false;
-      else if(idx == 'endTime'){
-        //先判斷 endTime 一欄是否符合有且僅有1～4位數字的規則，如果不符合，視為無效
-        if(year.test(this.formData[idx])){
-          //如果 endTime 有輸入數字，同時 startTime 也有輸入數字，判斷 endTime 的數字是否大於 startTime 的數字
-          //如果小於，則視為無效
-          if(this.validation('startTime') == null && this.isNull('startTime')==false){
-            let st = parseInt(this.formData['startTime'], 10);
-            let et = parseInt(this.formData['endTime'], 10);
-            return et>st?null:false;
-          }
-          else return null;
-        }
-        else return false;
-      }
-    },
+    isNull:isNull,
+
     //获取查询的人物
     handleGetPerson: function(selectedPerson){
       this.formData.personId = selectedPerson[0]['personId'];

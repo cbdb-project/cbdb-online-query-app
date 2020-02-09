@@ -51,7 +51,7 @@
         <b-row class = "px-3 mb-3" v-if="formData.entryYear==='t'">
           <b-col>
             <label for="entry-start-time" class = "user-input-label">{{$t('globalTerm.startTime')}}:</label>
-            <b-form-input id="entry-start-time" v-model="formData.startTime" placeholder="" 
+            <b-form-input id="entry-start-time" v-model="formData.entryStartTime" placeholder="" 
               :state="validation('entryStartTime')" :disabled="formData.entryYear==='f'?true:false"></b-form-input>
               <b-form-invalid-feedback :state="validation('entryStartTime')">
                 Invalid year 
@@ -59,7 +59,7 @@
           </b-col>
           <b-col >
              <label for="entry-end-time" class = "user-input-label">{{$t('globalTerm.endTime')}}:</label>
-             <b-form-input id="entry-end-time" v-model="formData.endTime" placeholder="" 
+             <b-form-input id="entry-end-time" v-model="formData.entryEndTime" placeholder="" 
              :state="validation('entryEndTime')" :disabled="formData.entryYear==='f'?true:false"></b-form-input>
               <b-form-invalid-feedback :state="validation('entryEndTime')" >
                 Invalid year 
@@ -79,7 +79,7 @@
         <b-row class = "px-3 mb-3"  v-if="formData.indexYear==='t'">
           <b-col>
             <label for="index-start-time" class = "user-input-label">{{$t('globalTerm.startTime')}}:</label>
-            <b-form-input id="index-start-time" v-model="formData.startTime" placeholder="" 
+            <b-form-input id="index-start-time" v-model="formData.indexStartTime" placeholder="" 
               :state="validation('indexStartTime')" :disabled="formData.indexYear==='f'?true:false"></b-form-input>
               <b-form-invalid-feedback :state="validation('indexStartTime')">
                 Invalid year 
@@ -87,7 +87,7 @@
             </b-col>
           <b-col>
              <label for="index-end-time" class = "user-input-label">{{$t('globalTerm.endTime')}}:</label>
-             <b-form-input id="index-end-time" v-model="formData.endTime" placeholder="" 
+             <b-form-input id="index-end-time" v-model="formData.indexEndTime" placeholder="" 
              :state="validation('indexEndTime')" :disabled="formData.indexYear==='f'?true:false"></b-form-input>
               <b-form-invalid-feedback :state="validation('indexEndTime')">
                 Invalid year 
@@ -122,6 +122,7 @@
 </template>
 
 <script>
+import {isNull,yearValidation} from '@/components/utility/utility-functions.js'
 import queryResult from '@/components/utility/query-result.vue'
 import selectEntry from '@/components/utility/select-entry.vue'
 import selectPlace from '@/components/utility/select-place.vue'
@@ -137,10 +138,8 @@ export default {
     return {
       /*表單數據放這裡*/
       formData:{
-        personEnName:'',
-        personChName:'',
-        entryEnName:'',
-        entryChName:'',
+        place:[],
+        entryMethod:[],
         entryStartTime:'',
         entryEndTime:'',
         indexStartTime:'',
@@ -152,30 +151,8 @@ export default {
   },
   methods:{
     //判斷輸入欄是否為空
-    isNull(idx){
-      return this.formData[idx] == ''
-    },
-    validation(idx){
-      //如果輸入為空，視為有效
-      if(this.isNull(idx))return null;
-      let year = /^\d{1,4}$/;
-      //startTime 一欄只要輸入符合有且僅有1～4位數字的規則，視為有效
-      if(idx == 'startTime')return year.test(this.formData[idx])?null:false;
-      else if(idx == 'endTime'){
-        //先判斷 endTime 一欄是否符合有且僅有1～4位數字的規則，如果不符合，視為無效
-        if(year.test(this.formData[idx])){
-          //如果 endTime 有輸入數字，同時 startTime 也有輸入數字，判斷 endTime 的數字是否大於 startTime 的數字
-          //如果小於，則視為無效
-          if(this.validation('startTime') == null && this.isNull('startTime')==false){
-            let st = parseInt(this.formData['startTime'], 10);
-            let et = parseInt(this.formData['endTime'], 10);
-            return et>st?null:false;
-          }
-          else return null;
-        }
-        else return false;
-      }
-    },
+    isNull:isNull,
+    validation:yearValidation,
     //获取人物信息
     handleGetPerson:function(selectedPerson){
       this.formData.personEnName = selectedPerson[0]['personName'];
@@ -192,7 +169,7 @@ export default {
       return `office-ch-name:'${this.formData.officeChName}',office-en-name:'${this.formData.officeEnName}',office-ch-type:'${this.formData.officeChType}',office-en-type:'${this.formData.officeEnType}',office-ch-place:'${this.formData.officeChPlace}',office-en-place:'${this.formData.officeEnPlace}',person-ch-place:'${this.formData.personChPlace}',person-en-place:'${this.formData.personEnPlace}',start-time:'${this.formData.startTime}',end-time:'${this.formData.endTime}'index-year:'${this.formData.indexYear}';`
     },
     isInvalid(){
-      return this.validation('startTime')==false || this.validation('endTime')==false
+      return (this.formData.place.length==0&&this.formData.entryMethod.length==0)||this.validation('entryStartTime')===false || this.validation('entryEndTime')===false||this.validation('indexStartTime')===false || this.validation('indexEndTime')===false
     }
   }
 }

@@ -48,6 +48,7 @@ module.exports = {
         selectButton:"選取地點"
     },
     selectRelationship:{
+        association:"社會關係名",
         selectButton:"選取關係"
     },
     selectTime:{
@@ -59,6 +60,8 @@ module.exports = {
         place:"地點",
         person:"人物",
         office:"官職",
+        entry:"入仕途徑",
+        association:"社會關係",
         queryInput:"查詢式輸入",
         alternativeInput:"可選條件",
         requiredInput:"必選條件",
@@ -71,6 +74,7 @@ module.exports = {
         indexYear:"指數年",
         gen:"性別",
         personId:"人物代碼",
+        mCircle:"五服",
         notes:"注",
         fromYear:"始年",
         toYear:"終年",
@@ -82,7 +86,6 @@ module.exports = {
         intercalary:"閏",
         source:"出處",
         pages:"頁碼/條目",
-        place:"地點",
         details:"詳情",
         before:"之前",
         after:"之後",
@@ -103,14 +106,7 @@ module.exports = {
         selectFromDb:"從數據庫選取"   
     },
     entityQueryByOffice:{
-        officeNameEn:"官職名-英文",
-        officeNameCh:"官職名-中文",
-        officeTypeEn:"官職類型-英文",
-        officeTypeCh:"官職類型-中文",
-        officePlaceEn:"官職地點-英文",
-        officePlaceCh:"官職地點-中文",
-        personPlaceEn:"人物地點-英文",
-        personPlaceCh:"人物地點-中文",
+        indexYearRange:"指數年範圍",
         checkAndSearch:"檢索式確認",
         checkRemind:"茲生成查詢式如下，請於檢索前核查確認",
     },
@@ -180,6 +176,13 @@ module.exports = {
         placeNameCh:"地名-中文",
         checkAndSearch:"檢索式確認",
         checkRemind:"茲生成查詢式如下，請於檢索前核查確認"
+    },
+    relationQueryByKinship:{
+        maxAncestorGen:     "最大祖先距離(代)",
+        maxDescendGen:      "最大後代距離(代)",
+        maxCollaternalLinks:"最大同輩距離(代)",
+        maxMarriageLinks:   "最大姻親距離(代)",
+        maxLoop:            "最大循环次数"
     },
     visualization:{
         selectFromSystem:"系统导入",

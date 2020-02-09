@@ -1,7 +1,7 @@
 <template>
     <div>
-        <b-button pill variant="outline-primary"  v-b-modal.select-entry-table
-        class = "query-condition-button" size="sm">{{$t('selectEntry.selectButton')}}</b-button>
+        <b-button v-if="selectFromDb===true" variant="outline-primary"  v-b-modal.select-entry-table
+        class = "query-condition-button" size="sm">{{$t('globalTerm.selectFromDb')}}</b-button>
         <b-modal 
             id="select-entry-table" 
             title="Select Entry from Database" 
@@ -68,6 +68,11 @@
     import treeTable from '../treeTable/tree-table.vue'
     export default {
         name:'selectEntry',
+        props:{
+        'selectFromDb':{
+            default:true
+        }
+    },
         data() {
             return {
                 show:false,
@@ -135,7 +140,7 @@
 
     <style scoped>
     .query-condition-button{
-    width:224px;
+    width:128px;
     margin:6px 0;
     }
 </style>

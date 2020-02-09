@@ -1,7 +1,13 @@
 <template>
     <div>
-        <b-button pill variant="outline-primary"  v-b-modal.select-place-table
-        class = "query-condition-button" size="sm">{{$t('selectPlace.selectButton')}}</b-button>
+      <b-button-group>
+        <b-button  v-if="selectFromDb" variant="outline-primary"  v-b-modal.select-place-table
+          class = "query-condition-button" size="sm">{{$t('globalTerm.selectFromDb')}}
+        </b-button>
+        <b-button  v-if="importList" variant="outline-primary"  v-b-modal.select-place-table
+          class = "query-condition-button" size="sm">{{$t('globalTerm.selectFromDb')}}
+        </b-button>
+      </b-button-group>
         <b-modal
           id="select-place-table" 
           title="Select Place from Database" 
@@ -99,7 +105,15 @@
 
 <script>
 export default {
-    name:'selectPlace',
+  name:'selectPlace',
+  props:{
+      'selectFromDb':{
+        default:true
+      },
+      'importList':{
+        default:true
+      }
+    },
   data () {
     return {
       show:false,
@@ -179,7 +193,7 @@ export default {
 
 <style scoped>
 .query-condition-button{
-  width:224px;
+  width:128px;
   margin:6px 0;
 }
 </style>

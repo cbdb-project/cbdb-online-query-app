@@ -1,7 +1,11 @@
 <template>
     <div>
-        <b-button pill variant="outline-primary"  v-b-modal.select-person
+      <b-button-group>      
+        <b-button  v-if="selectFromDb===true" variant="outline-primary"  v-b-modal.select-person
         class = "query-condition-button" size="sm">{{$t('globalTerm.selectFromDb')}}</b-button>
+        <b-button  v-if="importList===true" variant="outline-primary"  v-b-modal.select-person
+        class = "query-condition-button" size="sm">{{$t('globalTerm.selectFromDb')}}</b-button>
+      </b-button-group>
         <b-modal 
           id="select-person" 
           title="Select People from Database" 
@@ -64,7 +68,17 @@
 import dataJson from '@/assets/person_list_dev.json'
 export default {
   name:'selectPerson',
-  props:['selectMode'],
+    props:{
+      'selectMode':{
+        default:'multi'
+      },
+      'selectFromDb':{
+        default:true
+      },
+      'importList':{
+        default:true
+      }
+    },
   data () {
     return {
       show:false,
@@ -161,8 +175,7 @@ export default {
 <style scoped>
 .query-condition-button{
   width:128px;
-  margin-left:6px;
-  margin-right:6px;
+  margin:6px 0;
   /* 和表單中的輸入框對齊 */
 }
 </style>

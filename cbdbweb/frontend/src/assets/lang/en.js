@@ -45,6 +45,7 @@ module.exports = {
         selectButton:"SELECT PLACE"
     },
     selectRelationship:{
+        association:"Association Name",
         selectButton:"SELECT RELATIONSHIP"
     },
     selectTime:{
@@ -56,6 +57,8 @@ module.exports = {
         place:"Place",
         person:"Person",
         office:"Office",
+        entry:"Entry",
+        association:"association",
         queryInput:"Query Input",
         alternativeInput:"Alternative Input",
         requiredInput:"Required Input",
@@ -68,6 +71,7 @@ module.exports = {
         indexYear:"Index Year",
         gen:"Gender",
         personId:"Person ID",
+        mCircle:"Mourning Circle",
         notes:"Notes",
         fromYear:"From",
         toYear:"To",
@@ -79,7 +83,6 @@ module.exports = {
         intercalary:"(Intercalary)",
         source:"Source",
         pages:"Pages",
-        place:"Place",
         details:"Details",
         before:"Before",
         after:"After",
@@ -100,14 +103,7 @@ module.exports = {
         selectFromDb:"SELECT FROM DATABASE"
     },
     entityQueryByOffice:{
-        officeNameEn:"English Office Name",
-        officeNameCh:"Chinese Office Name",
-        officeTypeEn:"English Office Type ",
-        officeTypeCh:"Chinese Office Type",
-        officePlaceEn:"English Office Place",
-        officePlaceCh:"Chinese Office Place",
-        personPlaceEn:"English Person Place",
-        personPlaceCh:"Chinese Person Place",
+        indexYearRange:"Index Year Range",
         checkAndSearch:"Check And Search",
         checkRemind:"The query is generated as the following. Please check it before your search."
     },
@@ -177,6 +173,13 @@ module.exports = {
         placeNameCh:"Chinese Place Name",
         checkAndSearch:"Check And Search",
         checkRemind:"The query is generated as the following. Please check it before your search."
+    },
+    relationQueryByKinship:{
+        maxAncestorGen:     "Max Ancestor Gen.",
+        maxDescendGen:      "Max Descend Gen.",
+        maxCollaternalLinks:"Max Collaternal Links",
+        maxMarriageLinks:   "Max Marriage Links",
+        maxLoop:            "Max Loop"
     },
     visualization:{
         selectFromSystem:"Select from System",

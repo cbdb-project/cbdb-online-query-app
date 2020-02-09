@@ -1,16 +1,13 @@
 <template>
     <div>
-        <b-button pill variant="outline-primary"  v-b-modal.select-relationship-table
-        class = "query-condition-button" size="sm">{{$t('selectRelationship.selectButton')}}</b-button>
+        <b-button v-if="selectFromDb" variant="outline-primary"  v-b-modal.select-relationship-table
+        class = "query-condition-button" size="sm">{{$t('globalTerm.selectFromDb')}}</b-button>
         <b-modal id="select-relationship-table" title="BootstrapVue" size="xl">
             <b-row>
                 <b-col :cols = 4 style = "text-align:right">
                   <b-card>
-                    <b-form-group label-cols="4" label="relation English Name" label-for="select-relation-input-en-name">
-                        <b-form-input id="select-relation-input-en-name"></b-form-input>
-                    </b-form-group>
-                    <b-form-group label-cols="4" label="关系名-中文" label-for="select-relation-input-ch-name">
-                        <b-form-input id="select-relation-input-ch-name"></b-form-input>
+                    <b-form-group label-cols="4" :label="$t('selectRelationship.association')" label-for="select-relation-input">
+                        <b-form-input id="select-relation-input"></b-form-input>
                     </b-form-group>
                     <b-form-group>
                       <b-button variant="primary">Search</b-button>
@@ -55,6 +52,11 @@ import dataJson from '../views/relationData.json'
 import treeTable from '../treeTable/tree-table.vue'
 export default {
     name:'selectRelationship',
+    props:{
+        'selectFromDb':{
+          default:true
+        }
+      },
     data() {
         return {
         treeDataSource: dataJson,
@@ -140,7 +142,7 @@ export default {
 
 <style scoped>
 .query-condition-button{
-  width:224px;
+  width:128px;
   margin:6px 0;
 }
 </style>

@@ -28,7 +28,7 @@
             </b-card>
           </b-col>
           <b-col cols="2">
-            <select-person @getPersonName="handleGetPerson" selectMode='single' style="margin-top:56px">
+            <select-person @getPersonName="handleGetPerson" selectMode='single' importList="false" style="margin-top:53px">
             </select-person>
           </b-col>
         </b-row>

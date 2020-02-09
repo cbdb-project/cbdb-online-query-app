@@ -179,7 +179,7 @@ module.exports = {
         checkRemind:"The query is generated as the following. Please check it before your search."
     },
     visualization:{
-        selectFromSystem:"Select from Accociation Query Result",
+        selectFromSystem:"Select from System",
         localUpload:"Local Upload",
 
     }

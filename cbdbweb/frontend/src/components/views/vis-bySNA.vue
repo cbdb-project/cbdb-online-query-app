@@ -12,10 +12,10 @@
             </template>
             <b-row>
                 <b-col>
-                <b-button variant='primary' >{{$t('visualization.selectFromSystem')}}</b-button>
+                <b-button variant='primary' to='/q-relation/by-social-network'>{{$t('visualization.selectFromSystem')}}</b-button>
                 </b-col>
                 <b-col>
-                <b-button variant='primary' >{{$t('visualization.localUpload')}}</b-button>
+                <b-button variant='primary' v-on:click="myclick">{{$t('visualization.localUpload')}}</b-button>
                 </b-col>
             </b-row>
 
@@ -38,7 +38,12 @@
 
 <script>
 export default {
-    
+    methods:{
+        onClick:function(){
+            //本地选择文件
+        }
+    }
+
 }
 </script>
 

@@ -38,9 +38,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   min-width:100%;
-    /* 主界面背景色 */
-  background-color:#F0F2F5;
-  padding-bottom:8%
+  padding-bottom:8%;
+  /* 不加這個右邊有留白，很難看 */
+  padding-right:1px;
 }
 #nav-top{
   border-style:solid;

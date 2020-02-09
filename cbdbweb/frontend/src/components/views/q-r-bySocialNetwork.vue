@@ -13,18 +13,22 @@
             @getPersonName="handleGetPerson"></select-person></b-col>
           <b-col><select-place
             @getPlaceName="handleGetPlace"></select-place></b-col>
-          <b-col><select-entry
-            @getEntryName="handleGetEntry"></select-entry></b-col>
-        </b-row>
-        <b-row>
-          <b-col><select-office
-            @getOfficeName="handleGetOffice"></select-office></b-col>
-          <b-col><select-time></select-time></b-col>
-          <b-col><select-relationship></select-relationship></b-col>
+          <b-col><b-col><select-relationship></select-relationship></b-col></b-col>
         </b-row>
       </div>
       <b-card-text class = "card-item-title">{{$t('globalTerm.userInput')}}</b-card-text>             
       <div class  = "card-item-body px-3">
+        <b-row class = "px-3 mb-3">
+          <!-- 这两个以后要拆成组件 -->
+          <b-col>
+            <b-button pill variant="outline-primary"  v-b-modal.select-entry-table
+            class = "query-condition-button" size="sm">{{$t('globalTerm.importPeople')}}</b-button>
+          </b-col>
+          <b-col>
+            <b-button pill variant="outline-primary"  v-b-modal.select-entry-table
+            class = "query-condition-button" size="sm">{{$t('globalTerm.importLocations')}}</b-button>
+          </b-col>
+        </b-row>
         <b-row class = "px-3 mb-3">
           <b-col>
             <label for="person-en-name" class = "user-input-label">{{$t('entityQueryByPlace.personNameEn')}}:</label>
@@ -93,8 +97,9 @@
       </template>
       -->
     </b-card>
+    <query-result></query-result>   
   </div>
-    <div class="hello">
+      <div class="hello">
     <b-card header-tag="header" footer-tag="footer">
       <template v-slot:header>
           <h6 class="mb-0">{{$t('globalTerm.resultShow')}}</h6>

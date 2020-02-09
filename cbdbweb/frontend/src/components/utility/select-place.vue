@@ -1,7 +1,13 @@
 <template>
     <div>
-        <b-button pill variant="outline-primary"  v-b-modal.select-place-table
-        class = "query-condition-button" size="sm">{{$t('selectPlace.selectButton')}}</b-button>
+      <b-button-group>
+        <b-button  v-if="selectFromDb" variant="outline-primary"  v-b-modal.select-place-table
+          class = "query-condition-button" size="sm">{{$t('globalTerm.selectFromDb')}}
+        </b-button>
+        <b-button  v-if="importList" variant="outline-primary"  v-b-modal.select-place-table
+          class = "query-condition-button" size="sm">{{$t('globalTerm.selectFromDb')}}
+        </b-button>
+      </b-button-group>
         <b-modal
           id="select-place-table" 
           title="Select Place from Database" 
@@ -86,7 +92,7 @@
                 </b-col>
             </b-row>
             <template v-slot:modal-footer>
-              <b-button size="xl" variant="primary" @click="show=false">
+              <b-button size="xl" variant="secondary" @click="show=false">
                 Cancel
               </b-button>
               <b-button size="xl" variant="primary" @click="haveSelected">
@@ -99,7 +105,15 @@
 
 <script>
 export default {
-    name:'selectPlace',
+  name:'selectPlace',
+  props:{
+      'selectFromDb':{
+        default:true
+      },
+      'importList':{
+        default:true
+      }
+    },
   data () {
     return {
       show:false,
@@ -160,8 +174,6 @@ export default {
   methods: {
       onRowSelected(items) {
         this.selectedPlace = items
-        //要把选中的结果传递给调用的父组件
-        console.log(this.selectedPlace)
       },
       haveSelected: function(){
         //同步选中地点
@@ -181,7 +193,7 @@ export default {
 
 <style scoped>
 .query-condition-button{
-  width:224px;
+  width:128px;
   margin:6px 0;
 }
 </style>

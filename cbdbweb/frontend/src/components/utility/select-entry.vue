@@ -1,7 +1,7 @@
 <template>
     <div>
-        <b-button pill variant="outline-primary"  v-b-modal.select-entry-table
-        class = "query-condition-button" size="sm">{{$t('selectEntry.selectButton')}}</b-button>
+        <b-button v-if="selectFromDb===true" variant="outline-primary"  v-b-modal.select-entry-table
+        class = "query-condition-button" size="sm">{{$t('globalTerm.selectFromDb')}}</b-button>
         <b-modal 
             id="select-entry-table" 
             title="Select Entry from Database" 
@@ -52,7 +52,7 @@
                 </b-col>
             </b-row>
             <template v-slot:modal-footer>
-              <b-button size="xl" variant="primary" @click="show=false">
+              <b-button size="xl" variant="secondary" @click="show=false">
                 Cancel
               </b-button>
               <b-button size="xl" variant="primary" @click="haveSelected">
@@ -68,6 +68,11 @@
     import treeTable from '../treeTable/tree-table.vue'
     export default {
         name:'selectEntry',
+        props:{
+        'selectFromDb':{
+            default:true
+        }
+    },
         data() {
             return {
                 show:false,
@@ -112,12 +117,10 @@
         methods: {
             onRowSelected(items) {
                 this.selectedEntry = items
-                //要把选中的结果传递给调用的父组件
-                console.log(this.selectedEntry)
             },
             haveSelected: function(){
                 //同步选中入仕途径
-                console.log("成功");
+                //console.log("成功");
                 this.$emit('getEntryName', this.selectedEntry);
                 this.show = false;
             },
@@ -137,7 +140,7 @@
 
     <style scoped>
     .query-condition-button{
-    width:224px;
+    width:128px;
     margin:6px 0;
     }
 </style>

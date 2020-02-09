@@ -1,7 +1,13 @@
 <template>
     <div>
-        <b-button pill variant="outline-primary"  v-b-modal.select-office-table
-            class = "query-condition-button" size="sm">{{$t('selectOffice.selectButton')}}</b-button>
+      <b-button-group>
+        <b-button v-if="selectFromDb"  variant="outline-primary"  v-b-modal.select-office-table
+            class = "query-condition-button" size="sm">{{$t('globalTerm.selectFromDb')}}
+        </b-button>
+        <b-button v-if="importList"  variant="outline-primary"  
+            class = "query-condition-button" size="sm">{{$t('selectOffice.selectButton')}}
+        </b-button>
+      </b-button-group>
         <b-modal 
           id="select-office-table" 
           title="Select Office from Database" 
@@ -11,10 +17,7 @@
             <b-row>
                 <b-col :cols = 4 style = "text-align:right">
                   <b-card>
-                    <b-form-group label-cols="4" label="Office English Name" label-for="select-office-input-en-name">
-                        <b-form-input id="select-office-input-en-name"></b-form-input>
-                    </b-form-group>
-                    <b-form-group label-cols="4" label="官职名-中文" label-for="select-office-input-ch-name">
+                    <b-form-group label-cols="4" :label="$t('selectOffice.officeName')" label-for="select-office-input-ch-name">
                         <b-form-input id="select-office-input-ch-name"></b-form-input>
                     </b-form-group>
                     <b-form-group>
@@ -52,7 +55,7 @@
                 </b-col>
             </b-row>
             <template v-slot:modal-footer>
-              <b-button size="xl" variant="primary" @click="show=false">
+              <b-button size="xl" variant="secondary" @click="show=false">
                 Cancel
               </b-button>
               <b-button size="xl" variant="primary" @click="haveSelected">
@@ -68,6 +71,14 @@ import dataJson from '../views/officeData.json'
 import treeTable from '../treeTable/tree-table.vue'
 export default {
     name:'selectOffice',
+    props:{
+      'selectFromDb':{
+        default:true
+      },
+      'importList':{
+        default:true
+      }
+    },
     data() {
         return {
           show:false,
@@ -110,13 +121,11 @@ export default {
     },
     methods: {
         onRowSelected(items) {
-            this.selectedOffice = items
-            //要把选中的结果传递给调用的父组件
-            console.log(this.selected)
-
+          //用户选中列表中的条目后，同步到selectedOffice中
+          this.selectedOffice = items
         },
         haveSelected: function(){
-          //同步选中官职
+          //同步选中官职给父组件（页面）
           console.log("成功");
           this.$emit('getOfficeName', this.selectedOffice);
           this.show = false;
@@ -137,7 +146,7 @@ export default {
 
 <style scoped>
 .query-condition-button{
-  width:224px;
+  width:128px;
   margin:6px 0;
 }
 </style>

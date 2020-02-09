@@ -1,7 +1,11 @@
 <template>
     <div>
-        <b-button pill variant="outline-primary"  v-b-modal.select-person
-        class = "query-condition-button" size="sm">{{$t('selectPerson.selectButton')}}</b-button>
+      <b-button-group>      
+        <b-button  v-if="selectFromDb===true" variant="outline-primary"  v-b-modal.select-person
+        class = "query-condition-button" size="sm">{{$t('globalTerm.selectFromDb')}}</b-button>
+        <b-button  v-if="importList===true" variant="outline-primary"  v-b-modal.select-person
+        class = "query-condition-button" size="sm">{{$t('globalTerm.selectFromDb')}}</b-button>
+      </b-button-group>
         <b-modal 
           id="select-person" 
           title="Select People from Database" 
@@ -11,15 +15,16 @@
             <b-row>
                 <b-col :cols = 4 style = "text-align:right">
                   <b-card>
-                    <b-form-group label-cols="4" label="Person English Name" label-for="select-person-input-en-name">
-                        <b-form-input id="select-person-input-en-name"></b-form-input>
+                    <b-form-group label-cols="4" :label="$t('selectPerson.personName')" label-for="select-person-input-name">
+                        <b-form-input id="select-person-input-name" :placeholder="$t('globalTerm.cnOrPy')" v-model="formData.personName"></b-form-input>
                     </b-form-group>
-                    <b-form-group label-cols="4" label="人物姓名-中文" label-for="select-person-input-ch-name">
-                        <b-form-input id="select-person-input-ch-name"></b-form-input>
-                    </b-form-group>
-                    <b-form-group>
-                      <b-button variant="primary">Search</b-button>
-                    </b-form-group>
+                     <a v-b-tooltip.hover  :title="isInvalid?$t('globalTerm.invalidInput'):''">
+                      <b-button variant="primary" @click="searchPerson(formData.personName)"
+                      :disabled="isInvalid||isBusy" style = "width:96px">
+                        <span v-if="!isBusy">Go</span>
+                        <b-spinner small v-if="isBusy"></b-spinner>
+                      </b-button>
+                     </a>
                   </b-card>
                 </b-col>
                 <b-col :cols = 8>
@@ -30,7 +35,7 @@
                         head-variant="light" 
                         ref="selectableTable"
                         selectable
-                        select-mode="multi"
+                        :select-mode="selectMode"
                         @row-selected="onRowSelected"
                         responsive="sm">
                         <template v-slot:cell(selected)="{ rowSelected }">
@@ -47,25 +52,47 @@
                 </b-col>
             </b-row>
             <template v-slot:modal-footer>
-              <b-button size="xl" variant="primary" @click="show=false">
+              <b-button size="xl" variant="secondary" @click="show=false">
                 Cancel
               </b-button>
               <b-button size="xl" variant="primary" @click="haveSelected">
                 Select
               </b-button>
             </template>
+
         </b-modal>
     </div>
 </template>
 
 <script>
+import dataJson from '@/assets/person_list_dev.json'
 export default {
   name:'selectPerson',
+    props:{
+      'selectMode':{
+        default:'multi'
+      },
+      'selectFromDb':{
+        default:true
+      },
+      'importList':{
+        default:true
+      }
+    },
   data () {
     return {
       show:false,
+      isBusy: false,
+      formData:{
+        personName:''
+      },
       /*表格子數據放這裡*/
         fields: [
+          {
+            key: 'personId',
+            label:'ID',
+            sortable: true
+          },
           {
             key: 'personName',
             label:'Name',
@@ -88,34 +115,41 @@ export default {
           },
           {
             key: 'selected',
-            sortable: false,
+            label:"Selected",
+            sortable: true,
           }
         ],
-        items: [
-          {personName:"Zhu Youbao",personNameCh:"朱祐保",indexYear:"",female:"No"},
-          {personName:"Zhu Youbin",personNameCh:"朱祐檳",indexYear:"1538",female:"No"},
-          {personName:"Zhu Youceng",personNameCh:"朱右曾",indexYear:"1858",female:"No"},
-          {personName:"Zhu Youchen&#38;1",personNameCh:"朱幼成",indexYear:"1283",female:"No"},
-          {personName:"Zhu Youdao",personNameCh:"朱由道",indexYear:"1225",female:"No"},
-          {personName:"Zhu Youde",personNameCh:"朱有德",indexYear:"",female:"No"},
-          {personName:"Zhu Youdun",personNameCh:"朱有燉",indexYear:"",female:"No"},
-          {personName:"Zhu Youfu",personNameCh:"朱友輔",indexYear:"",female:"No"},
-          {personName:"Zhu Duokui",personNameCh:"朱多煃",indexYear:"",female:"No"},
-          {personName:"Zhu Duokun",personNameCh:"Zhu Duokun",indexYear:"",female:"No"},
-          {personName:"Zhu Duoliang",personNameCh:"朱多",indexYear:"1607",female:"No"},
-          {personName:"Zhu Duopu",personNameCh:"Zhu Duopu",indexYear:"1418",female:"No"},
-          {personName:"Zhu Duoyun",personNameCh:"朱多熅",indexYear:"",female:"No"},
-          {personName:"Zhu Duozheng",personNameCh:"朱多炡",indexYear:"1589",female:"No"},
-        ],
+        items: [],
         //选中的人物出现在这里
         selectedPerson : []
     }
   },
   methods: {
+      searchPerson(personName){
+        this.isBusy=true
+        const res = this.waitForServer(this.formData)
+        res.then((r)=>
+          {
+            this.items = r.data
+            this.isBusy = false
+          },
+          (e)=>{
+            alert('something went wrong...')
+            this.isBusy = false
+          }
+        )
+      },
+      waitForServer(query){
+      //------模擬服務器響應的東西---------
+      return new Promise(function(resolve,reject){
+        setTimeout((success=true)=>{
+          if(success)resolve({status:'200',data:dataJson})
+          else reject({status:'404'})
+        },3000)
+      })
+    },
       onRowSelected(items) {
         this.selectedPerson = items
-        //要把选中的结果传递给调用的父组件
-        console.log(this.selectedPerson)
       },
       haveSelected: function(){
         //同步选中人物
@@ -129,13 +163,19 @@ export default {
       clearSelected() {
         this.$refs.selectableTable.clearSelected()
       }
+  },
+  computed:{
+    isInvalid(){
+      return this.formData.personName === ''
+    }
   }
 }
 </script>
 
 <style scoped>
 .query-condition-button{
-  width:224px;
+  width:128px;
   margin:6px 0;
+  /* 和表單中的輸入框對齊 */
 }
 </style>

@@ -1,90 +1,107 @@
 <template>
+<div class = "wrapper">
+  <div class = "mt-3 pt-1 pl-1" style = "text-align:left">
+    <h5>{{$t('navbarLeft.entityQueryByEntry')}}</h5>
+  </div>
   <div class="hello">
-    <b-breadcrumb :items="items" class = "bread-crumb"></b-breadcrumb>
     <b-card header-tag="header" footer-tag="footer">
       <template v-slot:header>
         <h6 class="mb-0">{{$t('globalTerm.queryInput')}}</h6>
       </template>
-      <b-card-text class = "card-item-title">{{$t('globalTerm.queryConditionOptions')}}</b-card-text>             
+      <b-card-text class = "card-item-title">{{$t('globalTerm.requiredInput')}}</b-card-text>             
       <div class = "card-item-body">
-        <b-row>
-          <b-col><select-person
-            @getPersonName="handleGetPerson"></select-person></b-col>
-          <b-col><select-place
-            @getPlaceName="handleGetPlace"></select-place></b-col>
-          <b-col><select-entry
-            @getEntryName="handleGetEntry"></select-entry></b-col>
+        <b-row class = "p-3 my-3">
+          <b-col cols="8" style = "text-align:left">
+            <b-card-text class = "card-item-title">{{$t('globalTerm.place')}}</b-card-text>    
+            <b-card>
+              <b-row class="pl-3" style = "text-align:center">
+                <b-col>未選擇</b-col>
+              </b-row> 
+            </b-card>   
+          </b-col>
+          <b-col cols="4" style = "text-align:left" >
+            <select-place @getPlaceName="handleGetPlace" style = "margin-top:46px"></select-place>
+          </b-col>
         </b-row>
-        <b-row>
-          <b-col><select-office
-            @getOfficeName="handleGetOffice"></select-office></b-col>
-          <b-col><select-time></select-time></b-col>
-          <b-col><select-relationship></select-relationship></b-col>
+        <b-row class = "p-3 my-3">
+          <b-col cols="8" style = "text-align:left">
+            <b-card-text class = "card-item-title">{{$t('globalTerm.entry')}}</b-card-text>    
+            <b-card>
+              <b-row class="pl-3" style = "text-align:center">
+                <b-col>未選擇</b-col>
+              </b-row> 
+            </b-card>   
+          </b-col>
+          <b-col  cols="4" style = "text-align:left">
+            <select-entry @getEntryName="handleGetEntry" style = "margin-top:46px"></select-entry>
+          </b-col>
         </b-row>
-      </div>
-      <b-card-text class = "card-item-title">{{$t('globalTerm.userInput')}}</b-card-text>             
+      </div>           
+      <b-card-text class = "card-item-title">{{$t('globalTerm.alternativeInput')}}</b-card-text>          
       <div class  = "card-item-body px-3">
+         <!-- 入仕年范围 -->
         <b-row class = "px-3 mb-3">
-          <b-col>
-            <label for="entry-en-name" class = "user-input-label">{{$t('entityQueryByEntry.entryNameEn')}}:</label>
-            <b-form-input id="entry-en-name" v-model="formData.entryEnName" placeholder="Enter your name"></b-form-input>
-            </b-col>
-          <b-col>
-             <label for="entry-ch-name" class = "user-input-label">{{$t('entityQueryByEntry.entryNameCh')}}:</label>
-             <b-form-input id="entry-ch-name" v-model="formData.entryChName" placeholder="Enter your name"></b-form-input>
-           </b-col>
-        </b-row>
-        <b-row class = "px-3 mb-3">
-          <b-col>
-            <label for="person-en-name" class = "user-input-label">{{$t('entityQueryByEntry.personNameEn')}}:</label>
-            <b-form-input id="person-en-name" v-model="formData.personEnName" placeholder="Enter your name"></b-form-input>
-            </b-col>
-          <b-col>
-             <label for="person-ch-type" class = "user-input-label">{{$t('entityQueryByEntry.personNameCh')}}:</label>
-             <b-form-input id="person-ch-type" v-model="formData.personChName" placeholder="Enter your name"></b-form-input>
-           </b-col>
-        </b-row>
-        <b-row class = "px-3 mb-3">
-          <b-col>
-            <label for="start-time" class = "user-input-label">{{$t('globalTerm.startTime')}}:</label>
-            <b-form-input id="start-time" v-model="formData.startTime" placeholder="" 
-              :state="validation('startTime')"></b-form-input>
-              <b-form-invalid-feedback :state="validation('startTime')">
-                Invalid year 
-              </b-form-invalid-feedback>
-            </b-col>
-          <b-col>
-             <label for="end-time" class = "user-input-label">{{$t('globalTerm.endTime')}}:</label>
-             <b-form-input id="end-time" v-model="formData.endTime" placeholder="" :state="validation('endTime')"></b-form-input>
-              <b-form-invalid-feedback :state="validation('endTime')">
-                Invalid year 
-              </b-form-invalid-feedback>
-           </b-col>
-           <b-col>
-            <b-form-checkbox id="checkbox-1" v-model= "formData.indexYear" name="checkbox-1"
-              value="t" unchecked-value="f" style = "margin:38px 0;text-align:left">
-                {{$t('globalTerm.isIndexYear')}}
+          <b-card-text class = "card-item-title mt-3">
+            <b-form-checkbox switch size="lg" id="checkbox-1" v-model= "formData.entryYear" name="checkbox-1"
+              value="t" unchecked-value="f">
+                <span style="font-size:16px">{{$t('entityQueryByEntry.entryYearRange')}}</span>
             </b-form-checkbox>
+          </b-card-text> 
+        </b-row>
+        <b-row class = "px-3 mb-3" v-if="formData.entryYear==='t'">
+          <b-col>
+            <label for="entry-start-time" class = "user-input-label">{{$t('globalTerm.startTime')}}:</label>
+            <b-form-input id="entry-start-time" v-model="formData.startTime" placeholder="" 
+              :state="validation('entryStartTime')" :disabled="formData.entryYear==='f'?true:false"></b-form-input>
+              <b-form-invalid-feedback :state="validation('entryStartTime')">
+                Invalid year 
+              </b-form-invalid-feedback>
+          </b-col>
+          <b-col >
+             <label for="entry-end-time" class = "user-input-label">{{$t('globalTerm.endTime')}}:</label>
+             <b-form-input id="entry-end-time" v-model="formData.endTime" placeholder="" 
+             :state="validation('entryEndTime')" :disabled="formData.entryYear==='f'?true:false"></b-form-input>
+              <b-form-invalid-feedback :state="validation('entryEndTime')" >
+                Invalid year 
+              </b-form-invalid-feedback>
            </b-col>
-           <b-col></b-col>
+           <b-col cols="4"></b-col>
+        </b-row>
+        <!-- 指数年范围 -->
+        <b-row class = "px-3 mb-3">
+          <b-card-text class = "card-item-title mt-3">
+            <b-form-checkbox switch size="lg" id="checkbox-2" v-model= "formData.indexYear" name="checkbox-2"
+              value="t" unchecked-value="f">
+              <span style="font-size:16px">{{$t('entityQueryByOffice.indexYearRange')}}</span>
+            </b-form-checkbox>  
+          </b-card-text> 
+        </b-row>
+        <b-row class = "px-3 mb-3"  v-if="formData.indexYear==='t'">
+          <b-col>
+            <label for="index-start-time" class = "user-input-label">{{$t('globalTerm.startTime')}}:</label>
+            <b-form-input id="index-start-time" v-model="formData.startTime" placeholder="" 
+              :state="validation('indexStartTime')" :disabled="formData.indexYear==='f'?true:false"></b-form-input>
+              <b-form-invalid-feedback :state="validation('indexStartTime')">
+                Invalid year 
+              </b-form-invalid-feedback>
+            </b-col>
+          <b-col>
+             <label for="index-end-time" class = "user-input-label">{{$t('globalTerm.endTime')}}:</label>
+             <b-form-input id="index-end-time" v-model="formData.endTime" placeholder="" 
+             :state="validation('indexEndTime')" :disabled="formData.indexYear==='f'?true:false"></b-form-input>
+              <b-form-invalid-feedback :state="validation('indexEndTime')">
+                Invalid year 
+              </b-form-invalid-feedback>
+           </b-col>
+           <b-col cols="4"></b-col>
         </b-row>
       </div>
-      <b-card-text class = "card-item-title">{{$t('entityQueryByPerson.checkAndSearch')}}</b-card-text>
       <b-row class = "px-3 mb-3">
-        <b-col cols="10">
-          <b-alert show variant="warning" style = "width:66%" class = "px-3 py-2 mb-2">{{$t('entityQueryByPerson.checkRemind')}}</b-alert>
-          <b-form-textarea
-                id="advanced-search"
-                v-model= "queryFormular"
-                placeholder=""
-                rows="3"
-                max-rows="6"
-                disabled
-              ></b-form-textarea>
+        <b-col></b-col>
+        <b-col  class = "p-3">
+            <b-button href="#" variant="primary" style = "width:100%;margin-top:38px" :disabled="isInvalid">Go</b-button>
         </b-col>
-        <b-col cols="2">
-            <b-button href="#" variant="primary" style = "width:100%;margin-top:70px" :disabled="isInvalid">Go</b-button>
-        </b-col>
+        <b-col></b-col>
       </b-row>    
       <!--
       <template v-slot:footer>
@@ -92,29 +109,29 @@
       </template>
       -->
     </b-card>
-    <query-result></query-result>   
   </div>
+  <div class="hello">
+    <b-card header-tag="header" footer-tag="footer">
+      <template v-slot:header>
+          <h6 class="mb-0">{{$t('globalTerm.resultShow')}}</h6>
+      </template>
+      <query-result></query-result>
+    </b-card>
+  </div>
+</div>
 </template>
 
 <script>
-import queryResult from '../utility/query-result.vue'
-import selectPerson from '../utility/select-person.vue'
-import selectEntry from '../utility/select-entry.vue'
-import selectOffice from '../utility/select-office.vue'
-import selectTime from '../utility/select-time.vue'
-import selectPlace from '../utility/select-place.vue'
-import selectRelationship from '../utility/select-relationship.vue'
+import queryResult from '@/components/utility/query-result.vue'
+import selectEntry from '@/components/utility/select-entry.vue'
+import selectPlace from '@/components/utility/select-place.vue'
 export default {
   name: 'entityQueryByPerson',
   components:
   {
       queryResult,
-      selectPerson,
       selectEntry,
-      selectOffice,
-      selectTime,
       selectPlace,
-      selectRelationship
   },
   data () {
     return {
@@ -124,24 +141,13 @@ export default {
         personChName:'',
         entryEnName:'',
         entryChName:'',
-        startTime:'',
-        endTime:'',
+        entryStartTime:'',
+        entryEndTime:'',
+        indexStartTime:'',
+        indexEndTime:'',
+        entryYear:'f',
         indexYear:'f'
-      },
-      items: [
-          {
-            text: 'Admin',
-            href: '#'
-          },
-          {
-            text: 'Manage',
-            href: '#'
-          },
-          {
-            text: 'Library',
-            active: true
-          }
-      ]
+      }
     }
   },
   methods:{

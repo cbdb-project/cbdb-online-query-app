@@ -67,7 +67,7 @@
           <h6 class="m-3">[{{personInfo.basicInfo.cPersonId}}] {{personInfo.basicInfo.cName}} {{personInfo.basicInfo.cNameChn}}</h6>
           <b-tabs content-class="mt-3">
             <!-- 人物基本信息 -->
-            <b-tab :title="$t('entityQueryByPerson.result.basicInfo')" active>
+            <b-tab :title="$t('entityQueryByPerson.result.basicInfo')" :active="activeTab==='baseInfo'?true:false" @click="activeTab='baseInfo'">
               <b-card>
                  <!-- 第一行：姓 姓的拼音 名 名的拼音 -->
                 <b-row class = "px-3 mb-3">
@@ -107,7 +107,7 @@
               </b-card>
             </b-tab>
             <!-- 別名 -->
-            <b-tab :title="$t('entityQueryByPerson.result.altName')"> 
+            <b-tab :title="$t('entityQueryByPerson.result.altName')" :active="activeTab==='altName'?true:false" @click="activeTab='altName'"> 
               <b-card v-for="(altName,index) in personInfo.altNames" :key="index">
                 <!-- 第一行：別名 拼音-->
                  <b-row class = "px-3 mb-3">
@@ -126,7 +126,7 @@
               </b-card>                              
             </b-tab>  
              <!-- 生卒年月 -->
-            <b-tab :title="$t('entityQueryByPerson.result.birthDeath')"> 
+            <b-tab :title="$t('entityQueryByPerson.result.birthDeath')" :active="activeTab==='bdYear'?true:false" @click="activeTab='bdYear'"> 
               <b-card>
                 <!-- 第一行： 朝代 郡望 戶籍 種族 -->
                 <b-row class = "px-3 mb-3">
@@ -181,7 +181,7 @@
               </b-card>                                
             </b-tab>
              <!-- 地址 -->
-            <b-tab :title="$t('entityQueryByPerson.result.address')"> 
+            <b-tab :title="$t('entityQueryByPerson.result.address')" :active="activeTab==='address'?true:false" @click="activeTab='address'"> 
               <b-card v-for="(address,index) in personInfo.address" :key="index">
                 <!-- 第一行：地名 次序-->
                 <b-row class = "px-3 mb-3">
@@ -223,7 +223,7 @@
               </b-card>                              
             </b-tab> 
             <!-- 著述 -->  
-             <b-tab :title="$t('entityQueryByPerson.result.writings')"> 
+             <b-tab :title="$t('entityQueryByPerson.result.writings')" :active="activeTab==='writings'?true:false" @click="activeTab='writings'"> 
                <b-card v-for="(writing,index) in personInfo.writings" :key="index">
                   <!-- 第一行：著述名 -->
                   <b-row class = "px-3 mb-3">
@@ -242,7 +242,7 @@
               </b-card>                              
             </b-tab>             
             <!-- 職官 -->
-            <b-tab :title="$t('entityQueryByPerson.result.postings')"> 
+            <b-tab :title="$t('entityQueryByPerson.result.postings')" :active="activeTab==='office'?true:false" @click="activeTab='office'"> 
               <b-card v-for="(post,index) in personInfo.postings" :key="index">
                 <!-- 第一行：地名 次序-->
                 <b-row class = "px-3 mb-3">
@@ -309,7 +309,7 @@
               </b-card>                              
             </b-tab>    
             <!-- 入仕 -->  
-            <b-tab :title="$t('entityQueryByPerson.result.entry')"> 
+            <b-tab :title="$t('entityQueryByPerson.result.entry')" :active="activeTab==='entry'?true:false" @click="activeTab='entry'"> 
               <b-card v-for="(entry,index) in personInfo.entry" :key="index">  
                 <b-row class = "px-3 mb-3">
                   <b-col cols="9">
@@ -371,7 +371,7 @@
               </b-card>                              
             </b-tab> 
             <!-- 親屬關係 -->
-            <b-tab :title="$t('entityQueryByPerson.result.kinship')"> 
+            <b-tab :title="$t('entityQueryByPerson.result.kinship')" :active="activeTab==='kinship'?true:false" @click="activeTab='kinship'"> 
               <b-card v-for="(kinship,index) in personInfo.kinship" :key="index">  
                 <b-row class = "px-3 mb-3">
                    <b-col>
@@ -389,7 +389,7 @@
               </b-card>                              
             </b-tab>  
             <!-- 社會關係 -->
-            <b-tab :title="$t('entityQueryByPerson.result.association')"> 
+            <b-tab :title="$t('entityQueryByPerson.result.association')" :active="activeTab==='association'?true:false" @click="activeTab='association'"> 
               <b-card v-for="(ass,index) in personInfo.associations" :key="index">  
                 <b-row class = "px-3 mb-3">
                    <b-col cols="9">
@@ -424,7 +424,7 @@
               </b-card>                              
             </b-tab>  
             <!-- 地位 --> 
-            <b-tab :title="$t('globalTerm.status')"> 
+            <b-tab :title="$t('globalTerm.status')" :active="activeTab==='status'?true:false" @click="activeTab='status'"> 
               <b-card v-for="(status,index) in personInfo.status" :key="index">
                 <!-- 第一行：社會地位名 -->
                 <b-row class = "px-3 mb-3">
@@ -496,6 +496,9 @@ export default {
       personInfo:{
 
       },
+      //控制当前显示哪个 tab
+      activeTab:'baseInfo',
+      tabIsloading:false
     }
   },
   methods:{
@@ -528,6 +531,7 @@ export default {
       this.formData.personNameCh = selectedPerson[0]['personNameCh'];
       this.formData.personIndexYear = selectedPerson[0]['indexYear'];
     },
+    //To Do
     async handleSubmit(){
       //提交表单的时候先清空原有數據
       this.personInfo = {}
@@ -545,6 +549,7 @@ export default {
         }
       )
     },
+    //To Do
     waitForServer(query){
       //sendToServer(query)
       //------模擬服務器響應的東西---------
@@ -552,26 +557,58 @@ export default {
         setTimeout((success=true)=>{
           if(success)resolve({status:'200',data:dataJson})
           else reject({status:'404'})
-        },3000)
+        },1000)
       })
     },
+    //To Do
     loadMore(api,type,page){
-        return this.axios.get(api)
+        return new Promise(function(resolve){
+        setTimeout(()=>{resolve('loaded')},1000)
+      })
     },
+    //To Do
     handleScroll(){
-      var isLoading = false
+      if(Object.keys(this.personInfo).length == 0) return
       let heightTop = document.documentElement.scrollTop || document.body.scrollTop;
       let bottomOfWindow = document.documentElement.offsetHeight -heightTop - window.innerHeight <= 0
-      if (bottomOfWindow && isLoading == false) {
-        isLoading = true
-        window.onscroll = () => {    
-          let res = this.loadMore('https://randomuser.me/api/',undefined,undefined)
-          res.then(response => {
-          //this.personinfo.type.push(response.data)
-          console.log('load')
-          isLoading = false   
-          })
-        }
+      if (bottomOfWindow && this.tabIsloading == false) {
+        this.tabIsloading = true 
+        let res = this.loadMore('https://randomuser.me/api/',this.activeTab,undefined)
+        res.then(response => {
+          //To Do
+          this.personInfo.address.push({
+            "placeName":"Daxing",
+            "placeNameChn":"大興",
+            "type":"Basic Affiliation",
+            "typeChn":"籍貫（基本地址）",
+            "isMaternal":"false",
+            "sequence":"0",
+            "pFromYear":"0",
+            "pFyRange":"-1",
+            "pFyNh":"unknown",
+            "pFyNhChn":"未詳",
+            "pFyNhYear":"1",
+            "pFyIntercalary":"true",
+            "pFyMonth":"1",
+            "pFyDay":"1",
+            "pFyDayGz":"",
+            "pToYear":"0",
+            "pTyRange":"",
+            "pTyNh":"unknown",
+            "pTyNhChn":"未詳",
+            "pTyNhYear":"",
+            "pTyIntercalary":"false",
+            "pTyMonth":"",
+            "pTyDay":"",
+            "pTyDayGz":"",
+            "pSource":"Renming quanwei ziliao (Zhongyang yanjiuyuan Lishi yuyan yanjiusuo)",
+            "pSourceChn":"人名權威資料（中央研究院歷史語言研究所）",
+            "psPages":"9537",
+            "pNotes":"北直隸·順天府（祖籍南直隸·鳳陽府）（中央研究院人名權威資料）。"
+          })      
+          console.log(this.personInfo.address);
+          this.tabIsloading = false   
+        })      
       }    
     }
   },

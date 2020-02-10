@@ -36,7 +36,7 @@
           <b-col>
             <label for="max-ancestor-gen" class = "user-input-label">{{$t('relationQueryByKinship.maxAncestorGen')}}:</label>
             <b-form-input id="max-ancestor-gen" v-model="formData.startTime" placeholder="" 
-              :state="validation('indexStartTime')" :disabled="formData.indexYear==='f'?true:false"></b-form-input>
+              :state="validation('indexStartTime')" :disabled="false"></b-form-input>
               <b-form-invalid-feedback :state="validation('indexStartTime')">
                 Invalid number
               </b-form-invalid-feedback>
@@ -44,7 +44,7 @@
           <b-col>
              <label for="max-descend-gen" class = "user-input-label">{{$t('relationQueryByKinship.maxDescendGen')}}:</label>
              <b-form-input id="max-descend-gen" v-model="formData.endTime" placeholder="" 
-             :state="validation('indexEndTime')" :disabled="formData.indexYear==='f'?true:false"></b-form-input>
+             :state="validation('indexEndTime')" :disabled="false"></b-form-input>
               <b-form-invalid-feedback :state="validation('indexEndTime')">
                 Invalid number
               </b-form-invalid-feedback>
@@ -52,7 +52,7 @@
           <b-col>
             <label for="max-collaternal-links" class = "user-input-label">{{$t('relationQueryByKinship.maxCollaternalLinks')}}:</label>
             <b-form-input id="max-collaternal-links" v-model="formData.startTime" placeholder="" 
-              :state="validation('indexStartTime')" :disabled="formData.indexYear==='f'?true:false"></b-form-input>
+              :state="validation('indexStartTime')" :disabled="false"></b-form-input>
               <b-form-invalid-feedback :state="validation('indexStartTime')">
                 Invalid number
               </b-form-invalid-feedback>
@@ -60,7 +60,7 @@
           <b-col>
              <label for="max-marriage-links" class = "user-input-label">{{$t('relationQueryByKinship.maxMarriageLinks')}}:</label>
              <b-form-input id="max-marriage-links" v-model="formData.endTime" placeholder="" 
-             :state="validation('indexEndTime')" :disabled="formData.indexYear==='f'?true:false"></b-form-input>
+             :state="validation('indexEndTime')" :disabled="false"></b-form-input>
               <b-form-invalid-feedback :state="validation('indexEndTime')">
                 Invalid number 
               </b-form-invalid-feedback>
@@ -70,7 +70,7 @@
                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
               </label>
              <b-form-input id="max-loop" v-model="formData.endTime" placeholder="" 
-             :state="validation('indexEndTime')" :disabled="formData.indexYear==='f'?true:false"></b-form-input>
+             :state="validation('indexEndTime')" :disabled="false"></b-form-input>
               <b-form-invalid-feedback :state="validation('indexEndTime')">
                 Invalid number
               </b-form-invalid-feedback>
@@ -109,6 +109,7 @@
 </template>
 
 <script>
+import {isNull,yearValidation} from '@/components/utility/utility-functions.js'
 import queryResult from '@/components/utility/query-result.vue'
 import selectPerson from '@/components/utility/select-person.vue'
 //開發用的假數據
@@ -126,10 +127,7 @@ export default {
       isBusy: false,
       /*表單數據放這裡*/
       formData:{
-        personId:'',
-        personNameEn:'',
-        personNameCh:'',
-        personIndexYear:'',
+        person:[],
         mCircle:'f'
       },
       //後端傳回來的數據放這裡
@@ -161,37 +159,12 @@ export default {
       else return ''
     },
     //判斷輸入欄是否為空
-    isNull(idx){
-      return this.formData[idx] == ''
-    },
+    isNull:isNull,
     //判斷年代輸入是否有效
-    validation(idx){
-      //如果輸入為空，視為有效
-      if(this.isNull(idx))return null;
-      let year = /^\d{1,4}$/;
-      //startTime 一欄只要輸入符合有且僅有1～4位數字的規則，視為有效
-      if(idx == 'startTime')return year.test(this.formData[idx])?null:false;
-      else if(idx == 'endTime'){
-        //先判斷 endTime 一欄是否符合有且僅有1～4位數字的規則，如果不符合，視為無效
-        if(year.test(this.formData[idx])){
-          //如果 endTime 有輸入數字，同時 startTime 也有輸入數字，判斷 endTime 的數字是否大於 startTime 的數字
-          //如果小於，則視為無效
-          if(this.validation('startTime') == null && this.isNull('startTime')==false){
-            let st = parseInt(this.formData['startTime'], 10);
-            let et = parseInt(this.formData['endTime'], 10);
-            return et>st?null:false;
-          }
-          else return null;
-        }
-        else return false;
-      }
-    },
+    validation:function(){return null},
     //获取查询的人物
     handleGetPerson: function(selectedPerson){
-      this.formData.personId = selectedPerson[0]['personId'];
-      this.formData.personNameEn = selectedPerson[0]['personName'];
-      this.formData.personNameCh = selectedPerson[0]['personNameCh'];
-      this.formData.personIndexYear = selectedPerson[0]['indexYear'];
+      this.formData.person = selectedPerson[0]['personId'];
     },
     async handleSubmit(){
       //提交表单的时候先清空原有數據
@@ -226,7 +199,7 @@ export default {
       return `person-id:'${this.formData.personId}';`
     },
     isInvalid(){
-      return this.isNull('personId')==true
+      return this.formData.person.length == 0
     }
   },
   watch:{

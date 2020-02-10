@@ -521,7 +521,6 @@ export default {
       else return ''
     },
     isNull:isNull,
-
     //获取查询的人物
     handleGetPerson: function(selectedPerson){
       this.formData.personId = selectedPerson[0]['personId'];
@@ -556,6 +555,28 @@ export default {
         },3000)
       })
     },
+    loadMore(api,type,page){
+        return this.axios.get(api)
+    },
+    handleScroll(){
+      var isLoading = false
+      let heightTop = document.documentElement.scrollTop || document.body.scrollTop;
+      let bottomOfWindow = document.documentElement.offsetHeight -heightTop - window.innerHeight <= 0
+      if (bottomOfWindow && isLoading == false) {
+        isLoading = true
+        window.onscroll = () => {    
+          let res = this.loadMore('https://randomuser.me/api/',undefined,undefined)
+          res.then(response => {
+          //this.personinfo.type.push(response.data)
+          console.log('load')
+          isLoading = false   
+          })
+        }
+      }    
+    }
+  },
+  mounted() {
+    window.addEventListener('scroll', this.handleScroll,true)
   },
   computed:{
     queryFormular(){

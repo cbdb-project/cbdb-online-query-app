@@ -18,7 +18,7 @@ function yearValidation(idx){
         /*
         //如果 endTime 有輸入數字，同時 startTime 也有輸入數字，判斷 endTime 的數字是否大於 startTime 的數字
         //如果小於，則視為無效
-        //未完成
+        //TO DO
         if(this.validation('startTime') == null && this.isNull('startTime')==false){
           let st = parseInt(this.formData['startTime'], 10);
           let et = parseInt(this.formData['endTime'], 10);

@@ -53,7 +53,7 @@
         <b-row class = "px-3 mb-3"  v-if="formData.indexYear==='t'">
           <b-col>
             <label for="index-start-time" class = "user-input-label">{{$t('globalTerm.startTime')}}:</label>
-            <b-form-input id="index-start-time" v-model="formData.startTime" placeholder="" 
+            <b-form-input id="index-start-time" v-model="formData.indexStartTime" placeholder="" 
               :state="validation('indexStartTime')" :disabled="formData.indexYear==='f'?true:false"></b-form-input>
               <b-form-invalid-feedback :state="validation('indexStartTime')">
                 Invalid year 
@@ -61,7 +61,7 @@
             </b-col>
           <b-col>
              <label for="index-end-time" class = "user-input-label">{{$t('globalTerm.endTime')}}:</label>
-             <b-form-input id="index-end-time" v-model="formData.endTime" placeholder="" 
+             <b-form-input id="index-end-time" v-model="formData.indexEndTime" placeholder="" 
              :state="validation('indexEndTime')" :disabled="formData.indexYear==='f'?true:false"></b-form-input>
               <b-form-invalid-feedback :state="validation('indexEndTime')">
                 Invalid year 
@@ -98,6 +98,7 @@
 </template>
 
 <script>
+import {isNull,yearValidation} from '@/components/utility/utility-functions'
 import queryResult from '@/components/utility/query-result.vue'
 import selectRelation from '@/components/utility/select-relationship.vue'
 import selectPlace from '@/components/utility/select-place.vue'
@@ -130,53 +131,8 @@ export default {
     }
   },
   methods:{
-    //生成各種年份詳情 xxx-year-details-xxx 的id
-    genDetails(n,i){
-      return n+"-details-"+i
-    },
-    //判斷數據是否有效（非空且不為0）
-    isValidVar(n){
-        if(n&&n.length != 0&&n!=='0')return true
-        else return false 
-    },
-    //判斷人物的性別
-    personGen(isF){
-      if(isF === "false")return this.$t('globalTerm.male');
-      else if (isF === "true")return this.$t('globalTerm.female');
-      else return ''
-    },
-    //判斷是否
-    isOrNot(str){
-      if(str === "false")return this.$t('globalTerm.false');
-      else if (str === "true")return this.$t('globalTerm.true');
-      else return ''
-    },
-    //判斷輸入欄是否為空
-    isNull(idx){
-      return this.formData[idx] == ''
-    },
-    //判斷年代輸入是否有效
-    validation(idx){
-      //如果輸入為空，視為有效
-      if(this.isNull(idx))return null;
-      let year = /^\d{1,4}$/;
-      //startTime 一欄只要輸入符合有且僅有1～4位數字的規則，視為有效
-      if(idx == 'startTime')return year.test(this.formData[idx])?null:false;
-      else if(idx == 'endTime'){
-        //先判斷 endTime 一欄是否符合有且僅有1～4位數字的規則，如果不符合，視為無效
-        if(year.test(this.formData[idx])){
-          //如果 endTime 有輸入數字，同時 startTime 也有輸入數字，判斷 endTime 的數字是否大於 startTime 的數字
-          //如果小於，則視為無效
-          if(this.validation('startTime') == null && this.isNull('startTime')==false){
-            let st = parseInt(this.formData['startTime'], 10);
-            let et = parseInt(this.formData['endTime'], 10);
-            return et>st?null:false;
-          }
-          else return null;
-        }
-        else return false;
-      }
-    },
+    isNull:isNull,
+    validation:yearValidation,
     //获取查询的人物
     handleGetPerson: function(selectedPerson){
       this.formData.personId = selectedPerson[0]['personId'];

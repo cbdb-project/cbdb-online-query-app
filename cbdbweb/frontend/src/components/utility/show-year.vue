@@ -36,7 +36,7 @@
 <script>
 export default {
     name:'showYear',
-    props:['name','id','title','year','nh','nhChn','nhCount','month','day','gz','isIntc','range','notes'],
+    //props:['name','id','title','year','nh','nhChn','nhCount','month','day','gz','isIntc','range','notes'],
     //name:用於指定DOM元素的id的前綴
     //id:用於指定DOM元素的id的下標
     //title:標籤
@@ -49,6 +49,47 @@ export default {
     //gz：干支
     //range:範圍
     //isIntc:是否閏年
+    props:{
+        'name':{
+            default:'default'
+        },
+        'id':{
+            default:0
+        },
+        'title':{
+
+        },
+        'year':{
+
+        },
+        'nh':{
+            default:'Unknown'
+        },
+        'nhChn':{
+            default:'未詳'
+        },
+        'nhCount':{
+
+        },
+        'month':{
+
+        },
+        'day':{
+
+        },
+        'gz':{
+
+        },
+        'range':{
+
+        },
+        'notes':{
+
+        },
+        'isIntc':{
+            deafult:'false'
+        }
+    },
     data(){
     return {
         name:'default'

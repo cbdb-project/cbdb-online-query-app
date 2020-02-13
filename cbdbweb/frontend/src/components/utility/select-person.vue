@@ -4,7 +4,7 @@
         <b-button  v-if="selectFromDb===true" variant="outline-primary"  v-b-modal.select-person
         class = "query-condition-button" size="sm">{{$t('globalTerm.selectFromDb')}}</b-button>
         <b-button  v-if="importList===true" variant="outline-primary"  v-b-modal.select-person
-        class = "query-condition-button" size="sm">{{$t('globalTerm.selectFromDb')}}</b-button>
+        class = "query-condition-button" size="sm">{{$t('globalTerm.import')}}</b-button>
       </b-button-group>
         <b-modal 
           id="select-person" 

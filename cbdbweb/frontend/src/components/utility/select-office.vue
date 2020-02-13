@@ -5,7 +5,7 @@
             class = "query-condition-button" size="sm">{{$t('globalTerm.selectFromDb')}}
         </b-button>
         <b-button v-if="importList"  variant="outline-primary"  
-            class = "query-condition-button" size="sm">{{$t('selectOffice.selectButton')}}
+            class = "query-condition-button" size="sm">{{$t('globalTerm.import')}}
         </b-button>
       </b-button-group>
         <b-modal 
@@ -76,7 +76,7 @@ export default {
         default:true
       },
       'importList':{
-        default:true
+        default:false
       }
     },
     data() {

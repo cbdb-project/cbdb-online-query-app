@@ -20,7 +20,7 @@
             </b-card>   
           </b-col>
           <b-col cols="4" style = "text-align:left">
-            <select-office @getPlaceName="handleGetOffice" style = "margin-top:46px"></select-office>
+            <select-office @getPlaceName="handleGetOffice" style = "margin-top:48px"></select-office>
           </b-col>
         </b-row>
       </div>

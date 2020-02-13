@@ -28,7 +28,7 @@
             </b-card>
           </b-col>
           <b-col cols="2">
-            <select-person @getPersonName="handleGetPerson" selectMode='single' importList="false" style="margin-top:53px">
+            <select-person @getPersonName="handleGetPerson" selectMode='single' importList="false" style="margin-top:50px">
             </select-person>
           </b-col>
         </b-row>
@@ -576,36 +576,37 @@ export default {
         let res = this.loadMore('https://randomuser.me/api/',this.activeTab,undefined)
         res.then(response => {
           //To Do
-          this.personInfo.address.push({
-            "placeName":"Daxing",
-            "placeNameChn":"大興",
-            "type":"Basic Affiliation",
-            "typeChn":"籍貫（基本地址）",
-            "isMaternal":"false",
-            "sequence":"0",
-            "pFromYear":"0",
-            "pFyRange":"-1",
-            "pFyNh":"unknown",
-            "pFyNhChn":"未詳",
-            "pFyNhYear":"1",
-            "pFyIntercalary":"true",
-            "pFyMonth":"1",
-            "pFyDay":"1",
-            "pFyDayGz":"",
-            "pToYear":"0",
-            "pTyRange":"",
-            "pTyNh":"unknown",
-            "pTyNhChn":"未詳",
-            "pTyNhYear":"",
-            "pTyIntercalary":"false",
-            "pTyMonth":"",
-            "pTyDay":"",
-            "pTyDayGz":"",
-            "pSource":"Renming quanwei ziliao (Zhongyang yanjiuyuan Lishi yuyan yanjiusuo)",
-            "pSourceChn":"人名權威資料（中央研究院歷史語言研究所）",
-            "psPages":"9537",
-            "pNotes":"北直隸·順天府（祖籍南直隸·鳳陽府）（中央研究院人名權威資料）。"
-          })      
+          for(let i = 0; i<5;i++)
+            this.personInfo.address.push({
+              "placeName":"Daxing",
+              "placeNameChn":"大興",
+              "type":"Basic Affiliation",
+              "typeChn":"籍貫（基本地址）",
+              "isMaternal":"false",
+              "sequence":"0",
+              "pFromYear":"0",
+              "pFyRange":"-1",
+              "pFyNh":"unknown",
+              "pFyNhChn":"未詳",
+              "pFyNhYear":"1",
+              "pFyIntercalary":"true",
+              "pFyMonth":"1",
+              "pFyDay":"1",
+              "pFyDayGz":"",
+              "pToYear":"0",
+              "pTyRange":"",
+              "pTyNh":"unknown",
+              "pTyNhChn":"未詳",
+              "pTyNhYear":"",
+              "pTyIntercalary":"false",
+              "pTyMonth":"",
+              "pTyDay":"",
+              "pTyDayGz":"",
+              "pSource":"Renming quanwei ziliao (Zhongyang yanjiuyuan Lishi yuyan yanjiusuo)",
+              "pSourceChn":"人名權威資料（中央研究院歷史語言研究所）",
+              "psPages":"9537",
+              "pNotes":"北直隸·順天府（祖籍南直隸·鳳陽府）（中央研究院人名權威資料）。"
+            })      
           console.log(this.personInfo.address);
           this.tabIsloading = false   
         })      

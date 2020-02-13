@@ -20,7 +20,7 @@
             </b-card>
           </b-col>
           <b-col cols="4" style = "text-align:left">
-            <select-person @getPersonName="handleGetPerson" selectMode='single' style="margin-top:46px">
+            <select-person @getPersonName="handleGetPerson" selectMode='single' style="margin-top:48px">
             </select-person>
           </b-col>
         </b-row>
@@ -65,6 +65,7 @@
                 Invalid number 
               </b-form-invalid-feedback>
            </b-col>
+           <!-- TO DO: Max Loop 到底属于哪个层级？要验证 -->
            <b-col>
              <label for="max-loop" class = "user-input-label">{{$t('relationQueryByKinship.maxLoop')}}:
                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -75,7 +76,6 @@
                 Invalid number
               </b-form-invalid-feedback>
            </b-col>
-           <b-col cols="2"></b-col>
         </b-row>
       </div>
       <!--

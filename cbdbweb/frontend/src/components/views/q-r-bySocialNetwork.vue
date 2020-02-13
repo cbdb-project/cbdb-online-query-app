@@ -20,7 +20,7 @@
             </b-card>
           </b-col>
           <b-col cols="4" style = "text-align:left">
-            <select-person @getPersonName="handleGetPerson" selectMode='single' style="margin-top:46px">
+            <select-person @getPersonName="handleGetPerson" selectMode='single' style="margin-top:48px">
             </select-person>
           </b-col>
         </b-row>
@@ -34,7 +34,7 @@
             </b-card>   
           </b-col>
           <b-col cols="4" style = "text-align:left" >
-            <select-place @getPlaceName="handleGetPlace" style = "margin-top:46px"></select-place>
+            <select-place @getPlaceName="handleGetPlace" style = "margin-top:48px"></select-place>
           </b-col>
         </b-row>
         <b-row class = "py-3 my-3">
@@ -47,7 +47,7 @@
             </b-card>
           </b-col>
           <b-col cols="2"  style = "text-align:left">
-            <select-relation style="margin-top:46px">   <!-- @getPersonName="handleGetPerson" --> 
+            <select-relation style="margin-top:48px">   <!-- @getPersonName="handleGetPerson" --> 
             </select-relation>
           </b-col>
           <b-col cols="2">

@@ -66,8 +66,7 @@ module.exports = {
         startTime:"Start Time",
         endTime:"End Time",
         isIndexYear:"Use Index Year",
-        importPeople:"Import People List",
-        importLocations:"Import Places List",
+        import:"Import",
         indexYear:"Index Year",
         gen:"Gender",
         personId:"Person ID",
@@ -100,7 +99,7 @@ module.exports = {
         and:"And",
         invalidInput:"Your input is invalid, please check.",
         cnOrPy:"In Chinese or Pinyin",
-        selectFromDb:"SELECT FROM DATABASE"
+        selectFromDb:"Select"
     },
     entityQueryByOffice:{
         indexYearRange:"Index Year Range",

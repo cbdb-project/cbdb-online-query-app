@@ -20,7 +20,7 @@
             </b-card>   
           </b-col>
           <b-col cols="4" style = "text-align:left" >
-            <select-place @getPlaceName="handleGetPlace" style = "margin-top:46px"></select-place>
+            <select-place @getPlaceName="handleGetPlace" style = "margin-top:48px"></select-place>
           </b-col>
         </b-row>
         <b-row class = "py-3 my-3">
@@ -33,7 +33,7 @@
             </b-card>   
           </b-col>
           <b-col  cols="4" style = "text-align:left">
-            <select-entry @getEntryName="handleGetEntry" style = "margin-top:46px"></select-entry>
+            <select-entry @getEntryName="handleGetEntry" style = "margin-top:48px"></select-entry>
           </b-col>
         </b-row>
       </div>           

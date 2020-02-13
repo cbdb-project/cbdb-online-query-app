@@ -5,7 +5,7 @@
           class = "query-condition-button" size="sm">{{$t('globalTerm.selectFromDb')}}
         </b-button>
         <b-button  v-if="importList" variant="outline-primary"  v-b-modal.select-place-table
-          class = "query-condition-button" size="sm">{{$t('globalTerm.selectFromDb')}}
+          class = "query-condition-button" size="sm">{{$t('globalTerm.import')}}
         </b-button>
       </b-button-group>
         <b-modal

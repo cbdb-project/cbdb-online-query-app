@@ -15,7 +15,13 @@
             <b-card-text class = "card-item-title">{{$t('globalTerm.office')}}</b-card-text>    
             <b-card>
               <b-row class="pl-3" style = "text-align:center">
-                <b-col>未選擇</b-col>
+                <b-col>
+                  <div v-if="this.formData.office.length==0">Nothing Selected</div>
+                  <div v-else>{{formData.office[0]}}
+                    <span v-if="this.formData.office.length>1">及另外{{this.formData.office.length-1}}個官職</span>
+                    <b-button  variant="outline-primary" size = sm>查看已選</b-button>
+                  </div>
+                  </b-col>
               </b-row> 
             </b-card>   
           </b-col>
@@ -59,7 +65,7 @@
         <b-col class = "p-3">
             <b-button href="#" variant="primary" style = "width:100%;margin-top:38px" :disabled="isInvalid||isBusy" @click="handleSubmit">
               <span v-if="!isBusy">Go</span>
-              <b-spinner small v-if="isBusy"></b-spinner>
+              <b-spinner small v-else></b-spinner>
             </b-button>
         </b-col>
         <b-col></b-col>

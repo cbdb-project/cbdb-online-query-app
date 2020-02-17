@@ -99,7 +99,10 @@
       <b-row class = "px-3 mb-3">
         <b-col></b-col>
         <b-col  class = "p-3">
-            <b-button href="#" variant="primary" style = "width:100%;margin-top:38px" :disabled="isInvalid">Go</b-button>
+            <b-button href="#" variant="primary" style = "width:100%;margin-top:38px" :disabled="isInvalid">
+              <span v-if="!isBusy">Go</span>
+              <b-spinner small v-else></b-spinner>
+            </b-button>
         </b-col>
         <b-col></b-col>
       </b-row>    

@@ -78,7 +78,7 @@
               style = "width:100%;margin-top:16px" :disabled="isInvalid||isBusy"
               @click="handleSubmit">
               <span v-if="!isBusy">Go</span>
-              <b-spinner small v-if="isBusy"></b-spinner>
+              <b-spinner small  v-else></b-spinner>
             </b-button>
           </a>
         </b-col>

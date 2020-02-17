@@ -1,15 +1,16 @@
 <template>
-        <div>
+        <div ref="wrapper">
           <b-table 
             :items= "items" 
             :fields= "fields" 
             sticky-header 
-            head-variant="light" 
+            head-variant="light"
+            id="res"             
             ref="selectableTable"
             selectable
             select-mode="multi"
             @row-selected="onRowSelected"
-            responsive="sm">
+            responsive>
               <template v-slot:cell(selected)="{ rowSelected }">
                  <template v-if="rowSelected">
                     <span aria-hidden="true">&check;</span>
@@ -35,6 +36,7 @@ export default {
   name: 'queryResult',
   data () {
     return {
+      isLoading:false,
       /*表格子數據放這裡*/
         fields: [
           {
@@ -91,16 +93,16 @@ export default {
     }
   },
   methods: {
-      onRowSelected(items) {
-        this.selected = items
-      },
-      selectAllRows() {
-        this.$refs.selectableTable.selectAllRows()
-      },
-      clearSelected() {
-        this.$refs.selectableTable.clearSelected()
-      }
+    onRowSelected(items) {
+      this.selected = items
+    },
+    selectAllRows() {
+      this.$refs.selectableTable.selectAllRows()
+    },
+    clearSelected() {
+      this.$refs.selectableTable.clearSelected()
     }
+  }
 }
 </script>
 

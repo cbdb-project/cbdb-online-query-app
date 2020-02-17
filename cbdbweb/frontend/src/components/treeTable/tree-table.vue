@@ -49,7 +49,7 @@
 		watch: {
 			'list': {
 				handler() {
-					console.log('ddddd')
+					//console.log('ddddd')
 					this.initTreeData()
 				},
 				deep: true

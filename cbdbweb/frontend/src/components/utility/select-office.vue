@@ -82,7 +82,7 @@ export default {
     data() {
         return {
           show:false,
-          treeDataSource: dataJson,
+          treeDataSource: {},
           /*表格子數據放這裡*/
           fields: [
             {
@@ -120,13 +120,22 @@ export default {
         treeTable
     },
     methods: {
+        // 後台加載職官樹
+        loadOfficeTree(){
+          if(localStorage.officeTree!=undefined)this.treeDataSource = JSON.parse(localStorage.officeTree)
+          else{
+            let getOfficeTree = new Promise(function(resolve){
+              setTimeout(()=>{resolve(dataJson)},3000)
+            })
+            getOfficeTree.then(resolve => {this.treeDataSource = resolve;localStorage.officeTree = JSON.stringify(resolve)})
+          }
+        },
         onRowSelected(items) {
           //用户选中列表中的条目后，同步到selectedOffice中
           this.selectedOffice = items
         },
         haveSelected: function(){
           //同步选中官职给父组件（页面）
-          console.log("成功");
           this.$emit('getOfficeName', this.selectedOffice);
           this.show = false;
         },
@@ -137,9 +146,11 @@ export default {
             this.$refs.selectableTable.clearSelected()
         },
         handlerExpand(m) {
-            console.log('展开/收缩')
             m.isExpand = !m.isExpand
         }
+    },
+    created(){
+      this.loadOfficeTree()
     }
 }
 </script>

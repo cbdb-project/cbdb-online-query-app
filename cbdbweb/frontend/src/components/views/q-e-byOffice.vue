@@ -20,7 +20,7 @@
             </b-card>   
           </b-col>
           <b-col cols="4" style = "text-align:left">
-            <select-office @getPlaceName="handleGetOffice" style = "margin-top:48px"></select-office>
+            <select-office @getOfficeName="handleGetOffice" style = "margin-top:48px"></select-office>
           </b-col>
         </b-row>
       </div>
@@ -57,7 +57,10 @@
       <b-row class = "px-3 mb-3">
         <b-col></b-col>
         <b-col class = "p-3">
-            <b-button href="#" variant="primary" style = "width:100%;margin-top:38px" :disabled="isInvalid">Go</b-button>
+            <b-button href="#" variant="primary" style = "width:100%;margin-top:38px" :disabled="isInvalid||isBusy" @click="handleSubmit">
+              <span v-if="!isBusy">Go</span>
+              <b-spinner small v-if="isBusy"></b-spinner>
+            </b-button>
         </b-col>
         <b-col></b-col>
       </b-row>    
@@ -68,7 +71,7 @@
       -->
     </b-card>
   </div>
-  <div class="hello">
+  <div class="hello" v-if="result.tableData!=undefined">
     <b-card header-tag="header" footer-tag="footer">
       <template v-slot:header>
           <h6 class="mb-0">{{$t('globalTerm.resultShow')}}</h6>
@@ -92,12 +95,17 @@ export default {
   },
   data () {
     return {
+      isBusy:false,
       /*表單數據放這裡*/
       formData:{
         office:[],
         indexStartTime:'',
         indexEndTime:'',
         indexYear:'f'
+      },
+      result:{
+        totalPages:undefined,
+        tableData:undefined
       }
     }
   },
@@ -107,8 +115,8 @@ export default {
     validation:yearValidation,
     //获取查询的官职名
     handleGetOffice: function(selectedOffice){
-      this.formData.officeChName = selectedOffice[0]['officeName'];
-      this.formData.officeEnName = selectedOffice[0]['officeNameCh'];
+      this.formData.office = selectedOffice.map(i => {return i.officeNameCh});
+      console.log(this.formData.office)
       // this.formData.officeEnType = selectedOffice[0]['typeName'];
       // this.formData.officeChType = selectedOffice[0]['typeNameCh'];
     },
@@ -122,10 +130,48 @@ export default {
       this.formData.officeEnPlace = selectedPlace[0]['placeName'];
       this.formData.officeChPlace = selectedPlace[0]['placeNameCh'];
     },
+    //To Do
     testData: function(){
       console.log("测试");
       console.log(this.formData.officeChPlace);
-    }
+    },
+    //To Do
+    async handleSubmit(){
+      //提交表单的时候先清空原有數據
+      this.isBusy = true;
+      const res = this.waitForServer(this.formData)
+      res.then((r)=>
+        {
+          this.result.totalPages = r.data.totalPages
+          this.result.tableData = r.data.data
+          this.isBusy = false
+          if(this.result.totalPages>1){
+            for(let p = 2; p <= this.result.totalPages;p++)this.loadMore('api',p).then(res=>console.log(res))
+          }
+        },
+        (e)=>{
+          alert('something went wrong...')
+          this.isBusy = false
+        }
+      )
+    },
+    //To Do
+    waitForServer(query){
+      //sendToServer(query)
+      //------模擬服務器響應的東西---------
+      return new Promise(function(resolve,reject){
+        setTimeout((success=true)=>{
+          if(success)resolve({status:'200',data:{totalPages:5,data:['']}})
+          else reject({status:'404'})
+        },1000)
+      })
+    },
+    //To Do
+    loadMore(api,page){
+        return new Promise(function(resolve){
+        setTimeout(()=>{resolve('This is Data!')},1000)
+      })
+    },
   },
   computed:{
     queryFormular(){

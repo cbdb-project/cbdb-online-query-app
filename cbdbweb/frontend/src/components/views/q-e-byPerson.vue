@@ -58,7 +58,7 @@
     </b-card>
   </div>
     <!-- 按人查詢頁的結果和其他不太一樣，單獨寫出來-->
-    <div class="hello" v-if="Object.keys(this.personInfo).length!= 0">
+    <div class="hello" v-if="Object.keys(this.personInfo).length!= 0" ref="res">
     <b-card header-tag="header" footer-tag="footer">
         <template v-slot:header>
             <h6 class="mb-0">{{$t('globalTerm.resultShow')}}</h6>
@@ -568,7 +568,8 @@ export default {
     },
     //To Do
     handleScroll(){
-      if(Object.keys(this.personInfo).length == 0) return
+      if (!this.$refs.res) return
+      console.log(Object.keys(this.personInfo).length == 0)
       let heightTop = document.documentElement.scrollTop || document.body.scrollTop;
       let bottomOfWindow = document.documentElement.offsetHeight -heightTop - window.innerHeight <= 0
       if (bottomOfWindow && this.tabIsloading == false) {
@@ -607,7 +608,6 @@ export default {
               "psPages":"9537",
               "pNotes":"北直隸·順天府（祖籍南直隸·鳳陽府）（中央研究院人名權威資料）。"
             })      
-          console.log(this.personInfo.address);
           this.tabIsloading = false   
         })      
       }    

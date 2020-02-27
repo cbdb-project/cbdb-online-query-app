@@ -7,7 +7,7 @@ import entityQueryByOffice from '@/components/views/q-e-byOffice'
 import relationQueryByKinship from '@/components/views/q-r-byKinship'
 import relationQueryByAssociation from '@/components/views/q-r-byAssociation'
 import relationQueryBySocialNetwork from '@/components/views/q-r-bySocialNetwork'
-//import relationQueryTwoPerson from '@/components/views/q-r-byTwoPerson'
+import relationQueryTwoPerson from '@/components/views/q-e-byPerson-test'
 import visualizationBySNA from '@/components/views/vis-bySNA'
 //import visualizationByGIS from '@/components/views/vis-byGIS'
 //import visualizationByGraphs from '@/components/views/vis-byGraphs'
@@ -59,14 +59,14 @@ export default new Router({
       path: '/q-relation/by-social-network',
       name: 'Relation Query: By Socialnetwork',
       component: relationQueryBySocialNetwork
-    },
-    /*
+    }
+    ,
     {
-      path: '/q-relation/two-person',
-      name: 'Relation Query: By TwoPerson',
+      path: '/test/person',
+      name: 'Test',
       component: relationQueryTwoPerson
     },
-    */
+  
     {
       path: '/visualization/SNA',
       name: 'Visualization: SNA',

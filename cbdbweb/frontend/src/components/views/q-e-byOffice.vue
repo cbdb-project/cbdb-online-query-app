@@ -16,7 +16,7 @@
             <b-card>
               <b-row class="pl-3" style = "text-align:center">
                 <b-col>
-                  <div v-if="this.formData.office.length==0">Nothing Selected</div>
+                  <div v-if="this.formData.office.length==0" style = "line-height:31px">Nothing Selected</div>
                   <div v-else>{{formData.office[0]}}
                     <span v-if="this.formData.office.length>1">及另外{{this.formData.office.length-1}}個官職</span>
                     <b-button  variant="outline-primary" size = sm>查看已選</b-button>
@@ -26,7 +26,7 @@
             </b-card>   
           </b-col>
           <b-col cols="4" style = "text-align:left">
-            <select-office @getOfficeName="handleGetOffice" style = "margin-top:48px"></select-office>
+            <select-office @getOfficeName="handleGetOffice" style = "margin-top:56px"></select-office>
           </b-col>
         </b-row>
       </div>

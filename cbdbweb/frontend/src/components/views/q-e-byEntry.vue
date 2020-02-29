@@ -12,84 +12,91 @@
       <div class = "card-item-body px-3">
         <b-row class = "py-3 my-3">
           <b-col cols="8" style = "text-align:left">
-            <b-card-text class = "card-item-title">{{$t('globalTerm.place')}}</b-card-text>    
-            <b-card>
-              <b-row class="pl-3" style = "text-align:center">
-                <b-col>未選擇</b-col>
-              </b-row> 
-            </b-card>   
-          </b-col>
-          <b-col cols="4" style = "text-align:left" >
-            <select-place @getPlaceName="handleGetPlace" style = "margin-top:48px"></select-place>
-          </b-col>
-        </b-row>
-        <b-row class = "py-3 my-3">
-          <b-col cols="8" style = "text-align:left">
             <b-card-text class = "card-item-title">{{$t('globalTerm.entry')}}</b-card-text>    
             <b-card>
               <b-row class="pl-3" style = "text-align:center">
-                <b-col>未選擇</b-col>
+                <b-col>
+                  <div v-if="this.formData.entryMethod.length==0" style = "line-height:31px">Nothing Selected</div>
+                  <div v-else>{{formData.entryMethod[0]}}
+                    <span v-if="this.formData.entryMethod.length>1">及另外{{this.formData.entryMethod.length-1}}種入仕途徑</span>
+                    <b-button  variant="outline-primary" size = sm>查看已選</b-button>
+                  </div>
+                </b-col>
               </b-row> 
             </b-card>   
           </b-col>
           <b-col  cols="4" style = "text-align:left">
-            <select-entry @getEntryName="handleGetEntry" style = "margin-top:48px"></select-entry>
+            <select-entry @getEntryName="handleGetEntry" style = "margin-top:56px"></select-entry>
           </b-col>
         </b-row>
       </div>           
       <b-card-text class = "card-item-title pt-3">{{$t('globalTerm.alternativeInput')}}</b-card-text>          
       <div class  = "card-item-body px-3">
-         <!-- 入仕年范围 -->
+        <!-- 地點 -->
         <b-row class = "px-3 mb-3">
           <b-card-text class = "card-item-title mt-3">
-            <b-form-checkbox switch size="lg" id="checkbox-1" v-model= "formData.entryYear" name="checkbox-1"
+            <b-form-checkbox switch size="lg" id="checkbox-0" v-model= "formData.usePlace" name="checkbox-0"
               value="t" unchecked-value="f">
-                <span style="font-size:16px">{{$t('entityQueryByEntry.entryYearRange')}}</span>
+                <span style="font-size:16px">{{$t('globalTerm.place')}}</span>
             </b-form-checkbox>
           </b-card-text> 
         </b-row>
-        <b-row class = "px-3 mb-3" v-if="formData.entryYear==='t'">
-          <b-col>
-            <label for="entry-start-time" class = "user-input-label">{{$t('globalTerm.startTime')}}:</label>
-            <b-form-input id="entry-start-time" v-model="formData.entryStartTime" placeholder="" 
-              :state="validation('entryStartTime')" :disabled="formData.entryYear==='f'?true:false"></b-form-input>
-              <b-form-invalid-feedback :state="validation('entryStartTime')">
-                Invalid year 
-              </b-form-invalid-feedback>
+        <b-row class = "py-3 my-3" v-if="formData.usePlace ==='t'">
+          <b-col cols="8" style = "text-align:left"> 
+            <b-card>
+              <b-row class="pl-3" style = "text-align:center">
+                <b-col>
+                  <div v-if="this.formData.place.length==0" style = "line-height:31px">Nothing Selected</div>
+                  <div v-else>{{formData.place[0]}}
+                    <span v-if="this.formData.place.length>1">及另外{{this.formData.place.length-1}}個地點</span>
+                    <b-button  variant="outline-primary" size = sm>查看已選</b-button>
+                  </div>
+                </b-col>
+              </b-row> 
+            </b-card>   
           </b-col>
-          <b-col >
-             <label for="entry-end-time" class = "user-input-label">{{$t('globalTerm.endTime')}}:</label>
-             <b-form-input id="entry-end-time" v-model="formData.entryEndTime" placeholder="" 
-             :state="validation('entryEndTime')" :disabled="formData.entryYear==='f'?true:false"></b-form-input>
-              <b-form-invalid-feedback :state="validation('entryEndTime')" >
-                Invalid year 
-              </b-form-invalid-feedback>
-           </b-col>
-           <b-col cols="4"></b-col>
-        </b-row>
-        <!-- 指数年范围 -->
+          <b-col cols="4" style = "text-align:left" >
+            <select-place @getPlaceName="handleGetPlace" style = "margin-top:16px"></select-place>
+          </b-col>
+        </b-row>        
+        <!-- 日期 -->
         <b-row class = "px-3 mb-3">
           <b-card-text class = "card-item-title mt-3">
-            <b-form-checkbox switch size="lg" id="checkbox-2" v-model= "formData.indexYear" name="checkbox-2"
+            <b-form-checkbox switch size="lg" id="checkbox-2" v-model= "formData.useDate" name="checkbox-2"
               value="t" unchecked-value="f">
-              <span style="font-size:16px">{{$t('entityQueryByOffice.indexYearRange')}}</span>
+              <span style="font-size:16px">{{$t('globalTerm.date')}}</span>
             </b-form-checkbox>  
           </b-card-text> 
         </b-row>
-        <b-row class = "px-3 mb-3"  v-if="formData.indexYear==='t'">
+        <b-row class = "px-3 mb-3" v-if="formData.useDate==='t'">
+          <b-col cols="6" style = "text-align:left">
+            <b-form-radio-group
+              id="btn-radios"
+              v-model="formData.dateType"
+              :options="dateOptions"
+              size="sm"
+              buttons
+              button-variant="outline-primary"
+              name="radio-btn-outline"
+            ></b-form-radio-group>
+          </b-col>
+          <b-col cols="6">
+          </b-col>
+        </b-row>
+        <b-row class = "px-3 mb-3"  v-if="formData.useDate==='t'">
           <b-col>
-            <label for="index-start-time" class = "user-input-label">{{$t('globalTerm.startTime')}}:</label>
-            <b-form-input id="index-start-time" v-model="formData.indexStartTime" placeholder="" 
-              :state="validation('indexStartTime')" :disabled="formData.indexYear==='f'?true:false"></b-form-input>
-              <b-form-invalid-feedback :state="validation('indexStartTime')">
+            <label for="date-start-time" class = "user-input-label">{{$t('globalTerm.startTime')}}:</label>
+            <b-form-input id="date-start-time" v-model="formData.dateStartTime" placeholder="" 
+              :state="validation('dateStartTime')" :disabled="formData.useDate==='f'?true:false"></b-form-input>
+              <b-form-invalid-feedback :state="validation('dateStartTime')">
                 Invalid year 
               </b-form-invalid-feedback>
             </b-col>
           <b-col>
-             <label for="index-end-time" class = "user-input-label">{{$t('globalTerm.endTime')}}:</label>
-             <b-form-input id="index-end-time" v-model="formData.indexEndTime" placeholder="" 
-             :state="validation('indexEndTime')" :disabled="formData.indexYear==='f'?true:false"></b-form-input>
-              <b-form-invalid-feedback :state="validation('indexEndTime')">
+             <label for="date-end-time" class = "user-input-label">{{$t('globalTerm.endTime')}}:</label>
+             <b-form-input id="date-end-time" v-model="formData.dateEndTime" placeholder="" 
+             :state="validation('dateEndTime')" :disabled="formData.useDate==='f'?true:false"></b-form-input>
+              <b-form-invalid-feedback :state="validation('dateEndTime')">
                 Invalid year 
               </b-form-invalid-feedback>
            </b-col>
@@ -143,13 +150,16 @@ export default {
       formData:{
         place:[],
         entryMethod:[],
-        entryStartTime:'',
-        entryEndTime:'',
-        indexStartTime:'',
-        indexEndTime:'',
-        entryYear:'f',
-        indexYear:'f'
-      }
+        dateStartTime:'',
+        dateEndTime:'',
+        dateType:'entry',
+        useDate:'f',
+        usePlace:'f'
+      },
+      dateOptions: [
+          { text: this.$t('entityQueryByEntry.entryYear'), value: 'entry' },
+          { text: this.$t('entityQueryByEntry.indexYear'), value: 'index' },
+        ]
     }
   },
   methods:{

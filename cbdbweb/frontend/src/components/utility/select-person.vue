@@ -11,9 +11,10 @@
           title="Select People from Database" 
           size = "xl"
           v-model="show"
+          scrollable
         >
             <b-row>
-                <b-col :cols = 4 style = "text-align:right">
+                <b-col :cols = 5 style = "text-align:right">
                   <b-card>
                     <b-form-group label-cols="4" :label="$t('selectPerson.personName')" label-for="select-person-input-name">
                         <b-form-input id="select-person-input-name" :placeholder="$t('globalTerm.cnOrPy')" v-model="formData.personName"></b-form-input>
@@ -27,7 +28,7 @@
                      </a>
                   </b-card>
                 </b-col>
-                <b-col :cols = 8>
+                <b-col :cols = 7>
                     <b-table 
                         :items= "items" 
                         :fields= "fields" 
@@ -55,7 +56,7 @@
               <b-button size="xl" variant="secondary" @click="show=false">
                 Cancel
               </b-button>
-              <b-button size="xl" variant="primary" @click="haveSelected">
+              <b-button size="xl" variant="primary" :disabled="selectedPerson.length===0" @click="haveSelected">
                 Select
               </b-button>
             </template>

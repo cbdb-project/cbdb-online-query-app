@@ -56,6 +56,7 @@ module.exports = {
     },
     globalTerm:{
         //全局術語
+        date:"日期",
         time:"時間",
         place:"地點",
         person:"人物",
@@ -163,8 +164,8 @@ module.exports = {
         }
     },
     entityQueryByEntry:{
-        entryYearRange:"入仕年範圍",
-        indexYearRange:"指數年範圍",
+        entryYear:"入仕年",
+        indexYear:"指數年",
         checkAndSearch:"檢索式確認",
         checkRemind:"茲生成查詢式如下，請於檢索前核查確認"
     },

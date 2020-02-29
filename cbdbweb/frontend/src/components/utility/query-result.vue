@@ -1,5 +1,12 @@
 <template>
         <div ref="wrapper">
+          <b-row class = "pb-3 px-3" style = "text-align:right">
+            <b-col>
+            <b-button @click="exportData">
+              <a id="export"></a>Export
+            </b-button>
+            </b-col>
+          </b-row>
           <b-table 
             :items= "items" 
             :fields= "fields" 
@@ -73,10 +80,6 @@ export default {
             key: 'personPlaceCh',
             label: '地名(人)',
             sortable: true,
-          },
-          {
-            key: 'selected',
-            sortable: false,
           }
         ],
         items: [
@@ -101,6 +104,23 @@ export default {
     },
     clearSelected() {
       this.$refs.selectableTable.clearSelected()
+    },
+    exportData(){
+      let str = ''
+      for(let i = 0; i<this.fields.length; i++)
+        str += (this.fields[i].key+' ')
+      str += '\n'
+      for(let i = 0; i<this.items.length; i++){
+        for(let k in this.items[i]){
+          str += (this.items[i][k] + ' ')
+        }
+        str += '\n'
+      }
+      var blob = new Blob([str]);
+      var link = document.getElementById('export')
+      link.download = "export_utf8"
+      link.href = URL.createObjectURL(blob);
+      link.click()
     }
   }
 }

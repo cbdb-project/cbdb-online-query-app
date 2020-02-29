@@ -32,7 +32,7 @@ module.exports = {
     },
     selectPerson:{
         selectButton:"SELECT PERSON",
-        personName:"Person Name"
+        personName:"Name"
     },
     selectEntry:{
         selectButton:"SELECT ENTRY"
@@ -53,6 +53,7 @@ module.exports = {
     },
     globalTerm:{
         //全局術語
+        date:"Date",
         time:"Time",
         place:"Place",
         person:"Person",
@@ -160,8 +161,8 @@ module.exports = {
         }
     },
     entityQueryByEntry:{
-        entryYearRange:"Entry Year Range",
-        indexYearRange:"Index Year Range",
+        entryYear:"Entry Year",
+        indexYear:"Index Year",
         checkAndSearch:"Check And Search",
         checkRemind:"The query is generated as the following. Please check it before your search."
     },

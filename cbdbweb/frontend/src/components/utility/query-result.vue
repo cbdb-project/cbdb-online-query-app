@@ -2,7 +2,7 @@
         <div ref="wrapper">
           <b-row class = "pb-3 px-3" style = "text-align:right">
             <b-col>
-            <b-button @click="exportData">
+            <b-button @click="exportData" variant="light">
               <a id="export"></a>Export
             </b-button>
             </b-col>

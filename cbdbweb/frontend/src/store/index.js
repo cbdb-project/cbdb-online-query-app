@@ -5,7 +5,6 @@ Vue.use(Vuex);
 
 const moduleA = {
   state:{
-    lang: 'zh-TW',
     user:{
       uid:"114514",
       name:"北京大學"
@@ -17,7 +16,9 @@ const moduleA = {
 }
 
 const moduleB = {
-  state:{},
+  state:{
+    serverAddress:'127.0.0.1'
+  },
   mutations:{},
   actions:{},
   getters:{}
@@ -25,7 +26,7 @@ const moduleB = {
 
 export default new Vuex.Store({
   modules:{
-    a: moduleA,
-    b: moduleB
+    local: moduleA,
+    global: moduleB
   }
 })

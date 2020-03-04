@@ -523,7 +523,6 @@ export default {
       else if (str === "true")return this.$t('globalTerm.true');
       else return ''
     },
-    isNull:isNull,
     //获取查询的人物
     handleGetPerson: function(selectedPerson){
       this.formData.personId = selectedPerson[0]['personId'];
@@ -621,7 +620,7 @@ export default {
       return `person-id:'${this.formData.personId}';`
     },
     isInvalid(){
-      return this.isNull('personId')==true
+      return isNull(this.formData.personId)==true
     }
   }
 }

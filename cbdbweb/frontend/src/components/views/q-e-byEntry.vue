@@ -56,7 +56,10 @@
             </b-card>   
           </b-col>
           <b-col cols="4" style = "text-align:left" >
+            <b-button-group>
             <select-place @getPlaceName="handleGetPlace" style = "margin-top:16px"></select-place>
+            <import-place @getPlaceName="handleGetPlace" style = "margin-top:16px"></import-place>
+            </b-button-group>
           </b-col>
         </b-row>        
         <!-- 日期 -->
@@ -136,6 +139,7 @@ import {isNull,yearValidation} from '@/components/utility/utility-functions.js'
 import queryResult from '@/components/utility/query-result.vue'
 import selectEntry from '@/components/utility/select-entry.vue'
 import selectPlace from '@/components/utility/select-place.vue'
+import importPlace from '@/components/utility/import-place.vue'
 export default {
   name: 'entityQueryByPerson',
   components:
@@ -143,9 +147,11 @@ export default {
       queryResult,
       selectEntry,
       selectPlace,
+      importPlace
   },
   data () {
     return {
+      isBusy:false,
       /*表單數據放這裡*/
       formData:{
         place:[],
@@ -166,15 +172,13 @@ export default {
     //判斷輸入欄是否為空
     isNull:isNull,
     validation:yearValidation,
-    //获取人物信息
-    handleGetPerson:function(selectedPerson){
-      this.formData.personEnName = selectedPerson[0]['personName'];
-      this.formData.personChName = selectedPerson[0]['personNameCh'];
+    //获取人物籍贯信息
+    handleGetPlace:function(i){
+      this.formData.place = i.map(x=>x['placeId']);
     },
     //获取入仕途径信息
-    handleGetEntry: function(selectedPlace){
-      this.formData.entryEnName = selectedPlace[0]['entryName'];
-      this.formData.entryChName = selectedPlace[0]['entryNameCh'];
+    handleGetEntry: function(i){
+      this.formData.entryMethod = i.map(x=>x['entryId']);
     }
   },
   computed:{

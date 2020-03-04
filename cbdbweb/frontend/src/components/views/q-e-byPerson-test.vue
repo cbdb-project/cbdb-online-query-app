@@ -64,7 +64,7 @@
             <h6 class="mb-0">{{$t('globalTerm.resultShow')}}</h6>
         </template>
         <div>
-          <h6 class="m-3">[{{personInfo.c_personid}}] {{personInfo.c_name}} {{personInfo.c_name_chn}}</h6>
+          <h6 class="m-3">[{{personInfo.BasicInfo.PersonId}}] {{personInfo.BasicInfo.ChName}} {{personInfo.BasicInfo.EngName}}</h6>
           <b-tabs content-class="mt-3">
             <!-- 人物基本信息 -->
             <b-tab :title="$t('entityQueryByPerson.result.basicInfo')" :active="activeTab==='baseInfo'?true:false" @click="activeTab='baseInfo'">
@@ -88,13 +88,13 @@
                 <!-- 第二行：ID 性別 指數年 無 -->
                 <b-row class = "px-3 mb-3">
                   <b-col>
-                    {{$t('globalTerm.personId')}}: {{personInfo.c_personid}}
+                    {{$t('globalTerm.personId')}}: {{personInfo.BasicInfo.PersonId}}
                   </b-col>
                   <b-col>
-                    {{$t('globalTerm.gen')}}: {{personGen(personInfo.c_female)}}
+                    {{$t('globalTerm.gen')}}: {{personGen(personInfo.BasicInfo.Gender)}}
                   </b-col>
                   <b-col>
-                    {{$t('globalTerm.indexYear')}}: {{personInfo.c_index_year}}
+                    {{$t('globalTerm.indexYear')}}: {{personInfo.BasicInfo.IndexYear}}
                   </b-col>
                   <b-col>
                   </b-col>
@@ -102,14 +102,115 @@
                 <!-- 第三行：注 -->
                 <b-row class = "px-3 mb-3">
                   <b-col>
-                  {{$t('globalTerm.notes')}}:<p>{{personInfo.c_notes}}</p>
+                  {{$t('globalTerm.notes')}}:<p>{{personInfo.BasicInfo.Notes}}</p>
                   </b-col>
                 </b-row>
               </b-card>
             </b-tab>
             <!-- 別名 --> 
-             <!-- 生卒年月 -->
+            <b-tab :title="$t('entityQueryByPerson.result.altName')" :active="activeTab==='altName'?true:false" @click="activeTab='altName'"> 
+              <div v-if="(personInfo.PersonAliases.Alias!==''&&personInfo.PersonAliases.Alias instanceof Array)">
+              <b-card v-for="(altName,index) in personInfo.PersonAliases.Alias" :key="index">
+                <!-- 第一行：別名 拼音-->
+                 <b-row class = "px-3 mb-3">
+                   <b-col>
+                    <b> {{altName.AliasName}}<span v-if="isValidVar('')">（{{altName.name}}）</span></b>
+                   </b-col>
+                 </b-row>
+                <!-- 第二行：類別-->
+                 <b-row class = "px-3 mb-3">
+                   <b-col>
+                    {{$t('entityQueryByPerson.result.altNameType')}}: {{altName.AliasType}}<span v-if="altName.nType"> {{altName.nType}}</span>
+                   </b-col>
+                 </b-row>
+                 <!--
+                  <show-source :sNameChn="personInfo.PersonSources.Source.Source" 
+                    :sName="''" :sPages="personInfo.PersonSources.Source.Pages" :sNotes="personInfo.PersonSources.Source.Notes">
+                  </show-source> 
+                 -->
+              </b-card>   
+              </div>
+              <div v-if="(personInfo.PersonAliases.Alias!==''&&!personInfo.PersonAliases.Alias instanceof Array)">
+              <b-card>
+                <!-- 第一行：別名 拼音-->
+                 <b-row class = "px-3 mb-3">
+                   <b-col>
+                    <b> {{personInfo.PersonAliases.Alias.AliasName}}<span v-if="isValidVar('')">（{{altName.name}}）</span></b>
+                   </b-col>
+                 </b-row>
+                <!-- 第二行：類別-->
+                 <b-row class = "px-3 mb-3">
+                   <b-col>
+                    {{$t('entityQueryByPerson.result.altNameType')}}: {{personInfo.PersonAliases.Alias.AliasType}}<span v-if="''"> {{altName.nType}}</span>
+                   </b-col>
+                 </b-row>
+                 <!--
+                  <show-source :sNameChn="personInfo.PersonSources.Source.Source" 
+                    :sName="''" :sPages="personInfo.PersonSources.Source.Pages" :sNotes="personInfo.PersonSources.Source.Notes">
+                  </show-source> 
+                 -->
+              </b-card>   
+              </div>                          
+            </b-tab>  
+            <!-- 生卒年月 -->
+            <b-tab :title="$t('entityQueryByPerson.result.birthDeath')" :active="activeTab==='bdYear'?true:false" @click="activeTab='bdYear'"> 
+              <b-card>
+                <!-- 第一行： 朝代 郡望 戶籍 種族 -->
+                <b-row class = "px-3 mb-3">
+                  <b-col>
+                     {{$t('entityQueryByPerson.result.dynasty')}}: {{personInfo.BasicInfo.Dynasty}} 
+                  </b-col>
+                  <b-col>
+                      {{$t('entityQueryByPerson.result.choronym')}}: {{personInfo.BasicInfo.JunWang}} 
+                  </b-col>
+                  <b-col>
+                    {{$t('entityQueryByPerson.result.householdStatus')}}: 
+                  </b-col>
+                  <b-col>
+                    {{$t('entityQueryByPerson.result.ethnicity')}}: 
+                  </b-col>
+                </b-row>
+                <!-- 第二行： 生卒年 -->
+                <b-row class = "px-3 mb-3">
+                  <b-col cols = 6>
+                    <show-year :title="$t('entityQueryByPerson.result.birthYear')" name="birth-year" id=0 :range="'0'"
+                      :year="personInfo.BasicInfo.YearBirth" :nhChn="personInfo.BasicInfo.DynastyBirth + personInfo.BasicInfo.EraBirth" :nh="''" :nhCount="personInfo.BasicInfo.EraYearBirth"
+                      :month="''" :isIntc="''" :day="''" :gz="''"
+                    ></show-year>
+                  </b-col>
+                  <b-col cols = 6>
+                    <show-year :title="$t('entityQueryByPerson.result.deathYear')" name="death-year" id=0 :range="''"
+                      :year="personInfo.BasicInfo.YearDeath" :nhChn="personInfo.BasicInfo.DynastyDeath + personInfo.BasicInfo.EraDeath" :nh="''" :nhCount="personInfo.BasicInfo.EraYearDeath"
+                      :month="''" :isIntc="''" :day="''" :gz="''"
+                    ></show-year>
+                  </b-col>
+                </b-row>
+                <!-- 第三行： 最早在世時間、最晚在世時間 -->
+                <!--
+                <b-row class = "px-3 mb-3" v-if="personInfo.birthDeathYears.cFlEarliestYear||personInfo.birthDeathYears.cFlLatestYear">
+                  <b-col cols = 6>
+                    <show-year :title="$t('entityQueryByPerson.result.earliestYear')" name="earliest-year" id=0 :notes="personInfo.birthDeathYears.cFlEyNotes"
+                      :year="personInfo.birthDeathYears.cFlEarliestYear" :nhChn="personInfo.birthDeathYears.cFlEyNhChn" :nh="personInfo.birthDeathYears.cFlEyNh" :nhCount="personInfo.birthDeathYears.cFlEyNhYear"
+                    ></show-year>
+                   </b-col>
+                  <b-col cols = 6>
+                    <show-year :title="$t('entityQueryByPerson.result.latestYear')" name="latest-year" id=0 :notes="personInfo.birthDeathYears.cFlLyNotes"
+                      :year="personInfo.birthDeathYears.cFlLatestYear" :nhChn="personInfo.birthDeathYears.cFlLyNhChn" :nh="personInfo.birthDeathYears.cFlLyNh" :nhCount="personInfo.birthDeathYears.cFlLyNhYear"
+                    ></show-year>
+                  </b-col>
+                </b-row>
+                -->
+                <!-- 第四行： 享年 -->
+                 <b-row class = "px-3 mb-3">
+                   <b-col cols = 6>
+                    {{$t('globalTerm.deathAge')}}: {{personInfo.BasicInfo.YearsLived}}
+                    <span v-if="isValidVar('')">{{$t('globalTerm.deathAgeRange')}}: {{personInfo.birthDeathYears.cDeathAgeRange}}</span>
+                  </b-col>
+                 </b-row>
+              </b-card>                                
+            </b-tab>
             <!-- 地址 -->
+
             <!-- 著述 -->               
             <!-- 職官 -->
             <!-- 入仕 -->  
@@ -132,7 +233,6 @@
 import {isNull} from '@/components/utility/utility-functions.js'
 import selectPerson from '@/components/utility/select-person.vue'
 //開發用的假數據
-import dataJson from '@/assets/sample.json'
 import showYear from'@/components/utility/show-year.vue'
 import showSource from '@/components/utility/show-source.vue'
 export default {
@@ -175,8 +275,8 @@ export default {
     },
     //判斷人物的性別
     personGen(isF){
-      if(isF === 0)return this.$t('globalTerm.male');
-      else if (isF === 1)return this.$t('globalTerm.female');
+      if(isF === 0||isF === '0')return this.$t('globalTerm.male');
+      else if (isF === 1||isF === '1')return this.$t('globalTerm.female');
       else return ''
     },
     //判斷是否
@@ -185,7 +285,6 @@ export default {
       else if (str === "true")return this.$t('globalTerm.true');
       else return ''
     },
-    isNull:isNull,
     //获取查询的人物
     handleGetPerson: function(selectedPerson){
       this.formData.personId = selectedPerson[0]['personId'];
@@ -200,11 +299,12 @@ export default {
       this.isBusy = true;
       //加了async修饰符res变成结果？
       //const res = this.waitForServer(this.formData)
-      this.axios.get('http://162.105.134.121/basicinformation/'+this.formData.personId)
+      this.axios.get('https://cbdb.fas.harvard.edu/cbdbapi/person.php?id='+this.formData.personId +'&o=json')
       .then((r)=>
-        { console.log(r.data)
-          this.personInfo = r.data
+        { 
+          this.personInfo = r.data.Package.PersonAuthority.PersonInfo.Person
           this.isBusy = false
+          console.log(this.personInfo)
         },
         (e)=>{
           alert('something went wrong...')
@@ -284,7 +384,7 @@ export default {
       return `person-id:'${this.formData.personId}';`
     },
     isInvalid(){
-      return this.isNull('personId')==true
+      return isNull(this.formData.personId)==true
     }
   }
 }

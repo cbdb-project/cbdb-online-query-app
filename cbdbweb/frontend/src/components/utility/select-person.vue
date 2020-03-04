@@ -67,6 +67,7 @@
 
 <script>
 import dataJson from '@/assets/person_list_dev.json'
+import {isNull} from '@/components/utility/utility-functions.js'
 export default {
   name:'selectPerson',
     props:{
@@ -108,11 +109,6 @@ export default {
             key: 'indexYear',
             label: 'Index Year',
             sortable: true,
-          },
-          {
-            key: 'selected',
-            label:"Selected",
-            sortable: true,
           }
         ],
         items: [],
@@ -122,11 +118,20 @@ export default {
   },
   methods: {
       searchPerson(personName){
+        this.items = []//清空已有数据
         this.isBusy=true
-        const res = this.waitForServer(this.formData)
-        res.then((r)=>
+        this.axios.get('https://cbdb.fas.harvard.edu/cbdbapi/person.php?name='+ encodeURI(this.formData.personName) +'&o=json')
+        .then((r)=>
           {
-            this.items = r.data
+            console.log(r.data.Package.PersonAuthority.PersonInfo.Person)
+            let pList = r.data.Package.PersonAuthority.PersonInfo.Person
+            if(pList instanceof Array){
+              this.items = pList.map(item=>
+              ({'personId':item.BasicInfo.PersonId,'personName':item.BasicInfo.EngName,'personNameCh':item.BasicInfo.ChName,'indexYear':item.BasicInfo.IndexYear}))
+            }
+            else{
+              this.items.push({'personId':pList.BasicInfo.PersonId,'personName':pList.BasicInfo.EngName,'personNameCh':pList.BasicInfo.ChName,'indexYear':pList.BasicInfo.IndexYear})
+            }
             this.isBusy = false
           },
           (e)=>{
@@ -135,15 +140,6 @@ export default {
           }
         )
       },
-      waitForServer(query){
-      //------模擬服務器響應的東西---------
-      return new Promise(function(resolve,reject){
-        setTimeout((success=true)=>{
-          if(success)resolve({status:'200',data:dataJson})
-          else reject({status:'404'})
-        },3000)
-      })
-    },
       onRowSelected(items) {
         this.selectedPerson = items
       },
@@ -162,7 +158,7 @@ export default {
   },
   computed:{
     isInvalid(){
-      return this.formData.personName === ''
+      return isNull(this.formData.personName)
     }
   }
 }

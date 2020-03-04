@@ -121,7 +121,7 @@ export default {
     validation:yearValidation,
     //获取查询的官职名
     handleGetOffice: function(selectedOffice){
-      this.formData.office = selectedOffice.map(i => {return i.officeNameCh});
+      this.formData.office = selectedOffice.map(i => i.officeNameCh);
       console.log(this.formData.office)
       // this.formData.officeEnType = selectedOffice[0]['typeName'];
       // this.formData.officeChType = selectedOffice[0]['typeNameCh'];

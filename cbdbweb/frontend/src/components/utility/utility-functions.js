@@ -1,13 +1,13 @@
 //判斷輸入欄是否為空
-function isNull(idx){
-    return this.formData[idx] == ''
+function isNull(i){
+    return i === undefined|| i=== null || i === ''
   }
 //判斷年代輸入是否有效
 function yearValidation(idx){
     const stReg = /.*startTime/i
     const etReg = /.*endTime/i
     //如果輸入為空，視為有效
-    if(this.isNull(idx))return null;
+    if(isNull(this.formData[idx]))return null;
     let year = /^\d{1,4}$/;
     //startTime 一欄只要輸入符合有且僅有1～4位數字的規則，視為有效
     console.log(year.test(this.formData[idx]))

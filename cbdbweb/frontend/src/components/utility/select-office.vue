@@ -16,17 +16,20 @@
         >
             <b-row>
                 <b-col :cols = 4 style = "text-align:right">
+                    <b-form-group>
+                      <b-button variant="outline-danger">Clear Table</b-button>      
+                    </b-form-group>
                   <b-card>
                     <b-form-group label-cols="4" :label="$t('selectOffice.officeName')" label-for="select-office-input-ch-name">
                         <b-form-input id="select-office-input-ch-name"></b-form-input>
                     </b-form-group>
                     <b-form-group>
-                      <b-button variant="primary">Search</b-button>
+                      <b-button variant="primary">Find</b-button>
                     </b-form-group>
                   </b-card>
                   <b-card>
                     <div style="height:400px; overflow:auto">
-                        <tree-table listName="官职类目表" ref="recTree" :list.sync="treeDataSource" @actionFunc="actionFunc" @deleteFunc="deleteFunc" @handlerExpand="handlerExpand" @orderByFunc="orderByFunc"></tree-table>
+                        <tree-table listName="官职类目表" ref="recTree" :list.sync="treeDataSource"  @handlerExpand="handlerExpand" ></tree-table>
                     </div>
                   </b-card>
                 </b-col>
@@ -95,10 +98,6 @@ export default {
               label:'官名',
               sortable: true
             },
-            {
-              key: 'selected',
-              sortable: false,
-            }
           ],
           items: [
             {officeName:"Supervisor (Hucker)",officeNameCh:"提舉"},

@@ -15,12 +15,12 @@
 							<td>
 								<tree-item
 									v-for="(model,i) in treeDataSource"
-                  :key="'root_node_'+i"
+                  					:key="'root_node_'+i"
 									:root="0"
 									:num="i"
 									@actionFunc="actionFunc"
 									@deleteFunc="deleteFunc"
-                  @handlerExpand="handlerExpand"
+                  					@handlerExpand="handlerExpand"
 									:nodes="treeDataSource.length"
 									:trees.sync="treeDataSource"
 									:model.sync="model">

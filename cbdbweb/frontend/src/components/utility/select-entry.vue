@@ -88,10 +88,6 @@
                         key: 'entryNameCh',
                         label:'入仕法',
                         sortable: true
-                    },
-                    {
-                        key: 'selected',
-                        sortable: false,
                     }
                 ],
                 items: [
@@ -131,7 +127,7 @@
                 this.$refs.selectableTable.clearSelected()
             },
             handlerExpand(m) {
-                console.log('展开/收缩')
+                console.log(m.Id+'展开/收缩')  
                 m.isExpand = !m.isExpand
             }
         }

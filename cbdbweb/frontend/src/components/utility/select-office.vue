@@ -119,7 +119,7 @@ export default {
         treeTable
     },
     methods: {
-        // 後台加載職官樹
+        // 模拟後台加載職官樹
         loadOfficeTree(){
           if(localStorage.officeTree!=undefined)this.treeDataSource = JSON.parse(localStorage.officeTree)
           else{
@@ -145,7 +145,19 @@ export default {
             this.$refs.selectableTable.clearSelected()
         },
         handlerExpand(m) {
+            //console.log(m.Id+'展开/收缩')  
             m.isExpand = !m.isExpand
+            this.getPosting(m.Id)
+        },
+        getPosting(i){
+            this.axios.get('api')
+            .then((r)=>{
+              this.items = r.data
+              },
+              (e)=>{
+                alert('Sorry, something went wrong...')
+              }
+            )
         }
     },
     created(){

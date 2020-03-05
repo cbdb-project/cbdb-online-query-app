@@ -7,8 +7,8 @@
           <table>
               <tr class="leve" :class="levelClass">
                 <td class="td1">
-                  <div class="td-title" @dblclick="handlerExpand(model)">
-                    <span v-if="model.children.length > 0" class="tree-close" :class="{'tree-open':model.isExpand}" @click="handlerExpand(model)"></span>
+                  <div class="td-title" @click="handlerExpand(model)">
+                    <span v-if="model.children.length > 0" class="tree-close" :class="{'tree-open':model.isExpand}"></span>
                     <a class="ellipsis">
                       <span :title="model.ObjectName">{{model.ObjectName}}</span>
                     </a>

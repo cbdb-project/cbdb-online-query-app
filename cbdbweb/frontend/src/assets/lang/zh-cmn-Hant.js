@@ -56,6 +56,7 @@ module.exports = {
     },
     globalTerm:{
         //全局術語
+        all:"所有",
         date:"日期",
         time:"時間",
         place:"地點",

@@ -1,11 +1,11 @@
 <template>
     <div>
-        <b-button  variant="outline-primary"  v-b-modal.import-place-table
+        <b-button  variant="outline-primary"  v-b-modal="'import-place-table'+name"
           class = "query-condition-button" size="sm">{{$t('globalTerm.import')}}
         </b-button>
       <b-modal
           scrollable
-          id="import-place-table" 
+          :id="'import-place-table'+name" 
           title="Import Local Files" 
           size = "xl"
           v-model="show"
@@ -61,13 +61,10 @@
 export default {
   name:'selectPlace',
   props:{
-      'selectFromDb':{
-        default:true
-      },
-      'importList':{
-        default:true
-      }
-    },
+    'name':{
+        default:''
+    }
+  },
   data () {
     return {
       file:undefined,

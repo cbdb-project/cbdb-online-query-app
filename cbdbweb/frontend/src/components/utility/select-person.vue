@@ -69,7 +69,7 @@
 import dataJson from '@/assets/person_list_dev.json'
 import {isNull} from '@/components/utility/utility-functions.js'
 export default {
-  name:'selectPerson',
+    name:'selectPerson',
     props:{
       'selectMode':{
         default:'multi'

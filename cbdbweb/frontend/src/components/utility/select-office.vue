@@ -9,6 +9,7 @@
         </b-button>
       </b-button-group>
         <b-modal 
+          scrollable
           id="select-office-table" 
           title="Select Office from Database" 
           size = "xl"
@@ -16,9 +17,6 @@
         >
             <b-row>
                 <b-col :cols = 4 style = "text-align:right">
-                    <b-form-group>
-                      <b-button variant="outline-danger">Clear Table</b-button>      
-                    </b-form-group>
                   <b-card>
                     <b-form-group label-cols="4" :label="$t('selectOffice.officeName')" label-for="select-office-input-ch-name">
                         <b-form-input id="select-office-input-ch-name"></b-form-input>
@@ -28,17 +26,25 @@
                     </b-form-group>
                   </b-card>
                   <b-card>
-                    <div style="height:400px; overflow:auto">
-                        <tree-table listName="官职类目表" ref="recTree" :list.sync="treeDataSource"  @handlerExpand="handlerExpand" ></tree-table>
+                    <div style="height:310px; overflow:scroll">
+                        <tree-table listName="官职类目表" ref="recTree" :list.sync="treeDataSource"  @handlerExpand="handlerExpand" @actionFunc="actionFunc"></tree-table>
                     </div>
                   </b-card>
                 </b-col>
-                <b-col :cols=8 >
+                <b-col :cols=8>
+                    <b-form-group style = "text-align:right">
+                      <b-button variant="outline-danger" @click="items=[]" size='sm' class = "mx-3" style="position:absolute;left:0">Clear Table</b-button> 
+                      <b-button-group> 
+                        <b-button v-if="selectedOffice.length>0" @click="clearSelected" variant="outline-secondary" size='sm' ><span>Clear Selected</span></b-button>
+                        <b-button v-if="!(items.length===selectedOffice.length)" @click="selectAllRows" variant="outline-secondary" size='sm' ><span>Select All</span></b-button>
+                      </b-button-group>      
+                    </b-form-group>
                     <b-table 
                         :items= "items" 
-                        :fields= "fields" 
-                        sticky-header = "600px"
+                        :fields= "fields"
+                        sticky-header = "470px"
                         head-variant="light" 
+                        id = "st"
                         ref="selectableTable"
                         selectable
                         select-mode="multi"
@@ -85,6 +91,7 @@ export default {
     data() {
         return {
           show:false,
+          first:true,
           treeDataSource: {},
           /*表格子數據放這裡*/
           fields: [
@@ -147,10 +154,10 @@ export default {
         handlerExpand(m) {
             //console.log(m.Id+'展开/收缩')  
             m.isExpand = !m.isExpand
-            this.getPosting(m.Id)
         },
-        getPosting(i){
-            this.axios.get('api')
+        actionFunc(m){
+            console.log(m.Id)
+            this.axios.get('api'+m.Id)
             .then((r)=>{
               this.items = r.data
               },
@@ -158,10 +165,29 @@ export default {
                 alert('Sorry, something went wrong...')
               }
             )
+        },
+        handleTableScroll(e){
+          //let table = document.getElementById('select-office-table')
+          //let st = table.scrollTop
+          //console.log(st)
         }
     },
     created(){
-      this.loadOfficeTree()
+      this.loadOfficeTree();
+    },
+    watch:{
+      //DOM elements first time rendered
+      show:function(){
+        if(this.first===true){
+        this.first=false
+        let st =  this.$refs.selectableTable
+        // 监听这个dom的scroll事件
+        st.$el.addEventListener('scroll', () => {
+          if(st.$el.scrollHeight - st.$el.scrollTop <= st.$el.clientHeight)
+            console.log('ooooo')
+        }, false)
+        }
+      }
     }
 }
 </script>

@@ -16,7 +16,7 @@
             <b-card>
               <b-row class="pl-3" style = "text-align:center">
                 <b-col>
-                  <div v-if="this.formData.office.length==0" style = "line-height:31px">Nothing Selected</div>
+                  <div v-if="this.formData.office.length==0" style = "line-height:31px">**{{$t('globalTerm.all')}}**</div>
                   <div v-else>{{formData.office[0]}}
                     <span v-if="this.formData.office.length>1">及另外{{this.formData.office.length-1}}個官職</span>
                     <b-button  variant="outline-primary" size = sm>查看已選</b-button>
@@ -32,11 +32,72 @@
       </div>
       <b-card-text class = "card-item-title pt-3">{{$t('globalTerm.alternativeInput')}}</b-card-text>             
       <div class  = "card-item-body px-3">
+        <!-- 职官地點 -->
+        <b-row class = "px-3 mb-3">
+          <b-card-text class = "card-item-title mt-3">
+            <b-form-checkbox switch size="lg" id="checkbox-0" v-model= "formData.useOfficePlace" name="checkbox-0"
+              value="1" unchecked-value="0">
+                <span style="font-size:16px">{{$t('globalTerm.office')}}{{$t('globalTerm.place')}}</span>
+            </b-form-checkbox>
+          </b-card-text> 
+        </b-row>
+        <b-row class = "py-3 my-3" v-if="formData.useOfficePlace ==='1'">
+          <b-col cols="8" style = "text-align:left"> 
+            <b-card>
+              <b-row class="pl-3" style = "text-align:center">
+                <b-col>
+                  <div v-if="this.formData.officePlace.length==0" style = "line-height:31px">**{{$t('globalTerm.all')}}**</div>
+                  <div v-else>{{formData.officePlace[0]}}
+                    <span v-if="this.formData.officePlace.length>1">及另外{{this.formData.officePlace.length-1}}個地點</span>
+                    <b-button  variant="outline-primary" size = sm>查看已選</b-button>
+                  </div>
+                </b-col>
+              </b-row> 
+            </b-card>   
+          </b-col>
+          <b-col cols="4" style = "text-align:left" >
+            <b-button-group>
+            <select-place @getPlaceName="handleGetOfficePlace" name="office" style = "margin-top:16px"></select-place>
+            <import-place @getPlaceName="handleGetOfficePlace" name="office" style = "margin-top:16px"></import-place>
+            </b-button-group>
+          </b-col>
+        </b-row> 
+        <!-- 人物地點 -->
+        <b-row class = "px-3 mb-3">
+          <b-card-text class = "card-item-title mt-3">
+            <b-form-checkbox switch size="lg" id="checkbox-1" v-model= "formData.usePeoplePlace" name="checkbox-1"
+              value="1" unchecked-value="0">
+                <span style="font-size:16px">{{$t('globalTerm.person')}}{{$t('globalTerm.place')}}</span>
+            </b-form-checkbox>
+          </b-card-text> 
+        </b-row>
+        <b-row class = "py-3 my-3" v-if="formData.usePeoplePlace ==='1'">
+          <b-col cols="8" style = "text-align:left"> 
+            <b-card>
+              <b-row class="pl-3" style = "text-align:center">
+                <b-col>
+                  <div v-if="this.formData.peoplePlace.length==0" style = "line-height:31px">**{{$t('globalTerm.all')}}**</div>
+                  <div v-else>{{formData.officePlace[0]}}
+                    <span v-if="this.formData.peoplePlace.length>1">及另外{{this.formData.peoplePlace.length-1}}個地點</span>
+                    <b-button  variant="outline-primary" size = sm>查看已選</b-button>
+                  </div>
+                </b-col>
+              </b-row> 
+            </b-card>   
+          </b-col>
+          <b-col cols="4" style = "text-align:left" >
+            <b-button-group>
+            <select-place @getPlaceName="handleGetPeoplePlace" name="people" style = "margin-top:16px"></select-place>
+            <import-place @getPlaceName="handleGetPeoplePlace" name="people" style = "margin-top:16px"></import-place>
+            </b-button-group>
+          </b-col>
+        </b-row> 
+        <!-- 日期 -->
         <b-row class = "px-3 mb-3">
           <b-card-text class = "card-item-title mt-3">
             <b-form-checkbox switch size="lg" id="checkbox-2" v-model= "formData.indexYear" name="checkbox-2"
               value="t" unchecked-value="f">
-              <span style="font-size:16px">{{$t('entityQueryByOffice.indexYearRange')}}</span>
+              <span style="font-size:16px">{{$t('globalTerm.date')}}({{$t('globalTerm.indexYear')}})</span>
             </b-form-checkbox>  
           </b-card-text> 
         </b-row>
@@ -92,12 +153,16 @@
 import {isNull,yearValidation} from '@/components/utility/utility-functions.js'
 import queryResult from '@/components/utility/query-result.vue'
 import selectOffice from '@/components/utility/select-office.vue'
+import selectPlace from '@/components/utility/select-place.vue'
+import importPlace from '@/components/utility/import-place.vue'
 export default {
   name: 'entityQueryByOffice',
   components:
   {
       queryResult,
       selectOffice,
+      selectPlace,
+      importPlace
   },
   data () {
     return {
@@ -105,9 +170,13 @@ export default {
       /*表單數據放這裡*/
       formData:{
         office:[],
+        officePlace:[],
+        peoplePlace:[],
         indexStartTime:'',
         indexEndTime:'',
-        indexYear:'f'
+        indexYear:'f',
+        useOfficePlace:'0',
+        usePeoplePlace:'0'
       },
       result:{
         totalPages:undefined,
@@ -127,14 +196,12 @@ export default {
       // this.formData.officeChType = selectedOffice[0]['typeNameCh'];
     },
     //获取查询的人物地点
-    // handleGetPlace: function(selectedPlace){
-    //   this.formData.personEnPlace = selectedPlace[0]['placeName'];
-    //   this.formData.personChPlace = selectedPlace[0]['placeNameCh'];
-    // },
+     handleGetPeoplePlace: function(selectedPlace){
+       this.formData.peoplePlace = selectedPlace.map(i => i.pId);
+     },
     //获取官职地点
-    handleGetPlace: function(selectedPlace){
-      this.formData.officeEnPlace = selectedPlace[0]['placeName'];
-      this.formData.officeChPlace = selectedPlace[0]['placeNameCh'];
+    handleGetOfficePlace: function(selectedPlace){
+       this.formData.officePlace = selectedPlace.map(i => i.pId);
     },
     //To Do
     testData: function(){

@@ -122,6 +122,14 @@ export default {
       link.href = URL.createObjectURL(blob);
       link.click()
     }
+  },
+  mounted(){
+    let st =  this.$refs.selectableTable
+    // 监听这个dom的scroll事件
+    st.$el.addEventListener('scroll', () => {
+    if(st.$el.scrollHeight - st.$el.scrollTop <= st.$el.clientHeight)
+    console.log('rrrrrrrr')
+    }, false)
   }
 }
 </script>

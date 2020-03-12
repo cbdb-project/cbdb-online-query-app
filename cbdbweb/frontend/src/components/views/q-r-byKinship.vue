@@ -15,12 +15,18 @@
             <b-card-text class = "card-item-title">{{$t('globalTerm.person')}}</b-card-text>    
             <b-card>
               <b-row class="pl-3" style = "text-align:center">
-                <b-col>未選擇</b-col>
+                <b-col>
+                  <div v-if="this.formData.person.length==0" style = "line-height:31px">Nothing Selected</div>
+                  <div v-else>{{formData.personName}}
+                    <span v-if="this.formData.person.length>1">及另外{{this.formData.person.length-1}}個人物</span>
+                    <b-button  variant="outline-primary" size = sm>查看已選</b-button>
+                  </div>
+                </b-col>
               </b-row>
             </b-card>
           </b-col>
           <b-col cols="4" style = "text-align:left">
-            <select-person @getPersonName="handleGetPerson" selectMode='single' style="margin-top:46px">
+            <select-person @getPersonName="handleGetPerson" selectMode='multi' style="margin-top:56px">
             </select-person>
           </b-col>
         </b-row>
@@ -65,6 +71,7 @@
                 Invalid number 
               </b-form-invalid-feedback>
            </b-col>
+           <!-- TO DO: Max Loop 到底属于哪个层级？要验证 -->
            <b-col>
              <label for="max-loop" class = "user-input-label">{{$t('relationQueryByKinship.maxLoop')}}:
                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -75,7 +82,6 @@
                 Invalid number
               </b-form-invalid-feedback>
            </b-col>
-           <b-col cols="2"></b-col>
         </b-row>
       </div>
       <!--
@@ -89,7 +95,7 @@
               style = "width:100%;margin-top:16px" :disabled="isInvalid||isBusy"
               @click="handleSubmit">
               <span v-if="!isBusy">Go</span>
-              <b-spinner small v-if="isBusy"></b-spinner>
+              <b-spinner small v-else></b-spinner>
             </b-button>
           </a>
         </b-col>
@@ -128,6 +134,7 @@ export default {
       /*表單數據放這裡*/
       formData:{
         person:[],
+        personName:undefined,
         mCircle:'f'
       },
       //後端傳回來的數據放這裡
@@ -164,7 +171,8 @@ export default {
     validation:function(){return null},
     //获取查询的人物
     handleGetPerson: function(selectedPerson){
-      this.formData.person = selectedPerson[0]['personId'];
+      this.formData.person = selectedPerson.map(i => {return i.personId});
+      this.formData.personName = selectedPerson[0]['personNameCh']
     },
     async handleSubmit(){
       //提交表单的时候先清空原有數據

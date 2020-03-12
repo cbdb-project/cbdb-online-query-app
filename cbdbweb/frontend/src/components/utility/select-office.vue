@@ -5,10 +5,11 @@
             class = "query-condition-button" size="sm">{{$t('globalTerm.selectFromDb')}}
         </b-button>
         <b-button v-if="importList"  variant="outline-primary"  
-            class = "query-condition-button" size="sm">{{$t('selectOffice.selectButton')}}
+            class = "query-condition-button" size="sm">{{$t('globalTerm.import')}}
         </b-button>
       </b-button-group>
         <b-modal 
+          scrollable
           id="select-office-table" 
           title="Select Office from Database" 
           size = "xl"
@@ -21,21 +22,29 @@
                         <b-form-input id="select-office-input-ch-name"></b-form-input>
                     </b-form-group>
                     <b-form-group>
-                      <b-button variant="primary">Search</b-button>
+                      <b-button variant="primary">Find</b-button>
                     </b-form-group>
                   </b-card>
                   <b-card>
-                    <div style="height:400px; overflow:auto">
-                        <tree-table listName="官职类目表" ref="recTree" :list.sync="treeDataSource" @actionFunc="actionFunc" @deleteFunc="deleteFunc" @handlerExpand="handlerExpand" @orderByFunc="orderByFunc"></tree-table>
+                    <div style="height:310px; overflow:scroll">
+                        <tree-table listName="官职类目表" ref="recTree" :list.sync="treeDataSource"  @handlerExpand="handlerExpand" @actionFunc="actionFunc"></tree-table>
                     </div>
                   </b-card>
                 </b-col>
-                <b-col :cols=8 >
+                <b-col :cols=8>
+                    <b-form-group style = "text-align:right">
+                      <b-button variant="outline-danger" @click="items=[]" size='sm' class = "mx-3" style="position:absolute;left:0">Clear Table</b-button> 
+                      <b-button-group> 
+                        <b-button v-if="selectedOffice.length>0" @click="clearSelected" variant="outline-secondary" size='sm' ><span>Clear Selected</span></b-button>
+                        <b-button v-if="!(items.length===selectedOffice.length)" @click="selectAllRows" variant="outline-secondary" size='sm' ><span>Select All</span></b-button>
+                      </b-button-group>      
+                    </b-form-group>
                     <b-table 
                         :items= "items" 
-                        :fields= "fields" 
-                        sticky-header = "600px"
+                        :fields= "fields"
+                        sticky-header = "470px"
                         head-variant="light" 
+                        id = "st"
                         ref="selectableTable"
                         selectable
                         select-mode="multi"
@@ -76,13 +85,14 @@ export default {
         default:true
       },
       'importList':{
-        default:true
+        default:false
       }
     },
     data() {
         return {
           show:false,
-          treeDataSource: dataJson,
+          first:true,
+          treeDataSource: {},
           /*表格子數據放這裡*/
           fields: [
             {
@@ -95,10 +105,6 @@ export default {
               label:'官名',
               sortable: true
             },
-            {
-              key: 'selected',
-              sortable: false,
-            }
           ],
           items: [
             {officeName:"Supervisor (Hucker)",officeNameCh:"提舉"},
@@ -120,13 +126,22 @@ export default {
         treeTable
     },
     methods: {
+        // 模拟後台加載職官樹
+        loadOfficeTree(){
+          if(localStorage.officeTree!=undefined)this.treeDataSource = JSON.parse(localStorage.officeTree)
+          else{
+            let getOfficeTree = new Promise(function(resolve){
+              setTimeout(()=>{resolve(dataJson)},3000)
+            })
+            getOfficeTree.then(resolve => {this.treeDataSource = resolve;localStorage.officeTree = JSON.stringify(resolve)})
+          }
+        },
         onRowSelected(items) {
           //用户选中列表中的条目后，同步到selectedOffice中
           this.selectedOffice = items
         },
         haveSelected: function(){
           //同步选中官职给父组件（页面）
-          console.log("成功");
           this.$emit('getOfficeName', this.selectedOffice);
           this.show = false;
         },
@@ -137,9 +152,42 @@ export default {
             this.$refs.selectableTable.clearSelected()
         },
         handlerExpand(m) {
-            console.log('展开/收缩')
+            //console.log(m.Id+'展开/收缩')  
             m.isExpand = !m.isExpand
+        },
+        actionFunc(m){
+            console.log(m.Id)
+            this.axios.get('api'+m.Id)
+            .then((r)=>{
+              this.items = r.data
+              },
+              (e)=>{
+                alert('Sorry, something went wrong...')
+              }
+            )
+        },
+        handleTableScroll(e){
+          //let table = document.getElementById('select-office-table')
+          //let st = table.scrollTop
+          //console.log(st)
         }
+    },
+    created(){
+      this.loadOfficeTree();
+    },
+    watch:{
+      //DOM elements first time rendered
+      show:function(){
+        if(this.first===true){
+        this.first=false
+        let st =  this.$refs.selectableTable
+        // 监听这个dom的scroll事件
+        st.$el.addEventListener('scroll', () => {
+          if(st.$el.scrollHeight - st.$el.scrollTop <= st.$el.clientHeight)
+            console.log('ooooo')
+        }, false)
+        }
+      }
     }
 }
 </script>

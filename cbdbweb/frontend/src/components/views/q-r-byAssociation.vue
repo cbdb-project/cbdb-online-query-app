@@ -15,12 +15,18 @@
             <b-card-text class = "card-item-title">{{$t('globalTerm.association')}}</b-card-text>    
             <b-card>
               <b-row class="pl-3" style = "text-align:center">
-                <b-col>未選擇</b-col>
+                <b-col>
+                  <div v-if="this.formData.place.length==0" style = "line-height:31px">Nothing Selected</div>
+                  <div v-else>{{formData.association[0]}}
+                    <span v-if="this.formData.association.length>1">及另外{{this.formData.association.length-1}}種關係</span>
+                    <b-button  variant="outline-primary" size = sm>查看已選</b-button>
+                  </div>
+                </b-col>
               </b-row>
             </b-card>
           </b-col>
           <b-col cols="2"  style = "text-align:left">
-            <select-relation style="margin-top:46px">   <!-- @getPersonName="handleGetPerson" --> 
+            <select-relation style="margin-top:56px">   <!-- @getPersonName="handleGetPerson" --> 
             </select-relation>
           </b-col>
           <b-col cols="2">
@@ -31,12 +37,18 @@
             <b-card-text class = "card-item-title">{{$t('globalTerm.place')}}</b-card-text>    
             <b-card>
               <b-row class="pl-3" style = "text-align:center">
-                <b-col>未選擇</b-col>
+                <b-col>
+                  <div v-if="this.formData.place.length==0" style = "line-height:31px">Nothing Selected</div>
+                  <div v-else>{{formData.place[0]}}
+                    <span v-if="this.formData.place.length>1">及另外{{this.formData.place.length-1}}個地點</span>
+                    <b-button  variant="outline-primary" size = sm>查看已選</b-button>
+                  </div>
+                </b-col>
               </b-row> 
             </b-card>   
           </b-col>
           <b-col cols="4" style = "text-align:left" >
-            <select-place @getPlaceName="handleGetPlace" style = "margin-top:46px"></select-place>
+            <select-place @getPlaceName="handleGetPlace" style = "margin-top:56px"></select-place>
           </b-col>
         </b-row>
       </div>
@@ -78,7 +90,7 @@
               style = "width:100%;margin-top:16px" :disabled="isInvalid||isBusy"
               @click="handleSubmit">
               <span v-if="!isBusy">Go</span>
-              <b-spinner small v-if="isBusy"></b-spinner>
+              <b-spinner small  v-else></b-spinner>
             </b-button>
           </a>
         </b-col>
@@ -118,10 +130,8 @@ export default {
       isBusy: false,
       /*表單數據放這裡*/
       formData:{
-        personId:'',
-        personNameEn:'',
-        personNameCh:'',
-        personIndexYear:'',
+        place:[],
+        association:[],
         mCircle:'f'
       },
       //後端傳回來的數據放這裡
@@ -135,10 +145,7 @@ export default {
     validation:yearValidation,
     //获取查询的人物
     handleGetPerson: function(selectedPerson){
-      this.formData.personId = selectedPerson[0]['personId'];
-      this.formData.personNameEn = selectedPerson[0]['personName'];
-      this.formData.personNameCh = selectedPerson[0]['personNameCh'];
-      this.formData.personIndexYear = selectedPerson[0]['indexYear'];
+      
     },
     async handleSubmit(){
       //提交表单的时候先清空原有數據

@@ -15,22 +15,89 @@
             <b-card-text class = "card-item-title">{{$t('globalTerm.office')}}</b-card-text>    
             <b-card>
               <b-row class="pl-3" style = "text-align:center">
-                <b-col>未選擇</b-col>
+                <b-col>
+                  <div v-if="this.formData.office.length==0" style = "line-height:31px">**{{$t('globalTerm.all')}}**</div>
+                  <div v-else>{{formData.office[0]}}
+                    <span v-if="this.formData.office.length>1">及另外{{this.formData.office.length-1}}個官職</span>
+                    <b-button  variant="outline-primary" size = sm>查看已選</b-button>
+                  </div>
+                  </b-col>
               </b-row> 
             </b-card>   
           </b-col>
           <b-col cols="4" style = "text-align:left">
-            <select-office @getPlaceName="handleGetOffice" style = "margin-top:46px"></select-office>
+            <select-office @getOfficeName="handleGetOffice" style = "margin-top:56px"></select-office>
           </b-col>
         </b-row>
       </div>
       <b-card-text class = "card-item-title pt-3">{{$t('globalTerm.alternativeInput')}}</b-card-text>             
       <div class  = "card-item-body px-3">
+        <!-- 职官地點 -->
+        <b-row class = "px-3 mb-3">
+          <b-card-text class = "card-item-title mt-3">
+            <b-form-checkbox switch size="lg" id="checkbox-0" v-model= "formData.useOfficePlace" name="checkbox-0"
+              value="1" unchecked-value="0">
+                <span style="font-size:16px">{{$t('globalTerm.office')}}{{$t('globalTerm.place')}}</span>
+            </b-form-checkbox>
+          </b-card-text> 
+        </b-row>
+        <b-row class = "py-3 my-3" v-if="formData.useOfficePlace ==='1'">
+          <b-col cols="8" style = "text-align:left"> 
+            <b-card>
+              <b-row class="pl-3" style = "text-align:center">
+                <b-col>
+                  <div v-if="this.formData.officePlace.length==0" style = "line-height:31px">**{{$t('globalTerm.all')}}**</div>
+                  <div v-else>{{formData.officePlace[0]}}
+                    <span v-if="this.formData.officePlace.length>1">及另外{{this.formData.officePlace.length-1}}個地點</span>
+                    <b-button  variant="outline-primary" size = sm>查看已選</b-button>
+                  </div>
+                </b-col>
+              </b-row> 
+            </b-card>   
+          </b-col>
+          <b-col cols="4" style = "text-align:left" >
+            <b-button-group>
+            <select-place @getPlaceName="handleGetOfficePlace" name="office" style = "margin-top:16px"></select-place>
+            <import-place @getPlaceName="handleGetOfficePlace" name="office" style = "margin-top:16px"></import-place>
+            </b-button-group>
+          </b-col>
+        </b-row> 
+        <!-- 人物地點 -->
+        <b-row class = "px-3 mb-3">
+          <b-card-text class = "card-item-title mt-3">
+            <b-form-checkbox switch size="lg" id="checkbox-1" v-model= "formData.usePeoplePlace" name="checkbox-1"
+              value="1" unchecked-value="0">
+                <span style="font-size:16px">{{$t('globalTerm.person')}}{{$t('globalTerm.place')}}</span>
+            </b-form-checkbox>
+          </b-card-text> 
+        </b-row>
+        <b-row class = "py-3 my-3" v-if="formData.usePeoplePlace ==='1'">
+          <b-col cols="8" style = "text-align:left"> 
+            <b-card>
+              <b-row class="pl-3" style = "text-align:center">
+                <b-col>
+                  <div v-if="this.formData.peoplePlace.length==0" style = "line-height:31px">**{{$t('globalTerm.all')}}**</div>
+                  <div v-else>{{formData.officePlace[0]}}
+                    <span v-if="this.formData.peoplePlace.length>1">及另外{{this.formData.peoplePlace.length-1}}個地點</span>
+                    <b-button  variant="outline-primary" size = sm>查看已選</b-button>
+                  </div>
+                </b-col>
+              </b-row> 
+            </b-card>   
+          </b-col>
+          <b-col cols="4" style = "text-align:left" >
+            <b-button-group>
+            <select-place @getPlaceName="handleGetPeoplePlace" name="people" style = "margin-top:16px"></select-place>
+            <import-place @getPlaceName="handleGetPeoplePlace" name="people" style = "margin-top:16px"></import-place>
+            </b-button-group>
+          </b-col>
+        </b-row> 
+        <!-- 日期 -->
         <b-row class = "px-3 mb-3">
           <b-card-text class = "card-item-title mt-3">
             <b-form-checkbox switch size="lg" id="checkbox-2" v-model= "formData.indexYear" name="checkbox-2"
               value="t" unchecked-value="f">
-              <span style="font-size:16px">{{$t('entityQueryByOffice.indexYearRange')}}</span>
+              <span style="font-size:16px">{{$t('globalTerm.date')}}({{$t('globalTerm.indexYear')}})</span>
             </b-form-checkbox>  
           </b-card-text> 
         </b-row>
@@ -57,7 +124,10 @@
       <b-row class = "px-3 mb-3">
         <b-col></b-col>
         <b-col class = "p-3">
-            <b-button href="#" variant="primary" style = "width:100%;margin-top:38px" :disabled="isInvalid">Go</b-button>
+            <b-button href="#" variant="primary" style = "width:100%;margin-top:38px" :disabled="isInvalid||isBusy" @click="handleSubmit">
+              <span v-if="!isBusy">Go</span>
+              <b-spinner small v-else></b-spinner>
+            </b-button>
         </b-col>
         <b-col></b-col>
       </b-row>    
@@ -68,7 +138,7 @@
       -->
     </b-card>
   </div>
-  <div class="hello">
+  <div class="hello" v-if="result.tableData!=undefined">
     <b-card header-tag="header" footer-tag="footer">
       <template v-slot:header>
           <h6 class="mb-0">{{$t('globalTerm.resultShow')}}</h6>
@@ -83,21 +153,34 @@
 import {isNull,yearValidation} from '@/components/utility/utility-functions.js'
 import queryResult from '@/components/utility/query-result.vue'
 import selectOffice from '@/components/utility/select-office.vue'
+import selectPlace from '@/components/utility/select-place.vue'
+import importPlace from '@/components/utility/import-place.vue'
 export default {
   name: 'entityQueryByOffice',
   components:
   {
       queryResult,
       selectOffice,
+      selectPlace,
+      importPlace
   },
   data () {
     return {
+      isBusy:false,
       /*表單數據放這裡*/
       formData:{
         office:[],
+        officePlace:[],
+        peoplePlace:[],
         indexStartTime:'',
         indexEndTime:'',
-        indexYear:'f'
+        indexYear:'f',
+        useOfficePlace:'0',
+        usePeoplePlace:'0'
+      },
+      result:{
+        totalPages:undefined,
+        tableData:undefined
       }
     }
   },
@@ -107,25 +190,61 @@ export default {
     validation:yearValidation,
     //获取查询的官职名
     handleGetOffice: function(selectedOffice){
-      this.formData.officeChName = selectedOffice[0]['officeName'];
-      this.formData.officeEnName = selectedOffice[0]['officeNameCh'];
+      this.formData.office = selectedOffice.map(i => i.officeNameCh);
+      console.log(this.formData.office)
       // this.formData.officeEnType = selectedOffice[0]['typeName'];
       // this.formData.officeChType = selectedOffice[0]['typeNameCh'];
     },
     //获取查询的人物地点
-    // handleGetPlace: function(selectedPlace){
-    //   this.formData.personEnPlace = selectedPlace[0]['placeName'];
-    //   this.formData.personChPlace = selectedPlace[0]['placeNameCh'];
-    // },
+     handleGetPeoplePlace: function(selectedPlace){
+       this.formData.peoplePlace = selectedPlace.map(i => i.pId);
+     },
     //获取官职地点
-    handleGetPlace: function(selectedPlace){
-      this.formData.officeEnPlace = selectedPlace[0]['placeName'];
-      this.formData.officeChPlace = selectedPlace[0]['placeNameCh'];
+    handleGetOfficePlace: function(selectedPlace){
+       this.formData.officePlace = selectedPlace.map(i => i.pId);
     },
+    //To Do
     testData: function(){
       console.log("测试");
       console.log(this.formData.officeChPlace);
-    }
+    },
+    //To Do
+    async handleSubmit(){
+      //提交表单的时候先清空原有數據
+      this.isBusy = true;
+      const res = this.waitForServer(this.formData)
+      res.then((r)=>
+        {
+          this.result.totalPages = r.data.totalPages
+          this.result.tableData = r.data.data
+          this.isBusy = false
+          if(this.result.totalPages>1){
+            for(let p = 2; p <= this.result.totalPages;p++)this.loadMore('api',p).then(res=>console.log(res))
+          }
+        },
+        (e)=>{
+          alert('something went wrong...')
+          this.isBusy = false
+        }
+      )
+    },
+    //To Do
+    waitForServer(query){
+      //sendToServer(query)
+      //------模擬服務器響應的東西---------
+      return new Promise(function(resolve,reject){
+        setTimeout((success=true)=>{
+          if(success)resolve({status:'200',data:{totalPages:5,data:['']}})
+          else reject({status:'404'})
+        },1000)
+      })
+    },
+    //To Do
+    loadMore(api,page){
+        return new Promise(function(resolve){
+        setTimeout(()=>{resolve('This is Data!')},1000)
+      })
+    },
   },
   computed:{
     queryFormular(){

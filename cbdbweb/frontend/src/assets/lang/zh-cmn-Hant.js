@@ -56,6 +56,8 @@ module.exports = {
     },
     globalTerm:{
         //全局術語
+        all:"所有",
+        date:"日期",
         time:"時間",
         place:"地點",
         person:"人物",
@@ -69,8 +71,7 @@ module.exports = {
         startTime:"開始時間",
         endTime:"結束時間",
         isIndexYear:"啟用指數年",
-        importPeople:"從本地加載人物列表",
-        importLocations:"從本地加載地点列表",
+        import:"從本地加載",
         indexYear:"指數年",
         gen:"性別",
         personId:"人物代碼",
@@ -164,8 +165,8 @@ module.exports = {
         }
     },
     entityQueryByEntry:{
-        entryYearRange:"入仕年範圍",
-        indexYearRange:"指數年範圍",
+        entryYear:"入仕年",
+        indexYear:"指數年",
         checkAndSearch:"檢索式確認",
         checkRemind:"茲生成查詢式如下，請於檢索前核查確認"
     },

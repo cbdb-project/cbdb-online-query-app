@@ -1,15 +1,23 @@
 <template>
-        <div>
+        <div ref="wrapper">
+          <b-row class = "pb-3 px-3" style = "text-align:right">
+            <b-col>
+            <b-button @click="exportData" variant="light">
+              <a id="export"></a>Export
+            </b-button>
+            </b-col>
+          </b-row>
           <b-table 
             :items= "items" 
             :fields= "fields" 
             sticky-header 
-            head-variant="light" 
+            head-variant="light"
+            id="res"             
             ref="selectableTable"
             selectable
             select-mode="multi"
             @row-selected="onRowSelected"
-            responsive="sm">
+            responsive>
               <template v-slot:cell(selected)="{ rowSelected }">
                  <template v-if="rowSelected">
                     <span aria-hidden="true">&check;</span>
@@ -35,6 +43,7 @@ export default {
   name: 'queryResult',
   data () {
     return {
+      isLoading:false,
       /*表格子數據放這裡*/
         fields: [
           {
@@ -71,10 +80,6 @@ export default {
             key: 'personPlaceCh',
             label: '地名(人)',
             sortable: true,
-          },
-          {
-            key: 'selected',
-            sortable: false,
           }
         ],
         items: [
@@ -91,16 +96,41 @@ export default {
     }
   },
   methods: {
-      onRowSelected(items) {
-        this.selected = items
-      },
-      selectAllRows() {
-        this.$refs.selectableTable.selectAllRows()
-      },
-      clearSelected() {
-        this.$refs.selectableTable.clearSelected()
+    onRowSelected(items) {
+      this.selected = items
+    },
+    selectAllRows() {
+      this.$refs.selectableTable.selectAllRows()
+    },
+    clearSelected() {
+      this.$refs.selectableTable.clearSelected()
+    },
+    exportData(){
+      let str = ''
+      for(let i = 0; i<this.fields.length; i++)
+        str += (this.fields[i].key+' ')
+      str += '\n'
+      for(let i = 0; i<this.items.length; i++){
+        for(let k in this.items[i]){
+          str += (this.items[i][k] + ' ')
+        }
+        str += '\n'
       }
+      var blob = new Blob([str]);
+      var link = document.getElementById('export')
+      link.download = "export_utf8"
+      link.href = URL.createObjectURL(blob);
+      link.click()
     }
+  },
+  mounted(){
+    let st =  this.$refs.selectableTable
+    // 监听这个dom的scroll事件
+    st.$el.addEventListener('scroll', () => {
+    if(st.$el.scrollHeight - st.$el.scrollTop <= st.$el.clientHeight)
+    console.log('rrrrrrrr')
+    }, false)
+  }
 }
 </script>
 

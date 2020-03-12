@@ -3,6 +3,7 @@
         <b-button v-if="selectFromDb===true" variant="outline-primary"  v-b-modal.select-entry-table
         class = "query-condition-button" size="sm">{{$t('globalTerm.selectFromDb')}}</b-button>
         <b-modal 
+            scrollable
             id="select-entry-table" 
             title="Select Entry from Database" 
             size = "xl"
@@ -11,27 +12,31 @@
             <b-row>
                 <b-col :cols = 4 style = "text-align:right">
                     <b-card>
-                        <b-form-group label-cols="4" label="Entry English Name" label-for="select-entry-input-en-name">
-                            <b-form-input id="select-entry-input-en-name"></b-form-input>
-                        </b-form-group>
-                        <b-form-group label-cols="4" label="入仕途径-中文" label-for="select-entry-input-ch-name">
-                            <b-form-input id="select-entry-input-ch-name"></b-form-input>
+                        <b-form-group label-cols="4" label="Entry Name" label-for="select-entry-input-en-name">
+                            <b-form-input id="select-entry-input-name"></b-form-input>
                         </b-form-group>
                         <b-form-group>
-                            <b-button variant="primary">Search</b-button>
+                            <b-button variant="primary">Find</b-button>
                         </b-form-group>
                     </b-card>
                     <b-card>
-                        <div style="height:400px; overflow:auto">
-                            <tree-table listName="入仕途径类目表" ref="recTree" :list.sync="treeDataSource" @actionFunc="actionFunc" @deleteFunc="deleteFunc" @handlerExpand="handlerExpand" @orderByFunc="orderByFunc"></tree-table>
+                        <div style="height:310px; overflow:scroll">
+                            <tree-table listName="入仕途径类目表" ref="recTree" :list.sync="treeDataSource"  @handlerExpand="handlerExpand" @actionFunc="actionFunc"></tree-table>
                         </div>
                     </b-card>
                 </b-col>
                 <b-col :cols=8 >
+                    <b-form-group style = "text-align:right">
+                      <b-button variant="outline-danger" @click="items=[]" size='sm' class = "mx-3" style="position:absolute;left:0">Clear Table</b-button> 
+                      <b-button-group> 
+                        <b-button v-if="selectedEntry.length>0" @click="clearSelected" variant="outline-secondary" size='sm' ><span>Clear Selected</span></b-button>
+                        <b-button v-if="!(items.length===selectedEntry.length)" @click="selectAllRows" variant="outline-secondary" size='sm' ><span>Select All</span></b-button>
+                      </b-button-group>      
+                    </b-form-group>
                     <b-table 
                         :items= "items" 
                         :fields= "fields" 
-                        sticky-header = "600px"
+                        sticky-header = "470px"
                         head-variant="light" 
                         ref="selectableTable"
                         selectable
@@ -76,6 +81,7 @@
         data() {
             return {
                 show:false,
+                first:true,
                 treeDataSource: dataJson,
                 /*表格子數據放這裡*/
                 fields: [
@@ -88,10 +94,6 @@
                         key: 'entryNameCh',
                         label:'入仕法',
                         sortable: true
-                    },
-                    {
-                        key: 'selected',
-                        sortable: false,
                     }
                 ],
                 items: [
@@ -105,7 +107,10 @@
                     {entryName:"deposed previous emperor",entryNameCh:"廢前帝自立"},
                     {entryName:"direct appointment to painting academy",entryNameCh:"畫院待詔"},
                     {entryName:"imperial summons",entryNameCh:"徵辟"},
-                    {entryName:"direct recruitment into military service",entryNameCh:"募入軍伍"}
+                    {entryName:"direct recruitment into military service",entryNameCh:"募入軍伍"},
+                    {entryName:"[Missing Data]",entryNameCh:"[Missing Data]"},
+                    {entryName:"[Missing Data]",entryNameCh:"[Missing Data]"},
+                    {entryName:"[Missing Data]",entryNameCh:"[Missing Data]"},
                 ],
                 //选中的人物出现在这里
                 selectedEntry : []
@@ -131,10 +136,35 @@
                 this.$refs.selectableTable.clearSelected()
             },
             handlerExpand(m) {
-                console.log('展开/收缩')
+                //console.log(m.Id+'展开/收缩')  
                 m.isExpand = !m.isExpand
-            }
+            },
+            actionFunc(m){
+            console.log(m.Id)
+            this.axios.get('api'+m.Id)
+            .then((r)=>{
+              this.items = r.data
+              },
+              (e)=>{
+                alert('Sorry, something went wrong...')
+              }
+            )
         }
+      },
+        watch:{
+        //DOM elements first time rendered
+            show:function(){
+                if(this.first===true){
+                this.first=false
+                let st =  this.$refs.selectableTable
+                // 监听这个dom的scroll事件
+                st.$el.addEventListener('scroll', () => {
+                if(st.$el.scrollHeight - st.$el.scrollTop <= st.$el.clientHeight)
+                    console.log('eeeee')
+                }, false)
+                }
+            }
+         }
     }
     </script>
 

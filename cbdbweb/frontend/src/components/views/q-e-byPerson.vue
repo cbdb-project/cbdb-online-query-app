@@ -28,7 +28,7 @@
             </b-card>
           </b-col>
           <b-col cols="2">
-            <select-person @getPersonName="handleGetPerson" selectMode='single' importList="false" style="margin-top:53px">
+            <select-person @getPersonName="handleGetPerson" selectMode='single' importList="false" style="margin-top:50px">
             </select-person>
           </b-col>
         </b-row>
@@ -44,7 +44,7 @@
               style = "width:100%;margin-top:16px" :disabled="isInvalid||isBusy"
               @click="handleSubmit">
               <span v-if="!isBusy">Go</span>
-              <b-spinner small v-if="isBusy"></b-spinner>
+              <b-spinner small v-else></b-spinner>
             </b-button>
           </a>
         </b-col>
@@ -58,7 +58,7 @@
     </b-card>
   </div>
     <!-- 按人查詢頁的結果和其他不太一樣，單獨寫出來-->
-    <div class="hello" v-if="Object.keys(this.personInfo).length!= 0">
+    <div class="hello" v-if="Object.keys(this.personInfo).length!= 0" ref="res">
     <b-card header-tag="header" footer-tag="footer">
         <template v-slot:header>
             <h6 class="mb-0">{{$t('globalTerm.resultShow')}}</h6>
@@ -523,7 +523,6 @@ export default {
       else if (str === "true")return this.$t('globalTerm.true');
       else return ''
     },
-    isNull:isNull,
     //获取查询的人物
     handleGetPerson: function(selectedPerson){
       this.formData.personId = selectedPerson[0]['personId'];
@@ -568,7 +567,8 @@ export default {
     },
     //To Do
     handleScroll(){
-      if(Object.keys(this.personInfo).length == 0) return
+      if (!this.$refs.res) return
+      console.log(Object.keys(this.personInfo).length == 0)
       let heightTop = document.documentElement.scrollTop || document.body.scrollTop;
       let bottomOfWindow = document.documentElement.offsetHeight -heightTop - window.innerHeight <= 0
       if (bottomOfWindow && this.tabIsloading == false) {
@@ -576,37 +576,37 @@ export default {
         let res = this.loadMore('https://randomuser.me/api/',this.activeTab,undefined)
         res.then(response => {
           //To Do
-          this.personInfo.address.push({
-            "placeName":"Daxing",
-            "placeNameChn":"大興",
-            "type":"Basic Affiliation",
-            "typeChn":"籍貫（基本地址）",
-            "isMaternal":"false",
-            "sequence":"0",
-            "pFromYear":"0",
-            "pFyRange":"-1",
-            "pFyNh":"unknown",
-            "pFyNhChn":"未詳",
-            "pFyNhYear":"1",
-            "pFyIntercalary":"true",
-            "pFyMonth":"1",
-            "pFyDay":"1",
-            "pFyDayGz":"",
-            "pToYear":"0",
-            "pTyRange":"",
-            "pTyNh":"unknown",
-            "pTyNhChn":"未詳",
-            "pTyNhYear":"",
-            "pTyIntercalary":"false",
-            "pTyMonth":"",
-            "pTyDay":"",
-            "pTyDayGz":"",
-            "pSource":"Renming quanwei ziliao (Zhongyang yanjiuyuan Lishi yuyan yanjiusuo)",
-            "pSourceChn":"人名權威資料（中央研究院歷史語言研究所）",
-            "psPages":"9537",
-            "pNotes":"北直隸·順天府（祖籍南直隸·鳳陽府）（中央研究院人名權威資料）。"
-          })      
-          console.log(this.personInfo.address);
+          for(let i = 0; i<5;i++)
+            this.personInfo.address.push({
+              "placeName":"Daxing",
+              "placeNameChn":"大興",
+              "type":"Basic Affiliation",
+              "typeChn":"籍貫（基本地址）",
+              "isMaternal":"false",
+              "sequence":"0",
+              "pFromYear":"0",
+              "pFyRange":"-1",
+              "pFyNh":"unknown",
+              "pFyNhChn":"未詳",
+              "pFyNhYear":"1",
+              "pFyIntercalary":"true",
+              "pFyMonth":"1",
+              "pFyDay":"1",
+              "pFyDayGz":"",
+              "pToYear":"0",
+              "pTyRange":"",
+              "pTyNh":"unknown",
+              "pTyNhChn":"未詳",
+              "pTyNhYear":"",
+              "pTyIntercalary":"false",
+              "pTyMonth":"",
+              "pTyDay":"",
+              "pTyDayGz":"",
+              "pSource":"Renming quanwei ziliao (Zhongyang yanjiuyuan Lishi yuyan yanjiusuo)",
+              "pSourceChn":"人名權威資料（中央研究院歷史語言研究所）",
+              "psPages":"9537",
+              "pNotes":"北直隸·順天府（祖籍南直隸·鳳陽府）（中央研究院人名權威資料）。"
+            })      
           this.tabIsloading = false   
         })      
       }    
@@ -620,7 +620,7 @@ export default {
       return `person-id:'${this.formData.personId}';`
     },
     isInvalid(){
-      return this.isNull('personId')==true
+      return isNull(this.formData.personId)==true
     }
   }
 }

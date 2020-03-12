@@ -32,7 +32,7 @@ module.exports = {
     },
     selectPerson:{
         selectButton:"SELECT PERSON",
-        personName:"Person Name"
+        personName:"Name"
     },
     selectEntry:{
         selectButton:"SELECT ENTRY"
@@ -53,6 +53,8 @@ module.exports = {
     },
     globalTerm:{
         //全局術語
+        all:"All",
+        date:"Date",
         time:"Time",
         place:"Place",
         person:"Person",
@@ -66,8 +68,7 @@ module.exports = {
         startTime:"Start Time",
         endTime:"End Time",
         isIndexYear:"Use Index Year",
-        importPeople:"Import People List",
-        importLocations:"Import Places List",
+        import:"Import",
         indexYear:"Index Year",
         gen:"Gender",
         personId:"Person ID",
@@ -100,7 +101,7 @@ module.exports = {
         and:"And",
         invalidInput:"Your input is invalid, please check.",
         cnOrPy:"In Chinese or Pinyin",
-        selectFromDb:"SELECT FROM DATABASE"
+        selectFromDb:"Select"
     },
     entityQueryByOffice:{
         indexYearRange:"Index Year Range",
@@ -161,8 +162,8 @@ module.exports = {
         }
     },
     entityQueryByEntry:{
-        entryYearRange:"Entry Year Range",
-        indexYearRange:"Index Year Range",
+        entryYear:"Entry Year",
+        indexYear:"Index Year",
         checkAndSearch:"Check And Search",
         checkRemind:"The query is generated as the following. Please check it before your search."
     },

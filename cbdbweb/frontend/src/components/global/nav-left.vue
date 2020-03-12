@@ -107,6 +107,6 @@ export default {
 
   }
   .nav-item{
-    min-width: 200px;
+    min-width: 150px;
   }
 </style>

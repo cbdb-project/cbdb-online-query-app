@@ -4,16 +4,17 @@
         <b-button  v-if="selectFromDb===true" variant="outline-primary"  v-b-modal.select-person
         class = "query-condition-button" size="sm">{{$t('globalTerm.selectFromDb')}}</b-button>
         <b-button  v-if="importList===true" variant="outline-primary"  v-b-modal.select-person
-        class = "query-condition-button" size="sm">{{$t('globalTerm.selectFromDb')}}</b-button>
+        class = "query-condition-button" size="sm">{{$t('globalTerm.import')}}</b-button>
       </b-button-group>
         <b-modal 
           id="select-person" 
           title="Select People from Database" 
           size = "xl"
           v-model="show"
+          scrollable
         >
             <b-row>
-                <b-col :cols = 4 style = "text-align:right">
+                <b-col :cols = 5 style = "text-align:right">
                   <b-card>
                     <b-form-group label-cols="4" :label="$t('selectPerson.personName')" label-for="select-person-input-name">
                         <b-form-input id="select-person-input-name" :placeholder="$t('globalTerm.cnOrPy')" v-model="formData.personName"></b-form-input>
@@ -27,7 +28,7 @@
                      </a>
                   </b-card>
                 </b-col>
-                <b-col :cols = 8>
+                <b-col :cols = 7>
                     <b-table 
                         :items= "items" 
                         :fields= "fields" 
@@ -55,7 +56,7 @@
               <b-button size="xl" variant="secondary" @click="show=false">
                 Cancel
               </b-button>
-              <b-button size="xl" variant="primary" @click="haveSelected">
+              <b-button size="xl" variant="primary" :disabled="selectedPerson.length===0" @click="haveSelected">
                 Select
               </b-button>
             </template>
@@ -66,8 +67,9 @@
 
 <script>
 import dataJson from '@/assets/person_list_dev.json'
+import {isNull} from '@/components/utility/utility-functions.js'
 export default {
-  name:'selectPerson',
+    name:'selectPerson',
     props:{
       'selectMode':{
         default:'multi'
@@ -107,11 +109,6 @@ export default {
             key: 'indexYear',
             label: 'Index Year',
             sortable: true,
-          },
-          {
-            key: 'selected',
-            label:"Selected",
-            sortable: true,
           }
         ],
         items: [],
@@ -121,11 +118,20 @@ export default {
   },
   methods: {
       searchPerson(personName){
+        this.items = []//清空已有数据
         this.isBusy=true
-        const res = this.waitForServer(this.formData)
-        res.then((r)=>
+        this.axios.get('https://cbdb.fas.harvard.edu/cbdbapi/person.php?name='+ encodeURI(this.formData.personName) +'&o=json')
+        .then((r)=>
           {
-            this.items = r.data
+            console.log(r.data.Package.PersonAuthority.PersonInfo.Person)
+            let pList = r.data.Package.PersonAuthority.PersonInfo.Person
+            if(pList instanceof Array){
+              this.items = pList.map(item=>
+              ({'personId':item.BasicInfo.PersonId,'personName':item.BasicInfo.EngName,'personNameCh':item.BasicInfo.ChName,'indexYear':item.BasicInfo.IndexYear}))
+            }
+            else{
+              this.items.push({'personId':pList.BasicInfo.PersonId,'personName':pList.BasicInfo.EngName,'personNameCh':pList.BasicInfo.ChName,'indexYear':pList.BasicInfo.IndexYear})
+            }
             this.isBusy = false
           },
           (e)=>{
@@ -134,15 +140,6 @@ export default {
           }
         )
       },
-      waitForServer(query){
-      //------模擬服務器響應的東西---------
-      return new Promise(function(resolve,reject){
-        setTimeout((success=true)=>{
-          if(success)resolve({status:'200',data:dataJson})
-          else reject({status:'404'})
-        },3000)
-      })
-    },
       onRowSelected(items) {
         this.selectedPerson = items
       },
@@ -161,7 +158,7 @@ export default {
   },
   computed:{
     isInvalid(){
-      return this.formData.personName === ''
+      return isNull(this.formData.personName)
     }
   }
 }

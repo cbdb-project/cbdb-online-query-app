@@ -7,10 +7,10 @@
           <table>
               <tr class="leve" :class="levelClass">
                 <td class="td1">
-                  <div class="td-title" @dblclick="handlerExpand(model)">
-                    <span v-if="model.children.length > 0" class="tree-close" :class="{'tree-open':model.isExpand}" @click="handlerExpand(model)"></span>
-                    <a class="ellipsis">
-                      <span :title="model.ObjectName">{{model.ObjectName}}</span>
+                  <div class="td-title">
+                    <span v-if="model.children.length>0" class="tree-close" :class="{'tree-open':model.isExpand}"  @click="handlerExpand(model)"></span>
+                    <a class="ellipsis" @click="actionFunc(model)">
+                      <span :title="model.ObjectName" class="tree-node">{{model.ObjectName}}</span>
                     </a>
                   </div>
                 </td>
@@ -84,7 +84,7 @@
 						recurFunc(this.trees, this.trees)
 					},
 					handlerExpand(m) {
-            this.$emit('handlerExpand', m)
+            			this.$emit('handlerExpand', m)
 					},
 					deleteFunc(m) {
 						this.$emit('deleteFunc', m)

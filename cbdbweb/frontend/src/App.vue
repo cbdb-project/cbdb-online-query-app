@@ -60,7 +60,7 @@ export default {
   top:80px;
   width:18%;
   height:100%;
-  min-width:200px;
+  min-width:150px;
   border-style:solid;
   border-width: 0 1px 0 0;
   border-color:#D4D4D4;
@@ -74,7 +74,7 @@ export default {
   position:relative;
   top:80px;
   left: 8.3%;
-  width: 78%;
+  width: 73%;
   margin: 0 auto;
 }
 

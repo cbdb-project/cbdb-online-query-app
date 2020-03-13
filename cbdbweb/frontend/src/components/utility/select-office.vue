@@ -107,16 +107,16 @@ export default {
             },
           ],
           items: [
-            {officeName:"Supervisor (Hucker)",officeNameCh:"提舉"},
-            {officeName:"Investigations Office of the State Finance Commission",officeNameCh:"三司推勘院"},
-            {officeName:"Comptroller",officeNameCh:"催欠司"},
-            {officeName:"General Comptroller‘s Office of the State Finance Commission (Hucker)",officeNameCh:"三司都勾院"},
-            {officeName:"General Deficits Monitoring Office of the State Finance Commission (Hucker)",officeNameCh:"三司都理欠司"},
-            {officeName:"General Accounting Office of the State Finance Commission (Hucker)",officeNameCh:"三司都磨勘司"},
-            {officeName:"Recorder of the Directorate of Waterways (Hucker)　",officeNameCh:"都水監主簿"},
-            {officeName:"Institute of General Accounts",officeNameCh:"三司度支勾院"},
-            {officeName:"Certificate Validation Office of the Bureau of General Accounts (Hucker)",officeNameCh:"度支憑由司"},
-            {officeName:"Judge of the Bureau of General Accounts (Hucker)",officeNameCh:"度支推官"},
+            {pId:'1234',officeName:"Supervisor (Hucker)",officeNameCh:"提舉"},
+            {pId:'1235',officeName:"Investigations Office of the State Finance Commission",officeNameCh:"三司推勘院"},
+            {pId:'1236',officeName:"Comptroller",officeNameCh:"催欠司"},
+            {pId:'1237',officeName:"General Comptroller‘s Office of the State Finance Commission (Hucker)",officeNameCh:"三司都勾院"},
+            {pId:'1238',officeName:"General Deficits Monitoring Office of the State Finance Commission (Hucker)",officeNameCh:"三司都理欠司"},
+            {pId:'1239',officeName:"General Accounting Office of the State Finance Commission (Hucker)",officeNameCh:"三司都磨勘司"},
+            {pId:'1240',officeName:"Recorder of the Directorate of Waterways (Hucker)　",officeNameCh:"都水監主簿"},
+            {pId:'1241',officeName:"Institute of General Accounts",officeNameCh:"三司度支勾院"},
+            {pId:'1242',officeName:"Certificate Validation Office of the Bureau of General Accounts (Hucker)",officeNameCh:"度支憑由司"},
+            {pId:'1243',officeName:"Judge of the Bureau of General Accounts (Hucker)",officeNameCh:"度支推官"},
           ],
           //选中的人物出现在这里
           selectedOffice : []
@@ -142,7 +142,7 @@ export default {
         },
         haveSelected: function(){
           //同步选中官职给父组件（页面）
-          this.$emit('getOfficeName', this.selectedOffice);
+          this.$emit('getOfficeName', {fields:this.fields,items:this.selectedOffice});
           this.show = false;
         },
         selectAllRows() {

@@ -20,7 +20,7 @@
                   <span v-else>{{officeTable[0].officeNameCh}}
                     <span v-if="this.officeTable.length>1">及另外{{officeTable.length-1}}個官職</span>
                   </span>
-                  <view-selected name='office' :fields="this.officeField" :items="this.officeTable"></view-selected>   
+                  <view-selected name='office' :fields="this.officeField" :items="this.officeTable" @update:items="val=>this.officeTable=val"></view-selected>   
                   </b-col>
               </b-row> 
             </b-card>   
@@ -50,7 +50,7 @@
                   <span v-else>{{officePlaceTable[0]['placeNameCh']}}
                     <span v-if="this.officePlaceTable.length>1">及另外{{officePlaceTable.length-1}}個地點</span>
                   </span>
-                  <view-selected name='officePlace' :fields="this.officePlaceField" :items="this.officePlaceTable"></view-selected>
+                  <view-selected name='officePlace' :fields="this.officePlaceField" :items="this.officePlaceTable" @update:items="val=>this.officePlaceTable=val"></view-selected>
                 </b-col>
               </b-row> 
             </b-card>   
@@ -80,7 +80,7 @@
                   <span v-else>{{peoplePlaceTable[0]['placeNameCh']}}
                     <span v-if="this.peoplePlaceTable.length>1">及另外{{peoplePlaceTable.length-1}}個地點</span>
                   </span>
-                  <view-selected name='peoplePlace' :fields="this.peoplePlaceField" :items="this.peoplePlaceTable"></view-selected>
+                  <view-selected name='peoplePlace' :fields="this.peoplePlaceField" :items="this.peoplePlaceTable" @update:items="val=>this.peoplePlaceTable=val"></view-selected>
                 </b-col>
               </b-row> 
             </b-card>   

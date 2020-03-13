@@ -35,7 +35,7 @@
                     <b-form-group style = "text-align:right">
                       <b-button variant="outline-danger" @click="items=[]" size='sm' class = "mx-3" style="position:absolute;left:0">Clear Table</b-button> 
                       <b-button-group> 
-                        <b-button v-if="selectedOffice.length>0" @click="clearSelected" variant="outline-secondary" size='sm' ><span>Clear Selected</span></b-button>
+                        <b-button v-if="selectedOffice.length>0" @click="clearSelected" variant="outline-secondary" size='sm' ><span>Cancel Selected</span></b-button>
                         <b-button v-if="!(items.length===selectedOffice.length)" @click="selectAllRows" variant="outline-secondary" size='sm' ><span>Select All</span></b-button>
                       </b-button-group>      
                     </b-form-group>

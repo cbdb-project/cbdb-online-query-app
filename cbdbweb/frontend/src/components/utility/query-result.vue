@@ -41,6 +41,17 @@
 <script>
 export default {
   name: 'queryResult',
+  props:{
+    'start':{
+        default:0
+    },
+    'offset':{
+        default:20
+    },
+    'end':{
+        default:100
+    }
+  },
   data () {
     return {
       isLoading:false,
@@ -121,13 +132,21 @@ export default {
       link.download = "export_utf8"
       link.href = URL.createObjectURL(blob);
       link.click()
+    },
+  loadMore(){
+    if(this.end-this.start>0){
+      let offset = this.end-this.start>this.offset?this.offset:this.end-this.start
+      for(let i=0; i<offset; i++)this.items.push( {name:'Liu Jun',nameCh:'劉俊',indexYear:'1086',female:false,placeType:'籍貫',personPlace:'Nan Yang',personPlaceCh:'南陽'})
+      this.start+=offset
     }
+  }
   },
   mounted(){
     let st =  this.$refs.selectableTable
     // 监听这个dom的scroll事件
     st.$el.addEventListener('scroll', () => {
     if(st.$el.scrollHeight - st.$el.scrollTop <= st.$el.clientHeight)
+    this.loadMore()
     console.log('rrrrrrrr')
     }, false)
   }

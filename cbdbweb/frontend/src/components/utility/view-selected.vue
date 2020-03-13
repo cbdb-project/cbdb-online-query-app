@@ -14,9 +14,10 @@
         <b-row>
             <b-col >
                 <b-form-group style = "text-align:right">
-                      <b-button variant="outline-danger" @click="dropAllItems" size='sm' class = "mx-3" style="position:absolute;left:0">Clear Table</b-button> 
+                      <b-button variant="outline-danger" @click="dropAllItems" size='sm' class = "mx-3" style="position:absolute;left:0">Clear All</b-button>
+                      <b-button variant="outline-danger" @click="dropSelectedItems" size='sm' class = "mx-3" style="position:absolute;left:120px">Clear Selected</b-button>  
                       <b-button-group> 
-                        <b-button v-if="selected.length>0" @click="clearSelected" variant="outline-secondary" size='sm' ><span>Clear Selected</span></b-button>
+                        <b-button v-if="selected.length>0" @click="clearSelected" variant="outline-secondary" size='sm' ><span>Cancel Selection</span></b-button>
                         <b-button v-if="!(items.length===selected.length)" @click="selectAllRows" variant="outline-secondary" size='sm' ><span>Select All</span></b-button>
                       </b-button-group>      
                 </b-form-group>
@@ -76,8 +77,12 @@ export default {
     }
   },
   methods: {
+      dropSelectedItems(){
+        this.items = this.items.filter(i => this.selected.indexOf(i)===-1)
+        this.selected.splice(0,this.selected.length);
+      },
       dropAllItems(){
-          this.items.splice(0,this.items.length);
+        this.items.splice(0,this.items.length);
       },
       onRowSelected(items) {
         this.selected = items

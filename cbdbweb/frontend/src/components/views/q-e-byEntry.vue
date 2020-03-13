@@ -20,7 +20,7 @@
                   <span v-else>{{entryTable[0]['entryNameCh']}}
                     <span v-if="this.entryTable.length>1">及另外{{this.entryTable.length-1}}種入仕途徑</span>
                   </span>
-                  <view-selected name="entry" :fields="this.entryField" :items="this.entryTable"></view-selected>
+                  <view-selected name="entry" :fields="this.entryField" :items="this.entryTable" @update:items="val=>this.entryTable=val"></view-selected>
                 </b-col>
               </b-row> 
             </b-card>   
@@ -50,7 +50,7 @@
                   <span v-else>{{peoplePlaceTable[0]['placeNameCh']}}
                     <span v-if="this.peoplePlaceTable.length>1">及另外{{peoplePlaceTable.length-1}}個地點</span>
                   </span>
-                  <view-selected name='peoplePlace' :fields="this.peoplePlaceField" :items="this.peoplePlaceTable"></view-selected>
+                  <view-selected name='peoplePlace' :fields="this.peoplePlaceField" :items="this.peoplePlaceTable" @update:items="val=>this.peoplePlaceTable=val"></view-selected>
                 </b-col>
               </b-row> 
             </b-card>   

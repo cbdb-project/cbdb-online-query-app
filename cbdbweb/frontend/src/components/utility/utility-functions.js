@@ -31,8 +31,55 @@ function yearValidation(idx){
       else return false;
     }
   }
+
+  function peoplePlaceGetter(d,vm){
+    console.log(vm.peoplePlaceField)
+    if(vm.peoplePlaceField.length===0)vm.peoplePlaceField = d['fields']
+    let formData = vm.getPeoplePlaceTableId
+    let after = d['items'].filter(i => formData.indexOf(i.pId)===-1);
+    after.forEach(
+      i=>{
+        vm.peoplePlaceTable.push(i)
+    })    
+  }
+
+  function officeGetter(d,vm){
+    if(vm.officeField.length===0)vm.officeField = d['fields']
+    let formData = vm.getOfficeTableId
+    let after = d['items'].filter(i => formData.indexOf(i.pId)===-1);
+    after.forEach(
+      i=>{
+        vm.officeTable.push(i)
+    })
+  }
+
+  function officePlaceGetter(d,vm){
+    if(vm.officePlaceField.length===0)vm.officePlaceField = d['fields']
+    let formData = vm.getOfficePlaceTableId
+    let after = d['items'].filter(i => formData.indexOf(i.pId)===-1);
+    after.forEach(
+      i=>{
+        vm.officePlaceTable.push(i)
+    })
+  }
+
+  function entryGetter(d,vm){
+    console.log(d)
+    console.log(vm.entryField)
+    if(vm.entryField.length===0)vm.entryField = d['fields']
+    let formData = vm.getEntryTableId
+    let after = d['items'].filter(i =>formData.indexOf(i.eId)===-1);
+    after.forEach(
+      i=>{
+        vm.entryTable.push(i)
+    })
+  }
+
   export {
       isNull as isNull,
-      yearValidation as yearValidation
-      
+      yearValidation as yearValidation,
+      peoplePlaceGetter as peoplePlaceGetter,
+      officePlaceGetter as officePlaceGetter,
+      officeGetter as officeGetter,
+      entryGetter as entryGetter
   }

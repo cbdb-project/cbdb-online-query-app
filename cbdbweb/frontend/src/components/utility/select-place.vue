@@ -149,7 +149,7 @@ export default {
       haveSelected: function(){
         //同步选中地点
         console.log("选取成功");
-        this.$emit('getPlaceName', this.selectedPlace);
+        this.$emit('getPlaceName', {fields:this.fields,items:this.selectedPlace});
        this.show = false
       },
       selectAllRows() {

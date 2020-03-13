@@ -86,11 +86,6 @@
                 /*表格子數據放這裡*/
                 fields: [
                     {
-                        key:'eId',
-                        label:'ID',
-                        sortable:true
-                    },
-                    {
                         key: 'entryName',
                         label:'Method of Entry',
                         sortable: true
@@ -102,20 +97,20 @@
                     }
                 ],
                 items: [
-                    {eId:"4567",entryName:"[Missing Data]",entryNameCh:"[Missing Data]"},
-                    {eId:"4568",entryName:"not available/applicable",entryNameCh:"未知"},
-                    {eId:"4569",entryName:"abdication of previous emperor",entryNameCh:"前帝遜位"},
-                    {eId:"4568",entryName:"To be Deleted: betrothal",entryNameCh:"臨時保留，待考。"},
-                    {eId:"4569",entryName:"promotion from clerical positions",entryNameCh:"胥吏出職"},
-                    {eId:"4570",entryName:"purchase",entryNameCh:"進納補官"},
-                    {eId:"4571",entryName:"yin privilege: Grand Sacrifice",entryNameCh:"恩蔭: 大禮蔭補"},
-                    {eId:"4572",ntryName:"deposed previous emperor",entryNameCh:"廢前帝自立"},
-                    {eId:"4573",entryName:"direct appointment to painting academy",entryNameCh:"畫院待詔"},
-                    {eId:"4574",entryName:"imperial summons",entryNameCh:"徵辟"},
-                    {eId:"4575",entryName:"direct recruitment into military service",entryNameCh:"募入軍伍"},
-                    {eId:"4576",entryName:"[Missing Data]",entryNameCh:"[Missing Data]"},
-                    {eId:"4577",entryName:"[Missing Data]",entryNameCh:"[Missing Data]"},
-                    {eId:"4578",entryName:"[Missing Data]",entryNameCh:"[Missing Data]"},
+                    {entryName:"[Missing Data]",entryNameCh:"[Missing Data]"},
+                    {entryName:"not available/applicable",entryNameCh:"未知"},
+                    {entryName:"abdication of previous emperor",entryNameCh:"前帝遜位"},
+                    {entryName:"To be Deleted: betrothal",entryNameCh:"臨時保留，待考。"},
+                    {entryName:"promotion from clerical positions",entryNameCh:"胥吏出職"},
+                    {entryName:"purchase",entryNameCh:"進納補官"},
+                    {entryName:"yin privilege: Grand Sacrifice",entryNameCh:"恩蔭: 大禮蔭補"},
+                    {entryName:"deposed previous emperor",entryNameCh:"廢前帝自立"},
+                    {entryName:"direct appointment to painting academy",entryNameCh:"畫院待詔"},
+                    {entryName:"imperial summons",entryNameCh:"徵辟"},
+                    {entryName:"direct recruitment into military service",entryNameCh:"募入軍伍"},
+                    {entryName:"[Missing Data]",entryNameCh:"[Missing Data]"},
+                    {entryName:"[Missing Data]",entryNameCh:"[Missing Data]"},
+                    {entryName:"[Missing Data]",entryNameCh:"[Missing Data]"},
                 ],
                 //选中的人物出现在这里
                 selectedEntry : []
@@ -131,7 +126,7 @@
             haveSelected: function(){
                 //同步选中入仕途径
                 //console.log("成功");
-                this.$emit('getEntryName', {fields:this.fields,items:this.selectedEntry});
+                this.$emit('getEntryName', this.selectedEntry);
                 this.show = false;
             },
             selectAllRows() {

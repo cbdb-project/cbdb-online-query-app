@@ -16,11 +16,11 @@
             <b-card>
               <b-row class="pl-3" style = "text-align:center">
                 <b-col>
-                  <span v-if="this.officeTable.length==0" style = "line-height:31px">**{{$t('globalTerm.all')}}**</span>
-                  <span v-else>{{officeTable[0].officeNameCh}}
-                    <span v-if="this.officeTable.length>1">及另外{{officeTable.length-1}}個官職</span>
-                  </span>
-                  <view-selected name='office' :fields="this.officeField" :items="this.officeTable"></view-selected>   
+                  <div v-if="this.formData.office.length==0" style = "line-height:31px">**{{$t('globalTerm.all')}}**</div>
+                  <div v-else>{{formData.office[0]}}
+                    <span v-if="this.formData.office.length>1">及另外{{this.formData.office.length-1}}個官職</span>
+                    <b-button  variant="outline-primary" size = sm>查看已選</b-button>
+                  </div>
                   </b-col>
               </b-row> 
             </b-card>   
@@ -46,11 +46,11 @@
             <b-card>
               <b-row class="pl-3" style = "text-align:center">
                 <b-col>
-                  <span v-if="this.officePlaceTable.length==0" style = "line-height:31px">**{{$t('globalTerm.all')}}**</span>
-                  <span v-else>{{officePlaceTable[0]['placeNameCh']}}
-                    <span v-if="this.officePlaceTable.length>1">及另外{{officePlaceTable.length-1}}個地點</span>
-                  </span>
-                  <view-selected name='officePlace' :fields="this.officePlaceField" :items="this.officePlaceTable"></view-selected>
+                  <div v-if="this.formData.officePlace.length==0" style = "line-height:31px">**{{$t('globalTerm.all')}}**</div>
+                  <div v-else>{{formData.officePlace[0]}}
+                    <span v-if="this.formData.officePlace.length>1">及另外{{this.formData.officePlace.length-1}}個地點</span>
+                    <b-button  variant="outline-primary" size = sm>查看已選</b-button>
+                  </div>
                 </b-col>
               </b-row> 
             </b-card>   
@@ -76,11 +76,11 @@
             <b-card>
               <b-row class="pl-3" style = "text-align:center">
                 <b-col>
-                  <span v-if="this.peoplePlaceTable.length==0" style = "line-height:31px">**{{$t('globalTerm.all')}}**</span>
-                  <span v-else>{{peoplePlaceTable[0]['placeNameCh']}}
-                    <span v-if="this.peoplePlaceTable.length>1">及另外{{peoplePlaceTable.length-1}}個地點</span>
-                  </span>
-                  <view-selected name='peoplePlace' :fields="this.peoplePlaceField" :items="this.peoplePlaceTable"></view-selected>
+                  <div v-if="this.formData.peoplePlace.length==0" style = "line-height:31px">**{{$t('globalTerm.all')}}**</div>
+                  <div v-else>{{formData.officePlace[0]}}
+                    <span v-if="this.formData.peoplePlace.length>1">及另外{{this.formData.peoplePlace.length-1}}個地點</span>
+                    <b-button  variant="outline-primary" size = sm>查看已選</b-button>
+                  </div>
                 </b-col>
               </b-row> 
             </b-card>   
@@ -96,16 +96,16 @@
         <b-row class = "px-3 mb-3">
           <b-card-text class = "card-item-title mt-3">
             <b-form-checkbox switch size="lg" id="checkbox-2" v-model= "formData.indexYear" name="checkbox-2"
-              value="1" unchecked-value="0">
+              value="t" unchecked-value="f">
               <span style="font-size:16px">{{$t('globalTerm.date')}}({{$t('globalTerm.indexYear')}})</span>
             </b-form-checkbox>  
           </b-card-text> 
         </b-row>
-        <b-row class = "px-3 mb-3"  v-if="formData.indexYear==='1'">
+        <b-row class = "px-3 mb-3"  v-if="formData.indexYear==='t'">
           <b-col>
             <label for="index-start-time" class = "user-input-label">{{$t('globalTerm.startTime')}}:</label>
             <b-form-input id="index-start-time" v-model="formData.indexStartTime" placeholder="" 
-              :state="validation('indexStartTime')" :disabled="formData.indexYear==='0'?true:false"></b-form-input>
+              :state="validation('indexStartTime')" :disabled="formData.indexYear==='f'?true:false"></b-form-input>
               <b-form-invalid-feedback :state="validation('indexStartTime')">
                 Invalid year 
               </b-form-invalid-feedback>
@@ -113,7 +113,7 @@
           <b-col>
              <label for="index-end-time" class = "user-input-label">{{$t('globalTerm.endTime')}}:</label>
              <b-form-input id="index-end-time" v-model="formData.indexEndTime" placeholder="" 
-             :state="validation('indexEndTime')" :disabled="formData.indexYear==='0'?true:false"></b-form-input>
+             :state="validation('indexEndTime')" :disabled="formData.indexYear==='f'?true:false"></b-form-input>
               <b-form-invalid-feedback :state="validation('indexEndTime')">
                 Invalid year 
               </b-form-invalid-feedback>
@@ -150,12 +150,11 @@
 </template>
 
 <script>
-import {isNull,yearValidation,peoplePlaceGetter,officePlaceGetter,officeGetter} from '@/components/utility/utility-functions.js'
+import {isNull,yearValidation} from '@/components/utility/utility-functions.js'
 import queryResult from '@/components/utility/query-result.vue'
 import selectOffice from '@/components/utility/select-office.vue'
 import selectPlace from '@/components/utility/select-place.vue'
 import importPlace from '@/components/utility/import-place.vue'
-import viewSelected from '@/components/utility/view-selected.vue'
 export default {
   name: 'entityQueryByOffice',
   components:
@@ -163,32 +162,22 @@ export default {
       queryResult,
       selectOffice,
       selectPlace,
-      importPlace,
-      viewSelected
+      importPlace
   },
   data () {
     return {
       isBusy:false,
       /*表單數據放這裡*/
       formData:{
-        //office officePlace peoplePlace 在表单提交之前都是空的
-        //所有涉及这三个变量的计算现在用计算属性
         office:[],
         officePlace:[],
         peoplePlace:[],
         indexStartTime:'',
         indexEndTime:'',
-        //是否使用可选条件以布尔值为准！！！
-        indexYear:'0',
+        indexYear:'f',
         useOfficePlace:'0',
         usePeoplePlace:'0'
       },
-      officeTable:[],
-      officeField:[],
-      peoplePlaceField:[],
-      officePlaceField:[],
-      officePlaceTable:[],
-      peoplePlaceTable:[],
       result:{
         totalPages:undefined,
         tableData:undefined
@@ -200,16 +189,24 @@ export default {
     isNull:isNull,
     validation:yearValidation,
     //获取查询的官职名
-    handleGetOffice: function(i){
-      officeGetter(i,this)
+    handleGetOffice: function(selectedOffice){
+      this.formData.office = selectedOffice.map(i => i.officeNameCh);
+      console.log(this.formData.office)
+      // this.formData.officeEnType = selectedOffice[0]['typeName'];
+      // this.formData.officeChType = selectedOffice[0]['typeNameCh'];
     },
     //获取查询的人物地点
-     handleGetPeoplePlace: function(i){
-      peoplePlaceGetter(i,this)
+     handleGetPeoplePlace: function(selectedPlace){
+       this.formData.peoplePlace = selectedPlace.map(i => i.pId);
      },
     //获取官职地点
-    handleGetOfficePlace: function(i){
-      officePlaceGetter(i,this)
+    handleGetOfficePlace: function(selectedPlace){
+       this.formData.officePlace = selectedPlace.map(i => i.pId);
+    },
+    //To Do
+    testData: function(){
+      console.log("测试");
+      console.log(this.formData.officeChPlace);
     },
     //To Do
     async handleSubmit(){
@@ -250,16 +247,12 @@ export default {
     },
   },
   computed:{
+    queryFormular(){
+      return `office-ch-name:'${this.formData.officeChName}',office-en-name:'${this.formData.officeEnName}',office-ch-type:'${this.formData.officeChType}',office-en-type:'${this.formData.officeEnType}',office-ch-place:'${this.formData.officeChPlace}',office-en-place:'${this.formData.officeEnPlace}',person-ch-place:'${this.formData.personChPlace}',person-en-place:'${this.formData.personEnPlace}',start-time:'${this.formData.startTime}',end-time:'${this.formData.endTime}'index-year:'${this.formData.indexYear}';`
+    },
     isInvalid(){
-      return this.getOfficeTableId.length==0||this.validation('indexStartTime')===false || this.validation('indexEndTime')===false
-    },
-    tableLength(name){
-      return this.formData[name].length
-    },
-    //formData里的Id改成计算形式了
-    getOfficeTableId(){return this.officeTable.map(i=>i['pId'])},
-    getPeoplePlaceTableId(){return this.peoplePlaceTable.map(i=>i['pId'])},
-    getOfficePlaceTableId(){return this.officePlaceTable.map(i=>i['pId'])}
+      return this.formData.office.length==0||this.validation('indexStartTime')===false || this.validation('indexEndTime')===false
+    }
   }
 }
 </script>

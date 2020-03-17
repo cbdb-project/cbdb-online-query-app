@@ -120,6 +120,21 @@
            </b-col>
            <b-col cols="4"></b-col>
         </b-row>
+        <!-- 使用xy坐标 -->  
+        <b-row class = "px-1 py-3 my-3" style = "text-align:left">
+          <b-col>
+            <b-form-checkbox
+              id="checkbox-xy"
+              v-model="this.formData.useXy"
+              size="md"
+              name="checkbox-xy"
+              value="1"
+              unchecked-value="0"
+            >
+            Use XY Coordinate
+           </b-form-checkbox> 
+          </b-col>
+        </b-row> 
       </div>
       <b-row class = "px-3 mb-3">
         <b-col></b-col>
@@ -181,7 +196,8 @@ export default {
         //是否使用可选条件以布尔值为准！！！
         indexYear:'0',
         useOfficePlace:'0',
-        usePeoplePlace:'0'
+        usePeoplePlace:'0',
+        useXy:'1'
       },
       officeTable:[],
       officeField:[],

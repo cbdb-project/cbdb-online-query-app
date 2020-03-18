@@ -35,8 +35,8 @@
                     <b-form-group style = "text-align:right">
                       <b-button variant="outline-danger" @click="items=[]" size='sm' class = "mx-3" style="position:absolute;left:0">Clear Table</b-button> 
                       <b-button-group> 
-                        <b-button v-if="selectedOffice.length>0" @click="clearSelected" variant="outline-secondary" size='sm' ><span>Cancel Selected</span></b-button>
-                        <b-button v-if="!(items.length===selectedOffice.length)" @click="selectAllRows" variant="outline-secondary" size='sm' ><span>Select All</span></b-button>
+                        <b-button v-if="this.selectedOffice.length>0" @click="clearSelected" variant="outline-secondary" size='sm' ><span>Cancel Selected</span></b-button>
+                        <b-button v-if="!(this.items.length===this.selectedOffice.length)" @click="selectAllRows" variant="outline-secondary" size='sm' ><span>Select All</span></b-button>
                       </b-button-group>      
                     </b-form-group>
                     <b-table 
@@ -143,6 +143,7 @@ export default {
         haveSelected: function(){
           //同步选中官职给父组件（页面）
           this.$emit('getOfficeName', {fields:this.fields,items:this.selectedOffice});
+          this.selectedOffice.splice(0,this.selectedOffice.length)
           this.show = false;
         },
         selectAllRows() {

@@ -10,7 +10,7 @@
                   <div class="td-title">
                     <span v-if="model.children.length>0" class="tree-close" :class="{'tree-open':model.isExpand}"  @click="handlerExpand(model)"></span>
                     <a class="ellipsis" @click="actionFunc(model)">
-                      <span :title="model.ObjectName" class="tree-node">{{model.ObjectName}}</span>
+                      <b-link :title="model.ObjectName" class="tree-node">{{model.ObjectName}}</b-link>
                     </a>
                   </div>
                 </td>

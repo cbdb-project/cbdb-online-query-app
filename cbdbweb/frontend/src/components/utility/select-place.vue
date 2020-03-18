@@ -36,8 +36,8 @@
                     <b-form-group style = "text-align:right">
                       <b-button variant="outline-danger" @click="items=[]" size='sm' class = "mx-3" style="position:absolute;left:0">Clear Table</b-button> 
                       <b-button-group> 
-                        <b-button v-if="selectedPlace.length>0" @click="clearSelected" variant="outline-secondary" size='sm' ><span>Cancel Selected</span></b-button>
-                        <b-button v-if="!(items.length===selectedPlace.length)" @click="selectAllRows" variant="outline-secondary" size='sm' ><span>Select All</span></b-button>
+                        <b-button v-if="this.selectedPlace.length>0" @click="clearSelected" variant="outline-secondary" size='sm' ><span>Cancel Selected</span></b-button>
+                        <b-button v-if="!(this.items.length===this.selectedPlace.length)" @click="selectAllRows" variant="outline-secondary" size='sm' ><span>Select All</span></b-button>
                       </b-button-group>      
                     </b-form-group>
                     <b-table 
@@ -150,7 +150,8 @@ export default {
         //同步选中地点
         console.log("选取成功");
         this.$emit('getPlaceName', {fields:this.fields,items:this.selectedPlace});
-       this.show = false
+        this.selectedPlace.splice(0,this.selectedPlace.length)
+        this.show = false
       },
       selectAllRows() {
         this.$refs.selectableTable.selectAllRows()

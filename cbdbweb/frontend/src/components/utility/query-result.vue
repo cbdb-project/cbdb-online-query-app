@@ -1,10 +1,16 @@
 <template>
-        <div ref="wrapper">
-          <b-row class = "pb-3 px-3" style = "text-align:right">
+      <div ref="wrapper">
+          <b-row class = "pb-3">
             <b-col>
             <b-button @click="exportData" variant="light">
-              <a id="export"></a>Export
+              <a id="export"></a>Export<span v-if="this.selected.length>0">&nbsp;Selected</span>
             </b-button>
+            </b-col>
+            <b-col>
+              <b-button-group style = "position:absolute;right:1em"> 
+                <b-button v-if="this.selected.length>0" @click="clearSelected" variant="outline-secondary" size='sm' ><span>Cancel Selected</span></b-button>
+                <b-button v-if="!(this.items.length===this.selected.length)" @click="selectAllRows" variant="outline-secondary" size='sm' ><span>Select All</span></b-button>
+              </b-button-group>   
             </b-col>
           </b-row>
           <b-table 
@@ -12,8 +18,8 @@
             :fields= "fields" 
             sticky-header 
             head-variant="light"
-            id="res"             
-            ref="selectableTable"
+            :id="'res-'+this.name"             
+            :ref="'selectableTable-'+this.name"
             selectable
             select-mode="multi"
             @row-selected="onRowSelected"
@@ -34,8 +40,7 @@
                <b-spinner small v-if="this.isLoading===true"></b-spinner>
             </b-col>
           </b-row>
-        </div>
-
+      </div>
       <!--
       <template v-slot:footer>
         <em>Footer Slot</em>
@@ -47,6 +52,9 @@
 export default {
   name: 'queryResult',
   props:{
+    'name':{
+        default:''
+    },
     'start':{
         default:0
     },
@@ -59,6 +67,7 @@ export default {
   },
   data () {
     return {
+      startIdx:this.start,
       isLoading:false,
       /*表格子數據放這裡*/
         fields: [
@@ -108,7 +117,8 @@ export default {
           {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'}, 
           {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'}, 
           {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'}, 
-        ]
+        ],
+        selected:[]
     }
   },
   methods: {
@@ -116,10 +126,10 @@ export default {
       this.selected = items
     },
     selectAllRows() {
-      this.$refs.selectableTable.selectAllRows()
+      this.$refs['selectableTable-'+this.name].selectAllRows()
     },
     clearSelected() {
-      this.$refs.selectableTable.clearSelected()
+      this.$refs['selectableTable-'+this.name].clearSelected()
     },
     exportData(){
       let str = ''
@@ -139,14 +149,14 @@ export default {
       link.click()
     },
   async loadMore(){
-    if(this.end-this.start>0){
+    if(this.end-this.startIdx>0&&this.isLoading===false){
       this.isLoading =true
       var vm = this
       var cb = ()=>{
-      console.log('rrr')
-      let offset = vm.end-vm.start>vm.offset?vm.offset:vm.end-vm.start
+      //console.log('rrr')
+      let offset = vm.end-vm.startIdx>vm.offset?vm.offset:vm.end-vm.startIdx
       for(let i=0; i<offset; i++)vm.items.push( {name:'Liu Jun',nameCh:'劉俊',indexYear:'1086',female:false,placeType:'籍貫',personPlace:'Nan Yang',personPlaceCh:'南陽'})
-      vm.start+=offset
+      vm.startIdx+=offset
       this.isLoading = false
       }
       await setTimeout(cb,1000)
@@ -154,11 +164,11 @@ export default {
   }
   },
   mounted(){
-    let st =  this.$refs.selectableTable
+    let st =  this.$refs['selectableTable-'+this.name]
     // 监听这个dom的scroll事件
     st.$el.addEventListener('scroll', () => {
-    if(st.$el.scrollHeight - st.$el.scrollTop <= st.$el.clientHeight)
-    this.loadMore()
+          if(st.$el.scrollHeight - st.$el.scrollTop <= st.$el.clientHeight)
+          this.loadMore()
     //console.log('rrrrrrrr')
     }, false)
   }

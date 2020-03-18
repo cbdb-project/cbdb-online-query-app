@@ -3,6 +3,7 @@
         <b-button variant="outline-info" v-b-modal="'view-selected-'+this.name" 
             class="query-condition-button ml-3" size="sm">
             View selected
+            <b-badge variant="info">{{items.length}}</b-badge>
         </b-button>
     <b-modal
         scrollable
@@ -14,8 +15,8 @@
         <b-row>
             <b-col >
                 <b-form-group style = "text-align:right">
-                      <b-button variant="outline-danger" @click="dropAllItems" size='sm' class = "mx-3" style="position:absolute;left:0">Clear All</b-button>
-                      <b-button variant="outline-danger" @click="dropSelectedItems" size='sm' class = "mx-3" style="position:absolute;left:120px">Clear Selected</b-button>  
+                      <b-button variant="outline-danger" @click="dropAllItems" size='sm' class = "mx-3" style="position:absolute;left:0">Drop All</b-button>
+                      <b-button variant="outline-danger" @click="dropSelectedItems" size='sm' class = "mx-3" style="position:absolute;left:120px">Drop Selected</b-button>  
                       <b-button-group> 
                         <b-button v-if="selected.length>0" @click="clearSelected" variant="outline-secondary" size='sm' ><span>Cancel Selection</span></b-button>
                         <b-button v-if="!(items.length===selected.length)" @click="selectAllRows" variant="outline-secondary" size='sm' ><span>Select All</span></b-button>

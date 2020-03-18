@@ -71,6 +71,21 @@
             </b-form-checkbox>
           </b-card-text> 
         </b-row>
+        <b-row class = "px-3 mb-3" v-if="formData.usePeoplePlace==='1'">
+          <b-col cols="8" style = "text-align:left">
+            <b-form-radio-group
+              id="btn-radios"
+              v-model="formData.locationType"
+              :options="locationOptions"
+              size="sm"
+              buttons
+              button-variant="outline-primary"
+              name="radio-btn-outline"
+            ></b-form-radio-group>
+          </b-col>
+          <b-col cols="4">
+          </b-col>
+        </b-row>
         <b-row class = "py-3 my-3" v-if="formData.usePeoplePlace ==='1'">
           <b-col cols="8" style = "text-align:left"> 
             <b-card>
@@ -158,7 +173,15 @@
       <template v-slot:header>
           <h6 class="mb-0">{{$t('globalTerm.resultShow')}}</h6>
       </template>
-      <query-result></query-result>
+        <b-tabs content-class="mt-3">
+          <b-tab title="Office-Postings" active>
+             <query-result name="office-postings"></query-result>
+          </b-tab>
+          <b-tab title="People-in-Office">
+            <query-result name="people-in-office"></query-result>
+          </b-tab>
+        </b-tabs>
+       
     </b-card>
   </div>
 </div>
@@ -197,7 +220,8 @@ export default {
         indexYear:'0',
         useOfficePlace:'0',
         usePeoplePlace:'0',
-        useXy:'1'
+        useXy:'1',
+        locationType:'peAddr'
       },
       officeTable:[],
       officeField:[],
@@ -266,6 +290,14 @@ export default {
     },
   },
   computed:{
+    locationOptions(){
+      return  [
+          { text: 'Household addr. only', value: 'pAddr' },
+          { text: 'Entry location addr. only', value: 'eAddr' },
+          { text: 'Household & Entry location addr.', value: 'peAddr' }
+        ]
+      },
+    //TO DO
     isInvalid(){
       return this.getOfficeTableId.length==0||this.validation('indexStartTime')===false || this.validation('indexEndTime')===false
     },

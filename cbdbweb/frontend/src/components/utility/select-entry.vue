@@ -29,8 +29,8 @@
                     <b-form-group style = "text-align:right">
                       <b-button variant="outline-danger" @click="items=[]" size='sm' class = "mx-3" style="position:absolute;left:0">Clear Table</b-button> 
                       <b-button-group> 
-                        <b-button v-if="selectedEntry.length>0" @click="clearSelected" variant="outline-secondary" size='sm' ><span>Cancel Selected</span></b-button>
-                        <b-button v-if="!(items.length===selectedEntry.length)" @click="selectAllRows" variant="outline-secondary" size='sm' ><span>Select All</span></b-button>
+                        <b-button v-if="this.selectedEntry.length>0" @click="clearSelected" variant="outline-secondary" size='sm' ><span>Cancel Selected</span></b-button>
+                        <b-button v-if="!(this.items.length===this.selectedEntry.length)" @click="selectAllRows" variant="outline-secondary" size='sm' ><span>Select All</span></b-button>
                       </b-button-group>      
                     </b-form-group>
                     <b-table 
@@ -54,6 +54,11 @@
                             </template>
                         </template>
                     </b-table>
+                <b-row>
+                    <b-col style="text-align:center">
+                        <b-spinner small v-if="this.isLoading===true"></b-spinner>
+                    </b-col>
+                </b-row>
                 </b-col>
             </b-row>
             <template v-slot:modal-footer>
@@ -80,8 +85,12 @@
     },
         data() {
             return {
+                end:100,
+                start:0,
+                offset:10,
                 show:false,
                 first:true,
+                isLoading:false,
                 treeDataSource: dataJson,
                 /*表格子數據放這裡*/
                 fields: [
@@ -130,8 +139,8 @@
             },
             haveSelected: function(){
                 //同步选中入仕途径
-                //console.log("成功");
                 this.$emit('getEntryName', {fields:this.fields,items:this.selectedEntry});
+                this.selectedEntry.splice(0,this.selectedEntry.length)
                 this.show = false;
             },
             selectAllRows() {
@@ -154,6 +163,21 @@
                 alert('Sorry, something went wrong...')
               }
             )
+        },
+        async loadMore(){
+            if(this.end-this.start>0&&this.isLoading===false){
+            this.isLoading =true
+            var vm = this
+            var cb = ()=>{
+            //console.log('rrr')
+            let offset = vm.end-vm.start>vm.offset?vm.offset:vm.end-vm.start
+            for(let i=0; i<offset; i++)
+                vm.items.push({eId:"4578",entryName:"[Missing Data]",entryNameCh:"[Missing Data]"})
+            vm.start+=offset
+            this.isLoading = false
+            }
+            await setTimeout(cb,1000)
+            }
         }
       },
         watch:{
@@ -164,9 +188,12 @@
                 let st =  this.$refs.selectableTable
                 // 监听这个dom的scroll事件
                 st.$el.addEventListener('scroll', () => {
-                if(st.$el.scrollHeight - st.$el.scrollTop <= st.$el.clientHeight)
-                    console.log('eeeee')
-                }, false)
+                console.log(`${st.$el.scrollHeight} ${st.$el.scrollTop} ${st.$el.clientHeight}`)
+                if(st.$el.scrollHeight - st.$el.scrollTop <= st.$el.clientHeight){
+                    //console.log('eeeee')
+                    this.loadMore()
+                        }
+                    }, false)
                 }
             }
          }

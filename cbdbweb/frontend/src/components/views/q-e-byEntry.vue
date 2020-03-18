@@ -183,11 +183,7 @@ export default {
       entryField:[],
       entryTable:[],
       peoplePlaceField:[],
-      peoplePlaceTable:[],
-      dateOptions: [
-          { text: this.$t('entityQueryByEntry.entryYear'), value: 'entry' },
-          { text: this.$t('entityQueryByEntry.indexYear'), value: 'index' },
-        ]
+      peoplePlaceTable:[]
     }
   },
   methods:{
@@ -204,6 +200,12 @@ export default {
     }
   },
   computed:{
+    dateOptions(){
+      return  [
+          { text: this.$t('entityQueryByEntry.entryYear'), value: 'entry' },
+          { text: this.$t('entityQueryByEntry.indexYear'), value: 'index' },
+        ]
+      },
     queryFormular(){
       return `office-ch-name:'${this.formData.officeChName}',office-en-name:'${this.formData.officeEnName}',office-ch-type:'${this.formData.officeChType}',office-en-type:'${this.formData.officeEnType}',office-ch-place:'${this.formData.officeChPlace}',office-en-place:'${this.formData.officeEnPlace}',person-ch-place:'${this.formData.personChPlace}',person-en-place:'${this.formData.personEnPlace}',start-time:'${this.formData.startTime}',end-time:'${this.formData.endTime}'index-year:'${this.formData.indexYear}';`
     },

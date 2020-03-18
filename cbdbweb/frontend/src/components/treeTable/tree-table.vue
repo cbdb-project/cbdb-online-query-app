@@ -348,8 +348,8 @@
           }
 		}
 	.tree-node{
-		cursor: pointer;	
-	}
+		cursor: pointer;
+		}
 	}
 </style>
 

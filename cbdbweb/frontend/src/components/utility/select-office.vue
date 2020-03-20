@@ -76,7 +76,7 @@
 </template>
 
 <script>
-import dataJson from '../views/officeData.json'
+import dataJson from '@/assets/officeData.json'
 import treeTable from '../treeTable/tree-table.vue'
 export default {
     name:'selectOffice',
@@ -173,9 +173,6 @@ export default {
           //console.log(st)
         }
     },
-    created(){
-      this.loadOfficeTree();
-    },
     watch:{
       //DOM elements first time rendered
       show:function(){
@@ -189,6 +186,9 @@ export default {
         }, false)
         }
       }
+    },
+    created(){
+      this.loadOfficeTree();
     }
 }
 </script>

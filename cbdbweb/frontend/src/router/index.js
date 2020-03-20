@@ -9,7 +9,7 @@ import relationQueryByAssociation from '@/components/views/q-r-byAssociation'
 import relationQueryBySocialNetwork from '@/components/views/q-r-bySocialNetwork'
 import relationQueryTwoPerson from '@/components/views/q-e-byPerson-test'
 import visualizationBySNA from '@/components/views/vis-bySNA'
-//import visualizationByGIS from '@/components/views/vis-byGIS'
+import visualizationByPeople from '@/components/views/vis-time-place'
 //import visualizationByGraphs from '@/components/views/vis-byGraphs'
 
 Vue.use(Router)
@@ -66,18 +66,17 @@ export default new Router({
       name: 'Test',
       component: relationQueryTwoPerson
     },
-  
     {
       path: '/visualization/SNA',
       name: 'Visualization: SNA',
       component: visualizationBySNA
     },
-    /*
     {
-      path: '/visualization/GIS',
-      name: 'Visualization: GIS',
-      component: visualizationByGIS
-    },
+      path: '/visualization/people',
+      name: 'Visualization: people',
+      component: visualizationByPeople
+    }
+    /*,
     {
       path: '/visualization/Graphs',
       name: 'Visualization: Graphs',

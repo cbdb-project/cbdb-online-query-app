@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import dataJson from '../views/relationData.json'
+import dataJson from '@/assets/relationData.json'
 import treeTable from '../treeTable/tree-table.vue'
 export default {
     name:'selectRelationship',
@@ -136,7 +136,7 @@ export default {
             console.log('展开/收缩')
             m.isExpand = !m.isExpand
         }
-    }
+    } 
 }
 </script>
 

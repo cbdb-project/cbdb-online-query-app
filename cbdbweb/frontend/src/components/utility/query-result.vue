@@ -59,10 +59,10 @@ export default {
         default:0
     },
     'offset':{
-        default:20
+        default:200
     },
     'end':{
-        default:100
+        default:1000
     }
   },
   data () {
@@ -134,11 +134,11 @@ export default {
     exportData(){
       let str = ''
       for(let i = 0; i<this.fields.length; i++)
-        str += (this.fields[i].key+' ')
+        str += (this.fields[i].key+'    ')
       str += '\n'
       for(let i = 0; i<this.items.length; i++){
         for(let k in this.items[i]){
-          str += (this.items[i][k] + ' ')
+          str += (this.items[i][k] + '    ')
         }
         str += '\n'
       }
@@ -149,28 +149,25 @@ export default {
       link.click()
     },
   async loadMore(){
-    if(this.end-this.startIdx>0&&this.isLoading===false){
-      this.isLoading =true
-      var vm = this
-      var cb = ()=>{
-      //console.log('rrr')
-      let offset = vm.end-vm.startIdx>vm.offset?vm.offset:vm.end-vm.startIdx
-      for(let i=0; i<offset; i++)vm.items.push( {name:'Liu Jun',nameCh:'劉俊',indexYear:'1086',female:false,placeType:'籍貫',personPlace:'Nan Yang',personPlaceCh:'南陽'})
-      vm.startIdx+=offset
-      this.isLoading = false
+    let st = this.$refs['selectableTable-'+this.name]
+    if(st.$el.scrollHeight - st.$el.scrollTop <= st.$el.clientHeight)
+      if(this.end-this.startIdx>0&&this.isLoading===false){
+        this.isLoading =true
+        var vm = this
+        var cb = ()=>{
+        //console.log('rrr')
+        let offset = vm.end-vm.startIdx>vm.offset?vm.offset:vm.end-vm.startIdx
+        for(let i=0; i<offset; i++)vm.items.push( {name:'Liu Jun',nameCh:'劉俊',indexYear:'1086',female:false,placeType:'籍貫',personPlace:'Nan Yang',personPlaceCh:'南陽'})
+        vm.startIdx+=offset
+        this.isLoading = false
+        }
+        await setTimeout(cb,1000)
       }
-      await setTimeout(cb,1000)
+      else if(this.startIdx>=this.end) this.$refs['selectableTable-'+this.name].$el.removeEventListener('scroll',this.loadMore) 
     }
-  }
   },
   mounted(){
-    let st =  this.$refs['selectableTable-'+this.name]
-    // 监听这个dom的scroll事件
-    st.$el.addEventListener('scroll', () => {
-          if(st.$el.scrollHeight - st.$el.scrollTop <= st.$el.clientHeight)
-          this.loadMore()
-    //console.log('rrrrrrrr')
-    }, false)
+    this.$refs['selectableTable-'+this.name].$el.addEventListener('scroll',this.loadMore, false)
   }
 }
 </script>

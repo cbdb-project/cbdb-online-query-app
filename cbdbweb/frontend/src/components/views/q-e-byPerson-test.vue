@@ -376,9 +376,6 @@ export default {
       }    
     }
   },
-  mounted() {
-    window.addEventListener('scroll', this.handleScroll,true)
-  },
   computed:{
     queryFormular(){
       return `person-id:'${this.formData.personId}';`
@@ -386,6 +383,9 @@ export default {
     isInvalid(){
       return isNull(this.formData.personId)==true
     }
+  },
+  mounted() {
+    window.addEventListener('scroll', this.handleScroll,true)
   }
 }
 </script>

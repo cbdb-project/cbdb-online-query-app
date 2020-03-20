@@ -10,7 +10,7 @@
         :id="'view-selected-'+this.name"
         title = "View Selected"
         size = "xl"
-        v-modal="show"
+        v-model="show"
     >
         <b-row>
             <b-col >

@@ -74,7 +74,7 @@
 </template>
 
 <script>
-    import dataJson from '../views/entryData.json'
+    import dataJson from '@/assets/entryData.json'
     import treeTable from '../treeTable/tree-table.vue'
     export default {
         name:'selectEntry',
@@ -83,7 +83,7 @@
             default:true
         }
     },
-        data() {
+    data() {
             return {
                 end:100,
                 start:0,
@@ -185,6 +185,7 @@
             show:function(){
                 if(this.first===true){
                 this.first=false
+                }
                 let st =  this.$refs.selectableTable
                 // 监听这个dom的scroll事件
                 st.$el.addEventListener('scroll', () => {
@@ -193,8 +194,7 @@
                     //console.log('eeeee')
                     this.loadMore()
                         }
-                    }, false)
-                }
+                }, false)
             }
          }
     }

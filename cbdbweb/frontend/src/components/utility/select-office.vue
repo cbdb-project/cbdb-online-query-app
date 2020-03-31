@@ -33,12 +33,18 @@
                 </b-col>
                 <b-col :cols=8>
                     <b-form-group style = "text-align:right">
-                      <b-button variant="outline-danger" @click="items=[]" size='sm' class = "mx-3" style="position:absolute;left:0">Clear Table</b-button> 
+                      <b-button variant="outline-danger" @click="dropAllItems" size='sm' class = "mx-3" style="position:absolute;left:0">Clear Table</b-button> 
                       <b-button-group> 
                         <b-button v-if="this.selectedOffice.length>0" @click="clearSelected" variant="outline-secondary" size='sm' ><span>Cancel Selected</span></b-button>
                         <b-button v-if="!(this.items.length===this.selectedOffice.length)" @click="selectAllRows" variant="outline-secondary" size='sm' ><span>Select All</span></b-button>
                       </b-button-group>      
                     </b-form-group>
+                    <b-row v-if="this.result.total!==undefined&&this.result.end!==undefined">
+                      <b-col>
+                        <b-link disabled>{{result.end}}</b-link><span style="color:#4D4D4D">&nbsp;of&nbsp;</span>
+                        <b-link disabled>{{result.total}}</b-link><span style="color:#4D4D4D">&nbsp;records are showned.</span>
+                      </b-col>
+                    </b-row>
                     <b-table 
                         :items= "items" 
                         :fields= "fields"
@@ -61,6 +67,7 @@
                             </template>
                         </template>
                     </b-table>
+                    <b-row style="text-align:center"><b-col><b-spinner small v-if="isBusy"></b-spinner></b-col></b-row>
                 </b-col>
             </b-row>
             <template v-slot:modal-footer>
@@ -92,32 +99,33 @@ export default {
         return {
           show:false,
           first:true,
+          isBusy:false,
           treeDataSource: {},
+          result:{
+            id:undefined,
+            start:undefined,
+            end:undefined,
+            total:undefined
+          },
           /*表格子數據放這裡*/
           fields: [
+            { 
+              key: 'pId',
+              label:'Office ID',
+              sortable: true
+              },
             {
-              key: 'officeName',
+              key: 'pName',
               label:'Office Name',
               sortable: true
             },
             {
-              key: 'officeNameCh',
-              label:'官名',
+              key: 'pNameChn',
+              label:'官職名稱',
               sortable: true
             },
           ],
-          items: [
-            {pId:'1234',officeName:"Supervisor (Hucker)",officeNameCh:"提舉"},
-            {pId:'1235',officeName:"Investigations Office of the State Finance Commission",officeNameCh:"三司推勘院"},
-            {pId:'1236',officeName:"Comptroller",officeNameCh:"催欠司"},
-            {pId:'1237',officeName:"General Comptroller‘s Office of the State Finance Commission (Hucker)",officeNameCh:"三司都勾院"},
-            {pId:'1238',officeName:"General Deficits Monitoring Office of the State Finance Commission (Hucker)",officeNameCh:"三司都理欠司"},
-            {pId:'1239',officeName:"General Accounting Office of the State Finance Commission (Hucker)",officeNameCh:"三司都磨勘司"},
-            {pId:'1240',officeName:"Recorder of the Directorate of Waterways (Hucker)　",officeNameCh:"都水監主簿"},
-            {pId:'1241',officeName:"Institute of General Accounts",officeNameCh:"三司度支勾院"},
-            {pId:'1242',officeName:"Certificate Validation Office of the Bureau of General Accounts (Hucker)",officeNameCh:"度支憑由司"},
-            {pId:'1243',officeName:"Judge of the Bureau of General Accounts (Hucker)",officeNameCh:"度支推官"},
-          ],
+          items: [],
           //选中的人物出现在这里
           selectedOffice : []
         }
@@ -126,14 +134,15 @@ export default {
         treeTable
     },
     methods: {
-        // 模拟後台加載職官樹
+        dropAllItems(){
+        this.items.splice(0,this.items.length);
+        },
+        //加載職官樹
         loadOfficeTree(){
           if(localStorage.officeTree!=undefined)this.treeDataSource = JSON.parse(localStorage.officeTree)
           else{
-            let getOfficeTree = new Promise(function(resolve){
-              setTimeout(()=>{resolve(dataJson)},3000)
-            })
-            getOfficeTree.then(resolve => {this.treeDataSource = resolve;localStorage.officeTree = JSON.stringify(resolve)})
+            this.treeDataSource = dataJson;
+            localStorage.officeTree = JSON.stringify(dataJson)
           }
         },
         onRowSelected(items) {
@@ -156,21 +165,46 @@ export default {
             //console.log(m.Id+'展开/收缩')  
             m.isExpand = !m.isExpand
         },
+        //按id查询职官
         actionFunc(m){
-            console.log(m.Id)
-            this.axios.get('api'+m.Id)
+            if(this.isBusy===false){
+              this.isBusy=true
+              this.axios.get(`${this.$store.state.global.apiAddress}post_list?id=${m.Id}&start=1&list=50`)
+              .then((r)=>{
+                //console.log(r.data.data)
+                this.items = r.data.data
+                this.result.id = m.Id
+                this.result.start = parseInt(r.data.start)
+                this.result.end = parseInt(r.data.end)
+                this.result.total = parseInt(r.data.total)
+                this.$refs.selectableTable.$el.scrollTop=0//弹回最上方
+                this.isBusy=false
+                },
+                (e)=>{
+                  alert('Sorry, something went wrong...')
+                  this.isBusy=false
+                }
+              )
+            }
+        },
+        handleTableScroll(e){
+          if(this.result.end!==undefined&&this.result.total!==undefined&&this.result.end<this.result.total){
+            this.isBusy=true
+            this.axios.get(`${this.$store.state.global.apiAddress}post_list?id=${this.result.id}&start=${this.result.end+1}&list=50`)
             .then((r)=>{
-              this.items = r.data
+              //console.log(r.data.data)
+              r.data.data.forEach(i=>{this.items.push(i)})
+              this.result.start = parseInt(r.data.start)
+              this.result.end = parseInt(r.data.end)
+              this.result.total = parseInt(r.data.total)
+              this.isBusy=false
               },
               (e)=>{
                 alert('Sorry, something went wrong...')
+                this.isBusy=false
               }
             )
-        },
-        handleTableScroll(e){
-          //let table = document.getElementById('select-office-table')
-          //let st = table.scrollTop
-          //console.log(st)
+          }
         }
     },
     watch:{
@@ -182,7 +216,8 @@ export default {
         // 监听这个dom的scroll事件
         st.$el.addEventListener('scroll', () => {
           if(st.$el.scrollHeight - st.$el.scrollTop <= st.$el.clientHeight)
-            console.log('ooooo')
+            if(this.isBusy===false)
+              this.handleTableScroll()
         }, false)
         }
       }

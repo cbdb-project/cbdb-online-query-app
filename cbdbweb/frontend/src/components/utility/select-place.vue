@@ -126,15 +126,10 @@ export default {
           }
         ],
         items: [
-          {pId:"10000",placeName:"",placeNameCh:"普洱道",firstYear:"1914",lastYear:"1928",BelongsTo:"",BelongsToCh:"雲南省諸道區"},
-          {pId:"10001",placeName:"",placeNameCh:"陝西道",firstYear:"1913",lastYear:"1913",BelongsTo:"",BelongsToCh:"陝西省諸道區"},
           {pId:"10002",placeName:"",placeNameCh:"鬱江道",firstYear:"1913",lastYear:"1913",BelongsTo:"",BelongsToCh:"廣西省諸道區"},
-          {pId:"10003",placeName:"",placeNameCh:"黑龍江省諸道區",firstYear:"1911",lastYear:"1948",BelongsTo:"Heilongjiang Sheng",BelongsToCh:"黑龍江省"},
           {pId:"10004",placeName:"",placeNameCh:"蒼梧道",firstYear:"1914",lastYear:"1926",BelongsTo:"",BelongsToCh:"廣西省諸道區"},
           {pId:"10005",placeName:"",placeNameCh:"邕南道",firstYear:"1913",lastYear:"1913",BelongsTo:"",BelongsToCh:"廣西省諸道區"},
-          {pId:"10006",placeName:"",placeNameCh:"濟西道",firstYear:"1913",lastYear:"1913",BelongsTo:"",BelongsToCh:"山東省諸道區"},
           {pId:"10007",placeName:"",placeNameCh:"南寧道",firstYear:"1914",lastYear:"1926",BelongsTo:"",BelongsToCh:"廣西省諸道區"},
-          {pId:"10008",placeName:"",placeNameCh:"岱南道",firstYear:"1913",lastYear:"1913",BelongsTo:"",BelongsToCh:"山東省諸道區"},
           {pId:"10009",placeName:"",placeNameCh:"鎮南道",firstYear:"1913",lastYear:"1926",BelongsTo:"",BelongsToCh:"廣西省諸道區"},
           {pId:"10010",placeName:"",placeNameCh:"田南道",firstYear:"1913",lastYear:"1926",BelongsTo:"",BelongsToCh:"廣西省諸道區"},
         ],

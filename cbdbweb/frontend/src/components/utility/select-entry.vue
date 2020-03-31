@@ -13,10 +13,13 @@
                 <b-col :cols = 4 style = "text-align:right">
                     <b-card>
                         <b-form-group label-cols="4" label="Entry Name" label-for="select-entry-input-en-name">
-                            <b-form-input id="select-entry-input-name"></b-form-input>
+                            <b-form-input id="select-entry-input-name" v-model= "formData.eName"></b-form-input>
                         </b-form-group>
                         <b-form-group>
-                            <b-button variant="primary">Find</b-button>
+                            <b-button variant="primary" :disabled="isBusy||formData.eName===''">
+                                <span v-if="!isBusy" @click="find">Find</span>
+                                <b-spinner small v-else></b-spinner>
+                            </b-button>
                         </b-form-group>
                     </b-card>
                     <b-card>
@@ -85,13 +88,15 @@
     },
     data() {
             return {
-                end:100,
-                start:0,
+                end:25,
+                start:15,
                 offset:10,
                 show:false,
                 first:true,
+                isBusy:false,
                 isLoading:false,
                 treeDataSource: dataJson,
+                formData:{eName:''},
                 /*表格子數據放這裡*/
                 fields: [
                     {
@@ -110,22 +115,7 @@
                         sortable: true
                     }
                 ],
-                items: [
-                    {eId:"4567",entryName:"[Missing Data]",entryNameCh:"[Missing Data]"},
-                    {eId:"4568",entryName:"not available/applicable",entryNameCh:"未知"},
-                    {eId:"4569",entryName:"abdication of previous emperor",entryNameCh:"前帝遜位"},
-                    {eId:"4568",entryName:"To be Deleted: betrothal",entryNameCh:"臨時保留，待考。"},
-                    {eId:"4569",entryName:"promotion from clerical positions",entryNameCh:"胥吏出職"},
-                    {eId:"4570",entryName:"purchase",entryNameCh:"進納補官"},
-                    {eId:"4571",entryName:"yin privilege: Grand Sacrifice",entryNameCh:"恩蔭: 大禮蔭補"},
-                    {eId:"4572",ntryName:"deposed previous emperor",entryNameCh:"廢前帝自立"},
-                    {eId:"4573",entryName:"direct appointment to painting academy",entryNameCh:"畫院待詔"},
-                    {eId:"4574",entryName:"imperial summons",entryNameCh:"徵辟"},
-                    {eId:"4575",entryName:"direct recruitment into military service",entryNameCh:"募入軍伍"},
-                    {eId:"4576",entryName:"[Missing Data]",entryNameCh:"[Missing Data]"},
-                    {eId:"4577",entryName:"[Missing Data]",entryNameCh:"[Missing Data]"},
-                    {eId:"4578",entryName:"[Missing Data]",entryNameCh:"[Missing Data]"},
-                ],
+                items:[],
                 //选中的人物出现在这里
                 selectedEntry : []
             }
@@ -161,24 +151,51 @@
               },
               (e)=>{
                 alert('Sorry, something went wrong...')
-              }
-            )
-        },
-        async loadMore(){
-            if(this.end-this.start>0&&this.isLoading===false){
-            this.isLoading =true
-            var vm = this
-            var cb = ()=>{
-            //console.log('rrr')
-            let offset = vm.end-vm.start>vm.offset?vm.offset:vm.end-vm.start
-            for(let i=0; i<offset; i++)
-                vm.items.push({eId:"4578",entryName:"[Missing Data]",entryNameCh:"[Missing Data]"})
-            vm.start+=offset
-            this.isLoading = false
+                    }
+                )
+            },
+            async find(){
+                if(this.formData.eName !==''){
+                    this.isBusy = true
+                    console.log('finding')
+                    var cb = ()=>{
+                        this.items = 
+                        [
+                        {eId:"4567",entryName:"[Missing Data]",entryNameCh:"[Missing Data]"},
+                        {eId:"4568",entryName:"not available/applicable",entryNameCh:"未知"},
+                        {eId:"4569",entryName:"abdication of previous emperor",entryNameCh:"前帝遜位"},
+                        {eId:"4568",entryName:"To be Deleted: betrothal",entryNameCh:"臨時保留，待考。"},
+                        {eId:"4569",entryName:"promotion from clerical positions",entryNameCh:"胥吏出職"},
+                        {eId:"4570",entryName:"purchase",entryNameCh:"進納補官"},
+                        {eId:"4571",entryName:"yin privilege: Grand Sacrifice",entryNameCh:"恩蔭: 大禮蔭補"},
+                        {eId:"4572",ntryName:"deposed previous emperor",entryNameCh:"廢前帝自立"},
+                        {eId:"4573",entryName:"direct appointment to painting academy",entryNameCh:"畫院待詔"},
+                        {eId:"4574",entryName:"imperial summons",entryNameCh:"徵辟"},
+                        {eId:"4575",entryName:"direct recruitment into military service",entryNameCh:"募入軍伍"},
+                        {eId:"4576",entryName:"[Missing Data]",entryNameCh:"[Missing Data]"},
+                        {eId:"4577",entryName:"[Missing Data]",entryNameCh:"[Missing Data]"},
+                        {eId:"4578",entryName:"[Missing Data]",entryNameCh:"[Missing Data]"},
+                    ]
+                    this.isBusy = false
+                    }
+                    await setTimeout(cb,1000)
+                }
+            },
+            async loadMore(){
+                if(this.end-this.start>0&&this.isLoading===false){
+                this.isLoading =true
+                var vm = this
+                var cb = ()=>{
+                //console.log('rrr')
+                let offset = vm.end-vm.start>vm.offset?vm.offset:vm.end-vm.start
+                for(let i=0; i<offset; i++)
+                    vm.items.push({eId:"4578",entryName:"[Missing Data]",entryNameCh:"[Missing Data]"})
+                vm.start+=offset
+                this.isLoading = false
+                }
+                await setTimeout(cb,1000)
+                }
             }
-            await setTimeout(cb,1000)
-            }
-        }
       },
         watch:{
         //DOM elements first time rendered
@@ -189,7 +206,7 @@
                 let st =  this.$refs.selectableTable
                 // 监听这个dom的scroll事件
                 st.$el.addEventListener('scroll', () => {
-                console.log(`${st.$el.scrollHeight} ${st.$el.scrollTop} ${st.$el.clientHeight}`)
+                //console.log(`${st.$el.scrollHeight} ${st.$el.scrollTop} ${st.$el.clientHeight}`)
                 if(st.$el.scrollHeight - st.$el.scrollTop <= st.$el.clientHeight){
                     //console.log('eeeee')
                     this.loadMore()

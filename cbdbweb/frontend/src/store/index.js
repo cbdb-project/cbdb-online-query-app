@@ -17,7 +17,8 @@ const moduleA = {
 
 const moduleB = {
   state:{
-    serverAddress:'127.0.0.1'
+    serverAddress:'127.0.0.1',
+    apiAddress:'http://162.105.134.121/api/'
   },
   mutations:{},
   actions:{},

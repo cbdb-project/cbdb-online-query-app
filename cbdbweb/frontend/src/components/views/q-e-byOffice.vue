@@ -17,7 +17,7 @@
               <b-row class="pl-3" style = "text-align:center">
                 <b-col>
                   <span v-if="this.officeTable.length==0" style = "line-height:31px">**{{$t('globalTerm.all')}}**</span>
-                  <span v-else>{{officeTable[0].officeNameCh}}
+                  <span v-else>{{officeTable[0].pNameChn}}
                     <span v-if="this.officeTable.length>1">及另外{{officeTable.length-1}}個官職</span>
                   </span>
                   <view-selected name='office' :fields="this.officeField" :items="this.officeTable" @update:items="val=>this.officeTable=val"></view-selected>   
@@ -70,21 +70,6 @@
                 <span style="font-size:16px">{{$t('globalTerm.person')}}{{$t('globalTerm.place')}}</span>
             </b-form-checkbox>
           </b-card-text> 
-        </b-row>
-        <b-row class = "px-3 mb-3" v-if="formData.usePeoplePlace==='1'">
-          <b-col cols="8" style = "text-align:left">
-            <b-form-radio-group
-              id="btn-radios"
-              v-model="formData.locationType"
-              :options="locationOptions"
-              size="sm"
-              buttons
-              button-variant="outline-primary"
-              name="radio-btn-outline"
-            ></b-form-radio-group>
-          </b-col>
-          <b-col cols="4">
-          </b-col>
         </b-row>
         <b-row class = "py-3 my-3" v-if="formData.usePeoplePlace ==='1'">
           <b-col cols="8" style = "text-align:left"> 
@@ -220,8 +205,7 @@ export default {
         indexYear:'0',
         useOfficePlace:'0',
         usePeoplePlace:'0',
-        useXy:'1',
-        locationType:'peAddr'
+        useXy:'1'
       },
       officeTable:[],
       officeField:[],
@@ -290,13 +274,6 @@ export default {
     },
   },
   computed:{
-    locationOptions(){
-      return  [
-          { text: 'Household addr. only', value: 'pAddr' },
-          { text: 'Entry location addr. only', value: 'eAddr' },
-          { text: 'Household & Entry location addr.', value: 'peAddr' }
-        ]
-      },
     //TO DO
     isInvalid(){
       return this.getOfficeTableId.length==0||this.validation('indexStartTime')===false || this.validation('indexEndTime')===false

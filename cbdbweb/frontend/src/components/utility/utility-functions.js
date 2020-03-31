@@ -2,6 +2,11 @@
 function isNull(i){
     return i === undefined|| i=== null || i === ''
   }
+//字符串首字母大写
+function capitalizeFirst(s) {
+  if(s===null||s===undefined||s==='')return ''
+  return s.substring(0,1).toUpperCase() + s.substring(1);
+};
 //判斷年代輸入是否有效
 function yearValidation(idx){
     const stReg = /.*startTime/i
@@ -32,48 +37,28 @@ function yearValidation(idx){
     }
   }
 
-  function peoplePlaceGetter(d,vm){
-    console.log(vm.peoplePlaceField)
-    if(vm.peoplePlaceField.length===0)vm.peoplePlaceField = d['fields']
-    let formData = vm.getPeoplePlaceTableId
-    let after = d['items'].filter(i => formData.indexOf(i.pId)===-1);
+  /**
+  * @param  {String} 要獲取的表格類型
+  * @return {undefined} 無
+  **/
+ function getterBuilder(type){
+  //console.log(type)
+  let id = {"peoplePlace":"pId","officePlace":"pId","office":"pId","entry":"eId"}
+  return function(d,vm){
+    if(vm[type+"Field" ].length===0) vm[type+"Field" ] = d['fields']
+    let formData = vm["get"+capitalizeFirst(type)+"TableId"]
+    let after = d['items'].filter(i =>formData.indexOf(i[id[type]])===-1);
     after.forEach(
       i=>{
-        vm.peoplePlaceTable.push(i)
-    })    
+        vm[type+"Table"].push(i)
+      })
+    }
   }
 
-  function officeGetter(d,vm){
-    if(vm.officeField.length===0)vm.officeField = d['fields']
-    let formData = vm.getOfficeTableId
-    let after = d['items'].filter(i => formData.indexOf(i.pId)===-1);
-    after.forEach(
-      i=>{
-        vm.officeTable.push(i)
-    })
-  }
-
-  function officePlaceGetter(d,vm){
-    if(vm.officePlaceField.length===0)vm.officePlaceField = d['fields']
-    let formData = vm.getOfficePlaceTableId
-    let after = d['items'].filter(i => formData.indexOf(i.pId)===-1);
-    after.forEach(
-      i=>{
-        vm.officePlaceTable.push(i)
-    })
-  }
-
-  function entryGetter(d,vm){
-    console.log(d)
-    console.log(vm.entryField)
-    if(vm.entryField.length===0)vm.entryField = d['fields']
-    let formData = vm.getEntryTableId
-    let after = d['items'].filter(i =>formData.indexOf(i.eId)===-1);
-    after.forEach(
-      i=>{
-        vm.entryTable.push(i)
-    })
-  }
+  var peoplePlaceGetter = getterBuilder('peoplePlace')
+  var officeGetter = getterBuilder('office')
+  var officePlaceGetter = getterBuilder('officePlace')
+  var entryGetter = getterBuilder('entry')
 
   export {
       isNull as isNull,

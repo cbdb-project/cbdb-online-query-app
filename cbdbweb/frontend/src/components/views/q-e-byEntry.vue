@@ -41,6 +41,21 @@
             </b-form-checkbox>
           </b-card-text> 
         </b-row>
+        <b-row class = "px-3 mb-3" v-if="formData.usePeoplePlace==='1'">
+          <b-col cols="8" style = "text-align:left">
+            <b-form-radio-group
+              id="btn-radios"
+              v-model="formData.locationType"
+              :options="locationOptions"
+              size="sm"
+              buttons
+              button-variant="outline-primary"
+              name="radio-btn-outline"
+            ></b-form-radio-group>
+          </b-col>
+          <b-col cols="4">
+          </b-col>
+        </b-row>
         <b-row class = "py-3 my-3" v-if="formData.usePeoplePlace ==='1'">
           <b-col cols="8" style = "text-align:left"> 
             <b-card>
@@ -178,7 +193,8 @@ export default {
         dateType:'entry',
         useDate:'0',
         usePeoplePlace:'0',
-        useXy:'1'
+        useXy:'1',
+        locationType:'peAddr'
       },
       entryField:[],
       entryTable:[],
@@ -200,6 +216,13 @@ export default {
     }
   },
   computed:{
+    locationOptions(){
+      return  [
+          { text: 'Household addr. only', value: 'pAddr' },
+          { text: 'Entry location addr. only', value: 'eAddr' },
+          { text: 'Household & Entry location addr.', value: 'peAddr' }
+        ]
+      },
     dateOptions(){
       return  [
           { text: this.$t('entityQueryByEntry.entryYear'), value: 'entry' },

@@ -93,7 +93,7 @@ export default {
   },
   computed:{
     user(){
-      return this.$store.state.a.user
+      return this.$store.state.local.user
     }
   }
 }

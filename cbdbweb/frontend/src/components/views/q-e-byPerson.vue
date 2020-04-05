@@ -525,10 +525,10 @@ export default {
     },
     //获取查询的人物
     handleGetPerson: function(selectedPerson){
-      this.formData.personId = selectedPerson[0]['personId'];
-      this.formData.personNameEn = selectedPerson[0]['personName'];
-      this.formData.personNameCh = selectedPerson[0]['personNameCh'];
-      this.formData.personIndexYear = selectedPerson[0]['indexYear'];
+      this.formData.personId = selectedPerson.items[0]['personId'];
+      this.formData.personNameEn = selectedPerson.items[0]['personName'];
+      this.formData.personNameCh = selectedPerson.items[0]['personNameCh'];
+      this.formData.personIndexYear = selectedPerson.items[0]['indexYear'];
     },
     //To Do
     async handleSubmit(){

@@ -16,11 +16,11 @@
             <b-card>
               <b-row class="pl-3" style = "text-align:center">
                 <b-col>
-                  <div v-if="this.formData.person.length==0" style = "line-height:31px">Nothing Selected</div>
-                  <div v-else>{{formData.personName}}
+                  <span v-if="this.personTable.length==0" style = "line-height:31px">**{{$t('globalTerm.all')}}**</span>
+                  <span v-else>{{personTable[0]['personNameCh']}}
                     <span v-if="this.formData.person.length>1">及另外{{this.formData.person.length-1}}個人物</span>
-                    <b-button  variant="outline-primary" size = sm>查看已選</b-button>
-                  </div>
+                  </span>
+                  <view-selected name="person" :fields="this.personField" :items="this.personTable" @update:items="val=>this.personTable=val"></view-selected>
                 </b-col>
               </b-row>
             </b-card>
@@ -115,9 +115,10 @@
 </template>
 
 <script>
-import {isNull,yearValidation} from '@/components/utility/utility-functions.js'
+import {isNull,yearValidation,personGetter} from '@/components/utility/utility-functions.js'
 import queryResult from '@/components/utility/query-result.vue'
 import selectPerson from '@/components/utility/select-person.vue'
+import viewSelected from '@/components/utility/view-selected.vue'
 //開發用的假數據
 import dataJson from '@/assets/person_data_dev.json'
 export default {
@@ -126,6 +127,7 @@ export default {
   {
     queryResult,
     selectPerson,
+    viewSelected
   },
   data () {
     return {
@@ -133,10 +135,13 @@ export default {
       isBusy: false,
       /*表單數據放這裡*/
       formData:{
+        //用计算属性
         person:[],
         personName:undefined,
         mCircle:'f'
       },
+      personField:[],
+      personTable:[],
       //後端傳回來的數據放這裡
       personInfo:{
 
@@ -144,35 +149,11 @@ export default {
     }
   },
   methods:{
-    //生成各種年份詳情 xxx-year-details-xxx 的id
-    genDetails(n,i){
-      return n+"-details-"+i
-    },
-    //判斷數據是否有效（非空且不為0）
-    isValidVar(n){
-        if(n&&n.length != 0&&n!=='0')return true
-        else return false 
-    },
-    //判斷人物的性別
-    personGen(isF){
-      if(isF === "false")return this.$t('globalTerm.male');
-      else if (isF === "true")return this.$t('globalTerm.female');
-      else return ''
-    },
-    //判斷是否
-    isOrNot(str){
-      if(str === "false")return this.$t('globalTerm.false');
-      else if (str === "true")return this.$t('globalTerm.true');
-      else return ''
-    },
     //判斷輸入欄是否為空
     isNull:isNull,
-    //判斷年代輸入是否有效
-    validation:function(){return null},
-    //获取查询的人物
-    handleGetPerson: function(selectedPerson){
-      this.formData.person = selectedPerson.map(i => {return i.personId});
-      this.formData.personName = selectedPerson[0]['personNameCh']
+    validation:yearValidation,
+    handleGetPerson: function(i){
+      personGetter(i,this)
     },
     async handleSubmit(){
       //提交表单的时候先清空原有數據
@@ -208,7 +189,8 @@ export default {
     },
     isInvalid(){
       return this.formData.person.length == 0
-    }
+    },
+    getPersonTableId(){return this.personTable.map(i => i['eId'])}
   },
   watch:{
 

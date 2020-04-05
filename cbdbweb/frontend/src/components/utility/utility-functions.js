@@ -37,13 +37,17 @@ function yearValidation(idx){
     }
   }
 
-  /**
-  * @param  {String} 要獲取的表格類型
-  * @return {undefined} 無
+ /**
+  * @param  {String} 要獲取的表格類型名称
+  * @return {Function} 对应表格类型的getter
   **/
  function getterBuilder(type){
   //console.log(type)
   let id = {"peoplePlace":"pId","officePlace":"pId","office":"pId","entry":"eId"}
+  /**
+  * @param  {Array,VueObject} 表格数据和vue实例
+  * @return {Function} 对应表格类型的getter
+  **/
   return function(d,vm){
     if(vm[type+"Field" ].length===0) vm[type+"Field" ] = d['fields']
     let formData = vm["get"+capitalizeFirst(type)+"TableId"]
@@ -54,11 +58,61 @@ function yearValidation(idx){
       })
     }
   }
-
+  var　personGetter = getterBuilder('person')
   var peoplePlaceGetter = getterBuilder('peoplePlace')
   var officeGetter = getterBuilder('office')
   var officePlaceGetter = getterBuilder('officePlace')
   var entryGetter = getterBuilder('entry')
+  /**
+  * @param  {String,VueObject} 
+  * api名称和vue实例
+  **/
+  function handleTableScroll(apiType,vm){
+    let st =  vm.$refs.selectableTable
+    if(st.$el.scrollHeight - st.$el.scrollTop <= st.$el.clientHeight&&vm.isBusy===false)
+      if(vm.result.end!==undefined&&vm.result.total!==undefined&&vm.result.end<vm.result.total){
+        vm.isBusy=true
+        vm.axios.get(`${vm.$store.state.global.apiAddress}${apiType}?id=${vm.result.id}&start=${vm.result.end+1}&list=50`)
+        .then((r)=>{
+          //console.log(r.data.data)
+          r.data.data.forEach(i=>{vm.items.push(i)})
+          vm.result.start = parseInt(r.data.start)
+          vm.result.end = parseInt(r.data.end)
+          vm.result.total = parseInt(r.data.total)
+          vm.isBusy=false
+          },
+          (e)=>{
+            alert('Sorry, something went wrong...')
+            vm.isBusy=false
+          }
+        )
+      }
+  }
+  /**
+  * @param  {String,String,VueObject} 
+  * api名称 作为查询依据的id 和vue实例
+  **/
+ function getListById(apiType,id,vm){
+    if(vm.isBusy===false){
+      vm.isBusy=true
+      vm.axios.get(`${vm.$store.state.global.apiAddress}${apiType}?id=${id}&start=1&list=50`)
+      .then((r)=>{
+        //console.log(r.data.data)
+        vm.items = r.data.data
+        vm.result.id = id
+        vm.result.start = parseInt(r.data.start)
+        vm.result.end = parseInt(r.data.end)
+        vm.result.total = parseInt(r.data.total)
+        vm.$refs.selectableTable.$el.scrollTop=0//弹回最上方
+        vm.isBusy=false
+        },
+        (e)=>{
+          alert('Sorry, something went wrong...')
+          vm.isBusy=false
+        }
+      )
+    }
+  }
 
   export {
       isNull as isNull,
@@ -66,5 +120,8 @@ function yearValidation(idx){
       peoplePlaceGetter as peoplePlaceGetter,
       officePlaceGetter as officePlaceGetter,
       officeGetter as officeGetter,
-      entryGetter as entryGetter
+      entryGetter as entryGetter,
+      personGetter as personGetter,
+      handleTableScroll as appendListById,
+      getListById as getListById
   }

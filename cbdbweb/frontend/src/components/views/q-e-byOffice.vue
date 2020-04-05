@@ -165,8 +165,7 @@
           <b-tab title="People-in-Office">
             <query-result name="people-in-office"></query-result>
           </b-tab>
-        </b-tabs>
-       
+        </b-tabs>  
     </b-card>
   </div>
 </div>

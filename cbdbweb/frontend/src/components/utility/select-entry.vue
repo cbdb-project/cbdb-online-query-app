@@ -30,7 +30,7 @@
                 </b-col>
                 <b-col :cols=8 >
                     <b-form-group style = "text-align:right">
-                      <b-button variant="outline-danger" @click="items=[]" size='sm' class = "mx-3" style="position:absolute;left:0">Clear Table</b-button> 
+                      <b-button variant="outline-danger" @click="dropAllItems" size='sm' class = "mx-3" style="position:absolute;left:0">Clear Table</b-button> 
                       <b-button-group> 
                         <b-button v-if="this.selectedEntry.length>0" @click="clearSelected" variant="outline-secondary" size='sm' ><span>Cancel Selected</span></b-button>
                         <b-button v-if="!(this.items.length===this.selectedEntry.length)" @click="selectAllRows" variant="outline-secondary" size='sm' ><span>Select All</span></b-button>
@@ -59,7 +59,7 @@
                     </b-table>
                 <b-row>
                     <b-col style="text-align:center">
-                        <b-spinner small v-if="this.isLoading===true"></b-spinner>
+                        <b-spinner small v-if="this.isBusy===true"></b-spinner>
                     </b-col>
                 </b-row>
                 </b-col>
@@ -79,6 +79,7 @@
 <script>
     import dataJson from '@/assets/entryData.json'
     import treeTable from '../treeTable/tree-table.vue'
+    import {getListById,appendListById} from '@/components/utility/utility-functions.js'
     export default {
         name:'selectEntry',
         props:{
@@ -88,13 +89,15 @@
     },
     data() {
             return {
-                end:25,
-                start:15,
-                offset:10,
                 show:false,
-                first:true,
                 isBusy:false,
-                isLoading:false,
+                treeDataSource: {},
+                result:{
+                    id:undefined,
+                    start:undefined,
+                    end:undefined,
+                    total:undefined
+                },
                 treeDataSource: dataJson,
                 formData:{eName:''},
                 /*表格子數據放這裡*/
@@ -124,6 +127,9 @@
             treeTable
         },
         methods: {
+            dropAllItems(){
+            this.items.splice(0,this.items.length);
+            },
             onRowSelected(items) {
                 this.selectedEntry = items
             },
@@ -143,16 +149,12 @@
                 //console.log(m.Id+'展开/收缩')  
                 m.isExpand = !m.isExpand
             },
+            //按id查询入仕途径
             actionFunc(m){
-            console.log(m.Id)
-            this.axios.get('api'+m.Id)
-            .then((r)=>{
-              this.items = r.data
-              },
-              (e)=>{
-                alert('Sorry, something went wrong...')
-                    }
-                )
+            getListById('entry_list',m.Id,this)
+            },
+            handleTableScroll(){
+            appendListById('entry_list',this)
             },
             async find(){
                 if(this.formData.eName !==''){
@@ -180,38 +182,17 @@
                     }
                     await setTimeout(cb,1000)
                 }
-            },
-            async loadMore(){
-                if(this.end-this.start>0&&this.isLoading===false){
-                this.isLoading =true
-                var vm = this
-                var cb = ()=>{
-                //console.log('rrr')
-                let offset = vm.end-vm.start>vm.offset?vm.offset:vm.end-vm.start
-                for(let i=0; i<offset; i++)
-                    vm.items.push({eId:"4578",entryName:"[Missing Data]",entryNameCh:"[Missing Data]"})
-                vm.start+=offset
-                this.isLoading = false
-                }
-                await setTimeout(cb,1000)
-                }
             }
       },
         watch:{
         //DOM elements first time rendered
             show:function(){
-                if(this.first===true){
-                this.first=false
-                }
                 let st =  this.$refs.selectableTable
-                // 监听这个dom的scroll事件
-                st.$el.addEventListener('scroll', () => {
-                //console.log(`${st.$el.scrollHeight} ${st.$el.scrollTop} ${st.$el.clientHeight}`)
-                if(st.$el.scrollHeight - st.$el.scrollTop <= st.$el.clientHeight){
-                    //console.log('eeeee')
-                    this.loadMore()
-                        }
-                }, false)
+                if(this.show===true){
+                st.$el.addEventListener('scroll',this.handleTableScroll, false)
+                }
+                //DOM 实例已经销毁了
+                //else st.$el.removeListener('scroll',this.handleTableScroll)
             }
          }
     }

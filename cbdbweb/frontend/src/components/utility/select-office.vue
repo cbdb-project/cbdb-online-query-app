@@ -85,6 +85,7 @@
 <script>
 import dataJson from '@/assets/officeData.json'
 import treeTable from '../treeTable/tree-table.vue'
+import {getListById,appendListById} from '@/components/utility/utility-functions.js'
 export default {
     name:'selectOffice',
     props:{
@@ -98,7 +99,6 @@ export default {
     data() {
         return {
           show:false,
-          first:true,
           isBusy:false,
           treeDataSource: {},
           result:{
@@ -167,59 +167,21 @@ export default {
         },
         //按id查询职官
         actionFunc(m){
-            if(this.isBusy===false){
-              this.isBusy=true
-              this.axios.get(`${this.$store.state.global.apiAddress}post_list?id=${m.Id}&start=1&list=50`)
-              .then((r)=>{
-                //console.log(r.data.data)
-                this.items = r.data.data
-                this.result.id = m.Id
-                this.result.start = parseInt(r.data.start)
-                this.result.end = parseInt(r.data.end)
-                this.result.total = parseInt(r.data.total)
-                this.$refs.selectableTable.$el.scrollTop=0//弹回最上方
-                this.isBusy=false
-                },
-                (e)=>{
-                  alert('Sorry, something went wrong...')
-                  this.isBusy=false
-                }
-              )
-            }
+          getListById('post_list',m.Id,this)
         },
-        handleTableScroll(e){
-          if(this.result.end!==undefined&&this.result.total!==undefined&&this.result.end<this.result.total){
-            this.isBusy=true
-            this.axios.get(`${this.$store.state.global.apiAddress}post_list?id=${this.result.id}&start=${this.result.end+1}&list=50`)
-            .then((r)=>{
-              //console.log(r.data.data)
-              r.data.data.forEach(i=>{this.items.push(i)})
-              this.result.start = parseInt(r.data.start)
-              this.result.end = parseInt(r.data.end)
-              this.result.total = parseInt(r.data.total)
-              this.isBusy=false
-              },
-              (e)=>{
-                alert('Sorry, something went wrong...')
-                this.isBusy=false
-              }
-            )
-          }
+        handleTableScroll(){
+          appendListById('post_list',this)
         }
     },
     watch:{
       //DOM elements first time rendered
       show:function(){
-        if(this.first===true){
-        this.first=false
         let st =  this.$refs.selectableTable
-        // 监听这个dom的scroll事件
-        st.$el.addEventListener('scroll', () => {
-          if(st.$el.scrollHeight - st.$el.scrollTop <= st.$el.clientHeight)
-            if(this.isBusy===false)
-              this.handleTableScroll()
-        }, false)
+        if(this.show===true){
+        st.$el.addEventListener('scroll',this.handleTableScroll, false)
         }
+        //DOM 实例已经销毁了
+        //else st.$el.removeListener('scroll',this.handleTableScroll)
       }
     },
     created(){

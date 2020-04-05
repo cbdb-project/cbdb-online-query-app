@@ -146,7 +146,7 @@ export default {
       haveSelected: function(){
         //同步选中人物
         console.log("成功");
-        this.$emit('getPersonName', this.selectedPerson);
+        this.$emit('getPersonName', {fields:this.fields,items:this.selectedPerson});
         this.selectedPerson.splice(0,this.selectedPerson.length)
         this.show = false;
       },

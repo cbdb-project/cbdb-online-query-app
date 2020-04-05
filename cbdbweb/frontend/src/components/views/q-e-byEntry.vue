@@ -153,7 +153,7 @@
       -->
     </b-card>
   </div>
-  <div class="hello">
+  <div class="hello" v-if="result.tableData!=undefined">
     <b-card header-tag="header" footer-tag="footer">
       <template v-slot:header>
           <h6 class="mb-0">{{$t('globalTerm.resultShow')}}</h6>
@@ -186,6 +186,7 @@ export default {
       isBusy:false,
       /*表單數據放這裡*/
       formData:{
+        //用计算属性
         entry:[],
         peoplePlace:[],
         dateStartTime:'',
@@ -199,7 +200,11 @@ export default {
       entryField:[],
       entryTable:[],
       peoplePlaceField:[],
-      peoplePlaceTable:[]
+      peoplePlaceTable:[],
+      result:{
+        totalPages:undefined,
+        tableData:undefined
+      }
     }
   },
   methods:{

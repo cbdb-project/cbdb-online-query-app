@@ -14,6 +14,7 @@
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
     "bootstrap-vue": "^2.5.0",
+    "echarts": "^4.7.0",
     "install": "^0.13.0",
     "jquery": "^3.4.1",
     "npm": "^6.13.2",

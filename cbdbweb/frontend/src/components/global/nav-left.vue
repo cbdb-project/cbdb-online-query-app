@@ -31,10 +31,10 @@
       </svg>
     </b-nav-item>
       <b-collapse id="collapse-b" class="mb-2" :visible = "true">
+        <b-nav-item exact to = "/q-relation/two-person" exact-active-class="active" v-b-tooltip.hover.right  :title="$t('navbarLeft.relationQueryTwoPerson')">{{$t('navbarLeft.relationQueryTwoPerson')}}</b-nav-item>
         <b-nav-item exact to = "/q-relation/kinship" exact-active-class="active" v-b-tooltip.hover.right  :title="$t('navbarLeft.relationQueryByKinship')">{{$t('navbarLeft.relationQueryByKinship')}}</b-nav-item>
         <b-nav-item exact to = "/q-relation/association" exact-active-class="active" v-b-tooltip.hover.right  :title="$t('navbarLeft.relationQueryByAssociation')">{{$t('navbarLeft.relationQueryByAssociation')}}</b-nav-item>
         <b-nav-item exact to = "/q-relation/by-social-network" exact-active-class="active" v-b-tooltip.hover.right  :title="$t('navbarLeft.relationQueryBySocialNetwork')">{{$t('navbarLeft.relationQueryBySocialNetwork')}}</b-nav-item>
-        <b-nav-item exact to = "/q-relation/two-person" exact-active-class="active" v-b-tooltip.hover.right  :title="$t('navbarLeft.relationQueryTwoPerson')">{{$t('navbarLeft.relationQueryTwoPerson')}}</b-nav-item>
       </b-collapse>
     
     <!--可视化-->

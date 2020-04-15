@@ -22,7 +22,7 @@
                         <b-form-input id="select-office-input-ch-name"></b-form-input>
                     </b-form-group>
                     <b-form-group>
-                      <b-button variant="primary">Find</b-button>
+                      <b-button variant="primary"><b-spinner small v-if="isBusy"></b-spinner><span v-else>Find</span></b-button>
                     </b-form-group>
                   </b-card>
                   <b-card>
@@ -71,7 +71,7 @@
                 </b-col>
             </b-row>
             <template v-slot:modal-footer>
-              <b-button size="xl" variant="secondary" @click="show=false">
+              <b-button size="xl" variant="secondary" @click="close">
                 Cancel
               </b-button>
               <b-button size="xl" variant="primary" @click="haveSelected">
@@ -134,6 +134,10 @@ export default {
         treeTable
     },
     methods: {
+        close:function(){
+            this.selectedOffice.splice(0,this.selectedOffice.length)
+            this.show = false;
+        },  
         dropAllItems(){
         this.items.splice(0,this.items.length);
         },

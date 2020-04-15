@@ -53,14 +53,13 @@
                 </b-col>
             </b-row>
             <template v-slot:modal-footer>
-              <b-button size="xl" variant="secondary" @click="show=false">
+              <b-button size="xl" variant="secondary" @click="close">
                 Cancel
               </b-button>
               <b-button size="xl" variant="primary" :disabled="selectedPerson.length===0" @click="haveSelected">
                 Select
               </b-button>
             </template>
-
         </b-modal>
     </div>
 </template>
@@ -117,6 +116,10 @@ export default {
     }
   },
   methods: {
+      close:function(){
+        this.selectedPerson.splice(0,this.selectedPerson.length)
+        this.show = false;
+      },
       searchPerson(personName){
         this.items = []//清空已有数据
         this.isBusy=true

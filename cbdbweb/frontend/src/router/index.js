@@ -72,7 +72,7 @@ export default new Router({
       component: visualizationBySNA
     },
     {
-      path: '/visualization/people',
+      path: '/visualization/GIS',
       name: 'Visualization: people',
       component: visualizationByPeople
     }

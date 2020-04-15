@@ -65,7 +65,7 @@
                 </b-col>
             </b-row>
             <template v-slot:modal-footer>
-              <b-button size="xl" variant="secondary" @click="show=false">
+              <b-button size="xl" variant="secondary" @click="close">
                 Cancel
               </b-button>
               <b-button size="xl" variant="primary" @click="haveSelected">
@@ -127,6 +127,10 @@
             treeTable
         },
         methods: {
+            close:function(){
+                this.selectedEntry.splice(0,this.selectedEntry.length)
+                this.show = false;
+            },
             dropAllItems(){
             this.items.splice(0,this.items.length);
             },

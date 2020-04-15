@@ -64,7 +64,7 @@
                 </b-col>
             </b-row>
             <template v-slot:modal-footer>
-              <b-button size="xl" variant="secondary" @click="show=false">
+              <b-button size="xl" variant="secondary" @click="close">
                 Cancel
               </b-button>
               <b-button size="xl" variant="primary" @click="haveSelected">
@@ -138,6 +138,10 @@ export default {
     }
   },
   methods: {
+      close:function(){
+        this.selectedPlace.splice(0,this.selectedPlace.length)
+        this.show = false
+      },
       onRowSelected(items) {
         this.selectedPlace = items
       },

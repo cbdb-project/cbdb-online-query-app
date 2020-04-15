@@ -43,7 +43,13 @@ function yearValidation(idx){
   **/
  function getterBuilder(type){
   //console.log(type)
-  let id = {"peoplePlace":"pId","officePlace":"pId","office":"pId","entry":"eId"}
+  let id = {
+            "peoplePlace":"pId",
+            "officePlace":"pId",
+            "office":"pId",
+            "entry":"eId",
+            "relation":"rId"
+          }
   /**
   * @param  {Array,VueObject} 表格数据和vue实例
   * @return {Function} 对应表格类型的getter
@@ -63,6 +69,7 @@ function yearValidation(idx){
   var officeGetter = getterBuilder('office')
   var officePlaceGetter = getterBuilder('officePlace')
   var entryGetter = getterBuilder('entry')
+  var relationGetter = getterBuilder('relation')
   /**
   * @param  {String,VueObject} 
   * api名称和vue实例
@@ -97,7 +104,7 @@ function yearValidation(idx){
       vm.isBusy=true
       vm.axios.get(`${vm.$store.state.global.apiAddress}${apiType}?id=${id}&start=1&list=50`)
       .then((r)=>{
-        //console.log(r.data.data)
+        console.log(r.data)
         vm.items = r.data.data
         vm.result.id = id
         vm.result.start = parseInt(r.data.start)
@@ -113,6 +120,15 @@ function yearValidation(idx){
       )
     }
   }
+ /**
+  * @return {Array} 返回親屬關係的選項
+  **/
+  function kinshipOptions() {
+    return  [
+        { text: this.$t('globalTerm.custom'), value: 'custom' },
+        { text: this.$t('globalTerm.mCircle'), value: 'mCircle' },
+      ]
+    }
 
   export {
       isNull as isNull,
@@ -122,6 +138,8 @@ function yearValidation(idx){
       officeGetter as officeGetter,
       entryGetter as entryGetter,
       personGetter as personGetter,
+      relationGetter as relationGetter,
       handleTableScroll as appendListById,
-      getListById as getListById
+      getListById as getListById,
+      kinshipOptions as kinshipOptions
   }

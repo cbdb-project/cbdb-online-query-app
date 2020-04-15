@@ -2,7 +2,12 @@
     <div>
         <b-button v-if="selectFromDb" variant="outline-primary"  v-b-modal.select-relationship-table
         class = "query-condition-button" size="sm">{{$t('globalTerm.selectFromDb')}}</b-button>
-        <b-modal id="select-relationship-table" title="BootstrapVue" size="xl">
+        <b-modal 
+            id="select-relationship-table" 
+            title="Select Associations" 
+            size="xl"
+            v-model="show"
+            >
             <b-row>
                 <b-col :cols = 4 style = "text-align:right">
                   <b-card>
@@ -15,7 +20,7 @@
                   </b-card>
                   <b-card>
                     <div style="height:400px; overflow:auto">
-                        <tree-table listName="社会关系类目表" ref="recTree" :list.sync="treeDataSource" @actionFunc="actionFunc" @deleteFunc="deleteFunc" @handlerExpand="handlerExpand" @orderByFunc="orderByFunc"></tree-table>
+                        <tree-table listName="社会关系类目表" ref="recTree" :list.sync="treeDataSource"></tree-table>
                     </div>
                   </b-card>
                 </b-col>
@@ -43,6 +48,14 @@
                     </b-table>
                 </b-col>
             </b-row>
+            <template v-slot:modal-footer>
+              <b-button size="xl" variant="secondary" @click="close">
+                Cancel
+              </b-button>
+              <b-button size="xl" variant="primary" @click="haveSelected">
+                Select
+              </b-button>
+            </template>
         </b-modal>
     </div>
 </template>
@@ -59,72 +72,47 @@ export default {
       },
     data() {
         return {
+        show:false,
         treeDataSource: dataJson,
         /*表格子數據放這裡*/
         fields: [
           {
-            key: 'name',
-            label:'Name',
+            key: 'rId',
+            label:'Assoc. Code',
             sortable: true
           },
           {
-            key: 'nameCh',
-            label:'姓名',
+            key: 'rName',
+            label:'Assoc. Name',
             sortable: true
           },
           {
-            key: 'indexYear',
-            label: 'Index Year',
+            key: 'rNameCh',
+            label: '社會關係名',
             sortable: true,
-          },
-          {
-            key: 'female',
-            label:'Female',
-            sortable: true
-          },
-          {
-            key: 'placeType',
-            label:'地名類',
-            sortable: true
-          },
-          {
-            key: 'personPlace',
-            label: 'Place(Person)',
-            sortable: true,
-          },
-          {
-            key: 'personPlaceCh',
-            label: '地名(人)',
-            sortable: true,
-          },
-            {
-            key: 'selected',
-            sortable: false,
           }
         ],
+        //rId 相當於 C_ASSOC_CODE
         items: [
-          {name:'Liu Jun',nameCh:'劉俊',indexYear:'1086',female:false,placeType:'籍貫',personPlace:'Nan Yang',personPlaceCh:'南陽'},
-          {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'},        
-          {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'},       
-          {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'}, 
-          {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'}, 
-          {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'}, 
-          {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'}, 
-          {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'}, 
-          {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'}, 
+          {rId:'-1',rName:'[Missing Data]',rNameCh:'[缺乏信息]'},
+          {rId:'0',rName:'[Undefined]',rNameCh:'[未詳]'},
+          {rId:'1',rName:'Listed in Yuanyou colition register',rNameCh:'入元祐黨籍者'},   
+          {rId:'2',rName:'Yuanfu colition member (元符黨)',rNameCh:'元符上書入籍'},      
         ],
-        //选中的人物出现在这里
-        selected : []
+        //选中的关系出现在这里
+        selectedRelation : []
         }
     },
     components: {
         treeTable
     },
     methods: {
+        close:function(){
+            this.selectedRelation.splice(0,this.selectedRelation.length)
+            this.show = false;
+        },
         onRowSelected(items) {
-            this.selected = items
-            //要把选中的结果传递给调用的父组件
-            console.log(this.selected)
+            this.selectedRelation = items
         },
         selectAllRows() {
             this.$refs.selectableTable.selectAllRows()
@@ -135,7 +123,13 @@ export default {
         handlerExpand(m) {
             console.log('展开/收缩')
             m.isExpand = !m.isExpand
-        }
+        },
+        haveSelected: function(){
+            //同步选中入仕途径
+            console.log("选取成功");
+            this.$emit('getRelation', {fields:this.fields,items:this.selectedRelation});
+            this.close()
+          },
     } 
 }
 </script>

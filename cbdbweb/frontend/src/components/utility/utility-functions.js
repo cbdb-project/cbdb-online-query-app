@@ -43,7 +43,13 @@ function yearValidation(idx){
   **/
  function getterBuilder(type){
   //console.log(type)
-  let id = {"peoplePlace":"pId","officePlace":"pId","office":"pId","entry":"eId"}
+  let id = {
+            "peoplePlace":"pId",
+            "officePlace":"pId",
+            "office":"pId",
+            "entry":"eId",
+            "relation":"rId"
+          }
   /**
   * @param  {Array,VueObject} 表格数据和vue实例
   * @return {Function} 对应表格类型的getter
@@ -63,6 +69,7 @@ function yearValidation(idx){
   var officeGetter = getterBuilder('office')
   var officePlaceGetter = getterBuilder('officePlace')
   var entryGetter = getterBuilder('entry')
+  var relationGetter = getterBuilder('relation')
   /**
   * @param  {String,VueObject} 
   * api名称和vue实例
@@ -72,20 +79,23 @@ function yearValidation(idx){
     if(st.$el.scrollHeight - st.$el.scrollTop <= st.$el.clientHeight&&vm.isBusy===false)
       if(vm.result.end!==undefined&&vm.result.total!==undefined&&vm.result.end<vm.result.total){
         vm.isBusy=true
-        vm.axios.get(`${vm.$store.state.global.apiAddress}${apiType}?id=${vm.result.id}&start=${vm.result.end+1}&list=50`)
+        vm.isBusyLoad=true
+        vm.axios.get(`${vm.$store.state.global.apiAddress}${apiType}?id=${vm.result.id}&start=${vm.result.end+1}&list=100`)
         .then((r)=>{
           //console.log(r.data.data)
           r.data.data.forEach(i=>{vm.items.push(i)})
           vm.result.start = parseInt(r.data.start)
           vm.result.end = parseInt(r.data.end)
-          vm.result.total = parseInt(r.data.total)
-          vm.isBusy=false
+          //vm.result.total = parseInt(r.data.total)
           },
           (e)=>{
             alert('Sorry, something went wrong...')
-            vm.isBusy=false
           }
         )
+        .then(()=>{
+          vm.isBusy=false
+          vm.isBusyLoad=false
+        })
       }
   }
   /**
@@ -93,11 +103,12 @@ function yearValidation(idx){
   * api名称 作为查询依据的id 和vue实例
   **/
  function getListById(apiType,id,vm){
+    console.log(id)
     if(vm.isBusy===false){
       vm.isBusy=true
-      vm.axios.get(`${vm.$store.state.global.apiAddress}${apiType}?id=${id}&start=1&list=50`)
+      vm.axios.get(`${vm.$store.state.global.apiAddress}${apiType}?id=${id}&start=1&list=100`)
       .then((r)=>{
-        //console.log(r.data.data)
+        console.log(r.data)
         vm.items = r.data.data
         vm.result.id = id
         vm.result.start = parseInt(r.data.start)
@@ -113,15 +124,34 @@ function yearValidation(idx){
       )
     }
   }
+ /**
+  * @return {Array} 返回親屬關係的選項
+  **/
+  function kinshipOptions() {
+    return  [
+        { text: this.$t('globalTerm.custom'), value: 'custom' },
+        { text: this.$t('globalTerm.mCircle'), value: 'mCircle' },
+      ]
+    }
 
+  function celarResultTable(vm){
+    vm.items.splice(0,vm.items.length);
+    for (let prop in vm.result){
+      vm.result[prop] = undefined
+    } 
+  }
   export {
       isNull as isNull,
+      capitalizeFirst as capitalizeFirst,
       yearValidation as yearValidation,
       peoplePlaceGetter as peoplePlaceGetter,
       officePlaceGetter as officePlaceGetter,
       officeGetter as officeGetter,
       entryGetter as entryGetter,
       personGetter as personGetter,
+      relationGetter as relationGetter,
       handleTableScroll as appendListById,
-      getListById as getListById
+      getListById as getListById,
+      kinshipOptions as kinshipOptions,
+      celarResultTable as celarResultTable
   }

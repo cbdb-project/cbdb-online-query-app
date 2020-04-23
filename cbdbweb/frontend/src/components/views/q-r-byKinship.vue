@@ -18,7 +18,7 @@
                 <b-col>
                   <span v-if="this.personTable.length==0" style = "line-height:31px">**{{$t('globalTerm.all')}}**</span>
                   <span v-else>{{personTable[0]['personNameCh']}}
-                    <span v-if="this.formData.person.length>1">及另外{{this.formData.person.length-1}}個人物</span>
+                    <span v-if="this.personTable.length>1">及另外{{this.personTable.length-1}}個人物</span>
                   </span>
                   <view-selected name="person" :fields="this.personField" :items="this.personTable" @update:items="val=>this.personTable=val"></view-selected>
                 </b-col>
@@ -30,15 +30,22 @@
             </select-person>
           </b-col>
         </b-row>
-        <b-row class = "px-3 mb-3">
-          <b-card-text class = "card-item-title mt-3">
-            <b-form-checkbox switch size="lg" id="checkbox-1" v-model= "formData.mCircle" name="checkbox-1"
-              value="t" unchecked-value="f">
-              <span style="font-size:16px">{{$t('globalTerm.mCircle')}}</span>
-            </b-form-checkbox>  
-          </b-card-text> 
+        <b-row class = "my-3">
+          <b-col cols="8" style = "text-align:left">
+            <b-form-radio-group
+              id="btn-radios"
+              v-model="formData.kinshipType"
+              :options="kinshipOptions"
+              size="sm"
+              buttons
+              button-variant="outline-primary"
+              name="radio-btn-outline"
+            ></b-form-radio-group>
+          </b-col>
+          <b-col cols="4">
+          </b-col>
         </b-row>
-        <b-row class = "px-3 mb-3"  v-if="formData.mCircle==='f'">
+        <b-row class = "px-3 mb-3"  v-if="formData.kinshipType==='custom'">
           <b-col>
             <label for="max-ancestor-gen" class = "user-input-label">{{$t('relationQueryByKinship.maxAncestorGen')}}:</label>
             <b-form-input id="max-ancestor-gen" v-model="formData.startTime" placeholder="" 
@@ -115,7 +122,7 @@
 </template>
 
 <script>
-import {isNull,yearValidation,personGetter} from '@/components/utility/utility-functions.js'
+import {isNull,yearValidation,personGetter,kinshipOptions} from '@/components/utility/utility-functions.js'
 import queryResult from '@/components/utility/query-result.vue'
 import selectPerson from '@/components/utility/select-person.vue'
 import viewSelected from '@/components/utility/view-selected.vue'
@@ -138,14 +145,14 @@ export default {
         //用计算属性
         person:[],
         personName:undefined,
-        mCircle:'f'
+        kinshipType:'custom',
       },
       personField:[],
       personTable:[],
       //後端傳回來的數據放這裡
       personInfo:{
 
-      },
+      }
     }
   },
   methods:{
@@ -190,11 +197,12 @@ export default {
     isInvalid(){
       return this.formData.person.length == 0
     },
-    getPersonTableId(){return this.personTable.map(i => i['eId'])}
-  },
-  watch:{
+    getPersonTableId(){return this.personTable.map(i => i['eId'])},
+    kinshipOptions:kinshipOptions
+    },
+    watch:{
 
-  }
+    }
 }
 </script>
 

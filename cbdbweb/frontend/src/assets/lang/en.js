@@ -101,7 +101,8 @@ module.exports = {
         and:"And",
         invalidInput:"Your input is invalid, please check.",
         cnOrPy:"In Chinese or Pinyin",
-        selectFromDb:"Select"
+        selectFromDb:"Select",
+        custom:"Customization"
     },
     entityQueryByOffice:{
         indexYearRange:"Index Year Range",
@@ -152,26 +153,18 @@ module.exports = {
             kinshipType:"Kinship Type",
             kinName:"Kin's Name",
             association:"Association",
+            associationType:"Association Type",
             associate:"Associate", 
             firstPostingNote:"First Posting Note",
             kinship:"Kinship",
             writingRole:"Role",
             writings:"Writings",
-            otherPlaces:"other places",
-            association:"Associations"
+            otherPlaces:"other places"
         }
     },
     entityQueryByEntry:{
         entryYear:"Entry Year",
         indexYear:"Index Year",
-        checkAndSearch:"Check And Search",
-        checkRemind:"The query is generated as the following. Please check it before your search."
-    },
-    entityQueryByPlace:{
-        personNameEn:"English Person Name",
-        personNameCh:"Chinese Person Name",
-        placeNameEn:"English Place Name",
-        placeNameCh:"Chinese Place Name",
         checkAndSearch:"Check And Search",
         checkRemind:"The query is generated as the following. Please check it before your search."
     },
@@ -181,6 +174,9 @@ module.exports = {
         maxCollaternalLinks:"Max Collaternal Links",
         maxMarriageLinks:   "Max Marriage Links",
         maxLoop:            "Max Loop"
+    },
+    relationQueryBySocialNetwork:{
+        includeKinship:"Include Kinship"
     },
     visualization:{
         selectFromSystem:"Select from System",

@@ -104,7 +104,8 @@ module.exports = {
         and:"和其他",
         invalidInput:"您的輸入不符合檢索要求，請檢查",
         cnOrPy:"可輸入漢字或拼音",
-        selectFromDb:"從數據庫選取"   
+        selectFromDb:"從數據庫選取",
+        custom:"自定義"   
     },
     entityQueryByOffice:{
         indexYearRange:"指數年範圍",
@@ -170,20 +171,15 @@ module.exports = {
         checkAndSearch:"檢索式確認",
         checkRemind:"茲生成查詢式如下，請於檢索前核查確認"
     },
-    entityQueryByPlace:{
-        personNameEn:"人名-英文",
-        personNameCh:"人名-中文",
-        placeNameEn:"地名-英文",
-        placeNameCh:"地名-中文",
-        checkAndSearch:"檢索式確認",
-        checkRemind:"茲生成查詢式如下，請於檢索前核查確認"
-    },
     relationQueryByKinship:{
         maxAncestorGen:     "最大祖先距離(代)",
         maxDescendGen:      "最大後代距離(代)",
         maxCollaternalLinks:"最大同輩距離(代)",
         maxMarriageLinks:   "最大姻親距離(代)",
         maxLoop:            "最大循环次数"
+    },
+    relationQueryBySocialNetwork:{
+        includeKinship:"包含親屬關係"
     },
     visualization:{
         selectFromSystem:"系统导入",

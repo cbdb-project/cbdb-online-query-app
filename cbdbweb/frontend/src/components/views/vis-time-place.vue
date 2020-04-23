@@ -78,7 +78,6 @@ export default {
             this.item.forEach(element => {
                 let name = element['AddrChn']
                 if(name!=='[?]'){
-                    let co = [parseFloat(element['X']),parseFloat(element['Y'])]
                     if(!map.hasOwnProperty(name)){
                         map[name] = 1
                     }

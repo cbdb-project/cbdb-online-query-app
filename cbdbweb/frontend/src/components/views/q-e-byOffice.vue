@@ -180,7 +180,7 @@ import importPlace from '@/components/utility/import-place.vue'
 import viewSelected from '@/components/utility/view-selected.vue'
 export default {
   name: 'entityQueryByOffice',
-  components:
+  components: 
   {
       queryResult,
       selectOffice,

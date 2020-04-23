@@ -13,33 +13,46 @@
             <b-row>
                 <b-col :cols = 4 style = "text-align:right">
                     <b-card>
-                        <b-form-group label-cols="4" label="Place Name" label-for="select-place-input-en-name">
-                            <b-form-input id="select-place-input-en-name"></b-form-input>
+                        <b-form-group label-cols="4" label="Place Name" label-for="select-place-input-name">
+                            <b-form-input id="select-place-input-name" v-model="formData.pName"></b-form-input>
                         </b-form-group>
-                        <b-form-group label-cols="4" label="From" label-for="select-place-input-ch-name">
-                            <b-form-input id="select-place-input-ch-name"></b-form-input>
+                        <b-form-group label-cols="4" label="From" label-for="select-place-sy">
+                            <b-form-input id="select-place-sy" v-model="formData.fromYear"></b-form-input>
                         </b-form-group>
-                        <b-form-group label-cols="4" label="To" label-for="select-place-input-ch-name">
-                            <b-form-input id="select-place-input-ch-name"></b-form-input>
+                        <b-form-group label-cols="4" label="To" label-for="select-place-ty">
+                            <b-form-input id="select-place-input-ty" v-model="formData.toYear"></b-form-input>
                         </b-form-group>
                           <b-button-group>
-                            <b-button variant="primary">Find</b-button>   
+                            <b-button variant="primary" :disabled="isBusy">
+                                <span v-if="!isBusyFind" @click="find">Find</span>
+                                <b-spinner small v-else></b-spinner>
+                            </b-button>   
                           </b-button-group> 
                     </b-card>   
                     <b-card>
                         <b-form-group>
-                            <b-button variant="primary">Select Places Belonging To</b-button>
+                            <b-button variant="primary" :disabled="isBusy||selectedPlace.length!==1"
+                            >
+                                <span v-if="!isBusySupLoc" @click="getSuperiorLoc">Get Places Belong to</span>
+                                <b-spinner small v-else></b-spinner>
+                            </b-button>
                         </b-form-group>
                     </b-card>     
                 </b-col>
                 <b-col :cols = 8>
                     <b-form-group style = "text-align:right">
-                      <b-button variant="outline-danger" @click="items=[]" size='sm' class = "mx-3" style="position:absolute;left:0">Clear Table</b-button> 
+                      <b-button variant="outline-danger" @click="onClearTable" size='sm' class = "mx-3" style="position:absolute;left:0">Clear Table</b-button> 
                       <b-button-group> 
                         <b-button v-if="this.selectedPlace.length>0" @click="clearSelected" variant="outline-secondary" size='sm' ><span>Cancel Selected</span></b-button>
                         <b-button v-if="!(this.items.length===this.selectedPlace.length)" @click="selectAllRows" variant="outline-secondary" size='sm' ><span>Select All</span></b-button>
                       </b-button-group>      
                     </b-form-group>
+                    <b-row v-if="this.result.total!==undefined&&this.result.end!==undefined">
+                      <b-col>
+                        <b-link disabled>{{result.end}}</b-link><span style="color:#4D4D4D">&nbsp;of&nbsp;</span>
+                        <b-link disabled>{{result.total}}</b-link><span style="color:#4D4D4D">&nbsp;records are shown.</span>
+                      </b-col>
+                    </b-row>
                     <b-table 
                         :items= "items" 
                         :fields= "fields" 
@@ -61,10 +74,15 @@
                             </template>
                         </template>
                     </b-table>
+                    <b-row>
+                        <b-col style="text-align:center">
+                            <b-spinner small v-if="this.isBusyLoad===true"></b-spinner>
+                        </b-col>
+                    </b-row>
                 </b-col>
             </b-row>
             <template v-slot:modal-footer>
-              <b-button size="xl" variant="secondary" @click="show=false">
+              <b-button size="xl" variant="secondary" @click="close">
                 Cancel
               </b-button>
               <b-button size="xl" variant="primary" @click="haveSelected">
@@ -76,6 +94,7 @@
 </template>
 
 <script>
+import {capitalizeFirst,celarResultTable} from '@/components/utility/utility-functions.js'
 export default {
   name:'selectPlace',
   props:{
@@ -87,6 +106,22 @@ export default {
     return {
         first:true,
         show:false,
+        isBusy:false,
+        isBusySupLoc:false,
+        isBusyFind:false,
+        isBusyLoad:false,
+        formData:{
+          pName:'',
+          isApprox:1,
+          fromYear:'',
+          toYear:''
+        },
+        result:{
+          id:undefined,
+          start:undefined,
+          end:undefined,
+          total:undefined
+        },
       /*表格子數據放這裡*/
         fields: [
           {
@@ -95,51 +130,53 @@ export default {
             sortable: true
           },
           {
-            key: 'placeName',
+            key: 'pName',
             label:'Place Name',
             sortable: true
           },
           {
-            key: 'placeNameCh',
+            key: 'pNameChn',
             label:'地名',
             sortable: true
           },
           {
-            key: 'firstYear',
+            key: 'pStartTime',
             label: 'First Year',
             sortable: true,
           },
           {
-            key: 'lastYear',
+            key: 'pEndTime',
             label: 'Last Year',
             sortable: true,
           },
           {
-            key: 'BelongsTo',
+            key: 'pBName',
             label:'Belongs To',
             sortable: true,
           },
           {
-            key: 'BelongsToCh',
+            key: 'pBNameChn',
             label:'属于',
             sortable: true
           }
         ],
         items: [
-          {pId:"10002",placeName:"",placeNameCh:"鬱江道",firstYear:"1913",lastYear:"1913",BelongsTo:"",BelongsToCh:"廣西省諸道區"},
-          {pId:"10004",placeName:"",placeNameCh:"蒼梧道",firstYear:"1914",lastYear:"1926",BelongsTo:"",BelongsToCh:"廣西省諸道區"},
-          {pId:"10005",placeName:"",placeNameCh:"邕南道",firstYear:"1913",lastYear:"1913",BelongsTo:"",BelongsToCh:"廣西省諸道區"},
-          {pId:"10007",placeName:"",placeNameCh:"南寧道",firstYear:"1914",lastYear:"1926",BelongsTo:"",BelongsToCh:"廣西省諸道區"},
-          {pId:"10009",placeName:"",placeNameCh:"鎮南道",firstYear:"1913",lastYear:"1926",BelongsTo:"",BelongsToCh:"廣西省諸道區"},
-          {pId:"10010",placeName:"",placeNameCh:"田南道",firstYear:"1913",lastYear:"1926",BelongsTo:"",BelongsToCh:"廣西省諸道區"},
+
         ],
         //选中的人物出现在这里
         selectedPlace : []
     }
   },
   methods: {
+      close:function(){
+        this.selectedPlace.splice(0,this.selectedPlace.length)
+        this.show = false
+      },
       onRowSelected(items) {
         this.selectedPlace = items
+      },
+      onClearTable(){
+        celarResultTable(this)
       },
       haveSelected: function(){
         //同步选中地点
@@ -153,23 +190,109 @@ export default {
       },
       clearSelected() {
         this.$refs.selectableTable.clearSelected()
-      }
+      },
+      find(){
+        let vm = this
+        if(vm.isBusy===false){
+          vm.isBusy=true
+          vm.isBusyFind=true
+          vm.formData.pName = capitalizeFirst(vm.formData.pName)
+          let fy = this.formData.fromYear
+          let ty = this.formData.toYear
+          //自動填充
+          if(fy!==''||ty!==''){
+            if (fy==='')fy = '-200'
+            if(ty==='')ty = (new Date()).getFullYear()
+          }
+          let query = `${vm.$store.state.global.apiAddress}place_list?name=${this.formData.pName}&accurate=${this.formData.isApprox}&startTime=${fy}&endTime=${ty}`
+          console.log(query)
+          vm.axios.get(`${query}&start=1&list=100`)
+          .then((r)=>{
+            console.log(r.data)
+            vm.items = r.data.data
+            vm.result.query = query
+            vm.result.start = parseInt(r.data.start)
+            vm.result.end = parseInt(r.data.end)
+            vm.result.total = parseInt(r.data.total)
+            vm.$refs.selectableTable.$el.scrollTop=0//弹回最上方
+            },
+            (e)=>{
+              alert('Sorry, something went wrong...')
+              console.log(e)
+            }
+          ).then(()=>{
+            vm.isBusy=false
+            vm.isBusyFind=false
+          })
+        }
+      },
+      getSuperiorLoc(){
+        let vm = this
+        if(vm.isBusy===false){
+          vm.isBusy=true
+          vm.isBusySupLoc=true
+          let id = this.selectedPlace[0]['pId']
+          let query = `${vm.$store.state.global.apiAddress}place_belongs_to?id=${id}`
+          vm.axios.get(`${query}&start=1&list=100`)
+          .then((r)=>{
+            console.log(r.data)
+            vm.items = r.data.data
+            vm.result.query = query
+            vm.result.start = parseInt(r.data.start)
+            vm.result.end = parseInt(r.data.end)
+            vm.result.total = parseInt(r.data.total)
+            vm.$refs.selectableTable.$el.scrollTop=0//弹回最上方
+            },
+            (e)=>{
+              alert('Sorry, something went wrong...')
+              console.log(e)
+            }
+          )
+          .then(
+            ()=>{
+            vm.isBusy=false
+            vm.isBusySupLoc=false
+            }
+          )
+        }
+      },
+      handleTableScroll(){
+        let vm = this
+        let st =  vm.$refs.selectableTable
+        if(st.$el.scrollHeight - st.$el.scrollTop <= st.$el.clientHeight&&vm.isBusy===false)
+          if(vm.result.end!==undefined&&vm.result.total!==undefined&&vm.result.end<vm.result.total){
+            vm.isBusy=true
+            vm.isBusyLoad=true
+            vm.axios.get(vm.result.query+`&start=${vm.result.end+1}&list=100`)
+            .then((r)=>{
+              //console.log(r.data.data)
+              r.data.data.forEach(i=>{vm.items.push(i)})
+              vm.result.start = parseInt(r.data.start)
+              vm.result.end = parseInt(r.data.end)
+              //vm.result.total = parseInt(r.data.total)
+              },
+              (e)=>{
+                alert('Sorry, something went wrong...')
+              }
+            )
+            .then(()=>{
+              vm.isBusy=false
+              vm.isBusyLoad=false
+            })
+          }        
+      },
   },
   watch:{
       //DOM elements first time rendered
       show:function(){
-        if(this.first===true){
-        this.first=false
         let st =  this.$refs.selectableTable
-        // 监听这个dom的scroll事件
-        st.$el.addEventListener('scroll', () => {
-          if(st.$el.scrollHeight - st.$el.scrollTop <= st.$el.clientHeight)
-            console.log('pppppp')
-        }, false)
+        if(this.show===true){
+          st.$el.addEventListener('scroll',this.handleTableScroll, false)
         }
+        //DOM 实例已经销毁了
+        //else st.$el.removeListener('scroll',this.handleTableScroll)
       }
     }
-
 }
 </script>
 

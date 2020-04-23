@@ -16,41 +16,43 @@
             <b-card>
               <b-row class="pl-3" style = "text-align:center">
                 <b-col>
-                  <div v-if="this.formData.place.length==0" style = "line-height:31px">Nothing Selected</div>
-                  <div v-else>{{formData.association[0]}}
-                    <span v-if="this.formData.association.length>1">及另外{{this.formData.association.length-1}}種關係</span>
-                    <b-button  variant="outline-primary" size = sm>查看已選</b-button>
-                  </div>
+                  <span v-if="this.relationTable.length===0" style = "line-height:31px">**{{$t('globalTerm.all')}}**</span>
+                  <span v-else>{{this.relationTable[0]['rNameCh']}}
+                    <span v-if="this.relationTable.length>1">及另外{{this.relationTable.length-1}}種關係</span>
+                  </span>
+                  <view-selected name='relation' :fields="this.relationField" :items="this.relationTable" @update:items="val=>this.relationTable=val"></view-selected>
                 </b-col>
               </b-row>
             </b-card>
           </b-col>
           <b-col cols="2"  style = "text-align:left">
-            <select-relation style="margin-top:56px">   <!-- @getPersonName="handleGetPerson" --> 
+            <select-relation @getRelation="handleGetRelation" name="relation"  style="margin-top:56px"> 
             </select-relation>
           </b-col>
           <b-col cols="2">
           </b-col>
         </b-row>
         <b-row class = "py-3 my-3">
-          <b-col cols="8" style = "text-align:left">
-            <b-card-text class = "card-item-title">{{$t('globalTerm.place')}}</b-card-text>    
+          <b-col cols="8" style = "text-align:left"> 
             <b-card>
               <b-row class="pl-3" style = "text-align:center">
                 <b-col>
-                  <div v-if="this.formData.place.length==0" style = "line-height:31px">Nothing Selected</div>
-                  <div v-else>{{formData.place[0]}}
-                    <span v-if="this.formData.place.length>1">及另外{{this.formData.place.length-1}}個地點</span>
-                    <b-button  variant="outline-primary" size = sm>查看已選</b-button>
-                  </div>
+                  <span v-if="this.peoplePlaceTable.length===0" style = "line-height:31px">**{{$t('globalTerm.all')}}**</span>
+                  <span v-else>{{peoplePlaceTable[0]['placeNameCh']}}
+                    <span v-if="this.peoplePlaceTable.length>1">及另外{{peoplePlaceTable.length-1}}個地點</span>
+                  </span>
+                  <view-selected name='peoplePlace' :fields="this.peoplePlaceField" :items="this.peoplePlaceTable" @update:items="val=>this.peoplePlaceTable=val"></view-selected>
                 </b-col>
               </b-row> 
             </b-card>   
           </b-col>
           <b-col cols="4" style = "text-align:left" >
-            <select-place @getPlaceName="handleGetPlace" style = "margin-top:56px"></select-place>
+            <b-button-group>
+            <select-place @getPlaceName="handleGetPeoplePlace" name="people" style = "margin-top:16px"></select-place>
+            <import-place @getPlaceName="handleGetPeoplePlace" name="people" style = "margin-top:16px"></import-place>
+            </b-button-group>
           </b-col>
-        </b-row>
+        </b-row> 
       </div>
       <b-card-text class = "card-item-title pt-3">{{$t('globalTerm.alternativeInput')}}</b-card-text>             
       <div class  = "card-item-body px-3">
@@ -110,10 +112,11 @@
 </template>
 
 <script>
-import {isNull,yearValidation} from '@/components/utility/utility-functions'
+import {isNull,yearValidation,peoplePlaceGetter,relationGetter} from '@/components/utility/utility-functions'
 import queryResult from '@/components/utility/query-result.vue'
 import selectRelation from '@/components/utility/select-relationship.vue'
 import selectPlace from '@/components/utility/select-place.vue'
+import viewSelected from '@/components/utility/view-selected.vue'
 //開發用的假數據
 import dataJson from '@/assets/person_data_dev.json'
 export default {
@@ -122,7 +125,8 @@ export default {
   {
     queryResult,
     selectRelation,
-    selectPlace
+    selectPlace,
+    viewSelected
   },
   data () {
     return {
@@ -132,12 +136,15 @@ export default {
       formData:{
         place:[],
         association:[],
-        mCircle:'f'
       },
       //後端傳回來的數據放這裡
       personInfo:{
 
       },
+      peoplePlaceTable:[],
+      peoplePlaceField:[],
+      relationTable:[],
+      relationField:[]
     }
   },
   methods:{
@@ -146,6 +153,13 @@ export default {
     //获取查询的人物
     handleGetPerson: function(selectedPerson){
       
+    },
+    handleGetPeoplePlace:function(i){
+      peoplePlaceGetter(i,this)
+    },
+    handleGetRelation:function(i){
+      console.log(i)
+      relationGetter(i,this)
     },
     async handleSubmit(){
       //提交表单的时候先清空原有數據
@@ -181,7 +195,9 @@ export default {
     },
     isInvalid(){
       return this.isNull('personId')==true
-    }
+    },
+    getPeoplePlaceTableId(){return this.peoplePlaceTable.map(i=>i['pId'])},
+    getRelationTableId(){return this.relationTable.map(i=>i['rId'])},
   },
   watch:{
 

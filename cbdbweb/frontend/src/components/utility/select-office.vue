@@ -19,10 +19,14 @@
                 <b-col :cols = 4 style = "text-align:right">
                   <b-card>
                     <b-form-group label-cols="4" :label="$t('selectOffice.officeName')" label-for="select-office-input-ch-name">
-                        <b-form-input id="select-office-input-ch-name"></b-form-input>
+                        <b-form-input id="select-office-input-ch-name" v-model="formData.pName"></b-form-input>
                     </b-form-group>
                     <b-form-group>
-                      <b-button variant="primary"><b-spinner small v-if="isBusy"></b-spinner><span v-else>Find</span></b-button>
+                      <b-button variant="primary" :disabled="isBusy||formData.pName===''">
+                        <b-spinner small v-if="isBusyFind">
+                          </b-spinner>
+                          <span v-else>Find</span>
+                      </b-button>
                     </b-form-group>
                   </b-card>
                   <b-card>
@@ -33,7 +37,7 @@
                 </b-col>
                 <b-col :cols=8>
                     <b-form-group style = "text-align:right">
-                      <b-button variant="outline-danger" @click="dropAllItems" size='sm' class = "mx-3" style="position:absolute;left:0">Clear Table</b-button> 
+                      <b-button variant="outline-danger" @click="onClearTable" size='sm' class = "mx-3" style="position:absolute;left:0">Clear Table</b-button> 
                       <b-button-group> 
                         <b-button v-if="this.selectedOffice.length>0" @click="clearSelected" variant="outline-secondary" size='sm' ><span>Cancel Selected</span></b-button>
                         <b-button v-if="!(this.items.length===this.selectedOffice.length)" @click="selectAllRows" variant="outline-secondary" size='sm' ><span>Select All</span></b-button>
@@ -42,7 +46,7 @@
                     <b-row v-if="this.result.total!==undefined&&this.result.end!==undefined">
                       <b-col>
                         <b-link disabled>{{result.end}}</b-link><span style="color:#4D4D4D">&nbsp;of&nbsp;</span>
-                        <b-link disabled>{{result.total}}</b-link><span style="color:#4D4D4D">&nbsp;records are showned.</span>
+                        <b-link disabled>{{result.total}}</b-link><span style="color:#4D4D4D">&nbsp;records are shown.</span>
                       </b-col>
                     </b-row>
                     <b-table 
@@ -67,7 +71,7 @@
                             </template>
                         </template>
                     </b-table>
-                    <b-row style="text-align:center"><b-col><b-spinner small v-if="isBusy"></b-spinner></b-col></b-row>
+                    <b-row style="text-align:center"><b-col><b-spinner small v-if="isBusyLoad"></b-spinner></b-col></b-row>
                 </b-col>
             </b-row>
             <template v-slot:modal-footer>
@@ -85,7 +89,7 @@
 <script>
 import dataJson from '@/assets/officeData.json'
 import treeTable from '../treeTable/tree-table.vue'
-import {getListById,appendListById} from '@/components/utility/utility-functions.js'
+import {getListById,appendListById,celarResultTable} from '@/components/utility/utility-functions.js'
 export default {
     name:'selectOffice',
     props:{
@@ -100,6 +104,9 @@ export default {
         return {
           show:false,
           isBusy:false,
+          isBusyFind:false,
+          isBusyLoad:false,
+          formData:{pName:''},
           treeDataSource: {},
           result:{
             id:undefined,
@@ -138,9 +145,6 @@ export default {
             this.selectedOffice.splice(0,this.selectedOffice.length)
             this.show = false;
         },  
-        dropAllItems(){
-        this.items.splice(0,this.items.length);
-        },
         //加載職官樹
         loadOfficeTree(){
           if(localStorage.officeTree!=undefined)this.treeDataSource = JSON.parse(localStorage.officeTree)
@@ -152,6 +156,9 @@ export default {
         onRowSelected(items) {
           //用户选中列表中的条目后，同步到selectedOffice中
           this.selectedOffice = items
+        },
+        onClearTable(){
+          celarResultTable(this)
         },
         haveSelected: function(){
           //同步选中官职给父组件（页面）

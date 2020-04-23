@@ -16,8 +16,8 @@
                             <b-form-input id="select-entry-input-name" v-model= "formData.eName"></b-form-input>
                         </b-form-group>
                         <b-form-group>
-                            <b-button variant="primary" :disabled="isBusy||formData.eName===''">
-                                <span v-if="!isBusy" @click="find">Find</span>
+                            <b-button variant="primary" :disabled="isBusy||formData.eName===''" @click="find">
+                                <span v-if="!isBusyFind">Find</span>
                                 <b-spinner small v-else></b-spinner>
                             </b-button>
                         </b-form-group>
@@ -30,12 +30,18 @@
                 </b-col>
                 <b-col :cols=8 >
                     <b-form-group style = "text-align:right">
-                      <b-button variant="outline-danger" @click="dropAllItems" size='sm' class = "mx-3" style="position:absolute;left:0">Clear Table</b-button> 
+                      <b-button variant="outline-danger" @click="onClearTable" size='sm' class = "mx-3" style="position:absolute;left:0">Clear Table</b-button> 
                       <b-button-group> 
                         <b-button v-if="this.selectedEntry.length>0" @click="clearSelected" variant="outline-secondary" size='sm' ><span>Cancel Selected</span></b-button>
                         <b-button v-if="!(this.items.length===this.selectedEntry.length)" @click="selectAllRows" variant="outline-secondary" size='sm' ><span>Select All</span></b-button>
                       </b-button-group>      
                     </b-form-group>
+                    <b-row v-if="this.result.total!==undefined&&this.result.end!==undefined">
+                      <b-col>
+                        <b-link disabled>{{result.end}}</b-link><span style="color:#4D4D4D">&nbsp;of&nbsp;</span>
+                        <b-link disabled>{{result.total}}</b-link><span style="color:#4D4D4D">&nbsp;records are shown.</span>
+                      </b-col>
+                    </b-row>
                     <b-table 
                         :items= "items" 
                         :fields= "fields" 
@@ -59,7 +65,7 @@
                     </b-table>
                 <b-row>
                     <b-col style="text-align:center">
-                        <b-spinner small v-if="this.isBusy===true"></b-spinner>
+                        <b-spinner small v-if="isBusyLoad"></b-spinner>
                     </b-col>
                 </b-row>
                 </b-col>
@@ -79,7 +85,7 @@
 <script>
     import dataJson from '@/assets/entryData.json'
     import treeTable from '../treeTable/tree-table.vue'
-    import {getListById,appendListById} from '@/components/utility/utility-functions.js'
+    import {getListById,appendListById,celarResultTable} from '@/components/utility/utility-functions.js'
     export default {
         name:'selectEntry',
         props:{
@@ -91,6 +97,8 @@
             return {
                 show:false,
                 isBusy:false,
+                isBusyFind:false,
+                isBusyLoad:false,
                 treeDataSource: {},
                 result:{
                     id:undefined,
@@ -108,12 +116,12 @@
                         sortable:true
                     },
                     {
-                        key: 'entryName',
+                        key: 'eName',
                         label:'Method of Entry',
                         sortable: true
                     },
                     {
-                        key: 'entryNameCh',
+                        key: 'eNameChn',
                         label:'入仕法',
                         sortable: true
                     }
@@ -131,11 +139,11 @@
                 this.selectedEntry.splice(0,this.selectedEntry.length)
                 this.show = false;
             },
-            dropAllItems(){
-            this.items.splice(0,this.items.length);
-            },
             onRowSelected(items) {
                 this.selectedEntry = items
+            },
+            onClearTable(){
+                celarResultTable(this)
             },
             haveSelected: function(){
                 //同步选中入仕途径
@@ -158,7 +166,7 @@
             getListById('entry_list',m.Id,this)
             },
             handleTableScroll(){
-            appendListById('entry_list',this)
+                appendListById('entry_list',this)
             },
             async find(){
                 if(this.formData.eName !==''){

@@ -79,20 +79,23 @@ function yearValidation(idx){
     if(st.$el.scrollHeight - st.$el.scrollTop <= st.$el.clientHeight&&vm.isBusy===false)
       if(vm.result.end!==undefined&&vm.result.total!==undefined&&vm.result.end<vm.result.total){
         vm.isBusy=true
-        vm.axios.get(`${vm.$store.state.global.apiAddress}${apiType}?id=${vm.result.id}&start=${vm.result.end+1}&list=50`)
+        vm.isBusyLoad=true
+        vm.axios.get(`${vm.$store.state.global.apiAddress}${apiType}?id=${vm.result.id}&start=${vm.result.end+1}&list=100`)
         .then((r)=>{
           //console.log(r.data.data)
           r.data.data.forEach(i=>{vm.items.push(i)})
           vm.result.start = parseInt(r.data.start)
           vm.result.end = parseInt(r.data.end)
-          vm.result.total = parseInt(r.data.total)
-          vm.isBusy=false
+          //vm.result.total = parseInt(r.data.total)
           },
           (e)=>{
             alert('Sorry, something went wrong...')
-            vm.isBusy=false
           }
         )
+        .then(()=>{
+          vm.isBusy=false
+          vm.isBusyLoad=false
+        })
       }
   }
   /**
@@ -100,9 +103,10 @@ function yearValidation(idx){
   * api名称 作为查询依据的id 和vue实例
   **/
  function getListById(apiType,id,vm){
+    console.log(id)
     if(vm.isBusy===false){
       vm.isBusy=true
-      vm.axios.get(`${vm.$store.state.global.apiAddress}${apiType}?id=${id}&start=1&list=50`)
+      vm.axios.get(`${vm.$store.state.global.apiAddress}${apiType}?id=${id}&start=1&list=100`)
       .then((r)=>{
         console.log(r.data)
         vm.items = r.data.data
@@ -130,8 +134,15 @@ function yearValidation(idx){
       ]
     }
 
+  function celarResultTable(vm){
+    vm.items.splice(0,vm.items.length);
+    for (let prop in vm.result){
+      vm.result[prop] = undefined
+    } 
+  }
   export {
       isNull as isNull,
+      capitalizeFirst as capitalizeFirst,
       yearValidation as yearValidation,
       peoplePlaceGetter as peoplePlaceGetter,
       officePlaceGetter as officePlaceGetter,
@@ -141,5 +152,6 @@ function yearValidation(idx){
       relationGetter as relationGetter,
       handleTableScroll as appendListById,
       getListById as getListById,
-      kinshipOptions as kinshipOptions
+      kinshipOptions as kinshipOptions,
+      celarResultTable as celarResultTable
   }

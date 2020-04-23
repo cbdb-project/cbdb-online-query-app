@@ -21,23 +21,30 @@
             :id="'res-'+this.name"             
             :ref="'selectableTable-'+this.name"
             selectable
+            responsive
             select-mode="multi"
-            @row-selected="onRowSelected"
-            responsive>
-              <template v-slot:cell(selected)="{ rowSelected }">
-                 <template v-if="rowSelected">
-                    <span aria-hidden="true">&check;</span>
-                    <span class="sr-only">Selected</span>
-                  </template>
-                  <template v-else>
-                    <span aria-hidden="true">&nbsp;</span>
-                    <span class="sr-only">Not selected</span>
-                  </template>
-              </template>
+            :current-page="currentPage"
+            :per-page="offset"
+            @row-clicked="onRowSelected">
+            <template v-slot:head()="scope">
+              <div class="text-nowrap">
+                Heading {{ scope.label }}
+              </div>
+            </template>
+            <template v-slot:cell(NameChn)="data">
+              <span>{{data.value}}</span>
+              <span v-if="getSelected.indexOf(data.value)!==-1">{{data.selectRow()}}</span>
+            </template>
           </b-table>
           <b-row>
             <b-col style="text-align:center">
-               <b-spinner small v-if="this.isLoading===true"></b-spinner>
+              <b-pagination
+                v-model="currentPage"
+                :total-rows="end"
+                :per-page="offset"
+                align="fill"
+                size="sm"
+               ></b-pagination>
             </b-col>
           </b-row>
       </div>
@@ -49,6 +56,7 @@
 </template>
 
 <script>
+import resultData from '@/assets/geodata.json'
 export default {
   name: 'queryResult',
   props:{
@@ -59,77 +67,95 @@ export default {
         default:0
     },
     'offset':{
-        default:200
+        default:50
     },
     'end':{
-        default:1000
+        default:500
     }
   },
   data () {
     return {
+      currentPage:1,
       startIdx:this.start,
       isLoading:false,
       /*表格子數據放這裡*/
         fields: [
           {
-            key: 'name',
+            key: '\ufeffName',
             label:'Name',
             sortable: true
           },
           {
-            key: 'nameCh',
+            key: 'NameChn',
             label:'姓名',
+            stickyColumn: true, isRowHeader: true, 
+            variant: 'light',
             sortable: true
           },
           {
-            key: 'indexYear',
-            label: 'Index Year',
+            key: 'IndexYear',
+            label: 'Index Year 指數年',
             sortable: true,
           },
           {
-            key: 'female',
-            label:'Female',
+            key: 'Sex',
+            label:'Gender 性別',
             sortable: true
           },
           {
-            key: 'placeType',
-            label:'地名類',
-            sortable: true
-          },
-          {
-            key: 'personPlace',
-            label: 'Place(Person)',
+            key: 'AddrID',
+            label: 'Address ID',
             sortable: true,
           },
           {
-            key: 'personPlaceCh',
+            key: 'AddrName',
+            label:'Address Name',
+            sortable: true
+          },
+          {
+            key: 'AddrChn',
+            label: '地名(人)',
+            sortable: true,
+          },
+          {
+            key: 'X',
+            label:'Longitude 經度',
+            sortable: true
+          },
+          {
+            key: 'Y',
+            label:'Latitude 緯度',
+            sortable: true
+          },
+          {
+            key: 'AddrChn',
             label: '地名(人)',
             sortable: true,
           }
         ],
-        items: [
-          {name:'Liu Jun',nameCh:'劉俊',indexYear:'1086',female:false,placeType:'籍貫',personPlace:'Nan Yang',personPlaceCh:'南陽'},
-          {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'},        
-          {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'},       
-          {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'}, 
-          {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'}, 
-          {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'}, 
-          {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'}, 
-          {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'}, 
-          {name:'Jiang Can',nameCh:'蔣璨',indexYear:'1114',female:false,placeType:'籍貫',personPlace:'Yi Xing',personPlaceCh:'宜興'}, 
-        ],
+        items: resultData,
         selected:[]
     }
   },
   methods: {
-    onRowSelected(items) {
-      this.selected = items
+    onRowSelected(item,index,event) {
+      let self = this
+      let i = self.getSelected.indexOf(item['NameChn'])
+      if(i===-1){
+        self.selected.push(item)
+      }
+      else{
+        self.selected.splice(i,1);
+      }
+      console.log(self.selected)
     },
     selectAllRows() {
       this.$refs['selectableTable-'+this.name].selectAllRows()
+      this.selected=this.items.map(i=>i)
     },
     clearSelected() {
       this.$refs['selectableTable-'+this.name].clearSelected()
+      this.selected.splice(0,this.selected.length);
     },
     exportData(){
       let str = ''
@@ -157,7 +183,7 @@ export default {
         var cb = ()=>{
         //console.log('rrr')
         let offset = vm.end-vm.startIdx>vm.offset?vm.offset:vm.end-vm.startIdx
-        for(let i=0; i<offset; i++)vm.items.push( {name:'Liu Jun',nameCh:'劉俊',indexYear:'1086',female:false,placeType:'籍貫',personPlace:'Nan Yang',personPlaceCh:'南陽'})
+        for(let i=0; i<offset; i++)vm.items.push( {"\ufeffName": "You Jianyan", "NameChn": "游簡言", "Sex": "M", "IndexYear": " 969", "AddrID": " 16027", "AddrName": "Jian'an", "AddrChn": "建安", "X": " 118.323784", "Y": " 27.038864", "xy_count": " 2"})
         vm.startIdx+=offset
         this.isLoading = false
         }
@@ -166,8 +192,13 @@ export default {
       else if(this.startIdx>=this.end) this.$refs['selectableTable-'+this.name].$el.removeEventListener('scroll',this.loadMore) 
     }
   },
+  computed:{
+    getSelected(){
+      return this.selected.map(i=>i['NameChn'])
+    }
+  },
   mounted(){
-    this.$refs['selectableTable-'+this.name].$el.addEventListener('scroll',this.loadMore, false)
+    //this.$refs['selectableTable-'+this.name].$el.addEventListener('scroll',this.loadMore, false)
   }
 }
 </script>

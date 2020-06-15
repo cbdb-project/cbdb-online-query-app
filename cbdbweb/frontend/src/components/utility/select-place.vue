@@ -23,17 +23,17 @@
                             <b-form-input id="select-place-input-ty" v-model="formData.toYear"></b-form-input>
                         </b-form-group>
                           <b-button-group>
-                            <b-button variant="primary" :disabled="isBusy">
-                                <span v-if="!isBusyFind" @click="find">Find</span>
+                            <b-button variant="primary" :disabled="isBusy||formData.pName===''" @click="find">
+                                <span v-if="!isBusyFind">Find</span>
                                 <b-spinner small v-else></b-spinner>
                             </b-button>   
                           </b-button-group> 
                     </b-card>   
                     <b-card>
                         <b-form-group>
-                            <b-button variant="primary" :disabled="isBusy||selectedPlace.length!==1"
+                            <b-button variant="primary" :disabled="isBusy||selectedPlace.length!==1" @click="getSuperiorLoc"
                             >
-                                <span v-if="!isBusySupLoc" @click="getSuperiorLoc">Get Places Belong to</span>
+                                <span v-if="!isBusySupLoc">Get Places Belong to</span>
                                 <b-spinner small v-else></b-spinner>
                             </b-button>
                         </b-form-group>
@@ -56,23 +56,21 @@
                     <b-table 
                         :items= "items" 
                         :fields= "fields" 
-                        sticky-header = "470px"
+                        sticky-header
                         head-variant="light" 
                         ref="selectableTable"
                         selectable
                         select-mode="multi"
                         @row-selected="onRowSelected"
                         responsive="sm">
-                        <template v-slot:cell(selected)="{ rowSelected }">
-                            <template v-if="rowSelected">
-                            <span aria-hidden="true">&check;</span>
-                            <span class="sr-only">Selected</span>
-                            </template>
-                            <template v-else>
-                            <span aria-hidden="true">&nbsp;</span>
-                            <span class="sr-only">Not selected</span>
-                            </template>
+                        <template v-slot:head()="scope">
+                          <span>
+                            {{ scope.label }}
+                          </span>
                         </template>
+                      <template v-slot:cell(pNameChn)="data">
+                        <span>{{data.value}}</span>
+                      </template>
                     </b-table>
                     <b-row>
                         <b-col style="text-align:center">
@@ -94,7 +92,7 @@
 </template>
 
 <script>
-import {capitalizeFirst,celarResultTable} from '@/components/utility/utility-functions.js'
+import {capitalizeFirst,celarResultTable,getListByName} from '@/components/utility/utility-functions.js'
 export default {
   name:'selectPlace',
   props:{
@@ -117,7 +115,7 @@ export default {
           toYear:''
         },
         result:{
-          id:undefined,
+          query:undefined,
           start:undefined,
           end:undefined,
           total:undefined
@@ -137,7 +135,7 @@ export default {
           {
             key: 'pNameChn',
             label:'地名',
-            sortable: true
+            sortable: true,
           },
           {
             key: 'pStartTime',
@@ -156,7 +154,7 @@ export default {
           },
           {
             key: 'pBNameChn',
-            label:'属于',
+            label:'上級地點',
             sortable: true
           }
         ],
@@ -192,39 +190,15 @@ export default {
         this.$refs.selectableTable.clearSelected()
       },
       find(){
-        let vm = this
-        if(vm.isBusy===false){
-          vm.isBusy=true
-          vm.isBusyFind=true
-          vm.formData.pName = capitalizeFirst(vm.formData.pName)
-          let fy = this.formData.fromYear
-          let ty = this.formData.toYear
-          //自動填充
-          if(fy!==''||ty!==''){
+        let n = this.formData.pName
+        let a = this.formData.isApprox
+        let fy = this.formData.fromYear
+        let ty = this.formData.toYear
+        if(fy!==''||ty!==''){
             if (fy==='')fy = '-200'
             if(ty==='')ty = (new Date()).getFullYear()
           }
-          let query = `${vm.$store.state.global.apiAddress}place_list?name=${this.formData.pName}&accurate=${this.formData.isApprox}&startTime=${fy}&endTime=${ty}`
-          console.log(query)
-          vm.axios.get(`${query}&start=1&list=100`)
-          .then((r)=>{
-            console.log(r.data)
-            vm.items = r.data.data
-            vm.result.query = query
-            vm.result.start = parseInt(r.data.start)
-            vm.result.end = parseInt(r.data.end)
-            vm.result.total = parseInt(r.data.total)
-            vm.$refs.selectableTable.$el.scrollTop=0//弹回最上方
-            },
-            (e)=>{
-              alert('Sorry, something went wrong...')
-              console.log(e)
-            }
-          ).then(()=>{
-            vm.isBusy=false
-            vm.isBusyFind=false
-          })
-        }
+        getListByName('place_list',[n,a,fy,ty],this)
       },
       getSuperiorLoc(){
         let vm = this

@@ -17,7 +17,7 @@
               <b-row class="pl-3" style = "text-align:center">
                 <b-col>
                   <span v-if="this.entryTable.length==0" style = "line-height:31px">**{{$t('globalTerm.all')}}**</span>
-                  <span v-else>{{entryTable[0]['entryNameCh']}}
+                  <span v-else>{{entryTable[0]['eNameChn']}}
                     <span v-if="this.entryTable.length>1">及另外{{this.entryTable.length-1}}種入仕途徑</span>
                   </span>
                   <view-selected name="entry" :fields="this.entryField" :items="this.entryTable" @update:items="val=>this.entryTable=val"></view-selected>
@@ -62,7 +62,7 @@
               <b-row class="pl-3" style = "text-align:center">
                 <b-col>
                   <span v-if="this.peoplePlaceTable.length==0" style = "line-height:31px">**{{$t('globalTerm.all')}}**</span>
-                  <span v-else>{{peoplePlaceTable[0]['placeNameCh']}}
+                  <span v-else>{{peoplePlaceTable[0]['pNameChn']}}
                     <span v-if="this.peoplePlaceTable.length>1">及另外{{peoplePlaceTable.length-1}}個地點</span>
                   </span>
                   <view-selected name='peoplePlace' :fields="this.peoplePlaceField" :items="this.peoplePlaceTable" @update:items="val=>this.peoplePlaceTable=val"></view-selected>
@@ -139,8 +139,9 @@
       <b-row class = "px-3 mb-3">
         <b-col></b-col>
         <b-col  class = "p-3">
-            <b-button href="#" variant="primary" style = "width:100%;margin-top:38px" :disabled="isInvalid">
-              <span v-if="!isBusy">Go</span>
+            <b-button href="#" variant="primary" style = "width:100%;margin-top:38px" 
+            :disabled="isInvalid||isBusy" @click="handleSubmit">
+              <span v-if="!isBusy">{{$t('globalTerm.search')}}</span>
               <b-spinner small v-else></b-spinner>
             </b-button>
         </b-col>
@@ -153,12 +154,12 @@
       -->
     </b-card>
   </div>
-  <div class="hello" v-if="result.tableData!=undefined">
+  <div class="hello" v-if="result!==undefined">
     <b-card header-tag="header" footer-tag="footer">
       <template v-slot:header>
           <h6 class="mb-0">{{$t('globalTerm.resultShow')}}</h6>
       </template>
-      <query-result></query-result>
+      <query-result name="entry" :items="result.entry" :fields="resultField"></query-result>
     </b-card>
   </div>
 </div>
@@ -172,7 +173,7 @@ import selectPlace from '@/components/utility/select-place.vue'
 import importPlace from '@/components/utility/import-place.vue'
 import viewSelected from '@/components/utility/view-selected.vue'
 export default {
-  name: 'entityQueryByPerson',
+  name: 'entityQueryByEntry',
   components:
   {
       queryResult,
@@ -201,10 +202,149 @@ export default {
       entryTable:[],
       peoplePlaceField:[],
       peoplePlaceTable:[],
-      result:{
-        totalPages:undefined,
-        tableData:undefined
-      }
+      resultField:[
+            { 
+              key: 'PersonID',
+              label:'人物代碼',
+              sortable: true
+              },
+            {
+              key: 'Name',
+              label:'Name',
+              sortable: true
+            },
+            {
+              key: 'NameChn',
+              label:'人物姓名',
+              sortable: true
+            },
+            {
+              key: 'Sex',
+              label:'Sex',
+              sortable: true
+            },
+            {
+              key: 'IndexYear',
+              label:'Index Year',
+              sortable: true
+            },
+            { 
+              key: 'EntryDesc',
+              label:'入仕途徑',
+              sortable: true
+              },
+              { 
+              key: 'EntryChn',
+              label:'Entry Description',
+              sortable: true
+              },
+            {
+              key: 'EntryYear',
+              label:'入仕年',
+              sortable: true
+            }, 
+            {
+              key: 'EntryRank',
+              label:'考試排名',
+              sortable: true
+            }, 
+            {
+              key: 'KinType',
+              label:'親屬類型',
+              sortable: true
+            },                
+            {
+              key: 'KinName',
+              label:'Kin Name',
+              sortable: true
+            },  
+            {
+              key: 'KinChn',
+              label:'親屬姓名',
+              sortable: true
+            }, 
+            {
+              key: 'Association',
+              label:'社會關係',
+              sortable: true
+            }, 
+            {
+              key: 'AssoName',
+              label:'Associate Name',
+              sortable: true
+            },                
+            {
+              key: 'AssocChn',
+              label:'社會關係人姓名',
+              sortable: true
+            }, 
+            {
+              key: 'AddrID',
+              label:'人物地點ID',
+              sortable: true
+            },
+            {
+              key: 'AddrName',
+              label:'Address Name',
+              sortable: true
+            },
+            {
+              key: 'AddrChn',
+              label:'人物地點名',
+              sortable: true
+            },
+            {
+              key: 'X',
+              label:'經度',
+              sortable: true
+            },
+            {
+              key: 'Y',
+              label:'緯度',
+              sortable: true
+            },
+            {
+              key: 'xy_count',
+              label:'XY Count',
+              sortable: true
+            },
+            { 
+              key: 'ParentState',
+              label:'Parents State',
+              sortable: true
+              },
+            {
+              key: 'ParentStateChn',
+              label:'父母情況',
+              sortable: true
+            },
+            {
+              key: 'EntryPlace',
+              label:'Entry Place',
+              sortable: true
+            },
+            {
+              key: 'EntryPlaceChn',
+              label:'入仕地點',
+              sortable: true
+            },
+            {
+              key: 'EntryX',
+              label:'入仕地點經度',
+              sortable: true
+            },
+            { 
+              key: 'EntryY',
+              label:'入仕地點緯度',
+              sortable: true
+              },
+            { 
+              key: 'entry_xy_count',
+              label:'Entry XY Count',
+              sortable: true
+              }
+          ],
+      result:undefined
     }
   },
   methods:{
@@ -218,6 +358,30 @@ export default {
     //获取入仕途径信息
     handleGetEntry: function(i){
       entryGetter(i,this)
+    },
+    async handleSubmit(){
+      //提交表单的时候先清空原有數據
+      this.isBusy = true;
+      let vm = this
+      let f = vm.formData
+      let useXy = f.useXy
+      if (f.usePeoplePlace==='0')useXy=0
+      let data = {"entry":vm.getEntryTableId,"usePeoplePlace":parseInt(f.usePeoplePlace),"peoplePlace":vm.getPeoplePlaceTableId,"locationType":f.locationType,"useDate":parseInt(f.useDate,10),"dateType":f.dateType,"dateStartTime":parseInt(f.dateStartTime,10),"dateEndTime":parseInt(f.dateEndTime,10),"useXy":useXy,"start":0,"list":65535 }
+      data = JSON.stringify(data)
+      let query = `${vm.$store.state.global.apiAddress}query_entry_postings?RequestPlayload=${data}`
+      //console.log(query)
+      this.axios.post(query)
+        .then(res=>{
+           vm.result={}
+            vm.result.entry=res.data.data         
+        },
+        (error)=>{
+            alert('Network Error...')
+          }
+        )
+        .finally(()=>{
+          vm.isBusy=false
+        })      
     }
   },
   computed:{
@@ -234,11 +398,8 @@ export default {
           { text: this.$t('entityQueryByEntry.indexYear'), value: 'index' },
         ]
       },
-    queryFormular(){
-      return `office-ch-name:'${this.formData.officeChName}',office-en-name:'${this.formData.officeEnName}',office-ch-type:'${this.formData.officeChType}',office-en-type:'${this.formData.officeEnType}',office-ch-place:'${this.formData.officeChPlace}',office-en-place:'${this.formData.officeEnPlace}',person-ch-place:'${this.formData.personChPlace}',person-en-place:'${this.formData.personEnPlace}',start-time:'${this.formData.startTime}',end-time:'${this.formData.endTime}'index-year:'${this.formData.indexYear}';`
-    },
     isInvalid(){
-      return (this.getEntryTableId.length==0)||this.validation('entryStartTime')===false || this.validation('entryEndTime')===false||this.validation('indexStartTime')===false || this.validation('indexEndTime')===false
+      return (this.getEntryTableId.length==0)||this.validation('dateEndTime')===false || this.validation('dateStartTime')===false
     },
     getPeoplePlaceTableId(){return this.peoplePlaceTable.map(i=>i['pId'])},
     getEntryTableId(){return this.entryTable.map(i => i['eId'])}

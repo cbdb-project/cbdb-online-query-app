@@ -19,6 +19,7 @@ module.exports = {
         entityQueryByPerson:"Look up Data on an Individual",
         entityQueryByOffice:"Query Office Holding",
         entityQueryByEntry:"Query by Methods of Entry into Government",
+        entityQueryByPlace:"Look At Place",
         relationQuery:"Relation Query",
         relationQueryByKinship:"By Kinship",
         relationQueryByAssociation:"By Association",
@@ -53,6 +54,7 @@ module.exports = {
     },
     globalTerm:{
         //全局術語
+        search:"Search",
         all:"All",
         date:"Date",
         time:"Time",
@@ -106,8 +108,6 @@ module.exports = {
     },
     entityQueryByOffice:{
         indexYearRange:"Index Year Range",
-        checkAndSearch:"Check And Search",
-        checkRemind:"The query is generated as the following. Please check it before your search."
     },
     entityQueryByPerson:{
         personId:"Person ID",

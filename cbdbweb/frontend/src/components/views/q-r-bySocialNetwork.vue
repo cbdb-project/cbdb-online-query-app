@@ -1,7 +1,7 @@
 <template>
 <div class = "wrapper">
   <div class = "mt-3 pt-1 pl-1" style = "text-align:left">
-  <h5>{{$t('navbarLeft.entityQueryByPerson')}}</h5>
+  <h5></h5>
   </div>
   <div class="hello">
     <b-card header-tag="header" footer-tag="footer">
@@ -15,44 +15,44 @@
             <b-card-text class = "card-item-title">{{$t('globalTerm.person')}}</b-card-text>    
             <b-card>
               <b-row class="pl-3" style = "text-align:center">
-                <b-col>未選擇</b-col>
+                <b-col>
+                  <span v-if="this.personTable.length==0" style = "line-height:31px">**{{$t('globalTerm.all')}}**</span>
+                  <span v-else>{{personTable[0]['personNameCh']}}
+                    <span v-if="this.personTable.length>1">及另外{{this.personTable.length-1}}個人物</span>
+                  </span>
+                  <view-selected name="person" :fields="this.personField" :items="this.personTable" @update:items="val=>this.personTable=val"></view-selected>
+                </b-col>
               </b-row>
             </b-card>
           </b-col>
           <b-col cols="4" style = "text-align:left">
-            <select-person @getPersonName="handleGetPerson" selectMode='single' style="margin-top:48px">
+            <select-person @getPersonName="handleGetPerson" selectMode='multi' style="margin-top:56px">
             </select-person>
           </b-col>
-        </b-row>
-        <b-row class = "py-3 my-3">
-          <b-col cols="8" style = "text-align:left">
-            <b-card-text class = "card-item-title">{{$t('globalTerm.place')}}</b-card-text>    
+        </b-row>        
+        <!-- 人物地點 -->
+        <b-row class = "py-3 my-3">    
+          <b-col cols="8" style = "text-align:left"> 
+             <b-card-text class = "card-item-title">{{$t('globalTerm.place')}}</b-card-text>
             <b-card>
               <b-row class="pl-3" style = "text-align:center">
-                <b-col>未選擇</b-col>
+                <b-col>
+                  <span v-if="this.peoplePlaceTable.length==0" style = "line-height:31px">**{{$t('globalTerm.all')}}**</span>
+                  <span v-else>{{peoplePlaceTable[0]['pNameChn']}}
+                    <span v-if="this.peoplePlaceTable.length>1">及另外{{peoplePlaceTable.length-1}}個地點</span>
+                  </span>
+                  <view-selected name='peoplePlace' :fields="this.peoplePlaceField" :items="this.peoplePlaceTable" @update:items="val=>this.peoplePlaceTable=val"></view-selected>
+                </b-col>
               </b-row> 
             </b-card>   
           </b-col>
           <b-col cols="4" style = "text-align:left" >
-            <select-place @getPlaceName="handleGetPeoplePlace" style = "margin-top:48px"></select-place>
+            <b-button-group>
+            <select-place @getPlaceName="handleGetPeoplePlace" name="people" style = "margin-top:56px"></select-place>
+            <import-place @getPlaceName="handleGetPeoplePlace" name="people" style = "margin-top:56px"></import-place>
+            </b-button-group>
           </b-col>
-        </b-row>
-        <b-row class = "py-3 my-3">
-          <b-col cols="8" style = "text-align:left">
-            <b-card-text class = "card-item-title">{{$t('globalTerm.association')}}</b-card-text>    
-            <b-card>
-              <b-row class="pl-3" style = "text-align:center">
-                <b-col>未選擇</b-col>
-              </b-row>
-            </b-card>
-          </b-col>
-          <b-col cols="2"  style = "text-align:left">
-            <select-relation style="margin-top:48px">   <!-- @getPersonName="handleGetPerson" --> 
-            </select-relation>
-          </b-col>
-          <b-col cols="2">
-          </b-col>
-        </b-row>
+        </b-row> 
         <b-card-text class = "card-item-title pt-3" style = "text-align:left">Search Options</b-card-text>    
         <b-row class = "pb-3 mb-3">
           <b-col cols="4">
@@ -154,18 +154,21 @@
                 Invalid number 
               </b-form-invalid-feedback>
            </b-col>
-           <!-- TO DO: Max Loop 到底属于哪个层级？要验证 -->
-           <b-col>
-             <label for="max-loop" class = "user-input-label">{{$t('relationQueryByKinship.maxLoop')}}:
-               <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-              </label>
-             <b-form-input id="max-loop" v-model="formData.endTime" placeholder="" 
-             :state="validation('indexEndTime')" :disabled="false"></b-form-input>
-              <b-form-invalid-feedback :state="validation('indexEndTime')">
-                Invalid number
-              </b-form-invalid-feedback>
-           </b-col>
         </b-row>
+        <b-row class = "px-3 my-3" style = "text-align:left" v-if="formData.includeKinship==='1'">
+          <b-col>
+            <b-form-checkbox
+              id="checkbox-kinarg"
+              v-model="this.formData.kinarg"
+              size="md"
+              name="checkbox-kinarg"
+              value="1"
+              unchecked-value="0"
+            >
+            使用親屬的距離參數
+           </b-form-checkbox> 
+          </b-col>
+        </b-row> 
         <b-row class = "px-3 mb-3">
           <b-card-text class = "card-item-title mt-3">
             <b-form-checkbox switch size="lg" id="checkbox-1" v-model= "formData.indexYear" name="checkbox-1"
@@ -201,7 +204,7 @@
             <b-button href="#" variant="primary" 
               style = "width:100%;margin-top:16px" :disabled="isInvalid||isBusy"
               @click="handleSubmit">
-              <span v-if="!isBusy">Go</span>
+              <span v-if="!isBusy">{{$t('globalTerm.search')}}</span>
               <b-spinner small v-else></b-spinner>
             </b-button>
           </a>
@@ -227,8 +230,8 @@ import queryResult from '@/components/utility/query-result.vue'
 import selectRelation from '@/components/utility/select-relationship.vue'
 import selectPerson from '@/components/utility/select-person.vue'
 import selectPlace from '@/components/utility/select-place.vue'
-//開發用的假數據
-import dataJson from '@/assets/person_data_dev.json'
+import importPlace from '@/components/utility/import-place.vue'
+import viewSelected from '@/components/utility/view-selected.vue'
 export default {
   name: 'relationQueryBySocialNetwork',
   components:
@@ -236,7 +239,9 @@ export default {
     queryResult,
     selectRelation,
     selectPerson,
-    selectPlace
+    selectPlace,
+    viewSelected,
+    importPlace
   },
   data () {
     return {
@@ -244,19 +249,25 @@ export default {
       isBusy: false,
       /*表單數據放這裡*/
       formData:{
-        personId:'',
-        personNameEn:'',
-        personNameCh:'',
-        personIndexYear:'',
-        includeKinship:'0',
+        person:[],
+        place:[],
+        association:[],
+        includeKinship:0,
         kinship:{
-          kinshipType:'custom'
-        }
+          kinshipType:'mCircle',
+        },
+        usePeoplePlace:0
       },
       //後端傳回來的數據放這裡
       personInfo:{
 
       },
+      peoplePlaceTable:[],
+      peoplePlaceField:[],
+      relationTable:[],
+      relationField:[],
+      personField:[],
+      personTable:[],
     }
   },
   methods:{
@@ -295,7 +306,7 @@ export default {
       //------模擬服務器響應的東西---------
       return new Promise(function(resolve,reject){
         setTimeout((success=true)=>{
-          if(success)resolve({status:'200',data:dataJson})
+          if(success)resolve({status:'200',data:{}})
           else reject({status:'404'})
         },3000)
       })

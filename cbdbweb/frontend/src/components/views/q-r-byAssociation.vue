@@ -32,13 +32,25 @@
           <b-col cols="2">
           </b-col>
         </b-row>
-        <b-row class = "py-3 my-3">
+      </div>
+      <b-card-text class = "card-item-title pt-3">{{$t('globalTerm.alternativeInput')}}</b-card-text>             
+      <div class  = "card-item-body px-3">
+        <!-- 人物地點 -->
+        <b-row class = "px-3 mb-3">
+          <b-card-text class = "card-item-title mt-3">
+            <b-form-checkbox switch size="lg" id="checkbox-1" v-model= "formData.usePeoplePlace" name="checkbox-1"
+              value="1" unchecked-value="0">
+                <span style="font-size:16px">{{$t('globalTerm.person')}}{{$t('globalTerm.place')}}</span>
+            </b-form-checkbox>
+          </b-card-text> 
+        </b-row>
+        <b-row class = "py-3 my-3" v-if="formData.usePeoplePlace ==='1'">
           <b-col cols="8" style = "text-align:left"> 
             <b-card>
               <b-row class="pl-3" style = "text-align:center">
                 <b-col>
-                  <span v-if="this.peoplePlaceTable.length===0" style = "line-height:31px">**{{$t('globalTerm.all')}}**</span>
-                  <span v-else>{{peoplePlaceTable[0]['placeNameCh']}}
+                  <span v-if="this.peoplePlaceTable.length==0" style = "line-height:31px">**{{$t('globalTerm.all')}}**</span>
+                  <span v-else>{{peoplePlaceTable[0]['pNameChn']}}
                     <span v-if="this.peoplePlaceTable.length>1">及另外{{peoplePlaceTable.length-1}}個地點</span>
                   </span>
                   <view-selected name='peoplePlace' :fields="this.peoplePlaceField" :items="this.peoplePlaceTable" @update:items="val=>this.peoplePlaceTable=val"></view-selected>
@@ -53,9 +65,6 @@
             </b-button-group>
           </b-col>
         </b-row> 
-      </div>
-      <b-card-text class = "card-item-title pt-3">{{$t('globalTerm.alternativeInput')}}</b-card-text>             
-      <div class  = "card-item-body px-3">
         <b-row class = "px-3 mb-3">
           <b-card-text class = "card-item-title mt-3">
             <b-form-checkbox switch size="lg" id="checkbox-2" v-model= "formData.indexYear" name="checkbox-2"
@@ -91,7 +100,7 @@
             <b-button href="#" variant="primary" 
               style = "width:100%;margin-top:16px" :disabled="isInvalid||isBusy"
               @click="handleSubmit">
-              <span v-if="!isBusy">Go</span>
+              <span v-if="!isBusy">{{$t('globalTerm.search')}}</span>
               <b-spinner small  v-else></b-spinner>
             </b-button>
           </a>
@@ -117,8 +126,8 @@ import queryResult from '@/components/utility/query-result.vue'
 import selectRelation from '@/components/utility/select-relationship.vue'
 import selectPlace from '@/components/utility/select-place.vue'
 import viewSelected from '@/components/utility/view-selected.vue'
-//開發用的假數據
-import dataJson from '@/assets/person_data_dev.json'
+import importPlace from '@/components/utility/import-place.vue'
+
 export default {
   name: 'relationQueryByAssociation',
   components:
@@ -126,7 +135,8 @@ export default {
     queryResult,
     selectRelation,
     selectPlace,
-    viewSelected
+    viewSelected,
+    importPlace
   },
   data () {
     return {
@@ -136,6 +146,7 @@ export default {
       formData:{
         place:[],
         association:[],
+        usePeoplePlace:0
       },
       //後端傳回來的數據放這裡
       personInfo:{
@@ -158,7 +169,7 @@ export default {
       peoplePlaceGetter(i,this)
     },
     handleGetRelation:function(i){
-      console.log(i)
+      //console.log(i)
       relationGetter(i,this)
     },
     async handleSubmit(){
@@ -183,7 +194,7 @@ export default {
       //------模擬服務器響應的東西---------
       return new Promise(function(resolve,reject){
         setTimeout((success=true)=>{
-          if(success)resolve({status:'200',data:dataJson})
+          if(success)resolve({status:'200',data:{}})
           else reject({status:'404'})
         },3000)
       })

@@ -22,7 +22,7 @@
                      <a v-b-tooltip.hover  :title="isInvalid?$t('globalTerm.invalidInput'):''">
                       <b-button variant="primary" @click="searchPerson(formData.personName)"
                       :disabled="isInvalid||isBusy" style = "width:96px">
-                        <span v-if="!isBusy">Go</span>
+                        <span v-if="!isBusy">{{$t('globalTerm.search')}}</span>
                         <b-spinner small v-if="isBusy"></b-spinner>
                       </b-button>
                      </a>
@@ -65,7 +65,6 @@
 </template>
 
 <script>
-import dataJson from '@/assets/person_list_dev.json'
 import {isNull} from '@/components/utility/utility-functions.js'
 export default {
     name:'selectPerson',

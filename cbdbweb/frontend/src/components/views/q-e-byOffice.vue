@@ -47,7 +47,7 @@
               <b-row class="pl-3" style = "text-align:center">
                 <b-col>
                   <span v-if="this.officePlaceTable.length==0" style = "line-height:31px">**{{$t('globalTerm.all')}}**</span>
-                  <span v-else>{{officePlaceTable[0]['placeNameCh']}}
+                  <span v-else>{{officePlaceTable[0]['pNameChn']}}
                     <span v-if="this.officePlaceTable.length>1">及另外{{officePlaceTable.length-1}}個地點</span>
                   </span>
                   <view-selected name='officePlace' :fields="this.officePlaceField" :items="this.officePlaceTable" @update:items="val=>this.officePlaceTable=val"></view-selected>
@@ -77,7 +77,7 @@
               <b-row class="pl-3" style = "text-align:center">
                 <b-col>
                   <span v-if="this.peoplePlaceTable.length==0" style = "line-height:31px">**{{$t('globalTerm.all')}}**</span>
-                  <span v-else>{{peoplePlaceTable[0]['placeNameCh']}}
+                  <span v-else>{{peoplePlaceTable[0]['pNameChn']}}
                     <span v-if="this.peoplePlaceTable.length>1">及另外{{peoplePlaceTable.length-1}}個地點</span>
                   </span>
                   <view-selected name='peoplePlace' :fields="this.peoplePlaceField" :items="this.peoplePlaceTable" @update:items="val=>this.peoplePlaceTable=val"></view-selected>
@@ -140,7 +140,7 @@
         <b-col></b-col>
         <b-col class = "p-3">
             <b-button href="#" variant="primary" style = "width:100%;margin-top:38px" :disabled="isInvalid||isBusy" @click="handleSubmit">
-              <span v-if="!isBusy">Go</span>
+              <span v-if="!isBusy">{{$t('globalTerm.search')}}</span>
               <b-spinner small v-else></b-spinner>
             </b-button>
         </b-col>
@@ -153,17 +153,17 @@
       -->
     </b-card>
   </div>
-  <div class="hello" v-if="result.tableData!=undefined">
+  <div class="hello" v-if="result!==undefined">
     <b-card header-tag="header" footer-tag="footer">
       <template v-slot:header>
           <h6 class="mb-0">{{$t('globalTerm.resultShow')}}</h6>
       </template>
         <b-tabs content-class="mt-3">
           <b-tab title="Office-Postings" active>
-             <query-result name="office-postings"></query-result>
+             <query-result name="office-postings" :items="result.post" :fields="resPostField"></query-result>
           </b-tab>
-          <b-tab title="People-in-Office">
-            <query-result name="people-in-office"></query-result>
+          <b-tab title="People-in-Office"> 
+            <query-result name="people-in-office" :items="result.person" :fields="resPostField"></query-result>
           </b-tab>
         </b-tabs>  
     </b-card>
@@ -195,9 +195,9 @@ export default {
       formData:{
         //office officePlace peoplePlace 在表单提交之前都是空的
         //所有涉及这三个变量的计算现在用计算属性
-        office:[],
-        officePlace:[],
-        peoplePlace:[],
+        //office:[],
+        //officePlace:[],
+        //peoplePlace:[],
         indexStartTime:'',
         indexEndTime:'',
         //是否使用可选条件以布尔值为准！！！
@@ -212,10 +212,164 @@ export default {
       officePlaceField:[],
       officePlaceTable:[],
       peoplePlaceTable:[],
-      result:{
-        totalPages:undefined,
-        tableData:undefined
-      }
+      resPostField: [
+            { 
+              key: 'PersonID',
+              label:'人物代碼',
+              sortable: true
+              },
+            {
+              key: 'Name',
+              label:'Name',
+              sortable: true
+            },
+            {
+              key: 'NameChn',
+              label:'人物姓名',
+              sortable: true
+            },
+            {
+              key: 'Sex',
+              label:'Sex',
+              sortable: true
+            },
+            {
+              key: 'IndexYear',
+              label:'Index Year',
+              sortable: true
+            },
+            { 
+              key: 'PersonID',
+              label:'人物代碼',
+              sortable: true
+              },
+            {
+              key: 'AddrID',
+              label:'Address ID',
+              sortable: true
+            },
+            {
+              key: 'AddrType',
+              label:'Address Type',
+              sortable: true
+            },
+            {
+              key: 'AddrTypeChn',
+              label:'地址類型',
+              sortable: true
+            },
+            {
+              key: 'AddrName',
+              label:'Address Name',
+              sortable: true
+            },
+            {
+              key: 'AddrChn',
+              label:'地點名',
+              sortable: true
+            },
+            {
+              key: 'X',
+              label:'經度',
+              sortable: true
+            },
+            {
+              key: 'Y',
+              label:'緯度',
+              sortable: true
+            },
+            {
+              key: 'OfficeCode',
+              label:'官職代碼',
+              sortable: true
+            },
+            { 
+              key: 'OfficeName',
+              label:'Office Name',
+              sortable: true
+              },
+            {
+              key: 'OfficeNameChn',
+              label:'官職名',
+              sortable: true
+            },
+            {
+              key: 'FirstYear',
+              label:'First Year',
+              sortable: true
+            },
+            {
+              key: 'LastYear',
+              label:'Last Year',
+              sortable: true
+            },
+            {
+              key: 'Dynasty',
+              label:'朝代',
+              sortable: true
+            },
+            { 
+              key: 'OfficeAddrID',
+              label:'官職地點代碼',
+              sortable: true
+              },
+            { 
+              key: 'OfficeAddrName',
+              label:'Office Address Name',
+              sortable: true
+              },
+            {
+              key: 'OfficeAddrChn',
+              label:'官職地點中文名',
+              sortable: true
+              },
+            {
+              key: 'OfficeX',
+              label:'官職地點經度',
+              sortable: true
+            },
+            {
+              key: 'OfficeY',
+              label:'官職地點緯度',
+              sortable: true
+            },
+            {
+              key: 'office_xy_count',
+              label:'Office XY Count',
+              sortable: true
+            },
+            {
+              key: 'PostingID',
+              label:'除授ID',
+              sortable: true
+            },
+            {
+              key: 'ApptType',
+              label:'Appointment Type',
+              sortable: true
+            },
+           {
+              key: 'ApptTypeChn',
+              label:'除授類型',
+              sortable: true
+            },
+            {
+              key: 'AssumptionOffice',
+              label:'Assumption Office',
+              sortable: true
+            },
+            {
+              key: 'AssumptionOfficeChn',
+              label:'赴任情況',
+              sortable: true
+            },
+           {
+              key: 'Notes',
+              label:'__________備註__________',
+              sortable: true
+            },
+          ],
+      result:undefined
     }
   },
   methods:{
@@ -236,41 +390,47 @@ export default {
     },
     //To Do
     async handleSubmit(){
-      //提交表单的时候先清空原有數據
-      this.isBusy = true;
-      const res = this.waitForServer(this.formData)
-      res.then((r)=>
-        {
-          this.result.totalPages = r.data.totalPages
-          this.result.tableData = r.data.data
-          this.isBusy = false
-          if(this.result.totalPages>1){
-            for(let p = 2; p <= this.result.totalPages;p++)this.loadMore('api',p).then(res=>console.log(res))
-          }
+      if(this.isBusy === false){
+        //提交表单的时候先清空原有數據
+        this.isBusy = true;
+        let vm = this
+        let f = vm.formData
+        let useXy = f.useXy
+        if (f.usePeoplePlace==='0'||f.useOfficePlace==='0')useXy=0
+        let data = {"office":vm.getOfficeTableId,"useOfficePlace":parseInt(f.useOfficePlace,10),"officePlace":vm.getOfficePlaceTableId,"usePeoplePlace":parseInt(f.usePeoplePlace),"peoplePlace":vm.getPeoplePlaceTableId,"indexYear":parseInt(f.indexYear,10),"indexStartTime":parseInt(f.indexStartTime,10),"indexEndTime":parseInt(f.indexEndTime,10),"useXy":useXy,"start":0,"list":65535 }
+        data = JSON.stringify(data)
+        let query = `${vm.$store.state.global.apiAddress}query_office_postings?RequestPlayload=${data}`
+        //console.log(query)
+        this.axios.post(query)
+        .then(res=>{
+           vm.result={}
+            vm.result.post=res.data.data   
+            let pList = []
+            vm.result.person = res.data.data.filter((i)=>{
+              if(pList.indexOf(i['PersonID'])===-1){
+                pList.push(i['PersonID'])
+                return true
+              }
+              else return false
+            })      
         },
-        (e)=>{
-          alert('something went wrong...')
-          this.isBusy = false
-        }
-      )
+        (error)=>{
+            alert('Network Error...')
+          }
+        )
+        .finally(()=>{
+          vm.isBusy=false
+        })
+      }
     },
-    //To Do
-    waitForServer(query){
-      //sendToServer(query)
-      //------模擬服務器響應的東西---------
-      return new Promise(function(resolve,reject){
-        setTimeout((success=true)=>{
-          if(success)resolve({status:'200',data:{totalPages:5,data:['']}})
-          else reject({status:'404'})
-        },1000)
-      })
-    },
+    /*
     //To Do
     loadMore(api,page){
         return new Promise(function(resolve){
         setTimeout(()=>{resolve('This is Data!')},1000)
       })
     },
+    */
   },
   computed:{
     //TO DO

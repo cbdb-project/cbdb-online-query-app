@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
+    "babel-plugin-dynamic-import-webpack": "^1.1.0",
     "bootstrap": "^4.4.1",
     "bootstrap-vue": "^2.5.0",
     "echarts": "^4.7.0",

@@ -80,7 +80,7 @@ function yearValidation(idx){
       if(vm.result.end!==undefined&&vm.result.total!==undefined&&vm.result.end<vm.result.total){
         vm.isBusy=true
         vm.isBusyLoad=true
-        vm.axios.get(`${vm.$store.state.global.apiAddress}${apiType}?id=${vm.result.id}&start=${vm.result.end+1}&list=100`)
+        vm.axios.get(vm.result.query+`&start=${vm.result.end+1}&list=100`)
         .then((r)=>{
           //console.log(r.data.data)
           r.data.data.forEach(i=>{vm.items.push(i)})
@@ -106,11 +106,12 @@ function yearValidation(idx){
     console.log(id)
     if(vm.isBusy===false){
       vm.isBusy=true
-      vm.axios.get(`${vm.$store.state.global.apiAddress}${apiType}?id=${id}&start=1&list=100`)
+      let query = `${vm.$store.state.global.apiAddress}${apiType}?id=${id}`
+      vm.axios.get(`${query}&start=1&list=100`)
       .then((r)=>{
         console.log(r.data)
         vm.items = r.data.data
-        vm.result.id = id
+        vm.result.query = query
         vm.result.start = parseInt(r.data.start)
         vm.result.end = parseInt(r.data.end)
         vm.result.total = parseInt(r.data.total)
@@ -118,12 +119,50 @@ function yearValidation(idx){
         vm.isBusy=false
         },
         (e)=>{
-          alert('Sorry, something went wrong...')
+          alert('Network Error...')
           vm.isBusy=false
         }
       )
     }
   }
+
+function getListByName(apiType,arg,vm){
+    //arg[0]:name
+    //arg[1]:accurate
+    //arg[2]:startTime
+    //arg[3]:endTime
+    console.log(arg[0])
+    let dic = {
+      "place_list":"name",
+      "entry_list_by_name":"eName",
+      "office_list_by_name":"pName"
+    }
+    if(vm.isBusy===false){
+      vm.isBusy=true
+      vm.isBusyFind=true
+      let query = `${vm.$store.state.global.apiAddress}${apiType}?${dic[apiType]}=${arg[0]}&accurate=${arg[1]}`
+      if(apiType==="place_list") query += `&startTime=${arg[2]}&endTime=${arg[3]}`
+      vm.axios.get(`${query}&start=1&list=100`)
+      .then((r)=>{
+        console.log(r.data)
+        vm.items = r.data.data
+        vm.result.query = query
+        vm.result.start = parseInt(r.data.start)
+        vm.result.end = parseInt(r.data.end)
+        vm.result.total = parseInt(r.data.total)
+        vm.$refs.selectableTable.$el.scrollTop=0//弹回最上方
+        },
+        (e)=>{
+          alert('Network Error...')
+        }
+      )
+      .finally(()=>{
+        vm.isBusy=false
+        vm.isBusyFind=false
+      })
+    }
+  }
+
  /**
   * @return {Array} 返回親屬關係的選項
   **/
@@ -152,6 +191,7 @@ function yearValidation(idx){
       relationGetter as relationGetter,
       handleTableScroll as appendListById,
       getListById as getListById,
+      getListByName as getListByName,
       kinshipOptions as kinshipOptions,
       celarResultTable as celarResultTable
   }

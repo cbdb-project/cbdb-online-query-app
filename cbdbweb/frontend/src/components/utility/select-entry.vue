@@ -85,7 +85,7 @@
 <script>
     import dataJson from '@/assets/entryData.json'
     import treeTable from '../treeTable/tree-table.vue'
-    import {getListById,appendListById,celarResultTable} from '@/components/utility/utility-functions.js'
+    import {getListById,appendListById,celarResultTable,getListByName} from '@/components/utility/utility-functions.js'
     export default {
         name:'selectEntry',
         props:{
@@ -101,13 +101,13 @@
                 isBusyLoad:false,
                 treeDataSource: {},
                 result:{
-                    id:undefined,
+                    query:undefined,
                     start:undefined,
                     end:undefined,
                     total:undefined
                 },
                 treeDataSource: dataJson,
-                formData:{eName:''},
+                formData:{eName:'',accurate:0},
                 /*表格子數據放這裡*/
                 fields: [
                     {
@@ -163,37 +163,13 @@
             },
             //按id查询入仕途径
             actionFunc(m){
-            getListById('entry_list',m.Id,this)
+                getListById('entry_list',m.Id,this)
             },
             handleTableScroll(){
                 appendListById('entry_list',this)
             },
-            async find(){
-                if(this.formData.eName !==''){
-                    this.isBusy = true
-                    console.log('finding')
-                    var cb = ()=>{
-                        this.items = 
-                        [
-                        {eId:"4567",entryName:"[Missing Data]",entryNameCh:"[Missing Data]"},
-                        {eId:"4568",entryName:"not available/applicable",entryNameCh:"未知"},
-                        {eId:"4569",entryName:"abdication of previous emperor",entryNameCh:"前帝遜位"},
-                        {eId:"4568",entryName:"To be Deleted: betrothal",entryNameCh:"臨時保留，待考。"},
-                        {eId:"4569",entryName:"promotion from clerical positions",entryNameCh:"胥吏出職"},
-                        {eId:"4570",entryName:"purchase",entryNameCh:"進納補官"},
-                        {eId:"4571",entryName:"yin privilege: Grand Sacrifice",entryNameCh:"恩蔭: 大禮蔭補"},
-                        {eId:"4572",ntryName:"deposed previous emperor",entryNameCh:"廢前帝自立"},
-                        {eId:"4573",entryName:"direct appointment to painting academy",entryNameCh:"畫院待詔"},
-                        {eId:"4574",entryName:"imperial summons",entryNameCh:"徵辟"},
-                        {eId:"4575",entryName:"direct recruitment into military service",entryNameCh:"募入軍伍"},
-                        {eId:"4576",entryName:"[Missing Data]",entryNameCh:"[Missing Data]"},
-                        {eId:"4577",entryName:"[Missing Data]",entryNameCh:"[Missing Data]"},
-                        {eId:"4578",entryName:"[Missing Data]",entryNameCh:"[Missing Data]"},
-                    ]
-                    this.isBusy = false
-                    }
-                    await setTimeout(cb,1000)
-                }
+            find(){
+                getListByName('entry_list_by_name',[this.formData.eName,this.formData.accurate],this)
             }
       },
         watch:{

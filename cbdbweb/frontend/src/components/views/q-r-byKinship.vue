@@ -1,7 +1,7 @@
 <template>
 <div class = "wrapper">
   <div class = "mt-3 pt-1 pl-1" style = "text-align:left">
-  <h5>{{$t('navbarLeft.entityQueryByPerson')}}</h5>
+  <h5>{{$t('navbarLeft.relationQueryByKinship')}}</h5>
   </div>
   <div class="hello">
     <b-card header-tag="header" footer-tag="footer">
@@ -29,6 +29,18 @@
             <select-person @getPersonName="handleGetPerson" selectMode='multi' style="margin-top:56px">
             </select-person>
           </b-col>
+        </b-row>
+        <b-row class = "mb-3 pb-3">
+           <b-col cols="3">
+             <label for="max-loop" class = "user-input-label">{{$t('relationQueryByKinship.maxLoop')}}:
+               <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+              </label>
+             <b-form-input id="max-loop" v-model="formData.endTime" placeholder="" 
+             :state="validation('indexEndTime')" :disabled="false"></b-form-input>
+              <b-form-invalid-feedback :state="validation('indexEndTime')">
+                Invalid number
+              </b-form-invalid-feedback>
+           </b-col>
         </b-row>
         <b-row class = "my-3">
           <b-col cols="8" style = "text-align:left">
@@ -78,17 +90,6 @@
                 Invalid number 
               </b-form-invalid-feedback>
            </b-col>
-           <!-- TO DO: Max Loop 到底属于哪个层级？要验证 -->
-           <b-col>
-             <label for="max-loop" class = "user-input-label">{{$t('relationQueryByKinship.maxLoop')}}:
-               <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-              </label>
-             <b-form-input id="max-loop" v-model="formData.endTime" placeholder="" 
-             :state="validation('indexEndTime')" :disabled="false"></b-form-input>
-              <b-form-invalid-feedback :state="validation('indexEndTime')">
-                Invalid number
-              </b-form-invalid-feedback>
-           </b-col>
         </b-row>
       </div>
       <!--
@@ -101,7 +102,7 @@
             <b-button href="#" variant="primary" 
               style = "width:100%;margin-top:16px" :disabled="isInvalid||isBusy"
               @click="handleSubmit">
-              <span v-if="!isBusy">Go</span>
+              <span v-if="!isBusy">{{$t('globalTerm.search')}}</span>
               <b-spinner small v-else></b-spinner>
             </b-button>
           </a>
@@ -127,7 +128,6 @@ import queryResult from '@/components/utility/query-result.vue'
 import selectPerson from '@/components/utility/select-person.vue'
 import viewSelected from '@/components/utility/view-selected.vue'
 //開發用的假數據
-import dataJson from '@/assets/person_data_dev.json'
 export default {
   name: 'relationQueryByKinship',
   components:
@@ -144,8 +144,7 @@ export default {
       formData:{
         //用计算属性
         person:[],
-        personName:undefined,
-        kinshipType:'custom',
+        kinshipType:'mCircle',
       },
       personField:[],
       personTable:[],
@@ -184,7 +183,7 @@ export default {
       //------模擬服務器響應的東西---------
       return new Promise(function(resolve,reject){
         setTimeout((success=true)=>{
-          if(success)resolve({status:'200',data:dataJson})
+          if(success)resolve({status:'200',data:{}})
           else reject({status:'404'})
         },3000)
       })
@@ -195,7 +194,7 @@ export default {
       return `person-id:'${this.formData.personId}';`
     },
     isInvalid(){
-      return this.formData.person.length == 0
+      return this.personTable.length === 0
     },
     getPersonTableId(){return this.personTable.map(i => i['eId'])},
     kinshipOptions:kinshipOptions

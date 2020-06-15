@@ -22,7 +22,7 @@
                         <b-form-input id="select-office-input-ch-name" v-model="formData.pName"></b-form-input>
                     </b-form-group>
                     <b-form-group>
-                      <b-button variant="primary" :disabled="isBusy||formData.pName===''">
+                      <b-button variant="primary" :disabled="isBusy||formData.pName===''" @click="find">
                         <b-spinner small v-if="isBusyFind">
                           </b-spinner>
                           <span v-else>Find</span>
@@ -89,7 +89,7 @@
 <script>
 import dataJson from '@/assets/officeData.json'
 import treeTable from '../treeTable/tree-table.vue'
-import {getListById,appendListById,celarResultTable} from '@/components/utility/utility-functions.js'
+import {getListById,appendListById,celarResultTable,getListByName} from '@/components/utility/utility-functions.js'
 export default {
     name:'selectOffice',
     props:{
@@ -106,7 +106,7 @@ export default {
           isBusy:false,
           isBusyFind:false,
           isBusyLoad:false,
-          formData:{pName:''},
+          formData:{pName:'',accurate:0},
           treeDataSource: {},
           result:{
             id:undefined,
@@ -182,6 +182,9 @@ export default {
         },
         handleTableScroll(){
           appendListById('post_list',this)
+        },
+        find(){
+          getListByName('office_list_by_name',[this.formData.pName,this.formData.accurate],this)
         }
     },
     watch:{

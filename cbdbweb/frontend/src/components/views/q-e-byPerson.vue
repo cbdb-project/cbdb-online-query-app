@@ -43,7 +43,7 @@
             <b-button href="#" variant="primary" 
               style = "width:100%;margin-top:16px" :disabled="isInvalid||isBusy"
               @click="handleSubmit">
-              <span v-if="!isBusy">Go</span>
+              <span v-if="!isBusy">{{$t('globalTerm.search')}}</span>
               <b-spinner small v-else></b-spinner>
             </b-button>
           </a>
@@ -470,7 +470,6 @@
 import {isNull} from '@/components/utility/utility-functions.js'
 import selectPerson from '@/components/utility/select-person.vue'
 //開發用的假數據
-import dataJson from '@/assets/person_data_dev.json'
 import showYear from'@/components/utility/show-year.vue'
 import showSource from '@/components/utility/show-source.vue'
 export default {
@@ -554,7 +553,7 @@ export default {
       //------模擬服務器響應的東西---------
       return new Promise(function(resolve,reject){
         setTimeout((success=true)=>{
-          if(success)resolve({status:'200',data:dataJson})
+          if(success)resolve({status:'200',data:{}})
           else reject({status:'404'})
         },1000)
       })

@@ -1,6 +1,8 @@
 <template>
   <b-nav vertical class="nav-left">
-    <b-nav-item exact to = "/index" exact-active-class="active">{{$t('navbarLeft.home')}}</b-nav-item>
+    <b-nav-item exact to = "/index" exact-active-class="active">
+      {{$t('navbarLeft.home')}}
+    </b-nav-item>
     
     <!--实体查询-->
     <b-nav-item> 
@@ -15,8 +17,9 @@
     </b-nav-item>
       <b-collapse id="collapse-a" class="mb-2" :visible = "true">
         <b-nav-item exact to = "/q-entity/by-person" exact-active-class="active" v-b-tooltip.hover.right  :title="$t('navbarLeft.entityQueryByPersonIntro')">{{$t('navbarLeft.entityQueryByPerson')}}</b-nav-item>
-        <b-nav-item exact to = "/q-entity/by-office" exact-active-class="active" v-b-tooltip.hover.right  :title="$t('navbarLeft.entityQueryByOfficeIntro')">{{$t('navbarLeft.entityQueryByOffice')}}</b-nav-item>
         <b-nav-item exact to = "/q-entity/by-entry" exact-active-class="active" v-b-tooltip.hover.right  :title="$t('navbarLeft.entityQueryByEntryIntro')">{{$t('navbarLeft.entityQueryByEntry')}}</b-nav-item>
+        <b-nav-item exact to = "/q-entity/by-office" exact-active-class="active" v-b-tooltip.hover.right  :title="$t('navbarLeft.entityQueryByOfficeIntro')">{{$t('navbarLeft.entityQueryByOffice')}}</b-nav-item>
+      
       </b-collapse>
 
     <!--关系查询-->
@@ -31,6 +34,7 @@
       </svg>
     </b-nav-item>
       <b-collapse id="collapse-b" class="mb-2" :visible = "true">
+        <b-nav-item exact to = "/q-relation/by-place" exact-active-class="active" v-b-tooltip.hover.right  :title="$t('navbarLeft.entityQueryByPlace')">{{$t('navbarLeft.entityQueryByPlace')}}</b-nav-item>
         <b-nav-item exact to = "/q-relation/two-person" exact-active-class="active" v-b-tooltip.hover.right  :title="$t('navbarLeft.relationQueryTwoPerson')">{{$t('navbarLeft.relationQueryTwoPerson')}}</b-nav-item>
         <b-nav-item exact to = "/q-relation/kinship" exact-active-class="active" v-b-tooltip.hover.right  :title="$t('navbarLeft.relationQueryByKinship')">{{$t('navbarLeft.relationQueryByKinship')}}</b-nav-item>
         <b-nav-item exact to = "/q-relation/association" exact-active-class="active" v-b-tooltip.hover.right  :title="$t('navbarLeft.relationQueryByAssociation')">{{$t('navbarLeft.relationQueryByAssociation')}}</b-nav-item>
@@ -38,9 +42,8 @@
       </b-collapse>
     
     <!--可视化-->
+    <!--
     <b-nav-item> 
-      <b-button v-b-toggle.collapse-c variant="link" class = "text-decoration-none" v-on:click="toggleIcon(3)">
-        <!--text-decoration-none -> bootstrap 4.3  -->
         <span class = "collapse-head-text">{{$t('navbarLeft.visualization')}}</span>
       </b-button>
       <svg  v-bind:class = "{rotate: icon.isRotate3}"
@@ -50,11 +53,10 @@
     </b-nav-item>
       <b-collapse id="collapse-c" class="mb-2" :visible = "true">
         <b-nav-item exact to = "/visualization/SNA" exact-active-class="active" v-b-tooltip.hover.right  :title="$t('navbarLeft.visualizationBySNA')">{{$t('navbarLeft.visualizationBySNA')}}</b-nav-item>
-        <b-nav-item exact to = "/visualization/GIS" exact-active-class="active" v-b-tooltip.hover.right  :title="$t('navbarLeft.visualizationByGIS')">{{$t('navbarLeft.visualizationByGIS')}}</b-nav-item>
         <b-nav-item exact to = "/visualization/Graphs" exact-active-class="active" v-b-tooltip.hover.right  :title="$t('navbarLeft.visualizationByGraphs')">{{$t('navbarLeft.visualizationByGraphs')}}</b-nav-item>
       </b-collapse>
-
     <b-nav-item to = "/statistics">{{$t('navbarLeft.statistics')}}</b-nav-item>
+    -->
   </b-nav>
 </template>
 

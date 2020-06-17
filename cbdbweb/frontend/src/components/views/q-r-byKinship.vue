@@ -57,7 +57,7 @@
           <b-col cols="4">
           </b-col>
         </b-row>
-        <b-row class = "px-3 mb-3"  v-if="formData.kinshipType===1">
+        <b-row class = "px-3 mb-3"  v-if="formData.kinshipType===0">
           <b-col>
             <label for="max-ancestor-gen" class = "user-input-label">{{$t('relationQueryByKinship.maxAncestorGen')}}:</label>
             <b-form-input id="max-ancestor-gen" v-model="formData.MAncGen" placeholder="" 
@@ -149,13 +149,13 @@ export default {
         mDecGen:undefined,
         mColLink:undefined,
         mMarLink:undefined,
-        kinshipType:0, 
+        kinshipType:1, 
       },
       personField:[],
       personTable:[],
       resultField:[
         { 
-          key: 'rID',
+          key: 'rId',
           label:'根節點人物代碼',
           sortable: true
         },
@@ -251,7 +251,7 @@ export default {
           sortable: true
         }, 
         { 
-          key: 'rkinship',
+          key: 'rKinship',
           label:'與根節點人物的親屬关系',
           sortable: true
         }, 
@@ -327,7 +327,7 @@ export default {
         }, 
         { 
           key: 'Notes',
-          label:'備註',
+          label:'_______備註______',
           sortable: true
         }, 
       ],
@@ -348,7 +348,7 @@ export default {
       this.isBusy = true;
       let vm = this
       let f = vm.formData     
-      let data = {"person":vm.getPersonTableId,"mCircle":f.kinshipType,"MAncGen":f.MAncGen,"MDecGen":f.MDecGen,"MColLink":f.MColLink,"MMarLink":f.MMarLink,"MLoop":f.MLoop,"start":0,"list":65535 }
+      let data = {"people":vm.getPersonTableId,"mCircle":f.kinshipType,"MAncGen":f.MAncGen,"MDecGen":f.MDecGen,"MColLink":f.MColLink,"MMarLink":f.MMarLink,"MLoop":f.MLoop,"start":0,"list":65535 }
       data = JSON.stringify(data)
       let query = `${vm.$store.state.global.apiAddress}query_relatives?RequestPlayload=${data}`    
       //console.log(query)
@@ -373,7 +373,7 @@ export default {
     isInvalid(){
       return this.personTable.length === 0
     },
-    getPersonTableId(){return this.personTable.map(i => i['eId'])},
+    getPersonTableId(){return this.personTable.map(i => i['personId'])},
     kinshipOptions:kinshipOptions
     },
     watch:{

@@ -1,106 +1,150 @@
 <template>
+<div class="wrapper">
+  <div class = "mt-3 pt-1 pl-1" style = "text-align:left">
+      <h5>{{$t('navbarLeft.entityQueryByOffice')}}</h5>
+  </div>
   <div class="hello">
-    <b-breadcrumb :items="items" class = "bread-crumb"></b-breadcrumb>
     <b-card header-tag="header" footer-tag="footer">
       <template v-slot:header>
         <h6 class="mb-0">{{$t('globalTerm.queryInput')}}</h6>
       </template>
-      <b-card-text class = "card-item-title">{{$t('globalTerm.queryConditionOptions')}}</b-card-text>             
+      <b-card-text class = "card-item-title">{{$t('globalTerm.requiredInput')}}</b-card-text>             
       <div class = "card-item-body">
-        <b-row>
-          <b-col><select-person></select-person></b-col>
-          <b-col><select-place></select-place></b-col>
-          <b-col><select-entry></select-entry></b-col>
-        </b-row>
-        <b-row>
-          <b-col><select-office></select-office></b-col>
-          <b-col><select-time></select-time></b-col>
-          <b-col><select-relationship></select-relationship></b-col>
+        <b-row class = "p-3 my-3">
+          <b-col cols="8" style = "text-align:left">
+            <b-card-text class = "card-item-title">{{$t('globalTerm.office')}}</b-card-text>    
+            <b-card>
+              <b-row class="pl-3" style = "text-align:center">
+                <b-col>
+                  <span v-if="this.officeTable.length==0" style = "line-height:31px">**{{$t('globalTerm.all')}}**</span>
+                  <span v-else>{{officeTable[0].pNameChn}}
+                    <span v-if="this.officeTable.length>1">及另外{{officeTable.length-1}}個官職</span>
+                  </span>
+                  <view-selected name='office' :fields="this.officeField" :items="this.officeTable" @update:items="val=>this.officeTable=val"></view-selected>   
+                  </b-col>
+              </b-row> 
+            </b-card>   
+          </b-col>
+          <b-col cols="4" style = "text-align:left">
+            <select-office @getOfficeName="handleGetOffice" style = "margin-top:56px"></select-office>
+          </b-col>
         </b-row>
       </div>
-      <b-card-text class = "card-item-title">{{$t('globalTerm.userInput')}}</b-card-text>             
+      <b-card-text class = "card-item-title pt-3">{{$t('globalTerm.alternativeInput')}}</b-card-text>             
       <div class  = "card-item-body px-3">
+        <!-- 职官地點 -->
         <b-row class = "px-3 mb-3">
-          <b-col>
-            <label for="office-en-name" class = "user-input-label">{{$t('entityQueryByOffice.officeNameEn')}}:</label>
-            <b-form-input id="office-en-name" v-model="formData.officeEnName" placeholder="Enter your name"></b-form-input>
-            </b-col>
-          <b-col>
-             <label for="office-ch-name" class = "user-input-label">{{$t('entityQueryByOffice.officeNameCh')}}:</label>
-             <b-form-input id="office-ch-name" v-model="formData.officeChName" placeholder="Enter your name"></b-form-input>
-           </b-col>
-        </b-row>
-        <b-row class = "px-3 mb-3">
-          <b-col>
-            <label for="office-en-type" class = "user-input-label">{{$t('entityQueryByOffice.officeTypeEn')}}:</label>
-            <b-form-input id="office-en-type" v-model="formData.officeEnType" placeholder="Enter your name"></b-form-input>
-            </b-col>
-          <b-col>
-             <label for="office-ch-type" class = "user-input-label">{{$t('entityQueryByOffice.officeTypeCh')}}:</label>
-             <b-form-input id="office-ch-type" v-model="formData.officeChType" placeholder="Enter your name"></b-form-input>
-           </b-col>
-        </b-row>
-        <b-row class = "px-3 mb-3">
-          <b-col>
-            <label for="office-en-place" class = "user-input-label">{{$t('entityQueryByOffice.officePlaceEn')}}:</label>
-            <b-form-input id="office-en-place" v-model="formData.officeEnPlace" placeholder="Enter your name"></b-form-input>
-            </b-col>
-          <b-col>
-             <label for="office-ch-place" class = "user-input-label">{{$t('entityQueryByOffice.officePlaceCh')}}:</label>
-             <b-form-input id="office-ch-place" v-model="formData.officeChPlace" placeholder="Enter your name"></b-form-input>
-           </b-col>
-        </b-row>
-        <b-row class = "px-3 mb-3">
-          <b-col>
-            <label for="person-en-place" class = "user-input-label">{{$t('entityQueryByOffice.personPlaceEn')}}:</label>
-            <b-form-input id="person-en-place" v-model="formData.personEnPlace" placeholder="Enter your name"></b-form-input>
-            </b-col>
-          <b-col>
-             <label for="person-ch-place" class = "user-input-label">{{$t('entityQueryByOffice.personPlaceCh')}}:</label>
-             <b-form-input id="person-ch-place" v-model="formData.personChPlace" placeholder="Enter your name"></b-form-input>
-           </b-col>
-        </b-row>
-        <b-row class = "px-3 mb-3">
-          <b-col>
-            <label for="start-time" class = "user-input-label">{{$t('globalTerm.startTime')}}:</label>
-            <b-form-input id="start-time" v-model="formData.startTime" placeholder="" 
-              :state="validation('startTime')"></b-form-input>
-              <b-form-invalid-feedback :state="validation('startTime')">
-                Invalid year 
-              </b-form-invalid-feedback>
-            </b-col>
-          <b-col>
-             <label for="end-time" class = "user-input-label">{{$t('globalTerm.endTime')}}:</label>
-             <b-form-input id="end-time" v-model="formData.endTime" placeholder="" :state="validation('endTime')"></b-form-input>
-              <b-form-invalid-feedback :state="validation('endTime')">
-                Invalid year 
-              </b-form-invalid-feedback>
-           </b-col>
-           <b-col>
-            <b-form-checkbox id="checkbox-1" v-model= "formData.indexYear" name="checkbox-1"
-              value="t" unchecked-value="f" style = "margin:38px 0;text-align:left">
-                {{$t('globalTerm.isIndexYear')}}
+          <b-card-text class = "card-item-title mt-3">
+            <b-form-checkbox switch size="lg" id="checkbox-0" v-model= "formData.useOfficePlace" name="checkbox-0"
+              value="1" unchecked-value="0">
+                <span style="font-size:16px">{{$t('globalTerm.office')}}{{$t('globalTerm.place')}}</span>
             </b-form-checkbox>
-           </b-col>
-           <b-col></b-col>
+          </b-card-text> 
         </b-row>
+        <b-row class = "py-3 my-3" v-if="formData.useOfficePlace ==='1'">
+          <b-col cols="8" style = "text-align:left"> 
+            <b-card>
+              <b-row class="pl-3" style = "text-align:center">
+                <b-col>
+                  <span v-if="this.officePlaceTable.length==0" style = "line-height:31px">**{{$t('globalTerm.all')}}**</span>
+                  <span v-else>{{officePlaceTable[0]['pNameChn']}}
+                    <span v-if="this.officePlaceTable.length>1">及另外{{officePlaceTable.length-1}}個地點</span>
+                  </span>
+                  <view-selected name='officePlace' :fields="this.officePlaceField" :items="this.officePlaceTable" @update:items="val=>this.officePlaceTable=val"></view-selected>
+                </b-col>
+              </b-row> 
+            </b-card>   
+          </b-col>
+          <b-col cols="4" style = "text-align:left" >
+            <b-button-group>
+            <select-place @getPlaceName="handleGetOfficePlace" name="office" style = "margin-top:16px"></select-place>
+            <import-place @getPlaceName="handleGetOfficePlace" name="office" style = "margin-top:16px"></import-place>
+            </b-button-group>
+          </b-col>
+        </b-row> 
+        <!-- 人物地點 -->
+        <b-row class = "px-3 mb-3">
+          <b-card-text class = "card-item-title mt-3">
+            <b-form-checkbox switch size="lg" id="checkbox-1" v-model= "formData.usePeoplePlace" name="checkbox-1"
+              value="1" unchecked-value="0">
+                <span style="font-size:16px">{{$t('globalTerm.person')}}{{$t('globalTerm.place')}}</span>
+            </b-form-checkbox>
+          </b-card-text> 
+        </b-row>
+        <b-row class = "py-3 my-3" v-if="formData.usePeoplePlace ==='1'">
+          <b-col cols="8" style = "text-align:left"> 
+            <b-card>
+              <b-row class="pl-3" style = "text-align:center">
+                <b-col>
+                  <span v-if="this.peoplePlaceTable.length==0" style = "line-height:31px">**{{$t('globalTerm.all')}}**</span>
+                  <span v-else>{{peoplePlaceTable[0]['pNameChn']}}
+                    <span v-if="this.peoplePlaceTable.length>1">及另外{{peoplePlaceTable.length-1}}個地點</span>
+                  </span>
+                  <view-selected name='peoplePlace' :fields="this.peoplePlaceField" :items="this.peoplePlaceTable" @update:items="val=>this.peoplePlaceTable=val"></view-selected>
+                </b-col>
+              </b-row> 
+            </b-card>   
+          </b-col>
+          <b-col cols="4" style = "text-align:left" >
+            <b-button-group>
+            <select-place @getPlaceName="handleGetPeoplePlace" name="people" style = "margin-top:16px"></select-place>
+            <import-place @getPlaceName="handleGetPeoplePlace" name="people" style = "margin-top:16px"></import-place>
+            </b-button-group>
+          </b-col>
+        </b-row> 
+        <!-- 日期 -->
+        <b-row class = "px-3 mb-3">
+          <b-card-text class = "card-item-title mt-3">
+            <b-form-checkbox switch size="lg" id="checkbox-2" v-model= "formData.indexYear" name="checkbox-2"
+              value="1" unchecked-value="0">
+              <span style="font-size:16px">{{$t('globalTerm.date')}}({{$t('globalTerm.indexYear')}})</span>
+            </b-form-checkbox>  
+          </b-card-text> 
+        </b-row>
+        <b-row class = "px-3 mb-3"  v-if="formData.indexYear==='1'">
+          <b-col>
+            <label for="index-start-time" class = "user-input-label">{{$t('globalTerm.startTime')}}:</label>
+            <b-form-input id="index-start-time" v-model="formData.indexStartTime" placeholder="" 
+              :state="validation('indexStartTime')" :disabled="formData.indexYear==='0'?true:false"></b-form-input>
+              <b-form-invalid-feedback :state="validation('indexStartTime')">
+                Invalid year 
+              </b-form-invalid-feedback>
+            </b-col>
+          <b-col>
+             <label for="index-end-time" class = "user-input-label">{{$t('globalTerm.endTime')}}:</label>
+             <b-form-input id="index-end-time" v-model="formData.indexEndTime" placeholder="" 
+             :state="validation('indexEndTime')" :disabled="formData.indexYear==='0'?true:false"></b-form-input>
+              <b-form-invalid-feedback :state="validation('indexEndTime')">
+                Invalid year 
+              </b-form-invalid-feedback>
+           </b-col>
+           <b-col cols="4"></b-col>
+        </b-row>
+        <!-- 使用xy坐标 -->  
+        <b-row class = "px-1 py-3 my-3" style = "text-align:left">
+          <b-col>
+            <b-form-checkbox
+              id="checkbox-xy"
+              v-model="this.formData.useXy"
+              size="md"
+              name="checkbox-xy"
+              value="1"
+              unchecked-value="0"
+            >
+            Use XY Coordinate
+           </b-form-checkbox> 
+          </b-col>
+        </b-row> 
       </div>
-      <b-card-text class = "card-item-title">{{$t('entityQueryByOffice.checkAndSearch')}}</b-card-text>
       <b-row class = "px-3 mb-3">
-        <b-col cols="10">
-          <b-alert show variant="warning" style = "width:66%" class = "px-3 py-2 mb-2">{{$t('entityQueryByOffice.checkRemind')}}</b-alert>
-          <b-form-textarea
-                id="advanced-search"
-                v-model= "queryFormular"
-                placeholder=""
-                rows="3"
-                max-rows="6"
-                disabled
-              ></b-form-textarea>
+        <b-col></b-col>
+        <b-col class = "p-3">
+            <b-button href="#" variant="primary" style = "width:100%;margin-top:38px" :disabled="isInvalid||isBusy" @click="handleSubmit">
+              <span v-if="!isBusy">{{$t('globalTerm.search')}}</span>
+              <b-spinner small v-else></b-spinner>
+            </b-button>
         </b-col>
-        <b-col cols="2">
-            <b-button href="#" variant="primary" style = "width:100%;margin-top:70px" :disabled="isInvalid">Go</b-button>
-        </b-col>
+        <b-col></b-col>
       </b-row>    
       <!--
       <template v-slot:footer>
@@ -108,96 +152,298 @@
       </template>
       -->
     </b-card>
-    <query-result></query-result>   
   </div>
+  <div class="hello" v-if="result!==undefined">
+    <b-card header-tag="header" footer-tag="footer">
+      <template v-slot:header>
+          <h6 class="mb-0">{{$t('globalTerm.resultShow')}}</h6>
+      </template>
+        <b-tabs content-class="mt-3">
+          <b-tab title="Office-Postings" active>
+             <query-result name="office-postings" :items="result.post" :fields="resPostField"></query-result>
+          </b-tab>
+          <b-tab title="People-in-Office"> 
+            <query-result name="people-in-office" :items="result.person" :fields="resPostField"></query-result>
+          </b-tab>
+        </b-tabs>  
+    </b-card>
+  </div>
+</div>
 </template>
 
 <script>
-import queryResult from '../utility/query-result.vue'
-import selectPerson from '../utility/select-person.vue'
-import selectEntry from '../utility/select-entry.vue'
-import selectOffice from '../utility/select-office.vue'
-import selectTime from '../utility/select-time.vue'
-import selectPlace from '../utility/select-place.vue'
-import selectRelationship from '../utility/select-relationship.vue'
+import {isNull,yearValidation,peoplePlaceGetter,officePlaceGetter,officeGetter} from '@/components/utility/utility-functions.js'
+import queryResult from '@/components/utility/query-result.vue'
+import selectOffice from '@/components/utility/select-office.vue'
+import selectPlace from '@/components/utility/select-place.vue'
+import importPlace from '@/components/utility/import-place.vue'
+import viewSelected from '@/components/utility/view-selected.vue'
 export default {
   name: 'entityQueryByOffice',
-  components:
+  components: 
   {
       queryResult,
-      selectPerson,
-      selectEntry,
       selectOffice,
-      selectTime,
       selectPlace,
-      selectRelationship
+      importPlace,
+      viewSelected
   },
   data () {
     return {
+      isBusy:false,
       /*表單數據放這裡*/
       formData:{
-        officeEnName:'',
-        officeChName:'',
-        officeEnType:'',
-        officeChType:'',
-        officeEnPlace:'',
-        officeChPlace:'',
-        personEnPlace:'',
-        personChPlace:'',
-        startTime:'',
-        endTime:'',
-        indexYear:'f'
+        //office officePlace peoplePlace 在表单提交之前都是空的
+        //所有涉及这三个变量的计算现在用计算属性
+        //office:[],
+        //officePlace:[],
+        //peoplePlace:[],
+        indexStartTime:'',
+        indexEndTime:'',
+        //是否使用可选条件以布尔值为准！！！
+        indexYear:'0',
+        useOfficePlace:'0',
+        usePeoplePlace:'0',
+        useXy:'1'
       },
-      items: [
-          {
-            text: 'Admin',
-            href: '#'
-          },
-          {
-            text: 'Manage',
-            href: '#'
-          },
-          {
-            text: 'Library',
-            active: true
-          }
-      ]
+      officeTable:[],
+      officeField:[],
+      peoplePlaceField:[],
+      officePlaceField:[],
+      officePlaceTable:[],
+      peoplePlaceTable:[],
+      resPostField: [
+            { 
+              key: 'PersonID',
+              label:'人物代碼',
+              sortable: true
+              },
+            {
+              key: 'Name',
+              label:'Name',
+              sortable: true
+            },
+            {
+              key: 'NameChn',
+              label:'人物姓名',
+              sortable: true
+            },
+            {
+              key: 'Sex',
+              label:'Sex',
+              sortable: true
+            },
+            {
+              key: 'IndexYear',
+              label:'Index Year',
+              sortable: true
+            },
+            { 
+              key: 'PersonID',
+              label:'人物代碼',
+              sortable: true
+              },
+            {
+              key: 'AddrID',
+              label:'Address ID',
+              sortable: true
+            },
+            {
+              key: 'AddrType',
+              label:'Address Type',
+              sortable: true
+            },
+            {
+              key: 'AddrTypeChn',
+              label:'地址類型',
+              sortable: true
+            },
+            {
+              key: 'AddrName',
+              label:'Address Name',
+              sortable: true
+            },
+            {
+              key: 'AddrChn',
+              label:'地點名',
+              sortable: true
+            },
+            {
+              key: 'X',
+              label:'經度',
+              sortable: true
+            },
+            {
+              key: 'Y',
+              label:'緯度',
+              sortable: true
+            },
+            {
+              key: 'OfficeCode',
+              label:'官職代碼',
+              sortable: true
+            },
+            { 
+              key: 'OfficeName',
+              label:'Office Name',
+              sortable: true
+              },
+            {
+              key: 'OfficeNameChn',
+              label:'官職名',
+              sortable: true
+            },
+            {
+              key: 'FirstYear',
+              label:'First Year',
+              sortable: true
+            },
+            {
+              key: 'LastYear',
+              label:'Last Year',
+              sortable: true
+            },
+            {
+              key: 'Dynasty',
+              label:'朝代',
+              sortable: true
+            },
+            { 
+              key: 'OfficeAddrID',
+              label:'官職地點代碼',
+              sortable: true
+              },
+            { 
+              key: 'OfficeAddrName',
+              label:'Office Address Name',
+              sortable: true
+              },
+            {
+              key: 'OfficeAddrChn',
+              label:'官職地點中文名',
+              sortable: true
+              },
+            {
+              key: 'OfficeX',
+              label:'官職地點經度',
+              sortable: true
+            },
+            {
+              key: 'OfficeY',
+              label:'官職地點緯度',
+              sortable: true
+            },
+            {
+              key: 'office_xy_count',
+              label:'Office XY Count',
+              sortable: true
+            },
+            {
+              key: 'PostingID',
+              label:'除授ID',
+              sortable: true
+            },
+            {
+              key: 'ApptType',
+              label:'Appointment Type',
+              sortable: true
+            },
+           {
+              key: 'ApptTypeChn',
+              label:'除授類型',
+              sortable: true
+            },
+            {
+              key: 'AssumptionOffice',
+              label:'Assumption Office',
+              sortable: true
+            },
+            {
+              key: 'AssumptionOfficeChn',
+              label:'赴任情況',
+              sortable: true
+            },
+           {
+              key: 'Notes',
+              label:'__________備註__________',
+              sortable: true
+            },
+          ],
+      result:undefined
     }
   },
   methods:{
     //判斷輸入欄是否為空
-    isNull(idx){
-      return this.formData[idx] == ''
+    isNull:isNull,
+    validation:yearValidation,
+    //获取查询的官职名
+    handleGetOffice: function(i){
+      officeGetter(i,this)
     },
-    validation(idx){
-      //如果輸入為空，視為有效
-      if(this.isNull(idx))return null;
-      let year = /^\d{1,4}$/;
-      //startTime 一欄只要輸入符合有且僅有1～4位數字的規則，視為有效
-      if(idx == 'startTime')return year.test(this.formData[idx])?null:false;
-      else if(idx == 'endTime'){
-        //先判斷 endTime 一欄是否符合有且僅有1～4位數字的規則，如果不符合，視為無效
-        if(year.test(this.formData[idx])){
-          //如果 endTime 有輸入數字，同時 startTime 也有輸入數字，判斷 endTime 的數字是否大於 startTime 的數字
-          //如果小於，則視為無效
-          if(this.validation('startTime') == null && this.isNull('startTime')==false){
-            let st = parseInt(this.formData['startTime'], 10);
-            let et = parseInt(this.formData['endTime'], 10);
-            return et>st?null:false;
+    //获取查询的人物地点
+     handleGetPeoplePlace: function(i){
+      peoplePlaceGetter(i,this)
+     },
+    //获取官职地点
+    handleGetOfficePlace: function(i){
+      officePlaceGetter(i,this)
+    },
+    //To Do
+    async handleSubmit(){
+      if(this.isBusy === false){
+        //提交表单的时候先清空原有數據
+        this.isBusy = true;
+        let vm = this
+        let f = vm.formData
+        let useXy = f.useXy
+        if (f.usePeoplePlace==='0'||f.useOfficePlace==='0')useXy=0
+        let data = {"office":vm.getOfficeTableId,"useOfficePlace":parseInt(f.useOfficePlace,10),"officePlace":vm.getOfficePlaceTableId,"usePeoplePlace":parseInt(f.usePeoplePlace),"peoplePlace":vm.getPeoplePlaceTableId,"indexYear":parseInt(f.indexYear,10),"indexStartTime":parseInt(f.indexStartTime,10),"indexEndTime":parseInt(f.indexEndTime,10),"useXy":useXy,"start":0,"list":65535 }
+        data = JSON.stringify(data)
+        let query = `${vm.$store.state.global.apiAddress}query_office_postings?RequestPlayload=${data}`
+        //console.log(query)
+        this.axios.post(query)
+        .then(res=>{
+           vm.result={}
+            vm.result.post=res.data.data   
+            let pList = []
+            vm.result.person = res.data.data.filter((i)=>{
+              if(pList.indexOf(i['PersonID'])===-1){
+                pList.push(i['PersonID'])
+                return true
+              }
+              else return false
+            })      
+        },
+        (error)=>{
+            alert('Network Error...')
           }
-          else return null;
-        }
-        else return false;
+        )
+        .finally(()=>{
+          vm.isBusy=false
+        })
       }
-    }
+    },
+    /*
+    //To Do
+    loadMore(api,page){
+        return new Promise(function(resolve){
+        setTimeout(()=>{resolve('This is Data!')},1000)
+      })
+    },
+    */
   },
   computed:{
-    queryFormular(){
-      return `office-ch-name:'${this.formData.officeChName}',office-en-name:'${this.formData.officeEnName}',office-ch-type:'${this.formData.officeChType}',office-en-type:'${this.formData.officeEnType}',office-ch-place:'${this.formData.officeChPlace}',office-en-place:'${this.formData.officeEnPlace}',person-ch-place:'${this.formData.personChPlace}',person-en-place:'${this.formData.personEnPlace}',start-time:'${this.formData.startTime}',end-time:'${this.formData.endTime}'index-year:'${this.formData.indexYear}';`
-    },
+    //TO DO
     isInvalid(){
-      return this.validation('startTime')==false || this.validation('endTime')==false
-    }
+      return this.getOfficeTableId.length==0||this.validation('indexStartTime')===false || this.validation('indexEndTime')===false
+    },
+    tableLength(name){
+      return this.formData[name].length
+    },
+    //formData里的Id改成计算形式了
+    getOfficeTableId(){return this.officeTable.map(i=>i['pId'])},
+    getPeoplePlaceTableId(){return this.peoplePlaceTable.map(i=>i['pId'])},
+    getOfficePlaceTableId(){return this.officePlaceTable.map(i=>i['pId'])}
   }
 }
 </script>

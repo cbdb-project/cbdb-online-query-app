@@ -66,9 +66,25 @@ module.exports = {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
-      }
+      },
+      {         
+        test: /\.js$/,     
+        loader: 'babel-loader',          
+        exclude: /node_modules/,        
+        options: {//如果有这个设置则不用再添加.babelrc文件进行配置   
+              "babelrc": false,// 不采用.babelrc的配置              
+              "plugins": [                    
+                     "dynamic-import-webpack"            
+              ]        
+       }     
+      } 
     ]
   },
+  /*
+  externals: {
+    "echarts": "echarts"
+  },
+  */
   node: {
     // prevent webpack from injecting useless setImmediate polyfill because Vue
     // source contains it (although only uses it if it's native).

@@ -1,0 +1,114 @@
+[
+  {
+    "Id":"00",
+    "ObjectName":"未知入仕途径"
+  },
+  {
+    "Id":"01",
+    "ObjectName":"宫廷门"
+  },
+  {
+    "Id":"02",
+    "ObjectName":"血亲门"
+  },
+  {
+    "Id":"03",
+    "ObjectName":"姻亲门"
+  },
+  {
+    "Id":"04",
+    "ObjectName": "科举门",
+    "children": [
+      {
+        "Id":"0401",
+        "ObjectName": "正常科举"
+      },
+      {
+        "Id": "0402",
+        "ObjectName": "非正常科举"
+      },
+      {
+        "Id": "0403",
+        "ObjectName": "制举"
+      },
+      {
+        "Id": "0404",
+        "ObjectName": "其他举"
+      }
+    ]
+  },
+  {
+    "Id": "05",
+    "ObjectName": "学校门",
+    "children": [
+      {
+        "Id": "0501",
+        "ObjectName": "学生门"
+      },
+      {
+        "Id": "0502",
+        "ObjectName": "监生门"
+      },
+      {
+        "Id": "0503",
+        "ObjectName": "贡生门"
+      }
+    ]
+  },
+  {
+    "Id":"06",
+    "ObjectName":"恩荫门",
+    "children":[]
+  },
+  {
+    "Id":"07",
+    "ObjectName":"徵召门",
+    "children":[]
+  },
+  {
+    "Id":"08",
+    "ObjectName":"荐举门",
+    "children":[]
+  },
+  {
+    "Id":"09",
+    "ObjectName":"军功补授门",
+    "children":[]
+  },
+  {
+    "Id":"10",
+    "ObjectName":"技进门"
+  },
+  {
+    "Id":"11",
+    "ObjectName":"归降门"
+  },
+  {
+    "Id":"12",
+    "ObjectName":"进纳门"
+  },
+  {
+    "Id":"13",
+    "ObjectName":"特旨门"
+  },
+  {
+    "Id":"14",
+    "ObjectName":"宗教门"
+  },
+  {
+    "Id":"15",
+    "ObjectName":"求官不得门"
+  },
+  {
+    "Id":"16",
+    "ObjectName":"七色补官门"
+  },
+  {
+    "Id":"90",
+    "ObjectName":"其他入仕途径"
+  },
+  {
+    "Id":"99",
+    "ObjectName":"Temp"
+  }
+]

@@ -1,0 +1,55 @@
+[
+  {
+    "Id": 1,
+    "ObjectName": "唐朝",
+    "children": [
+      {
+        "Id": 2,
+        "ObjectName": "帝后制度类",
+        "children": [
+          {
+            "Id": 2,
+            "ObjectName": "帝后门",
+            "children":[
+              {
+                "Id":14,
+                "ObjectName":"内命妇"
+              }
+            ]
+          }
+      }
+    ]
+  },
+  {
+    "Id": 16,
+    "ObjectName":"辽朝",
+    "children":[]
+  },
+  {
+    "Id": 17,
+    "ObjectName":"元朝",
+    "children":[]
+  },
+  {
+    "Id": 18,
+    "ObjectName":"明朝",
+    "children":[
+      {
+        "Id": 18,
+        "ObjectName":"明朝",
+        "children":[
+          {
+            "Id": 18,
+            "ObjectName":"明朝",
+            "children":[]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Id": 19,
+    "ObjectName":"清朝",
+    "children":[]
+  }
+]

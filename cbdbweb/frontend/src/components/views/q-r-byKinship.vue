@@ -35,7 +35,7 @@
              <label for="max-loop" class = "user-input-label">{{$t('relationQueryByKinship.maxLoop')}}:
                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
               </label>
-             <b-form-input id="max-loop" v-model="formData.endTime" placeholder="" 
+             <b-form-input id="max-loop" v-model="formData.MLoop" placeholder="" 
              :state="validation('indexEndTime')" :disabled="false"></b-form-input>
               <b-form-invalid-feedback :state="validation('indexEndTime')">
                 Invalid number
@@ -57,10 +57,10 @@
           <b-col cols="4">
           </b-col>
         </b-row>
-        <b-row class = "px-3 mb-3"  v-if="formData.kinshipType==='custom'">
+        <b-row class = "px-3 mb-3"  v-if="formData.kinshipType===1">
           <b-col>
             <label for="max-ancestor-gen" class = "user-input-label">{{$t('relationQueryByKinship.maxAncestorGen')}}:</label>
-            <b-form-input id="max-ancestor-gen" v-model="formData.startTime" placeholder="" 
+            <b-form-input id="max-ancestor-gen" v-model="formData.MAncGen" placeholder="" 
               :state="validation('indexStartTime')" :disabled="false"></b-form-input>
               <b-form-invalid-feedback :state="validation('indexStartTime')">
                 Invalid number
@@ -68,7 +68,7 @@
             </b-col>
           <b-col>
              <label for="max-descend-gen" class = "user-input-label">{{$t('relationQueryByKinship.maxDescendGen')}}:</label>
-             <b-form-input id="max-descend-gen" v-model="formData.endTime" placeholder="" 
+             <b-form-input id="max-descend-gen" v-model="formData.MDecGen" placeholder="" 
              :state="validation('indexEndTime')" :disabled="false"></b-form-input>
               <b-form-invalid-feedback :state="validation('indexEndTime')">
                 Invalid number
@@ -76,7 +76,7 @@
            </b-col>
           <b-col>
             <label for="max-collaternal-links" class = "user-input-label">{{$t('relationQueryByKinship.maxCollaternalLinks')}}:</label>
-            <b-form-input id="max-collaternal-links" v-model="formData.startTime" placeholder="" 
+            <b-form-input id="max-collaternal-links" v-model="formData.MColLink" placeholder="" 
               :state="validation('indexStartTime')" :disabled="false"></b-form-input>
               <b-form-invalid-feedback :state="validation('indexStartTime')">
                 Invalid number
@@ -84,7 +84,7 @@
             </b-col>
           <b-col>
              <label for="max-marriage-links" class = "user-input-label">{{$t('relationQueryByKinship.maxMarriageLinks')}}:</label>
-             <b-form-input id="max-marriage-links" v-model="formData.endTime" placeholder="" 
+             <b-form-input id="max-marriage-links" v-model="formData.MMarLink" placeholder="" 
              :state="validation('indexEndTime')" :disabled="false"></b-form-input>
               <b-form-invalid-feedback :state="validation('indexEndTime')">
                 Invalid number 
@@ -111,12 +111,12 @@
       </b-row>    
     </b-card>
   </div>
-  <div class="hello">
+  <div class="hello" v-if="result!==undefined">
     <b-card header-tag="header" footer-tag="footer">
       <template v-slot:header>
           <h6 class="mb-0">{{$t('globalTerm.resultShow')}}</h6>
       </template>
-      <query-result></query-result>
+      <query-result name="kin-result" :items="result.kins" :fields="resultField"></query-result>
     </b-card>
   </div>
 </div>
@@ -144,14 +144,195 @@ export default {
       formData:{
         //用计算属性
         person:[],
-        kinshipType:'mCircle',
+        mLoop:undefined,
+        mAncGen:undefined,
+        mDecGen:undefined,
+        mColLink:undefined,
+        mMarLink:undefined,
+        kinshipType:0, 
       },
       personField:[],
       personTable:[],
+      resultField:[
+        { 
+          key: 'rID',
+          label:'根節點人物代碼',
+          sortable: true
+        },
+        { 
+          key: 'rName',
+          label:'Root Name',
+          sortable: true
+        },
+        { 
+          key: 'rNameChn',
+          label:'根節點人物名',
+          sortable: true
+        },  
+        { 
+          key: 'pId',
+          label:'人物ID',
+          sortable: true
+        }, 
+        { 
+          key: 'pName',
+          label:'Person Name',
+          sortable: true
+        }, 
+        { 
+          key: 'pNameChn',
+          label:'人物姓名',
+          sortable: true
+        },    
+        { 
+          key: 'pAddrID',
+          label:'人物地點ID',
+          sortable: true
+        }, 
+        { 
+          key: 'pAddrType',
+          label:'Address Type',
+          sortable: true
+        }, 
+        { 
+          key: 'pAddrTypeChn',
+          label:'人物地點類型',
+          sortable: true
+        },    
+        { 
+          key: 'pAddrName',
+          label:'Address Name',
+          sortable: true
+        }, 
+        { 
+          key: 'pAddrNameChn',
+          label:'人物地點名',
+          sortable: true
+        },  
+        
+        { 
+          key: 'pX',
+          label:'人物地點經度',
+          sortable: true
+        },    
+        { 
+          key: 'pY',
+          label:'人物地點緯度',
+          sortable: true
+        }, 
+        { 
+          key: 'Id',
+          label:'親屬代碼',
+          sortable: true
+        }, 
+        { 
+          key: 'Name',
+          label:'Kin Name',
+          sortable: true
+        }, 
+        { 
+          key: 'NameChn',
+          label:'親屬名',
+          sortable: true
+        }, 
+        { 
+          key: 'Sex',
+          label:'親屬性别',
+          sortable: true
+        }, 
+        { 
+          key: 'IndexYear',
+          label:'親屬指数年',
+          sortable: true
+        }, 
+        { 
+          key: 'pkinship',
+          label:'親屬关系',
+          sortable: true
+        }, 
+        { 
+          key: 'rkinship',
+          label:'與根節點人物的親屬关系',
+          sortable: true
+        }, 
+        { 
+          key: 'up',
+          label:'向上查找的距離',
+          sortable: true
+        }, 
+        { 
+          key: 'down',
+          label:'向下查找的距離',
+          sortable: true
+        }, 
+        { 
+          key: 'col',
+          label:'同輩關係查找的距離',
+          sortable: true
+        }, 
+        { 
+          key: 'mar',
+          label:'姻親關係查找的距離',
+          sortable: true
+        }, 
+        { 
+          key: 'AddrID',
+          label:'親屬人物地點ID',
+          sortable: true
+        }, 
+        { 
+          key: 'AddrType',
+          label:'Kin Address Type',
+          sortable: true
+        }, 
+        { 
+          key: 'AddrTypeChn',
+          label:'親屬人物地點類型',
+          sortable: true
+        }, 
+        { 
+          key: 'AddrName',
+          label:'Kin Address Name',
+          sortable: true
+        }, 
+        { 
+          key: 'AddrNameChn',
+          label:'親屬人物地點名',
+          sortable: true
+        }, 
+        { 
+          key: 'X',
+          label:'親屬人物地點經度',
+          sortable: true
+        }, 
+        { 
+          key: 'Y',
+          label:'親屬人物地點緯度',
+          sortable: true
+        }, 
+        { 
+          key: 'pDistance',
+          label:'地點距離',
+          sortable: true
+        }, 
+        { 
+          key: 'rDistance',
+          label:'與根節點人物地點距離',
+          sortable: true
+        }, 
+        { 
+          key: 'xy_count',
+          label:'結果中同一地點人數',
+          sortable: true
+        }, 
+        { 
+          key: 'Notes',
+          label:'備註',
+          sortable: true
+        }, 
+      ],
       //後端傳回來的數據放這裡
-      personInfo:{
-
-      }
+      result:undefined
     }
   },
   methods:{
@@ -165,28 +346,24 @@ export default {
       //提交表单的时候先清空原有數據
       this.personInfo = {}
       this.isBusy = true;
-      //加了async修饰符res变成结果？
-      const res = this.waitForServer(this.formData)
-      res.then((r)=>
-        {
-          this.personInfo = r.data
-          this.isBusy = false
+      let vm = this
+      let f = vm.formData     
+      let data = {"person":vm.getPersonTableId,"mCircle":f.kinshipType,"MAncGen":f.MAncGen,"MDecGen":f.MDecGen,"MColLink":f.MColLink,"MMarLink":f.MMarLink,"MLoop":f.MLoop,"start":0,"list":65535 }
+      data = JSON.stringify(data)
+      let query = `${vm.$store.state.global.apiAddress}query_relatives?RequestPlayload=${data}`    
+      //console.log(query)
+      this.axios.post(query)
+        .then(res=>{
+           vm.result={}
+            vm.result.kins=res.data.data         
         },
-        (e)=>{
-          alert('something went wrong...')
-          this.isBusy = false
-        }
-      )
-    },
-    waitForServer(query){
-      //sendToServer(query)
-      //------模擬服務器響應的東西---------
-      return new Promise(function(resolve,reject){
-        setTimeout((success=true)=>{
-          if(success)resolve({status:'200',data:{}})
-          else reject({status:'404'})
-        },3000)
-      })
+        (error)=>{
+            alert('Network Error...')
+          }
+        )
+        .finally(()=>{
+          vm.isBusy=false
+        }) 
     },
   },
   computed:{

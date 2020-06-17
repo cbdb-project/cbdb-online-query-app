@@ -168,8 +168,8 @@ function getListByName(apiType,arg,vm){
   **/
   function kinshipOptions() {
     return  [
-        { text: this.$t('globalTerm.custom'), value: 'custom' },
-        { text: this.$t('globalTerm.mCircle'), value: 'mCircle' },
+        { text: this.$t('globalTerm.custom'), value: 1 },
+        { text: this.$t('globalTerm.mCircle'), value: 0 },
       ]
     }
 

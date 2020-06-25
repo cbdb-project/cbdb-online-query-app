@@ -58,7 +58,9 @@
           <b-col cols="4" style = "text-align:left" >
             <b-button-group>
             <select-place @getPlaceName="handleGetOfficePlace" name="office" style = "margin-top:16px"></select-place>
+            <!--
             <import-place @getPlaceName="handleGetOfficePlace" name="office" style = "margin-top:16px"></import-place>
+            -->
             </b-button-group>
           </b-col>
         </b-row> 
@@ -88,7 +90,9 @@
           <b-col cols="4" style = "text-align:left" >
             <b-button-group>
             <select-place @getPlaceName="handleGetPeoplePlace" name="people" style = "margin-top:16px"></select-place>
+            <!--
             <import-place @getPlaceName="handleGetPeoplePlace" name="people" style = "margin-top:16px"></import-place>
+            -->
             </b-button-group>
           </b-col>
         </b-row> 
@@ -176,7 +180,7 @@ import {isNull,yearValidation,peoplePlaceGetter,officePlaceGetter,officeGetter} 
 import queryResult from '@/components/utility/query-result.vue'
 import selectOffice from '@/components/utility/select-office.vue'
 import selectPlace from '@/components/utility/select-place.vue'
-import importPlace from '@/components/utility/import-place.vue'
+//import importPlace from '@/components/utility/import-place.vue'
 import viewSelected from '@/components/utility/view-selected.vue'
 export default {
   name: 'entityQueryByOffice',
@@ -185,7 +189,7 @@ export default {
       queryResult,
       selectOffice,
       selectPlace,
-      importPlace,
+      //importPlace,
       viewSelected
   },
   data () {

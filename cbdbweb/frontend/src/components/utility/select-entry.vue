@@ -107,7 +107,11 @@
                     total:undefined
                 },
                 treeDataSource: dataJson,
-                formData:{eName:'',accurate:0},
+                formData:
+                {
+                    eName:'',
+                    accurate:0
+                },
                 /*表格子數據放這裡*/
                 fields: [
                     {

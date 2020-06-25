@@ -13,15 +13,15 @@
           <b-dropdown-item @click = "changeLang('en')">English</b-dropdown-item>
           <b-dropdown-item @click = "changeLang('zh-cmn-Hant')">中文</b-dropdown-item>
         </b-nav-item-dropdown>
-
+        <!-- 用戶資訊
         <b-nav-item-dropdown right>
-          <!-- Using 'button-content' slot -->
           <template v-slot:button-content>
             <em>{{user.name}}</em>
           </template>
           <b-dropdown-item href="#">{{$t('navbarTop.user.profile')}}</b-dropdown-item>
           <b-dropdown-item @click = "logOut">{{$t('navbarTop.user.logOut')}}</b-dropdown-item>
         </b-nav-item-dropdown>
+        -->
       </b-navbar-nav>
   </b-navbar>
 </div>

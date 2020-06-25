@@ -73,7 +73,9 @@
           <b-col cols="4" style = "text-align:left" >
             <b-button-group>
             <select-place @getPlaceName="handleGetPeoplePlace" name="people" style = "margin-top:16px"></select-place>
+            <!--
             <import-place @getPlaceName="handleGetPeoplePlace" name="people" style = "margin-top:16px"></import-place>
+            -->
             </b-button-group>
           </b-col>
         </b-row> 
@@ -170,7 +172,7 @@ import {isNull,yearValidation,peoplePlaceGetter,entryGetter} from '@/components/
 import queryResult from '@/components/utility/query-result.vue'
 import selectEntry from '@/components/utility/select-entry.vue'
 import selectPlace from '@/components/utility/select-place.vue'
-import importPlace from '@/components/utility/import-place.vue'
+//import importPlace from '@/components/utility/import-place.vue'
 import viewSelected from '@/components/utility/view-selected.vue'
 export default {
   name: 'entityQueryByEntry',
@@ -179,7 +181,7 @@ export default {
       queryResult,
       selectEntry,
       selectPlace,
-      importPlace,
+      //importPlace,
       viewSelected
   },
   data () {

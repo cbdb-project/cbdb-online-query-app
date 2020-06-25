@@ -36,13 +36,12 @@ function yearValidation(idx){
       else return false;
     }
   }
-
+  //各種getter：用於將條件選取組件中選取到的結果轉移到主頁面中
  /**
   * @param  {String} 要獲取的表格類型名称
   * @return {Function} 对应表格类型的getter
   **/
  function getterBuilder(type){
-  //console.log(type)
   let id = {
             "peoplePlace":"pId",
             "officePlace":"pId",
@@ -135,13 +134,17 @@ function getListByName(apiType,arg,vm){
     let dic = {
       "place_list":"name",
       "entry_list_by_name":"eName",
-      "office_list_by_name":"pName"
+      "office_list_by_name":"pName",
+      "find_assoc":"aName"
     }
     if(vm.isBusy===false){
       vm.isBusy=true
       vm.isBusyFind=true
-      let query = `${vm.$store.state.global.apiAddress}${apiType}?${dic[apiType]}=${arg[0]}&accurate=${arg[1]}`
-      if(apiType==="place_list") query += `&startTime=${arg[2]}&endTime=${arg[3]}`
+      let query = `${vm.$store.state.global.apiAddress}${apiType}?${dic[apiType]}=${arg[0]}`
+      if(arg.length>=1)
+        query += `&accurate=${arg[1]}`
+      if(apiType==="place_list") 
+        query += `&startTime=${arg[2]}&endTime=${arg[3]}`
       vm.axios.get(`${query}&start=1&list=100`)
       .then((r)=>{
         console.log(r.data)

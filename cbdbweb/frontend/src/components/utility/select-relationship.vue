@@ -7,47 +7,64 @@
             title="Select Associations" 
             size="xl"
             v-model="show"
-            >
-            <b-row>
-                <b-col :cols = 4 style = "text-align:right">
-                  <b-card>
+        >
+        <b-row>
+            <b-col :cols = 4 style = "text-align:right">
+                <b-card>
                     <b-form-group label-cols="4" :label="$t('selectRelationship.association')" label-for="select-relation-input">
-                        <b-form-input id="select-relation-input"></b-form-input>
+                        <b-form-input id="select-relation-input" v-model= "formData.aName"></b-form-input>
                     </b-form-group>
                     <b-form-group>
-                      <b-button variant="primary">Search</b-button>
+                      <b-button variant="primary" @click="find">
+                        <b-spinner small v-if="isBusyFind">
+                        </b-spinner>
+                        <span v-else>Find</span>
+                      </b-button>
                     </b-form-group>
-                  </b-card>
-                  <b-card>
+                </b-card>
+                <b-card>
                     <div style="height:400px; overflow:auto">
                         <tree-table listName="社会关系类目表" ref="recTree" :list.sync="treeDataSource"></tree-table>
                     </div>
-                  </b-card>
-                </b-col>
-                <b-col :cols=8 >
-                    <b-table 
-                        :items= "items" 
-                        :fields= "fields" 
-                        sticky-header = "600px"
-                        head-variant="light" 
-                        ref="selectableTable"
-                        selectable
-                        select-mode="multi"
-                        @row-selected="onRowSelected"
-                        responsive="sm">
-                        <template v-slot:cell(selected)="{ rowSelected }">
-                            <template v-if="rowSelected">
-                            <span aria-hidden="true">&check;</span>
-                            <span class="sr-only">Selected</span>
-                            </template>
-                            <template v-else>
-                            <span aria-hidden="true">&nbsp;</span>
-                            <span class="sr-only">Not selected</span>
-                            </template>
-                        </template>
-                    </b-table>
-                </b-col>
-            </b-row>
+                </b-card>
+            </b-col>
+            <b-col :cols=8 >
+                <b-form-group style = "text-align:right">
+                    <b-button variant="outline-danger" @click="onClearTable" size='sm' class = "mx-3" style="position:absolute;left:0">Clear Table</b-button> 
+                    <b-button-group> 
+                        <b-button v-if="this.selectedRelation.length>0" @click="clearSelected" variant="outline-secondary" size='sm' ><span>Cancel Selected</span></b-button>
+                        <b-button v-if="!(this.items.length===this.selectedRelation.length)" @click="selectAllRows" variant="outline-secondary" size='sm' ><span>Select All</span></b-button>
+                    </b-button-group>      
+                </b-form-group>
+                <b-row v-if="this.result.total!==undefined&&this.result.end!==undefined">
+                    <b-col>
+                        <b-link disabled>{{result.end}}</b-link><span style="color:#4D4D4D">&nbsp;of&nbsp;</span>
+                        <b-link disabled>{{result.total}}</b-link><span style="color:#4D4D4D">&nbsp;records are shown.</span>
+                    </b-col>
+                </b-row>
+                <b-table 
+                    :items= "items" 
+                    :fields= "fields" 
+                    sticky-header = "600px"
+                    head-variant="light" 
+                    ref="selectableTable"
+                    selectable
+                    select-mode="multi"
+                    @row-selected="onRowSelected"
+                    responsive="sm">
+                <template v-slot:cell(selected)="{ rowSelected }">
+                    <template v-if="rowSelected">
+                        <span aria-hidden="true">&check;</span>
+                        <span class="sr-only">Selected</span>
+                    </template>
+                    <template v-else>
+                        <span aria-hidden="true">&nbsp;</span>
+                        <span class="sr-only">Not selected</span>
+                    </template>
+                </template>
+                </b-table>
+            </b-col>
+        </b-row>
             <template v-slot:modal-footer>
               <b-button size="xl" variant="secondary" @click="close">
                 Cancel
@@ -63,6 +80,7 @@
 <script>
 import dataJson from '@/assets/relationData.json'
 import treeTable from '../treeTable/tree-table.vue'
+import {getListById,appendListById,celarResultTable,getListByName} from '@/components/utility/utility-functions.js'
 export default {
     name:'selectRelationship',
     props:{
@@ -72,35 +90,45 @@ export default {
       },
     data() {
         return {
-        show:false,
-        treeDataSource: dataJson,
-        /*表格子數據放這裡*/
-        fields: [
+          show:false,
+          isBusy:false,
+          isBusyFind:false,
+          isBusyLoad:false,
+          treeDataSource: dataJson,
+          result:
           {
-            key: 'rId',
-            label:'Assoc. Code',
-            sortable: true
+            query:undefined,
+            start:undefined,
+            end:undefined,
+            total:undefined
           },
+          /*表格子數據放這裡*/
+          fields: 
+          [
+            {
+              key: 'aId',
+              label:'社會關係代碼',
+              sortable: true
+            },
+            {
+              key: 'aName',
+              label:'Assoc. Name',
+              sortable: true
+            },
+            {
+              key: 'aNameChn',
+              label: '社會關係名',
+              sortable: true,
+            }
+          ],
+          //rId 相當於 C_ASSOC_CODE
+          items: [],
+          //选中的关系出现在这里
+          selectedRelation : [],
+          formData:
           {
-            key: 'rName',
-            label:'Assoc. Name',
-            sortable: true
-          },
-          {
-            key: 'rNameCh',
-            label: '社會關係名',
-            sortable: true,
+            aName:''           
           }
-        ],
-        //rId 相當於 C_ASSOC_CODE
-        items: [
-          {rId:'-1',rName:'[Missing Data]',rNameCh:'[缺乏信息]'},
-          {rId:'0',rName:'[Undefined]',rNameCh:'[未詳]'},
-          {rId:'1',rName:'Listed in Yuanyou colition register',rNameCh:'入元祐黨籍者'},   
-          {rId:'2',rName:'Yuanfu colition member (元符黨)',rNameCh:'元符上書入籍'},      
-        ],
-        //选中的关系出现在这里
-        selectedRelation : []
         }
     },
     components: {
@@ -113,6 +141,9 @@ export default {
         },
         onRowSelected(items) {
             this.selectedRelation = items
+        },
+        onClearTable(){
+                celarResultTable(this)
         },
         selectAllRows() {
             this.$refs.selectableTable.selectAllRows()
@@ -130,6 +161,9 @@ export default {
             this.$emit('getRelation', {fields:this.fields,items:this.selectedRelation});
             this.close()
           },
+        find(){
+            getListByName('find_assoc',[this.formData.aName],this)
+        }
     } 
 }
 </script>

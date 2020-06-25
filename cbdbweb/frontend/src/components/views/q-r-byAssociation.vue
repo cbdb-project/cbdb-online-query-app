@@ -17,7 +17,7 @@
               <b-row class="pl-3" style = "text-align:center">
                 <b-col>
                   <span v-if="this.relationTable.length===0" style = "line-height:31px">**{{$t('globalTerm.all')}}**</span>
-                  <span v-else>{{this.relationTable[0]['rNameCh']}}
+                  <span v-else>{{this.relationTable[0]['aNameChn']}}
                     <span v-if="this.relationTable.length>1">及另外{{this.relationTable.length-1}}種關係</span>
                   </span>
                   <view-selected name='relation' :fields="this.relationField" :items="this.relationTable" @update:items="val=>this.relationTable=val"></view-selected>
@@ -109,7 +109,7 @@
       </b-row>    
     </b-card>
   </div>
-  <div class="hello">
+  <div class="hello" v-if="result!==undefined">
     <b-card header-tag="header" footer-tag="footer">
       <template v-slot:header>
           <h6 class="mb-0">{{$t('globalTerm.resultShow')}}</h6>
@@ -126,7 +126,7 @@ import queryResult from '@/components/utility/query-result.vue'
 import selectRelation from '@/components/utility/select-relationship.vue'
 import selectPlace from '@/components/utility/select-place.vue'
 import viewSelected from '@/components/utility/view-selected.vue'
-import importPlace from '@/components/utility/import-place.vue'
+//import importPlace from '@/components/utility/import-place.vue'
 
 export default {
   name: 'relationQueryByAssociation',
@@ -136,7 +136,7 @@ export default {
     selectRelation,
     selectPlace,
     viewSelected,
-    importPlace
+    //importPlace
   },
   data () {
     return {

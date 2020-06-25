@@ -1,96 +1,16 @@
 <template>
   <div class="hello">
     <!--
-    <h1>{{ user.name }}：</h1>
-    <h2>歡迎使用 CBDB Web 查詢系統</h2>
-    <ul>
-      <li>
-        <a
-          href="https://vuejs.org"
-          target="_blank"
-        >
-          Core Docs
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://forum.vuejs.org"
-          target="_blank"
-        >
-          Forum
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://chat.vuejs.org"
-          target="_blank"
-        >
-          Community Chat
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://twitter.com/vuejs"
-          target="_blank"
-        >
-          Twitter
-        </a>
-      </li>
-      <br>
-      <li>
-        <a
-          href="http://vuejs-templates.github.io/webpack/"
-          target="_blank"
-        >
-          Docs for This Template
-        </a>
-      </li>
-    </ul>
-    <h2>這是首頁</h2>
-    <ul>
-      <li>
-        <a
-          href="http://router.vuejs.org/"
-          target="_blank"
-        >
-          vue-router
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vuex.vuejs.org/"
-          target="_blank"
-        >
-          vuex
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vue-loader.vuejs.org/"
-          target="_blank"
-        >
-          vue-loader
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/awesome-vue"
-          target="_blank"
-        >
-          awesome-vue
-        </a>
-      </li>
-    </ul>
+    <h1>欢迎使用ss中國歷代人物傳記查询</h1>
     -->
-    <h1>欢迎使用 中國歷代人物傳記查询</h1>
     <b-card header-tag="header" footer-tag="footer">
       <template v-slot:header>
         <h6 class="mb-0">人物信息</h6>
       </template>
     <b-card-text  class = "card-item-title">
     </b-card-text>
-    <div>
-    <div class  = "card-item-body px-3" v-if = "personInfo">
+    <div class  = "card-item-body px-3">
+      <div v-if = "personInfo">
         <h2 v-if="personInfo.BasicInfo">
           {{personInfo.BasicInfo.ChName}}
         </h2>
@@ -124,11 +44,13 @@
           </b></b-col>
         </b-row>
       </div>
-        <b-row>
-          <b-button href="#" variant="primary" 
-              style = "width:100%;margin-top:16px"
-              @click="fresh">换一换</b-button>
-        </b-row>
+      <b-row>
+        <b-button href="#" variant="primary" 
+          style = "width:100%;margin-top:16px"
+          @click="fresh" :disabled="isBusy">
+          Next
+          </b-button>
+      </b-row>
     </div>
     </b-card>
   </div>
@@ -136,9 +58,8 @@
 
 <script>
 import {isNull} from '@/components/utility/utility-functions.js'
-import selectPerson from '@/components/utility/select-person.vue'
 export default {
-  name: 'HelloWorld',
+  name: 'Hello',
   data () {
     return {
       isBusy: false,

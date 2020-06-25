@@ -144,11 +144,12 @@ export default {
       formData:{
         //用计算属性
         person:[],
-        mLoop:undefined,
-        mAncGen:undefined,
-        mDecGen:undefined,
-        mColLink:undefined,
-        mMarLink:undefined,
+        //MLoop太大會導致查詢時間非常長長長長長
+        MLoop:5,
+        MAncGen:1,
+        MDecGen:1,
+        MColLink:1,
+        MMarLink:1,
         kinshipType:1, 
       },
       personField:[],
@@ -348,7 +349,12 @@ export default {
       this.isBusy = true;
       let vm = this
       let f = vm.formData     
-      let data = {"people":vm.getPersonTableId,"mCircle":f.kinshipType,"MAncGen":f.MAncGen,"MDecGen":f.MDecGen,"MColLink":f.MColLink,"MMarLink":f.MMarLink,"MLoop":f.MLoop,"start":0,"list":65535 }
+      let data = 
+      {
+        "people":vm.getPersonTableId,"mCircle":f.kinshipType,"MAncGen":f.MAncGen,
+        "MDecGen":f.MDecGen,"MColLink":f.MColLink,"MMarLink":f.MMarLink,"MLoop":f.MLoop,
+        "start":0,"list":65535 
+      }
       data = JSON.stringify(data)
       let query = `${vm.$store.state.global.apiAddress}query_relatives?RequestPlayload=${data}`    
       //console.log(query)

@@ -24,7 +24,7 @@
                 </b-card>
                 <b-card>
                     <div style="height:400px; overflow:auto">
-                        <tree-table listName="社会关系类目表" ref="recTree" :list.sync="treeDataSource"></tree-table>
+                        <tree-table listName="社会关系类目表" ref="recTree" :list.sync="treeDataSource" @handlerExpand="handlerExpand" @actionFunc="actionFunc"></tree-table>
                     </div>
                 </b-card>
             </b-col>
@@ -155,6 +155,12 @@ export default {
             console.log('展开/收缩')
             m.isExpand = !m.isExpand
         },
+        actionFunc(m){
+                getListById('get_assoc',m.Id,this)
+            },
+        handleTableScroll(){
+                appendListById('get_assoc',this)
+            },
         haveSelected: function(){
             //同步选中入仕途径
             console.log("选取成功");

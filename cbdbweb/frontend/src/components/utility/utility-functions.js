@@ -103,9 +103,11 @@ function yearValidation(idx){
   **/
  function getListById(apiType,id,vm){
     console.log(id)
+    let idType = apiType === 'get_assoc'?'aType':'id'
     if(vm.isBusy===false){
       vm.isBusy=true
-      let query = `${vm.$store.state.global.apiAddress}${apiType}?id=${id}`
+      let query = `${vm.$store.state.global.apiAddress}${apiType}?${idType}=${id}`
+      console.log(query)
       vm.axios.get(`${query}&start=1&list=100`)
       .then((r)=>{
         console.log(r.data)

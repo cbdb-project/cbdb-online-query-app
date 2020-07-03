@@ -61,10 +61,15 @@
           <b-col cols="4" style = "text-align:left" >
             <b-button-group>
             <select-place @getPlaceName="handleGetPeoplePlace" name="people" style = "margin-top:16px"></select-place>
+            <!--
             <import-place @getPlaceName="handleGetPeoplePlace" name="people" style = "margin-top:16px"></import-place>
+            -->
             </b-button-group>
           </b-col>
         </b-row> 
+
+        <!-- 指數年的api還沒加，先註釋掉 -->
+        <!--
         <b-row class = "px-3 mb-3">
           <b-card-text class = "card-item-title mt-3">
             <b-form-checkbox switch size="lg" id="checkbox-2" v-model= "formData.indexYear" name="checkbox-2"
@@ -81,7 +86,7 @@
               <b-form-invalid-feedback :state="validation('indexStartTime')">
                 Invalid year 
               </b-form-invalid-feedback>
-            </b-col>
+          </b-col>
           <b-col>
              <label for="index-end-time" class = "user-input-label">{{$t('globalTerm.endTime')}}:</label>
              <b-form-input id="index-end-time" v-model="formData.indexEndTime" placeholder="" 
@@ -92,6 +97,8 @@
            </b-col>
            <b-col cols="4"></b-col>
         </b-row>
+        -->
+        
       </div>
       <b-row class = "px-3 mb-3">
         <b-col></b-col>
@@ -114,7 +121,7 @@
       <template v-slot:header>
           <h6 class="mb-0">{{$t('globalTerm.resultShow')}}</h6>
       </template>
-      <query-result></query-result>
+      <query-result name="ass-result" :items="result.ass" :fields="resultField"></query-result>
     </b-card>
   </div>
 </div>
@@ -146,7 +153,9 @@ export default {
       formData:{
         place:[],
         association:[],
-        usePeoplePlace:0
+        usePeoplePlace:0,
+        useXy:1,
+        broad:0
       },
       //後端傳回來的數據放這裡
       personInfo:{
@@ -155,7 +164,171 @@ export default {
       peoplePlaceTable:[],
       peoplePlaceField:[],
       relationTable:[],
-      relationField:[]
+      relationField:[],
+      resultField:[
+        { 
+          key: 'pId',
+          label:'人物ID',
+          sortable: true
+        }, 
+        { 
+          key: 'pName',
+          label:'Person Name',
+          sortable: true
+        }, 
+        { 
+          key: 'pNameChn',
+          label:'人物姓名',
+          sortable: true
+        },    
+        { 
+          key: 'aId',
+          label:'社會關係人ID',
+          sortable: true
+        }, 
+        { 
+          key: 'aName',
+          label:'Associate Name',
+          sortable: true
+        }, 
+        { 
+          key: 'aNameChn',
+          label:'關係人姓名',
+          sortable: true
+        },   
+        { 
+          key: 'pIndexYear',
+          label:'人物指數年',
+          sortable: true
+        }, 
+        { 
+          key: 'pSex',
+          label:'人物性別',
+          sortable: true
+        }, 
+        { 
+          key: 'aIndexYear',
+          label:'關係人指數年',
+          sortable: true
+        }, 
+        { 
+          key: 'aSex',
+          label:'關係人性別',
+          sortable: true
+        }, 
+        { 
+          key: 'pAddrID',
+          label:'人物地點ID',
+          sortable: true
+        },  
+        { 
+          key: 'pAddrName',
+          label:'Address Name',
+          sortable: true
+        }, 
+        { 
+          key: 'pAddrNameChn',
+          label:'人物地點名',
+          sortable: true
+        },  
+        { 
+          key: 'pX',
+          label:'人物地點經度',
+          sortable: true
+        },    
+        { 
+          key: 'pY',
+          label:'人物地點緯度',
+          sortable: true
+        },     
+        { 
+          key: 'aAddrID',
+          label:'關係人地點ID',
+          sortable: true
+        },  
+        { 
+          key: 'aAddrName',
+          label:'Associate Address Name',
+          sortable: true
+        }, 
+        { 
+          key: 'aAddrNameChn',
+          label:'關係人地點名',
+          sortable: true
+        },  
+        { 
+          key: 'aX',
+          label:'關係人地點經度',
+          sortable: true
+        },    
+        { 
+          key: 'aY',
+          label:'關係人地點緯度',
+          sortable: true
+        },   
+        { 
+          key: 'distance',
+          label:'地點距離',
+          sortable: true
+        }, 
+        { 
+          key: 'p_xy_count',
+          label:'結果中同一地點人數',
+          sortable: true
+        }, 
+        { 
+          key: 'a_xy_count',
+          label:'結果中與關係人同一地點人數',
+          sortable: true
+        }, 
+      
+        { 
+          key: 'pKinshipRelation',
+          label:'Kinship Relation',
+          sortable: true
+        },  
+        { 
+          key: 'pKinshipRelationChn',
+          label:'親屬關係',
+          sortable: true
+        },    
+        { 
+          key: 'pKinName',
+          label:'Kin Name',
+          sortable: true
+        },   
+        { 
+          key: 'pKinNameChn',
+          label:'親屬姓名',
+          sortable: true
+        }, 
+        { 
+          key: 'aKinshipRelation',
+          label:'Associate\'s Kinship Relation',
+          sortable: true
+        }, 
+        { 
+          key: 'aKinshipRelationChn',
+          label:'關係人親屬關係',
+          sortable: true
+        }, 
+        { 
+          key: 'aKinName',
+          label:'Associate\'s Kin\'s Name',
+          sortable: true
+        },
+        { 
+          key: 'aKinNameChn',
+          label:'關係人親屬之姓名',
+          sortable: true
+        },
+        { 
+          key: 'a_xy_count',
+          label:'結果中與關係人同一地點人數',
+          sortable: true
+        },
+      ],
+      result:undefined
     }
   },
   methods:{
@@ -176,39 +349,40 @@ export default {
       //提交表单的时候先清空原有數據
       this.personInfo = {}
       this.isBusy = true;
-      //加了async修饰符res变成结果？
-      const res = this.waitForServer(this.formData)
-      res.then((r)=>
-        {
-          this.personInfo = r.data
-          this.isBusy = false
-        },
-        (e)=>{
-          alert('something went wrong...')
-          this.isBusy = false
-        }
-      )
-    },
-    waitForServer(query){
-      //sendToServer(query)
-      //------模擬服務器響應的東西---------
-      return new Promise(function(resolve,reject){
-        setTimeout((success=true)=>{
-          if(success)resolve({status:'200',data:{}})
-          else reject({status:'404'})
-        },3000)
-      })
+      let vm = this
+      let f = vm.formData     
+      console.log(vm.getRelationTableId)
+      let data = 
+      {
+        "association":vm.getRelationTableId,"place":vm.getPeoplePlaceTableId,
+        "usePeoplePlace":f.usePeoplePlace,"useXy":f.useXy,"broad":f.broad
+      }
+      data = JSON.stringify(data)
+      let query = `${vm.$store.state.global.apiAddress}query_associates?RequestPlayload=${data}`    
+      console.log(query)
+      this.axios.post(query)
+        .then(
+          res=>
+          {
+            console.log(res.data.data)  
+            vm.result={}
+            vm.result.ass=res.data.data       
+          },
+          (error)=>{
+              alert('Network Error...')
+            }
+        )
+        .finally(()=>{
+          vm.isBusy=false
+        }) 
     },
   },
   computed:{
-    queryFormular(){
-      return `person-id:'${this.formData.personId}';`
-    },
     isInvalid(){
       return this.isNull('personId')==true
     },
     getPeoplePlaceTableId(){return this.peoplePlaceTable.map(i=>i['pId'])},
-    getRelationTableId(){return this.relationTable.map(i=>i['rId'])},
+    getRelationTableId(){return this.relationTable.map(i=>i['aId'])},
   },
   watch:{
 

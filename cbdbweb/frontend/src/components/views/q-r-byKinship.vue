@@ -209,8 +209,7 @@ export default {
           key: 'pAddrNameChn',
           label:'人物地點名',
           sortable: true
-        },  
-        
+        },        
         { 
           key: 'pX',
           label:'人物地點經度',
@@ -313,17 +312,17 @@ export default {
         }, 
         { 
           key: 'pDistance',
-          label:'地點距離',
+          label:'与亲属地點距離',
           sortable: true
         }, 
         { 
           key: 'rDistance',
-          label:'與根節點人物地點距離',
+          label:'亲属與根節點人物地點距離',
           sortable: true
         }, 
         { 
           key: 'xy_count',
-          label:'結果中同一地點人數',
+          label:'結果中与亲属同一地點人數',
           sortable: true
         }, 
         { 

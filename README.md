@@ -1,7 +1,27 @@
-# CBDB 在线查询系统
+# Contributor Guide for CBDB Online Query System
 ## Backend
+### Python Environment
+`3.6.x`
+
 ### Requirements
-`Django~=1.11`
+`Django~=3.0.8`  
+`djangorestframeworko~=3.11.0`  
+`mysqlclient~=2.0.1`  
+
+Please install above packages before running the server.  
+
+### Running the Server
+#### Windows 
+``` 
+cd src
+py manage.py runserver
+```
+#### MacOS  
+``` 
+cd src
+python manage.py runserver
+```
+
 ## Frontend
 ### Project Structure  
 
@@ -25,7 +45,7 @@
 
 ### Quick Start in Dev Mode
 ``` 
-cd cbdbweb/frontend
+cd src/frontend
 
 #install dependencies
 npm install

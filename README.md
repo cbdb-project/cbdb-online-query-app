@@ -5,7 +5,7 @@
 
 ### Requirements
 `Django~=3.0.8`  
-`djangorestframeworko~=3.11.0`  
+`djangorestframework~=3.11.0`  
 `mysqlclient~=2.0.1`  
 
 Please install above packages before running the server.  

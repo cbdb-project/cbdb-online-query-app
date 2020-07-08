@@ -11,6 +11,9 @@
 Please install above packages before running the server.  
 
 ### Running the Server
+
+If you just want to change the code in frontend, running the Node.js dev-server is strongly recommanded. See [Quick Start in Dev Mode](#qsdm)
+
 #### Windows 
 ``` 
 cd src
@@ -43,7 +46,7 @@ python manage.py runserver
 
 ```
 
-### Quick Start in Dev Mode
+### <span id = "qsdm">Quick Start in Dev Mode</span>
 ``` 
 cd src/frontend
 

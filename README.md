@@ -1,4 +1,20 @@
-# Contributor Guide for CBDB Online Query System
+# CBDB Online Query System
+## Project Structure
+```
+/cbdb-online-query-app
+├── /dataProcessing # Save codes and output of data processing. This directory is just for archive and has nothing to do with other parts.   
+│   └── ... 
+├── /src # Core source code of this project. 
+│   ├── /cbdbweb # Backend
+│   ├── /frontend # Frontend
+│   ├── db.sqlite3 
+│   └── manage.py # Entrance of running the server. See Backend > Running the server
+├── .gitignore 
+├── MANIFEST.in
+├── README.md
+└── requirements.txt
+
+```
 ## Backend
 ### Python Environment
 `3.6.x`

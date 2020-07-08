@@ -25,6 +25,8 @@
 
 ### Quick Start in Dev Mode
 ``` 
+cd cbdbweb/frontend
+
 #install dependencies
 npm install
 

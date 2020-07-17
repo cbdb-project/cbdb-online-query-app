@@ -1,201 +1,201 @@
 [
   {
-    "Id": 1,
-    "ObjectName": "社会关系（笼统）",
+    "Id": "1",
+    "ObjectName": "社會關係（籠統）",
     "children": [
       {
-        "Id": 2,
-        "ObjectName": "社会关系（笼统）"
+        "Id": "0101",
+        "ObjectName": "社會關係（籠統）"
       },
       {
-        "Id": 3,
-        "ObjectName": "同为……之成员"
+        "Id": "0102",
+        "ObjectName": "同為⋯⋯之成員"
       },
       {
-        "Id": 9,
-        "ObjectName": "社会交际"
+        "Id": "0103",
+        "ObjectName": "社會交際"
       }
     ]
   },
   {
-    "Id": 13,
-    "ObjectName": "学术关系类",
+    "Id": "02",
+    "ObjectName": "學術關係類",
     "children": [
       {
-        "Id": 14,
-        "ObjectName": "师生关系"
+        "Id": "0202",
+        "ObjectName": "師生關係"
       },
       {
-        "Id": 16,
-        "ObjectName": "学术交往"
+        "Id": "0203",
+        "ObjectName": "學術交往"
       },
       {
-        "Id": 17,
-        "ObjectName": "学术主题相近"
+        "Id": "0204",
+        "ObjectName": "學術主題相近"
       },
       {
-        "Id":14,
-        "ObjectName":"同为……之成员"
+        "Id":"0205",
+        "ObjectName":"同為⋯⋯之成員"
       },
       {
-        "Id":14,
-        "ObjectName":"学术襄助"
+        "Id":"0206",
+        "ObjectName":"學術襄助"
       },
       {
-        "Id":14,
-        "ObjectName":"文学艺术交往"
+        "Id":"0207",
+        "ObjectName":"文學藝術交往"
       },
       {
-        "Id":14,
-        "ObjectName":"学术攻讦"
+        "Id":"0208",
+        "ObjectName":"學術攻訐"
       }
     ]
   },
   {
-    "Id":14,
-    "ObjectName":"朋友关系类",
+    "Id":"03",
+    "ObjectName":"朋友關係類",
     "children":[
       {
         "Id":14,
-        "ObjectName":"朋友关系（笼统）"
+        "ObjectName":"朋友關係（籠統）"
       }
     ]
   },
   {
-    "Id":14,
-    "ObjectName":"政治关系类",
+    "Id":"04",
+    "ObjectName":"政治關類累",
     "children":[
       {
-        "Id":14,
-        "ObjectName":"政治关系（笼统）"
+        "Id":"0401",
+        "ObjectName":"政治關係（籠統）"
       },
       {
-        "Id":14,
-        "ObjectName":"官场关系（平级）"
+        "Id":"0402",
+        "ObjectName":"官場關係（平級）"
       },
       {
-        "Id":14,
-        "ObjectName":"官场关系（下属）"
+        "Id":"0403",
+        "ObjectName":"官場關係（下屬）"
       },
       {
-        "Id":14,
-        "ObjectName":"官场关系（上司）"
+        "Id":"0404",
+        "ObjectName":"官場關係（上司）"
       },
       {
-        "Id":14,
+        "Id":"0405",
         "ObjectName":"政治奥援"
       },
       {
-        "Id":14,
-        "ObjectName":"荐举保任"
+        "Id":"0406",
+        "ObjectName":"薦舉保任"
       },
       {
-        "Id":14,
-        "ObjectName":"政治对抗"
+        "Id":"0407",
+        "ObjectName":"政治對抗"
       }
     ]
   },
   {
-    "Id":14,
+    "Id":"05",
     "ObjectName":"著述关系类",
     "children":[
       {
-        "Id":14,
-        "ObjectName":"著述关系（笼统）"
+        "Id":"0501",
+        "ObjectName":"著述關係（籠統）"
       },
       {
-        "Id":14,
-        "ObjectName":"记咏文字"
+        "Id":"0502",
+        "ObjectName":"記詠文字"
       },
       {
-        "Id":14,
-        "ObjectName":"墓志文字"
+        "Id":"0503",
+        "ObjectName":"墓誌文字"
       },
       {
-        "Id":14,
+        "Id":"0504",
         "ObjectName":"序跋文字"
       },
       {
-        "Id":14,
-        "ObjectName":"礼仪文字"
+        "Id":"0505",
+        "ObjectName":"禮儀文字"
       },
       {
-        "Id":14,
+        "Id":"0506",
         "ObjectName":"传记文字"
       },
       {
-        "Id":14,
-        "ObjectName":"论说文字"
+        "Id":"0507",
+        "ObjectName":"論說文字"
       },
       {
-        "Id":14,
-        "ObjectName":"箴铭文字"
+        "Id":"0508",
+        "ObjectName":"箴銘文字"
       },
       {
-        "Id":14,
-        "ObjectName":"书札文字"
+        "Id":"0509",
+        "ObjectName":"書札文字"
       },
       {
-        "Id":14,
-        "ObjectName":"应酬文字"
+        "Id":"0510",
+        "ObjectName":"應酬文字"
       }
     ]
   },
   {
-    "Id":14,
+    "Id":"06",
     "ObjectName":"军事关系类",
     "children":[
       {
-        "Id":14,
-        "ObjectName":"军事关系（笼统）"
+        "Id":"0601",
+        "ObjectName":"軍事關係（籠統）"
       },
       {
-        "Id":14,
-        "ObjectName":"军事支持"
+        "Id":"0602",
+        "ObjectName":"軍事支持"
       },
       {
-        "Id":14,
-        "ObjectName":"军事对抗"
+        "Id":"0603",
+        "ObjectName":"軍事對抗"
       }
     ]
   },
   {
-    "Id":14,
-    "ObjectName":"医疗关系类",
+    "Id":"07",
+    "ObjectName":"醫療關係類",
     "children":[
       {
-        "Id":14,
-        "ObjectName":"医疗关系"
+        "Id":"0701",
+        "ObjectName":"醫療關係（籠統）"
       }
     ]
   },
   {
-    "Id":14,
-    "ObjectName":"宗教关系类",
+    "Id":"08",
+    "ObjectName":"宗教關係類",
     "children":[
       {
         "Id":14,
-        "ObjectName":"宗教关系（笼统）"
+        "ObjectName":"宗教關係（籠統）"
       }
     ]
   },
   {
-    "Id":14,
-    "ObjectName":"家庭关系类",
+    "Id":"09",
+    "ObjectName":"家庭關係類",
     "children":[
       {
-        "Id":14,
-        "ObjectName":"家庭关系（笼统）"
+        "Id":"0901",
+        "ObjectName":"家庭關係（籠統）"
       }
     ]
   },
   {
-    "Id":14,
-    "ObjectName":"财务关系类",
+    "Id":"10",
+    "ObjectName":"財務關係類",
     "children":[
       {
-        "Id":14,
-        "ObjectName":"财务关系（笼统）"
+        "Id":"1001",
+        "ObjectName":"財務關係（籠統）"
       }
     ]
   }

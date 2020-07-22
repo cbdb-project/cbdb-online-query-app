@@ -34,6 +34,19 @@ module.exports = {
         visualizationByGraphs:"图表可视化",
         statistics:"統計分析"
     },
+    home:{
+        introTitle:"關於 CBDB",
+        introText:"中國歷代人物傳記資料(或稱數據)庫係線上的關係型資料庫，其遠程目標在於系統性地收入中國歷史上所有重要的傳記資料，並將其內容毫無限制地、免費地公諸學術之用。截至 2020年5月為止，本資料庫共收錄約470,000人的傳記資料，這些人物主要出自七世紀至十九世紀，本資料庫現正致力於增錄更多唐代和明清的人物傳記資料。本資料庫除可作為人物傳記的一種參考資料外，亦冀可敷統計分析與空間分析之用。",
+        historyText:"中國歷代人物傳記資料庫之始祖為郝若貝教授（Robert M. Hartwell）（1932 – 1996）。郝若貝教授將本資料庫初版及其他財產遺贈哈佛燕京學社。目前本資料庫的開發工作係由哈佛大學費正清中國研究中心、中央研究院歷史語言研究所及北京大學中國古代史研究中心三方合作進行。",
+        introDetail:"欲了解更多資訊，請瀏覽：",
+        introTitleProject:"關於本系統",
+        introTextProject:"CBDB在線查詢系統建制計劃是一個開源項目。由北京大學數字人文研究中心、哈佛大學費正清中國研究中心CBDB項目組共同組成聯合團隊，並與台灣中研院進行合作，對CBDB在線系統進行重構。項目旨在通過提供更便捷的CBDB接入方式和更簡潔的操作方式，以增強用戶體驗。",
+        helpFileIntro:"關於本系統的使用說明，請參照：",
+        guide:"使用指南",
+        contribution1:"我們歡迎諸位以各種方式完善CBDB在線查詢系統🥺。請訪問我們的",
+        contribution2:"以獲得更多資訊，並加入到CBDB在線查詢系統的開發中🤗。",
+        githubRepo:"Github 程式碼倉庫"
+    },
     selectPerson:{
         selectButton:"選取人物",
         personName:"人物姓名"
@@ -109,10 +122,6 @@ module.exports = {
         selectFromDb:"從數據庫選取",
         custom:"自定義"   
     },
-    entityQueryByOffice:{
-        indexYearRange:"指數年範圍",
-        checkAndSearch:"檢索式確認",
-    },
     entityQueryByPerson:{
         personId:"人物代碼",
         personNameCh:"人名-中文",
@@ -168,9 +177,7 @@ module.exports = {
     },
     entityQueryByEntry:{
         entryYear:"入仕年",
-        indexYear:"指數年",
-        checkAndSearch:"檢索式確認",
-        checkRemind:"茲生成查詢式如下，請於檢索前核查確認"
+        indexYear:"指數年"
     },
     relationQueryByKinship:{
         maxAncestorGen:     "最大祖先距離(代)",
@@ -183,7 +190,7 @@ module.exports = {
         includeKinship:"包含親屬關係"
     },
     visualization:{
-        selectFromSystem:"系统导入",
-        localUpload:"本地上传",
+        selectFromSystem:"從系統加載",
+        localUpload:"從本地加載",
     }
 }

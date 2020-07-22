@@ -379,7 +379,7 @@ export default {
   },
   computed:{
     isInvalid(){
-      return this.isNull('personId')==true
+      return this.relationTable.length === 0
     },
     getPeoplePlaceTableId(){return this.peoplePlaceTable.map(i=>i['pId'])},
     getRelationTableId(){return this.relationTable.map(i=>i['aId'])},

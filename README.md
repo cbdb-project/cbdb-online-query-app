@@ -1,4 +1,6 @@
 # CBDB Online Query System
+## Usage Guide
+https://github.com/yiruka114514/CBDBWebAppGuide/blob/master/CBDBWebGuide.pdf   
 ## Project Structure
 ```
 /cbdb-online-query-app

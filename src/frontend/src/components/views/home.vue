@@ -1,143 +1,55 @@
 <template>
-  <div class="hello">
-    <!--
-    <h1>欢迎使用ss中國歷代人物傳記查询</h1>
-    -->
-    <b-card header-tag="header" footer-tag="footer">
-      <template v-slot:header>
-        <h6 class="mb-0">人物信息</h6>
-      </template>
-    <b-card-text  class = "card-item-title">
-    </b-card-text>
-    <div class  = "card-item-body px-3">
-      <div v-if = "personInfo">
-        <h2 v-if="personInfo.BasicInfo">
-          {{personInfo.BasicInfo.ChName}}
-        </h2>
-        <b-row>
-          <b-col >ID:<b>{{formData.personId}}</b></b-col>
-          <b-col v-if="personInfo.PersonAliases">
-            {{personAliasType(personInfo.PersonAliases.Alias)}}:<b>
-              {{personAliasName(personInfo.PersonAliases.Alias)}} 
-            </b></b-col>
-        </b-row>
-        <b-row>
-          
-          <b-col>指数年：<b>
-            {{personInfo.BasicInfo.IndexYear}}
-          </b></b-col>
-          <b-col>朝代：<b>
-            {{personInfo.BasicInfo.Dynasty}}
-          </b></b-col>
-        </b-row>
-        <b-row>
-          <b-col>性别：<b>
-            {{personGen(personInfo.BasicInfo.Gender)}}
-          </b></b-col>
-          <b-col v-if="personInfo.PersonAddresses.Address">籍贯：<b>
-            {{Address(personInfo.PersonAddresses.Address)}}
-          </b></b-col>
-        </b-row>
-        <b-row>
-          <b-col v-if="personInfo.PersonSources.Source">来源：<b>
-            {{personInfo.PersonSources.Source.Source}}
-          </b></b-col>
-        </b-row>
+  <div>
+    <div class="hello">
+      <!--
+      <h1>欢迎使用ss中國歷代人物傳記查询</h1>
+      -->
+      <b-card header-tag="header" footer-tag="footer">
+        <template v-slot:header>
+          <h6 class="mb-0">{{$t('home.introTitle')}}</h6>
+        </template>
+      <b-card-text  class = "card-item-title">
+      </b-card-text>
+      <div class  = "card-item-body px-3" style = "text-align:left">
+        <p>
+          {{$t('home.introText')}}
+        </p>
+        <p>
+          {{$t('home.historyText')}}
+        </p>
+        <p>
+          {{$t('home.introDetail')}}&nbsp;<a href = "https://projects.iq.harvard.edu/cbdb/home">https://projects.iq.harvard.edu/cbdb/home</a>
+        </p>
       </div>
-      <b-row>
-        <b-button href="#" variant="primary" 
-          style = "width:100%;margin-top:16px"
-          @click="fresh" :disabled="isBusy">
-          Next
-          </b-button>
-      </b-row>
+      </b-card>
     </div>
-    </b-card>
+    <div class="hello">
+      <b-card header-tag="header" footer-tag="footer">
+        <template v-slot:header>
+          <h6 class="mb-0">{{$t('home.introTitleProject')}}</h6>
+        </template>
+      <b-card-text  class = "card-item-title">
+      </b-card-text>
+      <div class  = "card-item-body px-3" style = "text-align:left">
+        <p>
+          {{$t('home.introTextProject')}}
+        </p>
+        <p>
+          {{$t('home.helpFileIntro')}}<a href = "https://github.com/yiruka114514/CBDBWebAppGuide/blob/master/CBDBWebGuide.pdf">{{$t('home.guide')}}</a>
+        </p>
+        <p>
+          {{$t('home.contribution1')}}<a href = "https://github.com/cbdb-project/cbdb-online-query-app">{{$t('home.githubRepo')}}</a>{{$t('home.contribution2')}}
+        </p>
+      </div>
+      </b-card>
+    </div>
   </div>
 </template>
 
 <script>
 import {isNull} from '@/components/utility/utility-functions.js'
 export default {
-  name: 'Hello',
-  data () {
-    return {
-      isBusy: false,
-      formData:{
-        personId:'' , 
-      },
-      personInfo:{
-      }
-    }
-  },
-  mounted: function(){ 
-      this.formData.personId = Math.floor(Math.random()*30000);
-      this.isBusy = true;
-      this.axios.get('https://cbdb.fas.harvard.edu/cbdbapi/person.php?id='+this.formData.personId +'&o=json')
-      .then((r)=>
-        { 
-          this.personInfo = r.data.Package.PersonAuthority.PersonInfo.Person
-          this.isBusy = false
-          if(this.personInfo === "" || this.personInfo === undefined || this.personInfo.BasicInfo === undefined ){
-            this.fresh();
-          }
-        },
-        (e)=>{
-          alert('something went wrong...')
-          this.isBusy = false
-        })
-    },
-  methods:{
-    personGen(isF){
-      if(isF === 0||isF === '0')return this.$t('globalTerm.male');
-      else if (isF === 1||isF === '1')return this.$t('globalTerm.female');
-      else return ''
-    },
-    Address(add){
-      if(add === '') return '未详';
-      else if(Array.isArray(add))return add[0].AddrName;
-      else return add.AddrName; 
-    },
-    personAliasType(alias){
-
-        if(alias === '')return '字';
-        else if(Array.isArray(alias))return alias[0].AliasType;
-        else return alias.AliasType;
-    },
-    personAliasName(alias){
-      if(alias === '')return '未详';
-      else if(Array.isArray(alias))return alias[0].AliasName;
-      else return alias.AliasName;
-    },
-    fresh() {
-      //提交表单的时候先清空原有數據
-      this.personInfo = {};
-      //加了async修饰符res变成结果？
-      //const res = this.waitForServer(this.formData)
-      this.formData.personId = Math.floor(Math.random()*30000);
-      this.isBusy = true;
-      console.log("1");
-      this.axios.get('https://cbdb.fas.harvard.edu/cbdbapi/person.php?id='+this.formData.personId +'&o=json')
-      .then((r)=>
-        { 
-          console.log("2")
-          this.personInfo = r.data.Package.PersonAuthority.PersonInfo.Person
-          this.isBusy = false
-          if(this.personInfo === "" || this.personInfo === undefined || this.personInfo.BasicInfo === undefined ){
-            this.fresh();
-          }
-        },
-        (e)=>{
-          alert('something went wrong...')
-          this.isBusy = false
-        })
-  },
-  },
-  computed:{
-    user(){
-      return this.$store.state.local.user
-    }
-  }
+  name: 'Hello'
 }
 </script>
 

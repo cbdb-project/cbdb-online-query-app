@@ -31,6 +31,19 @@ module.exports = {
         visualizationByGraphs:"Graphs Visualization",
         statistics:"Statistics"
     },
+    home:{
+        introTitle:"About CBDB",
+        introText:"The China Biographical Database is a freely accessible relational database with biographical information about approximately 470,000 individuals as of May 2020, primarily from the 7th through 19th centuries. With both online and offline versions, the data is meant to be useful for statistical, social network, and spatial analysis as well as serving as a kind of biographical reference.",
+        historyText:"CBDB originates with the work of Robert M. Hartwell (1932–1996). Professor Hartwell bequeathed his estate, including the first version of this database, to the Harvard-Yenching Institute which ceded its ownership.The development of CBDB is now a joint project of:Fairbank Center for Chinese Studies at Harvard University (費正清中國研究中心)Institute of History and Philology of Academia Sinica (中研院歷史語言研究所)Center for Research on Ancient Chinese History at Peking University (北京大學中國古代史研究中心)",
+        introDetail:"For more information, please visit:",
+        introTitleProject:"About the System",
+        introTextProject:"The CBDB Online Query System is an open source system developed by the joint team of Digital Humanity Center at Peking University, Fairbank Center for Chinese Studies at Harvard University, and Academia Sinica in Taiwan. The project aims to enhance the user experience by providing easier access to the CBDB and a simpler way to use it.",
+        helpFileIntro:"For usage of the system, please visit:",
+        guide:"Guide",
+        contribution1:"We welcome all contributions to CBDB Online Query System🥺. For more information, please visit our ",
+        contribution2:" and join in the development of  CBDB Online Query System🤗. ",
+        githubRepo:"Github repository"
+    },
     selectPerson:{
         selectButton:"SELECT PERSON",
         personName:"Name"
@@ -106,9 +119,6 @@ module.exports = {
         selectFromDb:"Select",
         custom:"Customization"
     },
-    entityQueryByOffice:{
-        indexYearRange:"Index Year Range",
-    },
     entityQueryByPerson:{
         personId:"Person ID",
         personIndexYear:"index Year",
@@ -164,9 +174,7 @@ module.exports = {
     },
     entityQueryByEntry:{
         entryYear:"Entry Year",
-        indexYear:"Index Year",
-        checkAndSearch:"Check And Search",
-        checkRemind:"The query is generated as the following. Please check it before your search."
+        indexYear:"Index Year"
     },
     relationQueryByKinship:{
         maxAncestorGen:     "Max Ancestor Gen.",
@@ -179,8 +187,8 @@ module.exports = {
         includeKinship:"Include Kinship"
     },
     visualization:{
-        selectFromSystem:"Select from System",
-        localUpload:"Local Upload",
+        selectFromSystem:"Import from System",
+        localUpload:"Import from Local Files",
 
     }
 }

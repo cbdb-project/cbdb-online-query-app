@@ -7,8 +7,8 @@
     </b-navbar-brand>
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
-        <b-nav-item href="#">{{$t('navbarTop.help')}}</b-nav-item>
-        <b-nav-item href="#" >{{$t('navbarTop.report')}}</b-nav-item>
+        <b-nav-item href="https://github.com/yiruka114514/CBDBWebAppGuide/blob/master/CBDBWebGuide.pdf" target="_blank">{{$t('navbarTop.help')}}</b-nav-item>
+        <b-nav-item href="https://github.com/cbdb-project/cbdb-online-query-app/issues" target="_blank">{{$t('navbarTop.report')}}</b-nav-item>
         <b-nav-item-dropdown :text="$t('navbarTop.lang')" right>
           <b-dropdown-item @click = "changeLang('en')">English</b-dropdown-item>
           <b-dropdown-item @click = "changeLang('zh-cmn-Hant')">中文</b-dropdown-item>

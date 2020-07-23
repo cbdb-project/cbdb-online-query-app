@@ -7,30 +7,41 @@ https://github.com/cbdb-project/cbdb-online-main-server/blob/develop/API.md
 
 ## Project Structure
 ```
-/cbdb-online-query-app
-├── /dataProcessing # Save codes and output of data processing. This directory is just for archive and has nothing to do with other parts.   
-│   └── ... 
-├── /src # Core source code of this project. 
-│   ├── /cbdbweb # Backend
-│   ├── /frontend # Frontend
-│   ├── db.sqlite3 
-│   └── manage.py # Entrance of running the server. See Backend > Running the server
-├── .gitignore 
-├── MANIFEST.in
+cbdb-online-query-app/
 ├── README.md
-└── requirements.txt
-
+├── dataProcessing #Save codes and output of data processing. This directory is just for archive and has nothing to do with other parts.
+│   ├── Office_type_tree.xlsx
+│   ├── office.json
+│   ├── officeData.json
+│   └── position_json.py
+└── src #Core source code of this project. 
+    ├── cbdbweb #Backend
+    ├── db.sqlite3
+    ├── dockerfile
+    ├── frontend # Frontend
+    ├── manage.py #django dev-server entrance. See Backend > Running the server
+    └── requirements.txt
 ```
 ## Backend
 ### Python Environment
 `3.6.x`
 
 ### Requirements
-`Django~=3.0.8`  
-`djangorestframework~=3.11.0`  
-`mysqlclient~=2.0.1`  
-
+`Django ==3.0.8`  
+`djangorestframework ==3.11.0`  
+`mysqlclient ==2.0.1`  
+`gunicorn==20.0.4`
 Please install above packages before running the server.  
+
+### Project Structure
+```
+cbdbweb/
+├── __init__.py
+├── asgi.py
+├── settings.py
+├── urls.py
+└── wsgi.py
+```
 
 ### Running the Server
 
@@ -51,21 +62,32 @@ python manage.py runserver
 ### Project Structure  
 
 ```
-/src
-├── App.vue
-├── assets #Save resources like images, etc. 
-│   └── ... 
-├── components #Save Vue components
-│   ├── global #Navigation components
-│   ├── treeTable #A special tree-table component
-│   ├── utilities #Components and functions used in query interfaces
-│   └── views #Query interfaces
-├── router #Vue router
-│   └── index.js 
-├── store #Vuex
-│   └── index.js 
-└── main.js
-
+frontend/
+├── build #Settings for using webpack to bundle the project
+│   ├── build.js
+│   ├── check-versions.js
+│   ├── logo.png
+│   ├── utils.js
+│   ├── vue-loader.conf.js
+│   ├── webpack.base.conf.js
+│   ├── webpack.dev.conf.js
+│   └── webpack.prod.conf.js
+├── config
+│   ├── dev.env.js
+│   ├── index.js
+│   └── prod.env.js
+├── index.html
+├── package-lock.json
+├── package.json
+├── postcss.config.js
+├── src #Vue Project
+│   ├── App.vue
+│   ├── assets #Save resources like images, etc. 
+│   ├── components #Save Vue components
+│   ├── main.js
+│   ├── router #Vue router
+│   └── store #Vuex
+└── static
 ```
 
 ### <span id = "qsdm">Quick Start in Dev Mode</span>

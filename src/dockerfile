@@ -1,20 +1,23 @@
-FROM python:3.6
-# File Author / Maintainer
-LABEL "auth"="yiruka114514" \
-      "time"="2020/07/23"
-#ENV PYTHONUNBUFFERED 1
-RUN mkdir /webapps
-WORKDIR /webapps
-# Installing OS Dependencies
-RUN apt-get update && apt-get upgrade -y && apt-get install -y \
-libsqlite3-dev
-RUN pip install -U pip setuptools
+FROM python:slim-buster
+LABEL maintainer="yiruka114514 <xxx@yyy.zzz>"
+LABEL maintainer="IceCodeNew <xxx@yyy.zzz>"
+
+# ENV PYTHONUNBUFFERED 1
+
+## Installing OS Dependencies
+RUN apt-get update && apt-get install -y \
+        libsqlite3-dev \
+    && apt-get clean && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
+    && rm -rf /var/lib/apt/lists/*
+
 COPY requirements.txt /webapps/
-#COPY requirements-opt.txt /webapps/
+# COPY requirements-opt.txt /webapps/
 RUN pip install -r /webapps/requirements.txt
-#RUN pip install -r /webapps/requirements-opt.txt
-ADD . /webapps/
-# Django service
+# RUN pip install -r /webapps/requirements-opt.txt
+
+WORKDIR /webapps
+COPY . /webapps/
+## Django service
 EXPOSE 8000
-# default command to execute    
+## default command to execute    
 CMD exec gunicorn cbdbweb.wsgi:application --bind 0.0.0.0:8000 --workers 3

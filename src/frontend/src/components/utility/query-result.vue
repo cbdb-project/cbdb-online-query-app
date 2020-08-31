@@ -86,7 +86,7 @@ export default {
       offset:100,
       isLoading:false,
       /*表格子數據放這裡*/
-        selected:[]
+      selected:[]
     }
   },
   methods: {

@@ -1,4 +1,4 @@
-# CBDB Online Query System
+# CBDB Online Query System - Developer Guide
 ## Usage Guide
 https://github.com/yiruka114514/CBDBWebAppGuide/blob/master/CBDBWebGuide.pdf   、
 
@@ -120,3 +120,18 @@ npm run build --report
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
+### Functions
+#### src/components/utility/query-result.vue
+##### 组件简介
+用于展示各种查询的结果
+##### Data
+* `currentPage`:`Number` 当前展示的页面，默认`1`
+* `startIdx`:`Number`从第几条记录开始向API请求结果，默认`0`
+* `offset`:`Number` 每页展示多少条记录，默认`100`
+* `isLoading`:`Bool` 是否正在加载，默认`false`
+* `selected`: `Array` 选中的记录
+######  Methods
+* `onRowSelected(item,index,event)` 当一条记录被点击时触发，将被选中的记录加入 `selected` 中
+* `selectAllRows()` 选中所有的记录
+* `clearSelected()` 清除选中的所有记录
+* `exportData()` 对于选中的记录，生成导出文件，并下载到本地

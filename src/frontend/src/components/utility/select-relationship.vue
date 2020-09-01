@@ -80,7 +80,7 @@
 <script>
 import dataJson from '@/assets/relationData.json'
 import treeTable from '../treeTable/tree-table.vue'
-import {getListById,appendListById,celarResultTable,getListByName} from '@/components/utility/utility-functions.js'
+import {getListById,appendListById,clearResultTable,getListByName} from '@/components/utility/utility-functions.js'
 export default {
     name:'selectRelationship',
     props:{
@@ -143,7 +143,7 @@ export default {
             this.selectedRelation = items
         },
         onClearTable(){
-                celarResultTable(this)
+            clearResultTable(this)
         },
         selectAllRows() {
             this.$refs.selectableTable.selectAllRows()

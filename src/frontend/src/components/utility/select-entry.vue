@@ -85,7 +85,7 @@
 <script>
     import dataJson from '@/assets/entryData.json'
     import treeTable from '../treeTable/tree-table.vue'
-    import {getListById,appendListById,celarResultTable,getListByName} from '@/components/utility/utility-functions.js'
+    import {getListById,appendListById,clearResultTable,getListByName} from '@/components/utility/utility-functions.js'
     export default {
         name:'selectEntry',
         props:{
@@ -99,7 +99,6 @@
                 isBusy:false,
                 isBusyFind:false,
                 isBusyLoad:false,
-                treeDataSource: {},
                 result:{
                     query:undefined,
                     start:undefined,
@@ -147,13 +146,12 @@
                 this.selectedEntry = items
             },
             onClearTable(){
-                celarResultTable(this)
+                clearResultTable(this)
             },
             haveSelected: function(){
                 //同步选中入仕途径
                 this.$emit('getEntryName', {fields:this.fields,items:this.selectedEntry});
-                this.selectedEntry.splice(0,this.selectedEntry.length)
-                this.show = false;
+                this.close();
             },
             selectAllRows() {
                 this.$refs.selectableTable.selectAllRows()

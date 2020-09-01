@@ -178,7 +178,7 @@ function getListByName(apiType,arg,vm){
       ]
     }
 
-  function celarResultTable(vm){
+  function clearResultTable(vm){
     vm.items.splice(0,vm.items.length);
     for (let prop in vm.result){
       vm.result[prop] = undefined
@@ -198,5 +198,5 @@ function getListByName(apiType,arg,vm){
       getListById as getListById,
       getListByName as getListByName,
       kinshipOptions as kinshipOptions,
-      celarResultTable as celarResultTable
+      clearResultTable as clearResultTable
   }

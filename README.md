@@ -165,3 +165,11 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 * `onRowSelected(items)` 当一条记录被点击时触发，将被选中的记录加入 `selectedEntry` 中
 * `onClearTable()` 清空结果记录
 * `haveSelected()` 当点击“选择”按钮时执行，将选中的结果同步到父组件，清空`selectedEntry`关闭当前组件
+* `handlerExpand(m:{Id:String, isExpand:Bool})` 当树状UI点击时触发，切换类目的展开/收起。`m`为被点击的类目。`m.Id`为类目的Id，用于 API 查询等。
+* `handleTableScroll()` 处理滚动加载，划到底层时向 API 继续请求结果
+* `find()` 用于按关键词查询入仕途径。
+
+##### Watch
+`show` 当变量 `show:Bool` 的值为 `true` 时，监听键鼠滚动。
+
+#### <span id = "select-office">src/components/utility/select-office.vue</span>

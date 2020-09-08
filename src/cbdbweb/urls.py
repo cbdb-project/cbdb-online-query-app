@@ -24,4 +24,4 @@ urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name="index.html")),
     #url(r'^static/(?P<path>.*)$','django.views.static.serve',{'document_root':settings.STATICFILES_DIRS}),
     path('admin/', admin.site.urls),
-]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]+ static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)

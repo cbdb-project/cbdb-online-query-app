@@ -145,7 +145,6 @@ export default {
       },
       haveSelected: function(type){
         //同步选中地点
-        //console.log("成功");
         this.$emit('getPlaceName', this.selectedPlace);
        this.show = false
       },

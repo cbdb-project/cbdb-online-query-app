@@ -89,7 +89,7 @@
 <script>
 import dataJson from '@/assets/officeData.json'
 import treeTable from '../treeTable/tree-table.vue'
-import {getListById,appendListById,celarResultTable,getListByName} from '@/components/utility/utility-functions.js'
+import {getListById,appendListById,clearResultTable,getListByName} from '@/components/utility/utility-functions.js'
 export default {
     name:'selectOffice',
     props:{
@@ -158,7 +158,7 @@ export default {
           this.selectedOffice = items
         },
         onClearTable(){
-          celarResultTable(this)
+          clearResultTable(this)
         },
         haveSelected: function(){
           //同步选中官职给父组件（页面）

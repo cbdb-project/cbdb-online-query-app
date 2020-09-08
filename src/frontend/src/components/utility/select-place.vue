@@ -92,7 +92,7 @@
 </template>
 
 <script>
-import {capitalizeFirst,celarResultTable,getListByName} from '@/components/utility/utility-functions.js'
+import {capitalizeFirst,clearResultTable,getListByName} from '@/components/utility/utility-functions.js'
 export default {
   name:'selectPlace',
   props:{
@@ -174,7 +174,7 @@ export default {
         this.selectedPlace = items
       },
       onClearTable(){
-        celarResultTable(this)
+        clearResultTable(this)
       },
       haveSelected: function(){
         //同步选中地点

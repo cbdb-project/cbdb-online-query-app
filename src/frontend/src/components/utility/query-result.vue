@@ -74,8 +74,6 @@ export default {
     'start': {
       default: 0
     },
-    'items':{
-    }
     'fields': {},
     'items': {}
   },

@@ -65,102 +65,114 @@
 </template>
 
 <script>
-import {isNull} from '@/components/utility/utility-functions.js'
+import {
+  isNull
+} from '@/components/utility/utility-functions.js'
 export default {
-    name:'selectPerson',
-    props:{
-      'selectMode':{
-        default:'multi'
-      },
-      'selectFromDb':{
-        default:true
-      },
-      'importList':{
-        default:true
-      }
+  name: 'selectPerson',
+  props: {
+    'selectMode': {
+      default: 'multi'
     },
-  data () {
+    'selectFromDb': {
+      default: true
+    },
+    'importList': {
+      default: true
+    }
+  },
+  data() {
     return {
-      show:false,
+      show: false,
       isBusy: false,
-      formData:{
-        personName:''
+      formData: {
+        personName: ''
       },
       /*表格子數據放這裡*/
-        fields: [
-          {
-            key: 'personId',
-            label:'ID',
-            sortable: true
-          },
-          {
-            key: 'personName',
-            label:'Name',
-            sortable: true
-          },
-          {
-            key: 'personNameCh',
-            label:'姓名',
-            sortable: true
-          },
-          {
-            key: 'indexYear',
-            label: 'Index Year',
-            sortable: true,
-          }
-        ],
-        items: [],
-        //选中的人物出现在这里
-        selectedPerson : []
+      fields: [{
+          key: 'personId',
+          label: 'ID',
+          sortable: true
+        },
+        {
+          key: 'personName',
+          label: 'Name',
+          sortable: true
+        },
+        {
+          key: 'personNameCh',
+          label: '姓名',
+          sortable: true
+        },
+        {
+          key: 'indexYear',
+          label: 'Index Year',
+          sortable: true,
+        }
+      ],
+      items: [],
+      //选中的人物出现在这里
+      selectedPerson: []
     }
   },
   methods: {
-      close:function(){
-        this.selectedPerson.splice(0,this.selectedPerson.length)
-        this.show = false;
-      },
-      searchPerson(personName){
-        this.items = []//清空已有数据
-        this.isBusy=true
-        this.axios.get('https://cbdb.fas.harvard.edu/cbdbapi/person.php?name='+ encodeURI(this.formData.personName) +'&o=json')
-        .then((r)=>
-          {
+    close: function() {
+      this.selectedPerson.splice(0, this.selectedPerson.length)
+      this.show = false;
+    },
+    searchPerson(personName) {
+      this.items = [] //清空已有数据
+      this.isBusy = true
+      this.axios.get('https://cbdb.fas.harvard.edu/cbdbapi/person.php?name=' + encodeURI(this.formData.personName) + '&o=json')
+        .then((r) => {
             console.log(r.data.Package.PersonAuthority.PersonInfo.Person)
             let pList = r.data.Package.PersonAuthority.PersonInfo.Person
-            if(pList instanceof Array){
-              this.items = pList.map(item=>
-              ({'personId':item.BasicInfo.PersonId,'personName':item.BasicInfo.EngName,'personNameCh':item.BasicInfo.ChName,'indexYear':item.BasicInfo.IndexYear}))
-            }
-            else{
-              this.items.push({'personId':pList.BasicInfo.PersonId,'personName':pList.BasicInfo.EngName,'personNameCh':pList.BasicInfo.ChName,'indexYear':pList.BasicInfo.IndexYear})
+            if (pList instanceof Array) {
+              this.items = pList.map(item =>
+                ({
+                  'personId': item.BasicInfo.PersonId,
+                  'personName': item.BasicInfo.EngName,
+                  'personNameCh': item.BasicInfo.ChName,
+                  'indexYear': item.BasicInfo.IndexYear
+                }))
+            } else {
+              this.items.push({
+                'personId': pList.BasicInfo.PersonId,
+                'personName': pList.BasicInfo.EngName,
+                'personNameCh': pList.BasicInfo.ChName,
+                'indexYear': pList.BasicInfo.IndexYear
+              })
             }
             this.isBusy = false
           },
-          (e)=>{
+          (e) => {
             alert('something went wrong...')
             this.isBusy = false
           }
         )
-      },
-      onRowSelected(items) {
-        this.selectedPerson = items
-      },
-      haveSelected: function(){
-        //同步选中人物
-        console.log("成功");
-        this.$emit('getPersonName', {fields:this.fields,items:this.selectedPerson});
-        this.selectedPerson.splice(0,this.selectedPerson.length)
-        this.show = false;
-      },
-      selectAllRows() {
-        this.$refs.selectableTable.selectAllRows()
-      },
-      clearSelected() {
-        this.$refs.selectableTable.clearSelected()
-      }
+    },
+    onRowSelected(items) {
+      this.selectedPerson = items
+    },
+    haveSelected: function() {
+      //同步选中人物
+      console.log("成功");
+      this.$emit('getPersonName', {
+        fields: this.fields,
+        items: this.selectedPerson
+      });
+      this.selectedPerson.splice(0, this.selectedPerson.length)
+      this.show = false;
+    },
+    selectAllRows() {
+      this.$refs.selectableTable.selectAllRows()
+    },
+    clearSelected() {
+      this.$refs.selectableTable.clearSelected()
+    }
   },
-  computed:{
-    isInvalid(){
+  computed: {
+    isInvalid() {
       return isNull(this.formData.personName)
     }
   }

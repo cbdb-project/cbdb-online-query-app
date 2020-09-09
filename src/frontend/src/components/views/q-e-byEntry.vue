@@ -168,7 +168,12 @@
 </template>
 
 <script>
-import {isNull,yearValidation,peoplePlaceGetter,entryGetter} from '@/components/utility/utility-functions.js'
+import {
+  isNull,
+  yearValidation,
+  peoplePlaceGetter,
+  entryGetter
+} from '@/components/utility/utility-functions.js'
 import queryResult from '@/components/utility/query-result.vue'
 import selectEntry from '@/components/utility/select-entry.vue'
 import selectPlace from '@/components/utility/select-place.vue'
@@ -176,237 +181,264 @@ import selectPlace from '@/components/utility/select-place.vue'
 import viewSelected from '@/components/utility/view-selected.vue'
 export default {
   name: 'entityQueryByEntry',
-  components:
-  {
-      queryResult,
-      selectEntry,
-      selectPlace,
-      //importPlace,
-      viewSelected
+  components: {
+    queryResult,
+    selectEntry,
+    selectPlace,
+    //importPlace,
+    viewSelected
   },
-  data () {
+  data() {
     return {
-      isBusy:false,
+      isBusy: false,
       /*表單數據放這裡*/
-      formData:{
+      formData: {
         //用计算属性
-        entry:[],
-        peoplePlace:[],
-        dateStartTime:'',
-        dateEndTime:'',
-        dateType:'entry',
-        useDate:'0',
-        usePeoplePlace:'0',
-        useXy:'1',
-        locationType:'peAddr'
+        entry: [],
+        peoplePlace: [],
+        dateStartTime: '',
+        dateEndTime: '',
+        dateType: 'entry',
+        useDate: '0',
+        usePeoplePlace: '0',
+        useXy: '1',
+        locationType: 'peAddr'
       },
-      entryField:[],
-      entryTable:[],
-      peoplePlaceField:[],
-      peoplePlaceTable:[],
-      resultField:[
-            { 
-              key: 'PersonID',
-              label:'人物代碼',
-              sortable: true
-              },
-            {
-              key: 'Name',
-              label:'Name',
-              sortable: true
-            },
-            {
-              key: 'NameChn',
-              label:'人物姓名',
-              sortable: true
-            },
-            {
-              key: 'Sex',
-              label:'Sex',
-              sortable: true
-            },
-            {
-              key: 'IndexYear',
-              label:'Index Year',
-              sortable: true
-            },
-            { 
-              key: 'EntryDesc',
-              label:'入仕途徑',
-              sortable: true
-              },
-              { 
-              key: 'EntryChn',
-              label:'Entry Description',
-              sortable: true
-              },
-            {
-              key: 'EntryYear',
-              label:'入仕年',
-              sortable: true
-            }, 
-            {
-              key: 'EntryRank',
-              label:'考試排名',
-              sortable: true
-            }, 
-            {
-              key: 'KinType',
-              label:'親屬類型',
-              sortable: true
-            },                
-            {
-              key: 'KinName',
-              label:'Kin Name',
-              sortable: true
-            },  
-            {
-              key: 'KinChn',
-              label:'親屬姓名',
-              sortable: true
-            }, 
-            {
-              key: 'Association',
-              label:'社會關係',
-              sortable: true
-            }, 
-            {
-              key: 'AssoName',
-              label:'Associate Name',
-              sortable: true
-            },                
-            {
-              key: 'AssocChn',
-              label:'社會關係人姓名',
-              sortable: true
-            }, 
-            {
-              key: 'AddrID',
-              label:'人物地點ID',
-              sortable: true
-            },
-            {
-              key: 'AddrName',
-              label:'Address Name',
-              sortable: true
-            },
-            {
-              key: 'AddrChn',
-              label:'人物地點名',
-              sortable: true
-            },
-            {
-              key: 'X',
-              label:'經度',
-              sortable: true
-            },
-            {
-              key: 'Y',
-              label:'緯度',
-              sortable: true
-            },
-            {
-              key: 'xy_count',
-              label:'XY Count',
-              sortable: true
-            },
-            { 
-              key: 'ParentState',
-              label:'Parents State',
-              sortable: true
-              },
-            {
-              key: 'ParentStateChn',
-              label:'父母情況',
-              sortable: true
-            },
-            {
-              key: 'EntryPlace',
-              label:'Entry Place',
-              sortable: true
-            },
-            {
-              key: 'EntryPlaceChn',
-              label:'入仕地點',
-              sortable: true
-            },
-            {
-              key: 'EntryX',
-              label:'入仕地點經度',
-              sortable: true
-            },
-            { 
-              key: 'EntryY',
-              label:'入仕地點緯度',
-              sortable: true
-              },
-            { 
-              key: 'entry_xy_count',
-              label:'Entry XY Count',
-              sortable: true
-              }
-          ],
-      result:undefined
+      entryField: [],
+      entryTable: [],
+      peoplePlaceField: [],
+      peoplePlaceTable: [],
+      resultField: [{
+          key: 'PersonID',
+          label: '人物代碼',
+          sortable: true
+        },
+        {
+          key: 'Name',
+          label: 'Name',
+          sortable: true
+        },
+        {
+          key: 'NameChn',
+          label: '人物姓名',
+          sortable: true
+        },
+        {
+          key: 'Sex',
+          label: 'Sex',
+          sortable: true
+        },
+        {
+          key: 'IndexYear',
+          label: 'Index Year',
+          sortable: true
+        },
+        {
+          key: 'EntryDesc',
+          label: '入仕途徑',
+          sortable: true
+        },
+        {
+          key: 'EntryChn',
+          label: 'Entry Description',
+          sortable: true
+        },
+        {
+          key: 'EntryYear',
+          label: '入仕年',
+          sortable: true
+        },
+        {
+          key: 'EntryRank',
+          label: '考試排名',
+          sortable: true
+        },
+        {
+          key: 'KinType',
+          label: '親屬類型',
+          sortable: true
+        },
+        {
+          key: 'KinName',
+          label: 'Kin Name',
+          sortable: true
+        },
+        {
+          key: 'KinChn',
+          label: '親屬姓名',
+          sortable: true
+        },
+        {
+          key: 'Association',
+          label: '社會關係',
+          sortable: true
+        },
+        {
+          key: 'AssoName',
+          label: 'Associate Name',
+          sortable: true
+        },
+        {
+          key: 'AssocChn',
+          label: '社會關係人姓名',
+          sortable: true
+        },
+        {
+          key: 'AddrID',
+          label: '人物地點ID',
+          sortable: true
+        },
+        {
+          key: 'AddrName',
+          label: 'Address Name',
+          sortable: true
+        },
+        {
+          key: 'AddrChn',
+          label: '人物地點名',
+          sortable: true
+        },
+        {
+          key: 'X',
+          label: '經度',
+          sortable: true
+        },
+        {
+          key: 'Y',
+          label: '緯度',
+          sortable: true
+        },
+        {
+          key: 'xy_count',
+          label: 'XY Count',
+          sortable: true
+        },
+        {
+          key: 'ParentState',
+          label: 'Parents State',
+          sortable: true
+        },
+        {
+          key: 'ParentStateChn',
+          label: '父母情況',
+          sortable: true
+        },
+        {
+          key: 'EntryPlace',
+          label: 'Entry Place',
+          sortable: true
+        },
+        {
+          key: 'EntryPlaceChn',
+          label: '入仕地點',
+          sortable: true
+        },
+        {
+          key: 'EntryX',
+          label: '入仕地點經度',
+          sortable: true
+        },
+        {
+          key: 'EntryY',
+          label: '入仕地點緯度',
+          sortable: true
+        },
+        {
+          key: 'entry_xy_count',
+          label: 'Entry XY Count',
+          sortable: true
+        }
+      ],
+      result: undefined
     }
   },
-  methods:{
+  methods: {
     //判斷輸入欄是否為空
-    isNull:isNull,
-    validation:yearValidation,
+    isNull: isNull,
+    validation: yearValidation,
     //获取人物籍贯信息
-    handleGetPeoplePlace:function(i){
-      peoplePlaceGetter(i,this)
+    handleGetPeoplePlace: function(i) {
+      peoplePlaceGetter(i, this)
     },
     //获取入仕途径信息
-    handleGetEntry: function(i){
-      entryGetter(i,this)
+    handleGetEntry: function(i) {
+      entryGetter(i, this)
     },
-    async handleSubmit(){
+    async handleSubmit() {
       //提交表单的时候先清空原有數據
       this.isBusy = true;
       let vm = this
       let f = vm.formData
       let useXy = f.useXy
-      if (f.usePeoplePlace==='0')useXy=0
-      let data = {"entry":vm.getEntryTableId,"usePeoplePlace":parseInt(f.usePeoplePlace),"peoplePlace":vm.getPeoplePlaceTableId,"locationType":f.locationType,"useDate":parseInt(f.useDate,10),"dateType":f.dateType,"dateStartTime":parseInt(f.dateStartTime,10),"dateEndTime":parseInt(f.dateEndTime,10),"useXy":useXy,"start":0,"list":65535 }
+      if (f.usePeoplePlace === '0') useXy = 0
+      let data = {
+        "entry": vm.getEntryTableId,
+        "usePeoplePlace": parseInt(f.usePeoplePlace),
+        "peoplePlace": vm.getPeoplePlaceTableId,
+        "locationType": f.locationType,
+        "useDate": parseInt(f.useDate, 10),
+        "dateType": f.dateType,
+        "dateStartTime": parseInt(f.dateStartTime, 10),
+        "dateEndTime": parseInt(f.dateEndTime, 10),
+        "useXy": useXy,
+        "start": 0,
+        "list": 65535
+      }
       data = JSON.stringify(data)
       let query = `${vm.$store.state.global.apiAddress}query_entry_postings?RequestPlayload=${data}`
       //console.log(query)
       this.axios.post(query)
-        .then(res=>{
-           vm.result={}
-            vm.result.entry=res.data.data         
-        },
-        (error)=>{
+        .then(res => {
+            vm.result = {}
+            vm.result.entry = res.data.data
+          },
+          (error) => {
             alert('Network Error...')
           }
         )
-        .finally(()=>{
-          vm.isBusy=false
-        })      
+        .finally(() => {
+          vm.isBusy = false
+        })
     }
   },
-  computed:{
-    locationOptions(){
-      return  [
-          { text: 'Household addr. only', value: 'pAddr' },
-          { text: 'Entry location addr. only', value: 'eAddr' },
-          { text: 'Household & Entry location addr.', value: 'peAddr' }
-        ]
-      },
-    dateOptions(){
-      return  [
-          { text: this.$t('entityQueryByEntry.entryYear'), value: 'entry' },
-          { text: this.$t('entityQueryByEntry.indexYear'), value: 'index' },
-        ]
-      },
-    isInvalid(){
-      return (this.getEntryTableId.length==0)||this.validation('dateEndTime')===false || this.validation('dateStartTime')===false
+  computed: {
+    locationOptions() {
+      return [{
+          text: 'Household addr. only',
+          value: 'pAddr'
+        },
+        {
+          text: 'Entry location addr. only',
+          value: 'eAddr'
+        },
+        {
+          text: 'Household & Entry location addr.',
+          value: 'peAddr'
+        }
+      ]
     },
-    getPeoplePlaceTableId(){return this.peoplePlaceTable.map(i=>i['pId'])},
-    getEntryTableId(){return this.entryTable.map(i => i['eId'])}
+    dateOptions() {
+      return [{
+          text: this.$t('entityQueryByEntry.entryYear'),
+          value: 'entry'
+        },
+        {
+          text: this.$t('entityQueryByEntry.indexYear'),
+          value: 'index'
+        },
+      ]
+    },
+    isInvalid() {
+      return (this.getEntryTableId.length == 0) || this.validation('dateEndTime') === false || this.validation('dateStartTime') === false
+    },
+    getPeoplePlaceTableId() {
+      return this.peoplePlaceTable.map(i => i['pId'])
+    },
+    getEntryTableId() {
+      return this.entryTable.map(i => i['eId'])
+    }
   }
-}
+} 
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

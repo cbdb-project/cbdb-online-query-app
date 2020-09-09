@@ -128,7 +128,12 @@
 </template>
 
 <script>
-import {isNull,yearValidation,peoplePlaceGetter,relationGetter} from '@/components/utility/utility-functions'
+import {
+  isNull,
+  yearValidation,
+  peoplePlaceGetter,
+  relationGetter
+} from '@/components/utility/utility-functions'
 import queryResult from '@/components/utility/query-result.vue'
 import selectRelation from '@/components/utility/select-relationship.vue'
 import selectPlace from '@/components/utility/select-place.vue'
@@ -137,254 +142,257 @@ import viewSelected from '@/components/utility/view-selected.vue'
 
 export default {
   name: 'relationQueryByAssociation',
-  components:
-  {
+  components: {
     queryResult,
     selectRelation,
     selectPlace,
     viewSelected,
     //importPlace
   },
-  data () {
+  data() {
     return {
       //控制加載標誌的出現
       isBusy: false,
       /*表單數據放這裡*/
-      formData:{
-        place:[],
-        association:[],
-        usePeoplePlace:0,
-        useXy:1,
-        broad:0
+      formData: {
+        place: [],
+        association: [],
+        usePeoplePlace: 0,
+        useXy: 1,
+        broad: 0
       },
       //後端傳回來的數據放這裡
-      personInfo:{
+      personInfo: {
 
       },
-      peoplePlaceTable:[],
-      peoplePlaceField:[],
-      relationTable:[],
-      relationField:[],
-      resultField:[
-        { 
+      peoplePlaceTable: [],
+      peoplePlaceField: [],
+      relationTable: [],
+      relationField: [],
+      resultField: [{
           key: 'pId',
-          label:'人物ID',
+          label: '人物ID',
           sortable: true
-        }, 
-        { 
+        },
+        {
           key: 'pName',
-          label:'Person Name',
+          label: 'Person Name',
           sortable: true
-        }, 
-        { 
+        },
+        {
           key: 'pNameChn',
-          label:'人物姓名',
+          label: '人物姓名',
           sortable: true
-        },    
-        { 
+        },
+        {
           key: 'aId',
-          label:'社會關係人ID',
+          label: '社會關係人ID',
           sortable: true
-        }, 
-        { 
+        },
+        {
           key: 'aName',
-          label:'Associate Name',
+          label: 'Associate Name',
           sortable: true
-        }, 
-        { 
+        },
+        {
           key: 'aNameChn',
-          label:'關係人姓名',
+          label: '關係人姓名',
           sortable: true
-        },   
-        { 
+        },
+        {
           key: 'pIndexYear',
-          label:'人物指數年',
+          label: '人物指數年',
           sortable: true
-        }, 
-        { 
+        },
+        {
           key: 'pSex',
-          label:'人物性別',
+          label: '人物性別',
           sortable: true
-        }, 
-        { 
+        },
+        {
           key: 'aIndexYear',
-          label:'關係人指數年',
+          label: '關係人指數年',
           sortable: true
-        }, 
-        { 
+        },
+        {
           key: 'aSex',
-          label:'關係人性別',
+          label: '關係人性別',
           sortable: true
-        }, 
-        { 
+        },
+        {
           key: 'pAddrID',
-          label:'人物地點ID',
+          label: '人物地點ID',
           sortable: true
-        },  
-        { 
+        },
+        {
           key: 'pAddrName',
-          label:'Address Name',
+          label: 'Address Name',
           sortable: true
-        }, 
-        { 
+        },
+        {
           key: 'pAddrNameChn',
-          label:'人物地點名',
+          label: '人物地點名',
           sortable: true
-        },  
-        { 
+        },
+        {
           key: 'pX',
-          label:'人物地點經度',
+          label: '人物地點經度',
           sortable: true
-        },    
-        { 
+        },
+        {
           key: 'pY',
-          label:'人物地點緯度',
+          label: '人物地點緯度',
           sortable: true
-        },     
-        { 
+        },
+        {
           key: 'aAddrID',
-          label:'關係人地點ID',
+          label: '關係人地點ID',
           sortable: true
-        },  
-        { 
+        },
+        {
           key: 'aAddrName',
-          label:'Associate Address Name',
+          label: 'Associate Address Name',
           sortable: true
-        }, 
-        { 
+        },
+        {
           key: 'aAddrNameChn',
-          label:'關係人地點名',
+          label: '關係人地點名',
           sortable: true
-        },  
-        { 
+        },
+        {
           key: 'aX',
-          label:'關係人地點經度',
+          label: '關係人地點經度',
           sortable: true
-        },    
-        { 
+        },
+        {
           key: 'aY',
-          label:'關係人地點緯度',
+          label: '關係人地點緯度',
           sortable: true
-        },   
-        { 
+        },
+        {
           key: 'distance',
-          label:'地點距離',
+          label: '地點距離',
           sortable: true
-        }, 
-        { 
+        },
+        {
           key: 'p_xy_count',
-          label:'結果中同一地點人數',
+          label: '結果中同一地點人數',
           sortable: true
-        }, 
-        { 
+        },
+        {
           key: 'a_xy_count',
-          label:'結果中與關係人同一地點人數',
+          label: '結果中與關係人同一地點人數',
           sortable: true
-        }, 
-      
-        { 
+        },
+
+        {
           key: 'pKinshipRelation',
-          label:'Kinship Relation',
+          label: 'Kinship Relation',
           sortable: true
-        },  
-        { 
+        },
+        {
           key: 'pKinshipRelationChn',
-          label:'親屬關係',
+          label: '親屬關係',
           sortable: true
-        },    
-        { 
+        },
+        {
           key: 'pKinName',
-          label:'Kin Name',
+          label: 'Kin Name',
           sortable: true
-        },   
-        { 
+        },
+        {
           key: 'pKinNameChn',
-          label:'親屬姓名',
+          label: '親屬姓名',
           sortable: true
-        }, 
-        { 
+        },
+        {
           key: 'aKinshipRelation',
-          label:'Associate\'s Kinship Relation',
+          label: 'Associate\'s Kinship Relation',
           sortable: true
-        }, 
-        { 
+        },
+        {
           key: 'aKinshipRelationChn',
-          label:'關係人親屬關係',
+          label: '關係人親屬關係',
           sortable: true
-        }, 
-        { 
+        },
+        {
           key: 'aKinName',
-          label:'Associate\'s Kin\'s Name',
+          label: 'Associate\'s Kin\'s Name',
           sortable: true
         },
-        { 
+        {
           key: 'aKinNameChn',
-          label:'關係人親屬之姓名',
+          label: '關係人親屬之姓名',
           sortable: true
         },
-        { 
+        {
           key: 'a_xy_count',
-          label:'結果中與關係人同一地點人數',
+          label: '結果中與關係人同一地點人數',
           sortable: true
         },
       ],
-      result:undefined
+      result: undefined
     }
   },
-  methods:{
-    isNull:isNull,
-    validation:yearValidation,
+  methods: {
+    isNull: isNull,
+    validation: yearValidation,
     //获取查询的人物
-    handleGetPerson: function(selectedPerson){
-      
+    handleGetPerson: function(selectedPerson) {
+
     },
-    handleGetPeoplePlace:function(i){
-      peoplePlaceGetter(i,this)
+    handleGetPeoplePlace: function(i) {
+      peoplePlaceGetter(i, this)
     },
-    handleGetRelation:function(i){
+    handleGetRelation: function(i) {
       //console.log(i)
-      relationGetter(i,this)
+      relationGetter(i, this)
     },
-    async handleSubmit(){
+    async handleSubmit() {
       //提交表单的时候先清空原有數據
       this.personInfo = {}
       this.isBusy = true;
       let vm = this
-      let f = vm.formData     
+      let f = vm.formData
       console.log(vm.getRelationTableId)
-      let data = 
-      {
-        "association":vm.getRelationTableId,"place":vm.getPeoplePlaceTableId,
-        "usePeoplePlace":f.usePeoplePlace,"useXy":f.useXy,"broad":f.broad
+      let data = {
+        "association": vm.getRelationTableId,
+        "place": vm.getPeoplePlaceTableId,
+        "usePeoplePlace": f.usePeoplePlace,
+        "useXy": f.useXy,
+        "broad": f.broad
       }
       data = JSON.stringify(data)
-      let query = `${vm.$store.state.global.apiAddress}query_associates?RequestPlayload=${data}`    
+      let query = `${vm.$store.state.global.apiAddress}query_associates?RequestPlayload=${data}`
       console.log(query)
       this.axios.post(query)
         .then(
-          res=>
-          {
-            console.log(res.data.data)  
-            vm.result={}
-            vm.result.ass=res.data.data       
+          res => {
+            console.log(res.data.data)
+            vm.result = {}
+            vm.result.ass = res.data.data
           },
-          (error)=>{
-              alert('Network Error...')
-            }
+          (error) => {
+            alert('Network Error...')
+          }
         )
-        .finally(()=>{
-          vm.isBusy=false
-        }) 
+        .finally(() => {
+          vm.isBusy = false
+        })
     },
   },
-  computed:{
-    isInvalid(){
+  computed: {
+    isInvalid() {
       return this.relationTable.length === 0
     },
-    getPeoplePlaceTableId(){return this.peoplePlaceTable.map(i=>i['pId'])},
-    getRelationTableId(){return this.relationTable.map(i=>i['aId'])},
+    getPeoplePlaceTableId() {
+      return this.peoplePlaceTable.map(i => i['pId'])
+    },
+    getRelationTableId() {
+      return this.relationTable.map(i => i['aId'])
+    },
   },
-  watch:{
+  watch: {
 
   }
 }

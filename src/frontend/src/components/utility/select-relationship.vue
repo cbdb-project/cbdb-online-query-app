@@ -80,97 +80,101 @@
 <script>
 import dataJson from '@/assets/relationData.json'
 import treeTable from '../treeTable/tree-table.vue'
-import {getListById,appendListById,clearResultTable,getListByName} from '@/components/utility/utility-functions.js'
+import {
+  getListById,
+  appendListById,
+  clearResultTable,
+  getListByName
+} from '@/components/utility/utility-functions.js'
 export default {
-    name:'selectRelationship',
-    props:{
-        'selectFromDb':{
-          default:true
-        }
+  name: 'selectRelationship',
+  props: {
+    'selectFromDb': {
+      default: true
+    }
+  },
+  data() {
+    return {
+      show: false,
+      isBusy: false,
+      isBusyFind: false,
+      isBusyLoad: false,
+      treeDataSource: dataJson,
+      result: {
+        query: undefined,
+        start: undefined,
+        end: undefined,
+        total: undefined
       },
-    data() {
-        return {
-          show:false,
-          isBusy:false,
-          isBusyFind:false,
-          isBusyLoad:false,
-          treeDataSource: dataJson,
-          result:
-          {
-            query:undefined,
-            start:undefined,
-            end:undefined,
-            total:undefined
-          },
-          /*表格子數據放這裡*/
-          fields: 
-          [
-            {
-              key: 'aId',
-              label:'社會關係代碼',
-              sortable: true
-            },
-            {
-              key: 'aName',
-              label:'Assoc. Name',
-              sortable: true
-            },
-            {
-              key: 'aNameChn',
-              label: '社會關係名',
-              sortable: true,
-            }
-          ],
-          //rId 相當於 C_ASSOC_CODE
-          items: [],
-          //选中的关系出现在这里
-          selectedRelation : [],
-          formData:
-          {
-            aName:''           
-          }
+      /*表格子數據放這裡*/
+      fields: [{
+          key: 'aId',
+          label: '社會關係代碼',
+          sortable: true
+        },
+        {
+          key: 'aName',
+          label: 'Assoc. Name',
+          sortable: true
+        },
+        {
+          key: 'aNameChn',
+          label: '社會關係名',
+          sortable: true,
         }
+      ],
+      //rId 相當於 C_ASSOC_CODE
+      items: [],
+      //选中的关系出现在这里
+      selectedRelation: [],
+      formData: {
+        aName: ''
+      }
+    }
+  },
+  components: {
+    treeTable
+  },
+  methods: {
+    close: function() {
+      this.selectedRelation.splice(0, this.selectedRelation.length)
+      this.show = false;
     },
-    components: {
-        treeTable
+    onRowSelected(items) {
+      this.selectedRelation = items
     },
-    methods: {
-        close:function(){
-            this.selectedRelation.splice(0,this.selectedRelation.length)
-            this.show = false;
-        },
-        onRowSelected(items) {
-            this.selectedRelation = items
-        },
-        onClearTable(){
-            clearResultTable(this)
-        },
-        selectAllRows() {
-            this.$refs.selectableTable.selectAllRows()
-        },
-        clearSelected() {
-            this.$refs.selectableTable.clearSelected()
-        },
-        handlerExpand(m) {
-            console.log('展开/收缩')
-            m.isExpand = !m.isExpand
-        },
-        actionFunc(m){
-                getListById('get_assoc',m.Id,this)
-            },
-        handleTableScroll(){
-                appendListById('get_assoc',this)
-            },
-        haveSelected: function(){
-            //同步选中入仕途径
-            console.log("选取成功");
-            this.$emit('getRelation', {fields:this.fields,items:this.selectedRelation});
-            this.close()
-          },
-        find(){
-            getListByName('find_assoc',[this.formData.aName],this)
-        }
-    } 
+    onClearTable() {
+      clearResultTable(this)
+    },
+    selectAllRows() {
+      this.$refs.selectableTable.selectAllRows()
+    },
+    clearSelected() {
+      this.$refs.selectableTable.clearSelected()
+    },
+    handlerExpand(m) {
+      console.log('展开/收缩')
+      m.isExpand = !m.isExpand
+    },
+    actionFunc(m) {
+      getListById('get_assoc', m.Id, this)
+    },
+    handleTableScroll() {
+      appendListById('get_assoc', this)
+    },
+    haveSelected: function() {
+      //同步选中入仕途径
+      console.log("选取成功");
+      this.$emit('getRelation', {
+        fields: this.fields,
+        items: this.selectedRelation
+      });
+      this.close()
+    },
+    find() {
+      getListByName('find_assoc', [this.formData.aName], this)
+    }
+  }
 }
 </script>
 

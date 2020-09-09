@@ -58,39 +58,39 @@
 </template>
 
 <script>
-export default {
-  name:'viewSelected',
-  props:{
-    'name':{
-        default:''
-    },
-    'fields':{
-        default:[]
-    },
-    'items':{
-        default:[]
-    }
-  },
-  data () {
-    return {
-        show:false,
-        selected : []
-    }
-  },
-  methods: {
-      dropSelectedItems(){
-        this.items = this.items.filter(i => this.selected.indexOf(i)===-1)
-        this.selected.splice(0,this.selected.length);
+  export default {
+    name: 'viewSelected',
+    props: {
+      'name': {
+        default: ''
       },
-      dropAllItems(){
-        this.items.splice(0,this.items.length);
+      'fields': {
+        default: []
+      },
+      'items': {
+        default: []
+      }
+    },
+    data() {
+      return {
+        show: false,
+        selected: []
+      }
+    },
+    methods: {
+      dropSelectedItems() {
+        this.items = this.items.filter(i => this.selected.indexOf(i) === -1)
+        this.selected.splice(0, this.selected.length);
+      },
+      dropAllItems() {
+        this.items.splice(0, this.items.length);
       },
       onRowSelected(items) {
         this.selected = items
         console.log(this.name)
       },
-      haveSelected: function(){ 
-          console.log(this.name)
+      haveSelected: function() {
+        console.log(this.name)
       },
       selectAllRows() {
         this.$refs.selectableTable.selectAllRows()
@@ -98,12 +98,12 @@ export default {
       clearSelected() {
         this.$refs.selectableTable.clearSelected()
       }
-  },
-  watch:{
-      items(newVal){
-          this.$emit('update:items',newVal)
-          console.log(newVal)
+    },
+    watch: {
+      items(newVal) {
+        this.$emit('update:items', newVal)
+        console.log(newVal)
       }
+    }
   }
-}
 </script>

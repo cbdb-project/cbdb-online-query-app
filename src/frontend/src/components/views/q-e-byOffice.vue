@@ -176,7 +176,13 @@
 </template>
 
 <script>
-import {isNull,yearValidation,peoplePlaceGetter,officePlaceGetter,officeGetter} from '@/components/utility/utility-functions.js'
+import {
+  isNull,
+  yearValidation,
+  peoplePlaceGetter,
+  officePlaceGetter,
+  officeGetter
+} from '@/components/utility/utility-functions.js'
 import queryResult from '@/components/utility/query-result.vue'
 import selectOffice from '@/components/utility/select-office.vue'
 import selectPlace from '@/components/utility/select-place.vue'
@@ -184,247 +190,256 @@ import selectPlace from '@/components/utility/select-place.vue'
 import viewSelected from '@/components/utility/view-selected.vue'
 export default {
   name: 'entityQueryByOffice',
-  components: 
-  {
-      queryResult,
-      selectOffice,
-      selectPlace,
-      //importPlace,
-      viewSelected
+  components: {
+    queryResult,
+    selectOffice,
+    selectPlace,
+    //importPlace,
+    viewSelected
   },
-  data () {
+  data() {
     return {
-      isBusy:false,
+      isBusy: false,
       /*表單數據放這裡*/
-      formData:{
+      formData: {
         //office officePlace peoplePlace 在表单提交之前都是空的
         //所有涉及这三个变量的计算现在用计算属性
         //office:[],
         //officePlace:[],
         //peoplePlace:[],
-        indexStartTime:'',
-        indexEndTime:'',
+        indexStartTime: '',
+        indexEndTime: '',
         //是否使用可选条件以布尔值为准！！！
-        indexYear:'0',
-        useOfficePlace:'0',
-        usePeoplePlace:'0',
-        useXy:'1'
+        indexYear: '0',
+        useOfficePlace: '0',
+        usePeoplePlace: '0',
+        useXy: '1'
       },
-      officeTable:[],
-      officeField:[],
-      peoplePlaceField:[],
-      officePlaceField:[],
-      officePlaceTable:[],
-      peoplePlaceTable:[],
-      resPostField: [
-            { 
-              key: 'PersonID',
-              label:'人物代碼',
-              sortable: true
-              },
-            {
-              key: 'Name',
-              label:'Name',
-              sortable: true
-            },
-            {
-              key: 'NameChn',
-              label:'人物姓名',
-              sortable: true
-            },
-            {
-              key: 'Sex',
-              label:'Sex',
-              sortable: true
-            },
-            {
-              key: 'IndexYear',
-              label:'Index Year',
-              sortable: true
-            },
-            { 
-              key: 'PersonID',
-              label:'人物代碼',
-              sortable: true
-              },
-            {
-              key: 'AddrID',
-              label:'Address ID',
-              sortable: true
-            },
-            {
-              key: 'AddrType',
-              label:'Address Type',
-              sortable: true
-            },
-            {
-              key: 'AddrTypeChn',
-              label:'地址類型',
-              sortable: true
-            },
-            {
-              key: 'AddrName',
-              label:'Address Name',
-              sortable: true
-            },
-            {
-              key: 'AddrChn',
-              label:'地點名',
-              sortable: true
-            },
-            {
-              key: 'X',
-              label:'經度',
-              sortable: true
-            },
-            {
-              key: 'Y',
-              label:'緯度',
-              sortable: true
-            },
-            {
-              key: 'OfficeCode',
-              label:'官職代碼',
-              sortable: true
-            },
-            { 
-              key: 'OfficeName',
-              label:'Office Name',
-              sortable: true
-              },
-            {
-              key: 'OfficeNameChn',
-              label:'官職名',
-              sortable: true
-            },
-            {
-              key: 'FirstYear',
-              label:'First Year',
-              sortable: true
-            },
-            {
-              key: 'LastYear',
-              label:'Last Year',
-              sortable: true
-            },
-            {
-              key: 'Dynasty',
-              label:'朝代',
-              sortable: true
-            },
-            { 
-              key: 'OfficeAddrID',
-              label:'官職地點代碼',
-              sortable: true
-              },
-            { 
-              key: 'OfficeAddrName',
-              label:'Office Address Name',
-              sortable: true
-              },
-            {
-              key: 'OfficeAddrChn',
-              label:'官職地點中文名',
-              sortable: true
-              },
-            {
-              key: 'OfficeX',
-              label:'官職地點經度',
-              sortable: true
-            },
-            {
-              key: 'OfficeY',
-              label:'官職地點緯度',
-              sortable: true
-            },
-            {
-              key: 'office_xy_count',
-              label:'Office XY Count',
-              sortable: true
-            },
-            {
-              key: 'PostingID',
-              label:'除授ID',
-              sortable: true
-            },
-            {
-              key: 'ApptType',
-              label:'Appointment Type',
-              sortable: true
-            },
-           {
-              key: 'ApptTypeChn',
-              label:'除授類型',
-              sortable: true
-            },
-            {
-              key: 'AssumptionOffice',
-              label:'Assumption Office',
-              sortable: true
-            },
-            {
-              key: 'AssumptionOfficeChn',
-              label:'赴任情況',
-              sortable: true
-            },
-           {
-              key: 'Notes',
-              label:'__________備註__________',
-              sortable: true
-            },
-          ],
-      result:undefined
+      officeTable: [],
+      officeField: [],
+      peoplePlaceField: [],
+      officePlaceField: [],
+      officePlaceTable: [],
+      peoplePlaceTable: [],
+      resPostField: [{
+          key: 'PersonID',
+          label: '人物代碼',
+          sortable: true
+        },
+        {
+          key: 'Name',
+          label: 'Name',
+          sortable: true
+        },
+        {
+          key: 'NameChn',
+          label: '人物姓名',
+          sortable: true
+        },
+        {
+          key: 'Sex',
+          label: 'Sex',
+          sortable: true
+        },
+        {
+          key: 'IndexYear',
+          label: 'Index Year',
+          sortable: true
+        },
+        {
+          key: 'PersonID',
+          label: '人物代碼',
+          sortable: true
+        },
+        {
+          key: 'AddrID',
+          label: 'Address ID',
+          sortable: true
+        },
+        {
+          key: 'AddrType',
+          label: 'Address Type',
+          sortable: true
+        },
+        {
+          key: 'AddrTypeChn',
+          label: '地址類型',
+          sortable: true
+        },
+        {
+          key: 'AddrName',
+          label: 'Address Name',
+          sortable: true
+        },
+        {
+          key: 'AddrChn',
+          label: '地點名',
+          sortable: true
+        },
+        {
+          key: 'X',
+          label: '經度',
+          sortable: true
+        },
+        {
+          key: 'Y',
+          label: '緯度',
+          sortable: true
+        },
+        {
+          key: 'OfficeCode',
+          label: '官職代碼',
+          sortable: true
+        },
+        {
+          key: 'OfficeName',
+          label: 'Office Name',
+          sortable: true
+        },
+        {
+          key: 'OfficeNameChn',
+          label: '官職名',
+          sortable: true
+        },
+        {
+          key: 'FirstYear',
+          label: 'First Year',
+          sortable: true
+        },
+        {
+          key: 'LastYear',
+          label: 'Last Year',
+          sortable: true
+        },
+        {
+          key: 'Dynasty',
+          label: '朝代',
+          sortable: true
+        },
+        {
+          key: 'OfficeAddrID',
+          label: '官職地點代碼',
+          sortable: true
+        },
+        {
+          key: 'OfficeAddrName',
+          label: 'Office Address Name',
+          sortable: true
+        },
+        {
+          key: 'OfficeAddrChn',
+          label: '官職地點中文名',
+          sortable: true
+        },
+        {
+          key: 'OfficeX',
+          label: '官職地點經度',
+          sortable: true
+        },
+        {
+          key: 'OfficeY',
+          label: '官職地點緯度',
+          sortable: true
+        },
+        {
+          key: 'office_xy_count',
+          label: 'Office XY Count',
+          sortable: true
+        },
+        {
+          key: 'PostingID',
+          label: '除授ID',
+          sortable: true
+        },
+        {
+          key: 'ApptType',
+          label: 'Appointment Type',
+          sortable: true
+        },
+        {
+          key: 'ApptTypeChn',
+          label: '除授類型',
+          sortable: true
+        },
+        {
+          key: 'AssumptionOffice',
+          label: 'Assumption Office',
+          sortable: true
+        },
+        {
+          key: 'AssumptionOfficeChn',
+          label: '赴任情況',
+          sortable: true
+        },
+        {
+          key: 'Notes',
+          label: '__________備註__________',
+          sortable: true
+        },
+      ],
+      result: undefined
     }
   },
-  methods:{
+  methods: {
     //判斷輸入欄是否為空
-    isNull:isNull,
-    validation:yearValidation,
+    isNull: isNull,
+    validation: yearValidation,
     //获取查询的官职名
-    handleGetOffice: function(i){
-      officeGetter(i,this)
+    handleGetOffice: function(i) {
+      officeGetter(i, this)
     },
     //获取查询的人物地点
-     handleGetPeoplePlace: function(i){
-      peoplePlaceGetter(i,this)
-     },
+    handleGetPeoplePlace: function(i) {
+      peoplePlaceGetter(i, this)
+    },
     //获取官职地点
-    handleGetOfficePlace: function(i){
-      officePlaceGetter(i,this)
+    handleGetOfficePlace: function(i) {
+      officePlaceGetter(i, this)
     },
     //To Do
-    async handleSubmit(){
-      if(this.isBusy === false){
+    async handleSubmit() {
+      if (this.isBusy === false) {
         //提交表单的时候先清空原有數據
         this.isBusy = true;
         let vm = this
         let f = vm.formData
         let useXy = f.useXy
-        if (f.usePeoplePlace==='0'||f.useOfficePlace==='0')useXy=0
-        let data = {"office":vm.getOfficeTableId,"useOfficePlace":parseInt(f.useOfficePlace,10),"officePlace":vm.getOfficePlaceTableId,"usePeoplePlace":parseInt(f.usePeoplePlace),"peoplePlace":vm.getPeoplePlaceTableId,"indexYear":parseInt(f.indexYear,10),"indexStartTime":parseInt(f.indexStartTime,10),"indexEndTime":parseInt(f.indexEndTime,10),"useXy":useXy,"start":0,"list":65535 }
+        if (f.usePeoplePlace === '0' || f.useOfficePlace === '0') useXy = 0
+        let data = {
+          "office": vm.getOfficeTableId,
+          "useOfficePlace": parseInt(f.useOfficePlace, 10),
+          "officePlace": vm.getOfficePlaceTableId,
+          "usePeoplePlace": parseInt(f.usePeoplePlace),
+          "peoplePlace": vm.getPeoplePlaceTableId,
+          "indexYear": parseInt(f.indexYear, 10),
+          "indexStartTime": parseInt(f.indexStartTime, 10),
+          "indexEndTime": parseInt(f.indexEndTime, 10),
+          "useXy": useXy,
+          "start": 0,
+          "list": 65535
+        }
         data = JSON.stringify(data)
         let query = `${vm.$store.state.global.apiAddress}query_office_postings?RequestPlayload=${data}`
         //console.log(query)
         this.axios.post(query)
-        .then(res=>{
-           vm.result={}
-            vm.result.post=res.data.data   
-            let pList = []
-            vm.result.person = res.data.data.filter((i)=>{
-              if(pList.indexOf(i['PersonID'])===-1){
-                pList.push(i['PersonID'])
-                return true
-              }
-              else return false
-            })      
-        },
-        (error)=>{
-            alert('Network Error...')
-          }
-        )
-        .finally(()=>{
-          vm.isBusy=false
-        })
+          .then(res => {
+              vm.result = {}
+              vm.result.post = res.data.data
+              let pList = []
+              vm.result.person = res.data.data.filter((i) => {
+                if (pList.indexOf(i['PersonID']) === -1) {
+                  pList.push(i['PersonID'])
+                  return true
+                } else return false
+              })
+            },
+            (error) => {
+              alert('Network Error...')
+            }
+          )
+          .finally(() => {
+            vm.isBusy = false
+          })
       }
     },
     /*
@@ -436,18 +451,24 @@ export default {
     },
     */
   },
-  computed:{
+  computed: {
     //TO DO
-    isInvalid(){
-      return this.getOfficeTableId.length==0||this.validation('indexStartTime')===false || this.validation('indexEndTime')===false
+    isInvalid() {
+      return this.getOfficeTableId.length == 0 || this.validation('indexStartTime') === false || this.validation('indexEndTime') === false
     },
-    tableLength(name){
+    tableLength(name) {
       return this.formData[name].length
     },
     //formData里的Id改成计算形式了
-    getOfficeTableId(){return this.officeTable.map(i=>i['pId'])},
-    getPeoplePlaceTableId(){return this.peoplePlaceTable.map(i=>i['pId'])},
-    getOfficePlaceTableId(){return this.officePlaceTable.map(i=>i['pId'])}
+    getOfficeTableId() {
+      return this.officeTable.map(i => i['pId'])
+    },
+    getPeoplePlaceTableId() {
+      return this.peoplePlaceTable.map(i => i['pId'])
+    },
+    getOfficePlaceTableId() {
+      return this.officePlaceTable.map(i => i['pId'])
+    }
   }
 }
 </script>

@@ -92,182 +92,190 @@
 </template>
 
 <script>
-import {capitalizeFirst,clearResultTable,getListByName} from '@/components/utility/utility-functions.js'
+import {
+  capitalizeFirst,
+  clearResultTable,
+  getListByName
+} from '@/components/utility/utility-functions.js'
 export default {
-  name:'selectPlace',
-  props:{
-    'name':{
-        default:''
+  name: 'selectPlace',
+  props: {
+    'name': {
+      default: ''
     }
   },
-  data () {
+  data() {
     return {
-        first:true,
-        show:false,
-        isBusy:false,
-        isBusySupLoc:false,
-        isBusyFind:false,
-        isBusyLoad:false,
-        formData:{
-          pName:'',
-          isApprox:1,
-          fromYear:'',
-          toYear:''
-        },
-        result:{
-          query:undefined,
-          start:undefined,
-          end:undefined,
-          total:undefined
-        },
+      first: true,
+      show: false,
+      isBusy: false,
+      isBusySupLoc: false,
+      isBusyFind: false,
+      isBusyLoad: false,
+      formData: {
+        pName: '',
+        isApprox: 1,
+        fromYear: '',
+        toYear: ''
+      },
+      result: {
+        query: undefined,
+        start: undefined,
+        end: undefined,
+        total: undefined
+      },
       /*表格子數據放這裡*/
-        fields: [
-          {
-            key: 'pId',
-            label:'ID',
-            sortable: true
-          },
-          {
-            key: 'pName',
-            label:'Place Name',
-            sortable: true
-          },
-          {
-            key: 'pNameChn',
-            label:'地名',
-            sortable: true,
-          },
-          {
-            key: 'pStartTime',
-            label: 'First Year',
-            sortable: true,
-          },
-          {
-            key: 'pEndTime',
-            label: 'Last Year',
-            sortable: true,
-          },
-          {
-            key: 'pBName',
-            label:'Belongs To',
-            sortable: true,
-          },
-          {
-            key: 'pBNameChn',
-            label:'上級地點',
-            sortable: true
-          }
-        ],
-        items: [
+      fields: [{
+          key: 'pId',
+          label: 'ID',
+          sortable: true
+        },
+        {
+          key: 'pName',
+          label: 'Place Name',
+          sortable: true
+        },
+        {
+          key: 'pNameChn',
+          label: '地名',
+          sortable: true,
+        },
+        {
+          key: 'pStartTime',
+          label: 'First Year',
+          sortable: true,
+        },
+        {
+          key: 'pEndTime',
+          label: 'Last Year',
+          sortable: true,
+        },
+        {
+          key: 'pBName',
+          label: 'Belongs To',
+          sortable: true,
+        },
+        {
+          key: 'pBNameChn',
+          label: '上級地點',
+          sortable: true
+        }
+      ],
+      items: [
 
-        ],
-        //选中的人物出现在这里
-        selectedPlace : []
+      ],
+      //选中的人物出现在这里
+      selectedPlace: []
     }
   },
   methods: {
-      close:function(){
-        this.selectedPlace.splice(0,this.selectedPlace.length)
-        this.show = false
-      },
-      onRowSelected(items) {
-        this.selectedPlace = items
-      },
-      onClearTable(){
-        clearResultTable(this)
-      },
-      haveSelected: function(){
-        //同步选中地点
-        console.log("选取成功");
-        this.$emit('getPlaceName', {fields:this.fields,items:this.selectedPlace});
-        this.selectedPlace.splice(0,this.selectedPlace.length)
-        this.show = false
-      },
-      selectAllRows() {
-        this.$refs.selectableTable.selectAllRows()
-      },
-      clearSelected() {
-        this.$refs.selectableTable.clearSelected()
-      },
-      find(){
-        let n = this.formData.pName
-        let a = this.formData.isApprox
-        let fy = this.formData.fromYear
-        let ty = this.formData.toYear
-        if(fy!==''||ty!==''){
-            if (fy==='')fy = '-200'
-            if(ty==='')ty = (new Date()).getFullYear()
-          }
-        getListByName('place_list',[n,a,fy,ty],this)
-      },
-      getSuperiorLoc(){
-        let vm = this
-        if(vm.isBusy===false){
-          vm.isBusy=true
-          vm.isBusySupLoc=true
-          let id = this.selectedPlace[0]['pId']
-          let query = `${vm.$store.state.global.apiAddress}place_belongs_to?id=${id}`
-          vm.axios.get(`${query}&start=1&list=100`)
-          .then((r)=>{
-            console.log(r.data)
-            vm.items = r.data.data
-            vm.result.query = query
-            vm.result.start = parseInt(r.data.start)
-            vm.result.end = parseInt(r.data.end)
-            vm.result.total = parseInt(r.data.total)
-            vm.$refs.selectableTable.$el.scrollTop=0//弹回最上方
+    close: function() {
+      this.selectedPlace.splice(0, this.selectedPlace.length)
+      this.show = false
+    },
+    onRowSelected(items) {
+      this.selectedPlace = items
+    },
+    onClearTable() {
+      clearResultTable(this)
+    },
+    haveSelected: function() {
+      //同步选中地点
+      console.log("选取成功");
+      this.$emit('getPlaceName', {
+        fields: this.fields,
+        items: this.selectedPlace
+      });
+      this.selectedPlace.splice(0, this.selectedPlace.length)
+      this.show = false
+    },
+    selectAllRows() {
+      this.$refs.selectableTable.selectAllRows()
+    },
+    clearSelected() {
+      this.$refs.selectableTable.clearSelected()
+    },
+    find() {
+      let n = this.formData.pName
+      let a = this.formData.isApprox
+      let fy = this.formData.fromYear
+      let ty = this.formData.toYear
+      if (fy !== '' || ty !== '') {
+        if (fy === '') fy = '-200'
+        if (ty === '') ty = (new Date()).getFullYear()
+      }
+      getListByName('place_list', [n, a, fy, ty], this)
+    },
+    getSuperiorLoc() {
+      let vm = this
+      if (vm.isBusy === false) {
+        vm.isBusy = true
+        vm.isBusySupLoc = true
+        let id = this.selectedPlace[0]['pId']
+        let query = `${vm.$store.state.global.apiAddress}place_belongs_to?id=${id}`
+        vm.axios.get(`${query}&start=1&list=100`)
+          .then((r) => {
+              console.log(r.data)
+              vm.items = r.data.data
+              vm.result.query = query
+              vm.result.start = parseInt(r.data.start)
+              vm.result.end = parseInt(r.data.end)
+              vm.result.total = parseInt(r.data.total)
+              vm.$refs.selectableTable.$el.scrollTop = 0 //弹回最上方
             },
-            (e)=>{
+            (e) => {
               alert('Sorry, something went wrong...')
               console.log(e)
             }
           )
           .then(
-            ()=>{
-            vm.isBusy=false
-            vm.isBusySupLoc=false
+            () => {
+              vm.isBusy = false
+              vm.isBusySupLoc = false
             }
           )
-        }
-      },
-      handleTableScroll(){
-        let vm = this
-        let st =  vm.$refs.selectableTable
-        if(st.$el.scrollHeight - st.$el.scrollTop <= st.$el.clientHeight&&vm.isBusy===false)
-          if(vm.result.end!==undefined&&vm.result.total!==undefined&&vm.result.end<vm.result.total){
-            vm.isBusy=true
-            vm.isBusyLoad=true
-            vm.axios.get(vm.result.query+`&start=${vm.result.end+1}&list=100`)
-            .then((r)=>{
-              //console.log(r.data.data)
-              r.data.data.forEach(i=>{vm.items.push(i)})
-              vm.result.start = parseInt(r.data.start)
-              vm.result.end = parseInt(r.data.end)
-              //vm.result.total = parseInt(r.data.total)
+      }
+    },
+    handleTableScroll() {
+      let vm = this
+      let st = vm.$refs.selectableTable
+      if (st.$el.scrollHeight - st.$el.scrollTop <= st.$el.clientHeight && vm.isBusy === false)
+        if (vm.result.end !== undefined && vm.result.total !== undefined && vm.result.end < vm.result.total) {
+          vm.isBusy = true
+          vm.isBusyLoad = true
+          vm.axios.get(vm.result.query + `&start=${vm.result.end+1}&list=100`)
+            .then((r) => {
+                //console.log(r.data.data)
+                r.data.data.forEach(i => {
+                  vm.items.push(i)
+                })
+                vm.result.start = parseInt(r.data.start)
+                vm.result.end = parseInt(r.data.end)
+                //vm.result.total = parseInt(r.data.total)
               },
-              (e)=>{
+              (e) => {
                 alert('Sorry, something went wrong...')
               }
             )
-            .then(()=>{
-              vm.isBusy=false
-              vm.isBusyLoad=false
+            .then(() => {
+              vm.isBusy = false
+              vm.isBusyLoad = false
             })
-          }        
-      },
-  },
-  watch:{
-      //DOM elements first time rendered
-      show:function(){
-        let st =  this.$refs.selectableTable
-        if(this.show===true){
-          st.$el.addEventListener('scroll',this.handleTableScroll, false)
         }
-        //DOM 实例已经销毁了
-        //else st.$el.removeListener('scroll',this.handleTableScroll)
+    },
+  },
+  watch: {
+    //DOM elements first time rendered
+    show: function() {
+      let st = this.$refs.selectableTable
+      if (this.show === true) {
+        st.$el.addEventListener('scroll', this.handleTableScroll, false)
       }
+      //DOM 实例已经销毁了
+      //else st.$el.removeListener('scroll',this.handleTableScroll)
     }
-}
+  }
+} 
 </script>
 
 <style scoped>

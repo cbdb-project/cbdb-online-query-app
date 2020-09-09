@@ -89,118 +89,128 @@
 <script>
 import dataJson from '@/assets/officeData.json'
 import treeTable from '../treeTable/tree-table.vue'
-import {getListById,appendListById,clearResultTable,getListByName} from '@/components/utility/utility-functions.js'
+import {
+  getListById,
+  appendListById,
+  clearResultTable,
+  getListByName
+} from '@/components/utility/utility-functions.js'
 export default {
-    name:'selectOffice',
-    props:{
-      'selectFromDb':{
-        default:true
-      },
-      'importList':{
-        default:false
-      }
+  name: 'selectOffice',
+  props: {
+    'selectFromDb': {
+      default: true
     },
-    data() {
-        return {
-          show:false,
-          isBusy:false,
-          isBusyFind:false,
-          isBusyLoad:false,
-          formData:{pName:'',accurate:0},
-          treeDataSource: {},
-          result:{
-            id:undefined,
-            start:undefined,
-            end:undefined,
-            total:undefined
-          },
-          /*表格子數據放這裡*/
-          fields: [
-            { 
-              key: 'pId',
-              label:'Office ID',
-              sortable: true
-              },
-            {
-              key: 'pName',
-              label:'Office Name',
-              sortable: true
-            },
-            {
-              key: 'pNameChn',
-              label:'官職名稱',
-              sortable: true
-            },
-          ],
-          items: [],
-          //选中的人物出现在这里
-          selectedOffice : []
-        }
-    },
-    components: {
-        treeTable
-    },
-    methods: {
-        close:function(){
-            this.selectedOffice.splice(0,this.selectedOffice.length)
-            this.show = false;
-        },  
-        //加載職官樹
-        loadOfficeTree(){
-          if(localStorage.officeTree!=undefined)this.treeDataSource = JSON.parse(localStorage.officeTree)
-          else{
-            this.treeDataSource = dataJson;
-            localStorage.officeTree = JSON.stringify(dataJson)
-          }
-        },
-        onRowSelected(items) {
-          //用户选中列表中的条目后，同步到selectedOffice中
-          this.selectedOffice = items
-        },
-        onClearTable(){
-          clearResultTable(this)
-        },
-        haveSelected: function(){
-          //同步选中官职给父组件（页面）
-          this.$emit('getOfficeName', {fields:this.fields,items:this.selectedOffice});
-          this.selectedOffice.splice(0,this.selectedOffice.length)
-          this.show = false;
-        },
-        selectAllRows() {
-            this.$refs.selectableTable.selectAllRows()
-        },
-        clearSelected() {
-            this.$refs.selectableTable.clearSelected()
-        },
-        handlerExpand(m) {
-            //console.log(m.Id+'展开/收缩')  
-            m.isExpand = !m.isExpand
-        },
-        //按id查询职官
-        actionFunc(m){
-          getListById('post_list',m.Id,this)
-        },
-        handleTableScroll(){
-          appendListById('post_list',this)
-        },
-        find(){
-          getListByName('office_list_by_name',[this.formData.pName,this.formData.accurate],this)
-        }
-    },
-    watch:{
-      //DOM elements first time rendered
-      show:function(){
-        let st =  this.$refs.selectableTable
-        if(this.show===true){
-        st.$el.addEventListener('scroll',this.handleTableScroll, false)
-        }
-        //DOM 实例已经销毁了
-        //else st.$el.removeListener('scroll',this.handleTableScroll)
-      }
-    },
-    created(){
-      this.loadOfficeTree();
+    'importList': {
+      default: false
     }
+  },
+  data() {
+    return {
+      show: false,
+      isBusy: false,
+      isBusyFind: false,
+      isBusyLoad: false,
+      formData: {
+        pName: '',
+        accurate: 0
+      },
+      treeDataSource: {},
+      result: {
+        id: undefined,
+        start: undefined,
+        end: undefined,
+        total: undefined
+      },
+      /*表格子數據放這裡*/
+      fields: [{
+          key: 'pId',
+          label: 'Office ID',
+          sortable: true
+        },
+        {
+          key: 'pName',
+          label: 'Office Name',
+          sortable: true
+        },
+        {
+          key: 'pNameChn',
+          label: '官職名稱',
+          sortable: true
+        },
+      ],
+      items: [],
+      //选中的人物出现在这里
+      selectedOffice: []
+    }
+  },
+  components: {
+    treeTable
+  },
+  methods: {
+    close: function() {
+      this.selectedOffice.splice(0, this.selectedOffice.length)
+      this.show = false;
+    },
+    //加載職官樹
+    loadOfficeTree() {
+      if (localStorage.officeTree != undefined) this.treeDataSource = JSON.parse(localStorage.officeTree)
+      else {
+        this.treeDataSource = dataJson;
+        localStorage.officeTree = JSON.stringify(dataJson)
+      }
+    },
+    onRowSelected(items) {
+      //用户选中列表中的条目后，同步到selectedOffice中
+      this.selectedOffice = items
+    },
+    onClearTable() {
+      clearResultTable(this)
+    },
+    haveSelected: function() {
+      //同步选中官职给父组件（页面）
+      this.$emit('getOfficeName', {
+        fields: this.fields,
+        items: this.selectedOffice
+      });
+      this.selectedOffice.splice(0, this.selectedOffice.length)
+      this.show = false;
+    },
+    selectAllRows() {
+      this.$refs.selectableTable.selectAllRows()
+    },
+    clearSelected() {
+      this.$refs.selectableTable.clearSelected()
+    },
+    handlerExpand(m) {
+      //console.log(m.Id+'展开/收缩')  
+      m.isExpand = !m.isExpand
+    },
+    //按id查询职官
+    actionFunc(m) {
+      getListById('post_list', m.Id, this)
+    },
+    handleTableScroll() {
+      appendListById('post_list', this)
+    },
+    find() {
+      getListByName('office_list_by_name', [this.formData.pName, this.formData.accurate], this)
+    }
+  },
+  watch: {
+    //DOM elements first time rendered
+    show: function() {
+      let st = this.$refs.selectableTable
+      if (this.show === true) {
+        st.$el.addEventListener('scroll', this.handleTableScroll, false)
+      }
+      //DOM 实例已经销毁了
+      //else st.$el.removeListener('scroll',this.handleTableScroll)
+    }
+  },
+  created() {
+    this.loadOfficeTree();
+  }
 }
 </script>
 

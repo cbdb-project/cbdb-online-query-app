@@ -67,55 +67,52 @@
 import resultData from '@/assets/geodata_dev.json'
 export default {
   name: 'queryResult',
-  props:{
-    'name':{
-        default:''
+  props: {
+    'name': {
+      default: ''
     },
-    'start':{
-        default:0
+    'start': {
+      default: 0
     },
-    'fields':{
-    },
-    'items':{
-    }
+    'fields': {},
+    'items': {}
   },
-  data () {
+  data() {
     return {
-      currentPage:1,
-      startIdx:this.start,
-      offset:100,
-      isLoading:false,
+      currentPage: 1,
+      startIdx: this.start,
+      offset: 100,
+      isLoading: false,
       /*表格子數據放這裡*/
-      selected:[]
+      selected: []
     }
   },
   methods: {
-    onRowSelected(item,index,event) {
+    onRowSelected(item, index, event) {
       let self = this
       let i = self.getSelected.indexOf(item['NameChn'])
-      if(i===-1){
+      if (i === -1) {
         self.selected.push(item)
-      }
-      else{
-        self.selected.splice(i,1);
+      } else {
+        self.selected.splice(i, 1);
       }
       console.log(self.selected)
     },
     selectAllRows() {
-      this.$refs['selectableTable-'+this.name].selectAllRows()
-      this.selected=this.items.map(i=>i)
+      this.$refs['selectableTable-' + this.name].selectAllRows()
+      this.selected = this.items.map(i => i)
     },
     clearSelected() {
-      this.$refs['selectableTable-'+this.name].clearSelected()
-      this.selected.splice(0,this.selected.length);
+      this.$refs['selectableTable-' + this.name].clearSelected()
+      this.selected.splice(0, this.selected.length);
     },
-    exportData(){
+    exportData() {
       let str = ''
-      for(let i = 0; i<this.fields.length; i++)
-        str += (this.fields[i].key+'    ')
+      for (let i = 0; i < this.fields.length; i++)
+        str += (this.fields[i].key + '    ')
       str += '\n'
-      for(let i = 0; i<this.items.length; i++){
-        for(let k in this.items[i]){
+      for (let i = 0; i < this.items.length; i++) {
+        for (let k in this.items[i]) {
           str += (this.items[i][k] + '    ')
         }
         str += '\n'
@@ -126,38 +123,38 @@ export default {
       link.href = URL.createObjectURL(blob);
       link.click()
     },
-  /*
-  async loadMore(){
-    let st = this.$refs['selectableTable-'+this.name]
-    if(st.$el.scrollHeight - st.$el.scrollTop <= st.$el.clientHeight)
-      if(this.end-this.startIdx>0&&this.isLoading===false){
-        this.isLoading =true
-        var vm = this
-        var cb = ()=>{
-        //console.log('rrr')
-        let offset = vm.end-vm.startIdx>vm.offset?vm.offset:vm.end-vm.startIdx
-        for(let i=0; i<offset; i++)vm.items.push( {"\ufeffName": "You Jianyan", "NameChn": "游簡言", "Sex": "M", "IndexYear": " 969", "AddrID": " 16027", "AddrName": "Jian'an", "AddrChn": "建安", "X": " 118.323784", "Y": " 27.038864", "xy_count": " 2"})
-        vm.startIdx+=offset
-        this.isLoading = false
+    /*
+    async loadMore(){
+      let st = this.$refs['selectableTable-'+this.name]
+      if(st.$el.scrollHeight - st.$el.scrollTop <= st.$el.clientHeight)
+        if(this.end-this.startIdx>0&&this.isLoading===false){
+          this.isLoading =true
+          var vm = this
+          var cb = ()=>{
+          //console.log('rrr')
+          let offset = vm.end-vm.startIdx>vm.offset?vm.offset:vm.end-vm.startIdx
+          for(let i=0; i<offset; i++)vm.items.push( {"\ufeffName": "You Jianyan", "NameChn": "游簡言", "Sex": "M", "IndexYear": " 969", "AddrID": " 16027", "AddrName": "Jian'an", "AddrChn": "建安", "X": " 118.323784", "Y": " 27.038864", "xy_count": " 2"})
+          vm.startIdx+=offset
+          this.isLoading = false
+          }
+          await setTimeout(cb,1000)
         }
-        await setTimeout(cb,1000)
+        else if(this.startIdx>=this.end) this.$refs['selectableTable-'+this.name].$el.removeEventListener('scroll',this.loadMore) 
       }
-      else if(this.startIdx>=this.end) this.$refs['selectableTable-'+this.name].$el.removeEventListener('scroll',this.loadMore) 
-    }
-    */
+      */
   },
-  computed:{
-    getSelected(){
-      return this.selected.map(i=>i['NameChn'])
+  computed: {
+    getSelected() {
+      return this.selected.map(i => i['NameChn'])
     },
-    end(){
+    end() {
       return this.items.length
     }
   },
-  mounted(){
+  mounted() {
     //this.$refs['selectableTable-'+this.name].$el.addEventListener('scroll',this.loadMore, false)
   }
-}
+} 
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

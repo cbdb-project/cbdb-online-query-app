@@ -83,112 +83,118 @@
 </template>
 
 <script>
-    import dataJson from '@/assets/entryData.json'
-    import treeTable from '../treeTable/tree-table.vue'
-    import {getListById,appendListById,clearResultTable,getListByName} from '@/components/utility/utility-functions.js'
-    export default {
-        name:'selectEntry',
-        props:{
-        'selectFromDb':{
-            default:true
-        }
-    },
-    data() {
-            return {
-                show:false,
-                isBusy:false,
-                isBusyFind:false,
-                isBusyLoad:false,
-                result:{
-                    query:undefined,
-                    start:undefined,
-                    end:undefined,
-                    total:undefined
-                },
-                treeDataSource: dataJson,
-                formData:
-                {
-                    eName:'',
-                    accurate:0
-                },
-                /*表格子數據放這裡*/
-                fields: [
-                    {
-                        key:'eId',
-                        label:'ID',
-                        sortable:true
-                    },
-                    {
-                        key: 'eName',
-                        label:'Method of Entry',
-                        sortable: true
-                    },
-                    {
-                        key: 'eNameChn',
-                        label:'入仕法',
-                        sortable: true
-                    }
-                ],
-                items:[],
-                //选中的人物出现在这里
-                selectedEntry : []
-            }
-        },
-        components: {
-            treeTable
-        },
-        methods: {
-            close:function(){
-                this.selectedEntry.splice(0,this.selectedEntry.length)
-                this.show = false;
-            },
-            onRowSelected(items) {
-                this.selectedEntry = items
-            },
-            onClearTable(){
-                clearResultTable(this)
-            },
-            haveSelected: function(){
-                //同步选中入仕途径
-                this.$emit('getEntryName', {fields:this.fields,items:this.selectedEntry});
-                this.close();
-            },
-            selectAllRows() {
-                this.$refs.selectableTable.selectAllRows()
-            },
-            clearSelected() {
-                this.$refs.selectableTable.clearSelected()
-            },
-            handlerExpand(m) {
-                //console.log(m.Id+'展开/收缩')  
-                m.isExpand = !m.isExpand
-            },
-            //按id查询入仕途径
-            actionFunc(m){
-                getListById('entry_list',m.Id,this)
-            },
-            handleTableScroll(){
-                appendListById('entry_list',this)
-            },
-            find(){
-                getListByName('entry_list_by_name',[this.formData.eName,this.formData.accurate],this)
-            }
-      },
-        watch:{
-        //DOM elements first time rendered
-            show:function(){
-                let st =  this.$refs.selectableTable
-                if(this.show===true){
-                st.$el.addEventListener('scroll',this.handleTableScroll, false)
-                }
-                //DOM 实例已经销毁了
-                //else st.$el.removeListener('scroll',this.handleTableScroll)
-            }
-         }
+import dataJson from '@/assets/entryData.json'
+import treeTable from '../treeTable/tree-table.vue'
+import {
+  getListById,
+  appendListById,
+  clearResultTable,
+  getListByName
+} from '@/components/utility/utility-functions.js'
+export default {
+  name: 'selectEntry',
+  props: {
+    'selectFromDb': {
+      default: true
     }
-    </script>
+  },
+  data() {
+    return {
+      show: false,
+      isBusy: false,
+      isBusyFind: false,
+      isBusyLoad: false,
+      result: {
+        query: undefined,
+        start: undefined,
+        end: undefined,
+        total: undefined
+      },
+      treeDataSource: dataJson,
+      formData: {
+        eName: '',
+        accurate: 0
+      },
+      /*表格子數據放這裡*/
+      fields: [{
+          key: 'eId',
+          label: 'ID',
+          sortable: true
+        },
+        {
+          key: 'eName',
+          label: 'Method of Entry',
+          sortable: true
+        },
+        {
+          key: 'eNameChn',
+          label: '入仕法',
+          sortable: true
+        }
+      ],
+      items: [],
+      //选中的人物出现在这里
+      selectedEntry: []
+    }
+  },
+  components: {
+    treeTable
+  },
+  methods: {
+    close: function() {
+      this.selectedEntry.splice(0, this.selectedEntry.length)
+      this.show = false;
+    },
+    onRowSelected(items) {
+      this.selectedEntry = items
+    },
+    onClearTable() {
+      clearResultTable(this)
+    },
+    haveSelected: function() {
+      //同步选中入仕途径
+      this.$emit('getEntryName', {
+        fields: this.fields,
+        items: this.selectedEntry
+      });
+      this.close();
+    },
+    selectAllRows() {
+      this.$refs.selectableTable.selectAllRows()
+    },
+    clearSelected() {
+      this.$refs.selectableTable.clearSelected()
+    },
+    handlerExpand(m) {
+      //console.log(m.Id+'展开/收缩')  
+      m.isExpand = !m.isExpand
+    },
+    //按id查询入仕途径
+    actionFunc(m) {
+      getListById('entry_list', m.Id, this)
+    },
+    handleTableScroll() {
+      appendListById('entry_list', this)
+    },
+    find() {
+      getListByName('entry_list_by_name', [this.formData.eName, this.formData.accurate], this)
+    }
+  },
+  watch: {
+    //DOM elements first time rendered
+    show: function() {
+      let st = this.$refs.selectableTable
+      if (this.show === true) {
+        st.$el.addEventListener('scroll', this.handleTableScroll, false)
+      }
+      //DOM 实例已经销毁了
+      //else st.$el.removeListener('scroll',this.handleTableScroll)
+    }
+  }
+}  
+</script>
 
-    <style scoped>
+<style scoped>
     .query-condition-button{
     width:128px;
     margin:6px 0;

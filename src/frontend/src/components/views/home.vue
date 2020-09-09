@@ -47,7 +47,9 @@
 </template>
 
 <script>
-import {isNull} from '@/components/utility/utility-functions.js'
+import {
+  isNull
+} from '@/components/utility/utility-functions.js'
 export default {
   name: 'Hello'
 }

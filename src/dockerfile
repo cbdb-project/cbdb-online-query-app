@@ -5,9 +5,10 @@ LABEL maintainer="IceCodeNew <xxx@yyy.zzz>"
 # ENV PYTHONUNBUFFERED 1
 
 ## Installing OS Dependencies
+ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y --no-install-recommends \
-        libsqlite3-dev \
-    && apt-get clean && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
+    libsqlite3-dev \
+    && apt-get clean && apt-get -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false purge \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt /webapps/
@@ -19,5 +20,5 @@ WORKDIR /webapps
 COPY . /webapps/
 ## Django service
 EXPOSE 8000
-## default command to execute    
-CMD exec gunicorn cbdbweb.wsgi:application --bind 0.0.0.0:8000 --workers 3
+## default command to execute
+CMD ["gunicorn", "cbdbweb.wsgi:application", "--bind 0.0.0.0:8000", "--workers 3"]

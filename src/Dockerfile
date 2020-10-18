@@ -1,7 +1,19 @@
-FROM python:slim
+FROM node:lts-buster-slim AS builder
+
 LABEL maintainer="yiruka114514 <xxx@yyy.zzz>"
 LABEL maintainer="IceCodeNew <xxx@yyy.zzz>"
 
+COPY frontend /webapps/
+WORKDIR /webapps
+RUN npm install \
+    && npm run build
+
+################
+
+FROM python:slim AS webserver
+
+LABEL maintainer="yiruka114514 <xxx@yyy.zzz>"
+LABEL maintainer="IceCodeNew <xxx@yyy.zzz>"
 # ENV PYTHONUNBUFFERED 1
 
 ## Installing OS Dependencies

@@ -1,9 +1,0 @@
-frontend/node_modules/
-frontend/build/
-frontend/config/
-frontend/index.html
-frontend/package-lock.json
-frontend/package.json
-frontend/postcss.config.js
-frontend/src/
-frontend/static/

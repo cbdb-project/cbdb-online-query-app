@@ -1,4 +1,4 @@
-FROM python:slim-buster
+FROM python:slim
 LABEL maintainer="yiruka114514 <xxx@yyy.zzz>"
 LABEL maintainer="IceCodeNew <xxx@yyy.zzz>"
 
@@ -8,16 +8,17 @@ LABEL maintainer="IceCodeNew <xxx@yyy.zzz>"
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libsqlite3-dev \
-    && apt-get clean && apt-get -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false purge \
-    && rm -rf /var/lib/apt/lists/*
+    && apt-get -y full-upgrade \
+    && apt-get -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false purge \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt /webapps/
 # COPY requirements-opt.txt /webapps/
-RUN pip install -r /webapps/requirements.txt
-# RUN pip install -r /webapps/requirements-opt.txt
-
 WORKDIR /webapps
-COPY . /webapps/
+
+RUN pip install --no-cache-dir -r /webapps/requirements.txt
+# RUN pip install --no-cache-dir -r /webapps/requirements-opt.txt
+
 ## Django service
 EXPOSE 8000
 ## default command to execute

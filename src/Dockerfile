@@ -24,6 +24,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && apt-get -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false purge \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
+COPY --from=builder /webapps/dist /webapps/dist/
+COPY cbdbweb /webapps/cbdbweb/
 COPY requirements.txt /webapps/
 # COPY requirements-opt.txt /webapps/
 WORKDIR /webapps

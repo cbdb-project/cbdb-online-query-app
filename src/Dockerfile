@@ -18,6 +18,7 @@ LABEL maintainer="IceCodeNew <xxx@yyy.zzz>"
 
 ## Installing OS Dependencies
 ARG DEBIAN_FRONTEND=noninteractive
+RUN sed -i -E 's/(deb|security).debian.org/mirrors.cloud.aliyuncs.com/' '/etc/apt/sources.list'
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libsqlite3-dev \
     && apt-get -y full-upgrade \
@@ -30,6 +31,8 @@ COPY requirements.txt /webapps/
 # COPY requirements-opt.txt /webapps/
 WORKDIR /webapps
 
+RUN pip config set global.index-url 'http://mirrors.cloud.aliyuncs.com/pypi/simple' \
+    && pip config set global.trusted-host mirrors.cloud.aliyuncs.com
 RUN pip install --no-cache-dir -r /webapps/requirements.txt
 # RUN pip install --no-cache-dir -r /webapps/requirements-opt.txt
 

@@ -30,6 +30,13 @@
                   </b-card>
                 </b-col>
                 <b-col :cols = 7>
+                    <b-form-group style = "text-align:right">
+                      <b-button variant="outline-danger" @click="onClearTable" size='sm' class = "mx-3" style="position:absolute;left:0">Clear Table</b-button> 
+                      <b-button-group> 
+                        <b-button v-if="this.selectedPerson.length>0" @click="clearSelected" variant="outline-secondary" size='sm' ><span>Cancel Selected</span></b-button>
+                        <b-button v-if="!(this.items.length===this.selectedPerson.length)" @click="selectAllRows" variant="outline-secondary" size='sm' ><span>Select All</span></b-button>
+                      </b-button-group>      
+                    </b-form-group>
                     <b-table 
                         :items= "items" 
                         :fields= "fields" 
@@ -102,6 +109,13 @@
                   </b-alert>
                 </b-col>
                 <b-col :cols = 7>
+                    <b-form-group style = "text-align:right">
+                      <b-button variant="outline-danger" @click="onClearTable" size='sm' class = "mx-3" style="position:absolute;left:0">Clear Table</b-button> 
+                      <b-button-group> 
+                        <b-button v-if="this.selectedPerson.length>0" @click="clearSelected" variant="outline-secondary" size='sm' ><span>Cancel Selected</span></b-button>
+                        <b-button v-if="!(this.items.length===this.selectedPerson.length)" @click="selectAllRows" variant="outline-secondary" size='sm' ><span>Select All</span></b-button>
+                      </b-button-group>      
+                    </b-form-group>
                     <b-table 
                         :items= "items" 
                         :fields= "fields" 
@@ -230,6 +244,9 @@ export default {
     onRowSelected(items) {
       this.selectedPerson = items
     },
+    onClearTable() {
+      clearResultTable(this)
+    },
     haveSelected: function() {
       //同步选中人物
       console.log("成功");
@@ -238,7 +255,7 @@ export default {
         items: this.selectedPerson
       });
       this.selectedPerson.splice(0, this.selectedPerson.length)
-      this.show = false;
+      this.close();
     },
     selectAllRows() {
       this.$refs.selectableTable.selectAllRows()

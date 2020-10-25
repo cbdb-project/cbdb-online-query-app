@@ -10,7 +10,7 @@
             <b-button @click="exportData" variant="light">
               <a id="export"></a>Save <span v-if="this.selected.length>0">&nbsp;Selected</span> to GIS
             </b-button>
-            <b-button variant="light">
+            <b-button @click="exportID" variant="light">
              <a id="save-person"></a>Save <span v-if="this.selected.length>0">&nbsp;Selected</span> Person IDs
             </b-button>
             </b-col>
@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import resultData from '@/assets/geodata_dev.json'
+//import resultData from '@/assets/geodata_dev.json'
 export default {
   name: 'queryResult',
   props: {
@@ -119,10 +119,28 @@ export default {
       }
       var blob = new Blob([str]);
       var link = document.getElementById('export')
-      link.download = "export_utf8"
+      link.download = "export_utf8_"+ new Date().getTime().toString(36);
       link.href = URL.createObjectURL(blob);
       link.click()
     },
+    exportID()
+    {
+      let peopleList = {'creator':'cbdb-online-query-app','create_date':new Date().getTime().toString(),'data':[]}
+      for (let i = 0; i < this.items.length; i++) {
+          let person = 
+          {
+            'personId': this.items[i]['PersonID'],
+            'personName': this.items[i]['Name'],
+            'personNameCh': this.items[i]['NameChn'],
+            'indexYear': this.items[i]['IndexYear']
+          };
+          peopleList['data'].push(person);
+      }      
+      let link = document.createElement('a')
+      link.download = 'people_list'+ new Date().getTime().toString(36) +'.json'
+      link.href = 'data:text/plain,' + JSON.stringify(peopleList)
+      link.click()
+    }
     /*
     async loadMore(){
       let st = this.$refs['selectableTable-'+this.name]

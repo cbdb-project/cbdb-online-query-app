@@ -3,14 +3,15 @@
       <b-button-group>      
         <b-button  v-if="selectFromDb===true" variant="outline-primary"  v-b-modal.select-person
         class = "query-condition-button" size="sm">{{$t('globalTerm.selectFromDb')}}</b-button>
-        <b-button  v-if="importList===true" variant="outline-primary"  v-b-modal.select-person
+        <b-button  v-if="importList===true" variant="outline-primary"  v-b-modal.import-person
         class = "query-condition-button" size="sm">{{$t('globalTerm.import')}}</b-button>
       </b-button-group>
-        <b-modal 
+      <!-- Select People  -->
+      <b-modal 
           id="select-person" 
           title="Select People from Database" 
           size = "xl"
-          v-model="show"
+          v-model="showSelect"
           scrollable
         >
             <b-row>
@@ -60,7 +61,79 @@
                 Select
               </b-button>
             </template>
-        </b-modal>
+      </b-modal>
+      <!-- Import People -->
+      <b-modal 
+          id="import-person" 
+          title="Import People List" 
+          size = "xl"
+          v-model="showImport"
+          scrollable
+        >
+            <b-row>
+                <b-col :cols = 5 style = "text-align:right">
+                  <b-card>
+                    <div style = "text-align:left">
+                      <b-form-file
+                        ref = "upload"
+                        v-model="file1"
+                        :state="Boolean(file1)"
+                        :placeholder="this.$t('selectPerson.importPersonPlaceholder')"
+                        :drop-placeholder="this.$t('selectPerson.dropFileHere')"
+                        :browse-text="this.$t('selectPerson.browseText')"
+                        accept=".json"
+                      ></b-form-file>
+                      <div class="mt-3">
+                        Selected file: {{ file1 ? file1.name : '' }}
+                      </div>
+                    </div>
+                    <b-button class="mt-3"
+                    variant="primary" @click="parsePerson"
+                      :disabled="isInvalidFile||isBusy" style = "width:96px">
+                        <span v-if="!isBusy">{{$t('globalTerm.parse')}}</span>
+                        <b-spinner small v-if="isBusy"></b-spinner>
+                    </b-button>                    
+                  </b-card>
+                  <b-alert
+                  style = "text-align:left"
+                  class = "mt-3"
+                  show>
+                    {{$t('selectPerson.warning')}}
+                  </b-alert>
+                </b-col>
+                <b-col :cols = 7>
+                    <b-table 
+                        :items= "items" 
+                        :fields= "fields" 
+                        sticky-header = "1000px"
+                        head-variant="light" 
+                        ref="selectableTable"
+                        selectable
+                        :select-mode="selectMode"
+                        @row-selected="onRowSelected"
+                        responsive="sm">
+                        <template v-slot:cell(selected)="{ rowSelected }">
+                            <template v-if="rowSelected">
+                            <span aria-hidden="true">&check;</span>
+                            <span class="sr-only">Selected</span>
+                            </template>
+                            <template v-else>
+                            <span aria-hidden="true">&nbsp;</span>
+                            <span class="sr-only">Not selected</span>
+                            </template>
+                        </template>
+                    </b-table>
+                </b-col>
+            </b-row>
+            <template v-slot:modal-footer>
+              <b-button size="xl" variant="secondary" @click="close">
+                Cancel
+              </b-button>
+              <b-button size="xl" variant="primary" :disabled="selectedPerson.length===0" @click="haveSelected">
+                Select
+              </b-button>
+            </template>
+      </b-modal>
     </div>
 </template>
 
@@ -83,8 +156,10 @@ export default {
   },
   data() {
     return {
-      show: false,
+      showSelect: false,
+      showImport:false,
       isBusy: false,
+      file1:undefined,
       formData: {
         personName: ''
       },
@@ -118,7 +193,8 @@ export default {
   methods: {
     close: function() {
       this.selectedPerson.splice(0, this.selectedPerson.length)
-      this.show = false;
+      this.showSelect = false;
+      this.showImport = false;
     },
     searchPerson(personName) {
       this.items = [] //清空已有数据
@@ -169,12 +245,37 @@ export default {
     },
     clearSelected() {
       this.$refs.selectableTable.clearSelected()
+    },
+    parsePerson:function(){
+      let reader = new FileReader();   //先new 一个读文件的对象 FileReader
+      let vm = this;
+      if (typeof FileReader === "undefined") {  //用来判断你的浏览器是否支持 FileReader
+          alert(vm.$t('selectPerson.browserNotSupportFileReader'));
+          return;
+      }
+      reader.onload = function (event) {
+        let res = JSON.parse(event.target.result)
+        if(!res['creator'] || res['creator']!='cbdb-online-query-app')
+        {
+          alert(vm.$t('selectPerson.cannotParse'));
+          return;
+        }
+        vm.items = res.data;
+      };
+      reader.readAsText(this.file1);
+      return;
     }
   },
   computed: {
     isInvalid() {
       return isNull(this.formData.personName)
+    },
+    isInvalidFile(){
+      return this.file1?false:true;
     }
+  },
+  mounted() {
+
   }
 }
 </script>

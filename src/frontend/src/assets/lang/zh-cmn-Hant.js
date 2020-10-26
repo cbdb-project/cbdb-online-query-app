@@ -50,12 +50,12 @@ module.exports = {
     selectPerson:{
         selectButton:"選取人物",
         personName:"人物姓名",
-        importPersonPlaceholder:"點此上傳文檔或直接拖拽文檔到此處",
+        importPersonPlaceholder:"點此上載文檔或直接拖拽文檔到此處",
         dropFileHere:"拖拽文檔至此",
         browseText:"瀏覽",
         browserNotSupportFileReader:"抱歉，當前組件無法在您的瀏覽器上運作。您可以改用“從數據庫選取的方法，但我們更建議您換一個瀏覽器。”",
-        cannotParse:"抱歉，無法解析您上傳的文檔。請檢查數據格式是否正確",
-        warning:"請上傳本系統生成的.json文檔，否則無法解析"
+        cannotParse:"抱歉，無法解析您上載的文檔。請檢查數據格式是否正確",
+        warning:"請上載本系統生成的.json文檔，否則無法解析"
     },
     selectEntry:{
         selectButton:"選取入仕途徑"

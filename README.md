@@ -2,6 +2,11 @@
 ## Usage Guide
 https://github.com/yiruka114514/CBDBWebAppGuide/blob/master/CBDBWebGuide.pdf   、
 
+## Contribution Guide
+* ⚠️请勿直接用 commit 向主分支提交修改（README.md 除外）
+* ⚠️请先在本地新建一个分支，将所有修改都只应用到此分支上。修改完成后，将此新建分支以 PR 提交到主分支上
+* ⚠️直接向主分支提交 commit 将不会触发持续集成自动部署代码
+
 ## API Document
 https://github.com/cbdb-project/cbdb-online-main-server/blob/develop/API.md  
 

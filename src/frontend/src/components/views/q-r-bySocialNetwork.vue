@@ -49,7 +49,6 @@
           <b-col cols="4" style = "text-align:left" >
             <b-button-group>
             <select-place @getPlaceName="handleGetPeoplePlace" name="people" style = "margin-top:56px"></select-place>
-            <import-place @getPlaceName="handleGetPeoplePlace" name="people" style = "margin-top:56px"></import-place>
             </b-button-group>
           </b-col>
         </b-row> 
@@ -57,7 +56,7 @@
         <b-row class = "pb-3 mb-3">
           <b-col cols="4">
              <label for="index-end-time" class = "user-input-label">
-                Max Node Distance   
+                {{$t('relationQueryBySocialNetwork.maxNodeDistance')}}  
               </label>
              <b-form-input id="index-end-time" v-model="formData.endTime" placeholder="" 
              :state="validation('indexEndTime')" :disabled="false"></b-form-input>
@@ -67,7 +66,7 @@
            </b-col>
           <b-col cols="4">
              <label for="index-end-time" class = "user-input-label">
-                Max Loop 
+                {{$t('relationQueryBySocialNetwork.maxLoop')}} 
               </label>
              <b-form-input id="index-end-time" v-model="formData.endTime" placeholder="" 
              :state="validation('indexEndTime')" :disabled="false"></b-form-input>
@@ -230,7 +229,7 @@ import queryResult from '@/components/utility/query-result.vue'
 import selectRelation from '@/components/utility/select-relationship.vue'
 import selectPerson from '@/components/utility/select-person.vue'
 import selectPlace from '@/components/utility/select-place.vue'
-import importPlace from '@/components/utility/import-place.vue'
+//import importPlace from '@/components/utility/import-place.vue'
 import viewSelected from '@/components/utility/view-selected.vue'
 export default {
   name: 'relationQueryBySocialNetwork',
@@ -241,7 +240,7 @@ export default {
     selectPerson,
     selectPlace,
     viewSelected,
-    importPlace
+    //importPlace
   },
   data () {
     return {

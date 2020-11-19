@@ -59,7 +59,7 @@
           {{$t('navbarLeft.relationQueryByAssociation')}}
         </b-nav-item>
         <b-nav-item exact to = "/q-relation/by-social-network" exact-active-class="active" 
-          v-b-tooltip.hover.right  :title="$t('navbarLeft.relationQueryBySocialNetwork')" disabled>
+          v-b-tooltip.hover.right  :title="$t('navbarLeft.relationQueryBySocialNetwork')">
           {{$t('navbarLeft.relationQueryBySocialNetwork')}}
         </b-nav-item>
       </b-collapse>

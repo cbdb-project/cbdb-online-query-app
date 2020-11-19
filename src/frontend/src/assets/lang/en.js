@@ -191,7 +191,9 @@ module.exports = {
         maxLoop:            "Max Loop"
     },
     relationQueryBySocialNetwork:{
-        includeKinship:"Include Kinship"
+        includeKinship:"Include Kinship",
+        maxNodeDistance:"Max Node Distance",
+        maxLoop:"Max Loop"
     },
     visualization:{
         selectFromSystem:"Import from System",

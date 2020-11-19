@@ -53,8 +53,8 @@ module.exports = {
         importPersonPlaceholder:"點此上載文檔或直接拖拽文檔到此處",
         dropFileHere:"拖拽文檔至此",
         browseText:"瀏覽",
-        browserNotSupportFileReader:"抱歉，當前組件無法在您的瀏覽器上運作。您可以改用“從數據庫選取的方法，但我們更建議您換一個瀏覽器。”",
-        cannotParse:"抱歉，無法解析您上載的文檔。請檢查數據格式是否正確",
+        browserNotSupportFileReader:"抱歉，當前組件無法在您的瀏覽器上運作。您可以改用“從資料庫選取的方法，但我們更建議您換一個瀏覽器。”",
+        cannotParse:"抱歉，無法解析您上載的文檔。請檢查資料格式是否正確",
         warning:"請上載本系統生成的.json文檔，否則無法解析"
     },
     selectEntry:{
@@ -125,7 +125,7 @@ module.exports = {
         and:"和其他",
         invalidInput:"您的輸入不符合檢索要求，請檢查",
         cnOrPy:"可輸入漢字或拼音",
-        selectFromDb:"從數據庫選取",
+        selectFromDb:"從資料庫選取",
         custom:"自定義",
         parse:"解析",
     },
@@ -194,7 +194,9 @@ module.exports = {
         maxLoop:            "最大循环次数"
     },
     relationQueryBySocialNetwork:{
-        includeKinship:"包含親屬關係"
+        includeKinship:"包含親屬關係",
+        maxNodeDistance:"距離限制",
+        maxLoop:"循環數限制"
     },
     visualization:{
         selectFromSystem:"從系統加載",

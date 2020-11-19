@@ -11,18 +11,6 @@
         <b-row>
             <b-col :cols = 4 style = "text-align:right">
                 <b-card>
-                    <b-form-group label-cols="4" :label="$t('selectRelationship.association')" label-for="select-relation-input">
-                        <b-form-input id="select-relation-input" v-model= "formData.aName"></b-form-input>
-                    </b-form-group>
-                    <b-form-group>
-                      <b-button variant="primary" @click="find">
-                        <b-spinner small v-if="isBusyFind">
-                        </b-spinner>
-                        <span v-else>Find</span>
-                      </b-button>
-                    </b-form-group>
-                </b-card>
-                <b-card>
                     <div style="height:400px; overflow:auto">
                         <tree-table listName="社會關係類目表" ref="recTree" :list.sync="treeDataSource" @handlerExpand="handlerExpand" @actionFunc="actionFunc"></tree-table>
                     </div>
@@ -78,7 +66,7 @@
 </template>
 
 <script>
-import dataJson from '@/assets/relationData.json'
+import dataJson from '@/assets/relationDataNetwork.json'
 import treeTable from '../treeTable/tree-table.vue'
 import {
   getListById,

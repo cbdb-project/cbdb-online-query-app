@@ -20,7 +20,7 @@
 									:num="i"
 									@actionFunc="actionFunc"
 									@deleteFunc="deleteFunc"
-                  					@handlerExpand="handlerExpand"
+                  @handlerExpand="handlerExpand"
 									:nodes="treeDataSource.length"
 									:trees.sync="treeDataSource"
 									:model.sync="model">

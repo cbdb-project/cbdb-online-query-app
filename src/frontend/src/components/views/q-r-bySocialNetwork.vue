@@ -10,6 +10,7 @@
       </template>
       <b-card-text class = "card-item-title">{{$t('globalTerm.requiredInput')}}</b-card-text>             
       <div class  = "card-item-body px-3">
+        <!-- 人物 -->
         <b-row class = "py-3 my-3">
           <b-col cols="8" style = "text-align:left">
             <b-card-text class = "card-item-title">{{$t('globalTerm.person')}}</b-card-text>    
@@ -50,6 +51,27 @@
             <b-button-group>
             <select-place @getPlaceName="handleGetPeoplePlace" name="people" style = "margin-top:56px"></select-place>
             </b-button-group>
+          </b-col>
+        </b-row> 
+        <!-- 社會關係 -->
+        <b-row class = "py-3 my-3">    
+          <b-col cols="8" style = "text-align:left"> 
+             <b-card-text class = "card-item-title">{{$t('globalTerm.association')}}</b-card-text>
+            <b-card>
+              <b-row class="pl-3" style = "text-align:center">
+                <b-col>
+                  <span v-if="this.relationTable.length===0" style = "line-height:31px">**{{$t('globalTerm.all')}}**</span>
+                  <span v-else>{{this.relationTable[0]['aNameChn']}}
+                    <span v-if="this.relationTable.length>1">及另外{{this.relationTable.length-1}}種關係</span>
+                  </span>
+                  <view-selected name='relation' :fields="this.relationField" :items="this.relationTable" @update:items="val=>this.relationTable=val"></view-selected>
+                </b-col>
+              </b-row> 
+            </b-card>   
+          </b-col>
+          <b-col cols="2" style = "text-align:left" >
+            <select-relation-network @getRelation="handleGetRelation" name="relation"  style="margin-top:56px"> 
+            </select-relation-network>
           </b-col>
         </b-row> 
         <b-card-text class = "card-item-title pt-3" style = "text-align:left">Search Options</b-card-text>    
@@ -226,17 +248,16 @@
 <script>
 import {isNull,yearValidation,personGetter,peoplePlaceGetter,kinshipOptions} from '@/components/utility/utility-functions.js'
 import queryResult from '@/components/utility/query-result.vue'
-import selectRelation from '@/components/utility/select-relationship.vue'
+import selectRelationNetwork from '@/components/utility/select-relation-network.vue'
 import selectPerson from '@/components/utility/select-person.vue'
 import selectPlace from '@/components/utility/select-place.vue'
-//import importPlace from '@/components/utility/import-place.vue'
 import viewSelected from '@/components/utility/view-selected.vue'
 export default {
   name: 'relationQueryBySocialNetwork',
   components:
   {
     queryResult,
-    selectRelation,
+    selectRelationNetwork,
     selectPerson,
     selectPlace,
     viewSelected,

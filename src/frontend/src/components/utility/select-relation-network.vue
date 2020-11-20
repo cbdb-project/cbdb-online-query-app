@@ -24,12 +24,6 @@
                         <b-button v-if="!(this.items.length===this.selectedRelation.length)" @click="selectAllRows" variant="outline-secondary" size='sm' ><span>Select All</span></b-button>
                     </b-button-group>      
                 </b-form-group>
-                <b-row v-if="this.result.total!==undefined&&this.result.end!==undefined">
-                    <b-col>
-                        <b-link disabled>{{result.end}}</b-link><span style="color:#4D4D4D">&nbsp;of&nbsp;</span>
-                        <b-link disabled>{{result.total}}</b-link><span style="color:#4D4D4D">&nbsp;records are shown.</span>
-                    </b-col>
-                </b-row>
                 <b-table 
                     :items= "items" 
                     :fields= "fields" 
@@ -72,7 +66,8 @@ import {
   getListById,
   appendListById,
   clearResultTable,
-  getListByName
+  getListByName,
+  returnRelation
 } from '@/components/utility/utility-functions.js'
 export default {
   name: 'selectRelationship',
@@ -88,21 +83,10 @@ export default {
       isBusyFind: false,
       isBusyLoad: false,
       treeDataSource: dataJson,
-      result: {
-        query: undefined,
-        start: undefined,
-        end: undefined,
-        total: undefined
-      },
       /*表格子數據放這裡*/
       fields: [{
           key: 'aId',
           label: '社會關係代碼',
-          sortable: true
-        },
-        {
-          key: 'aName',
-          label: 'Assoc. Name',
           sortable: true
         },
         {
@@ -114,10 +98,7 @@ export default {
       //rId 相當於 C_ASSOC_CODE
       items: [],
       //选中的关系出现在这里
-      selectedRelation: [],
-      formData: {
-        aName: ''
-      }
+      selectedRelation: []
     }
   },
   components: {
@@ -145,7 +126,7 @@ export default {
       m.isExpand = !m.isExpand
     },
     actionFunc(m) {
-      getListById('get_assoc', m.Id, this)
+      returnRelation(m.Id,this);
     },
     handleTableScroll() {
       appendListById('get_assoc', this)

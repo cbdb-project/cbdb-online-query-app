@@ -162,9 +162,6 @@ export default {
         broad: 0
       },
       //後端傳回來的數據放這裡
-      personInfo: {
-
-      },
       peoplePlaceTable: [],
       peoplePlaceField: [],
       relationTable: [],
@@ -350,7 +347,6 @@ export default {
     },
     async handleSubmit() {
       //提交表单的时候先清空原有數據
-      this.personInfo = {}
       this.isBusy = true;
       let vm = this
       let f = vm.formData
@@ -364,7 +360,7 @@ export default {
       }
       data = JSON.stringify(data)
       let query = `${vm.$store.state.global.apiAddress}query_associates?RequestPlayload=${data}`
-      console.log(query)
+      //console.log(query)
       this.axios.post(query)
         .then(
           res => {

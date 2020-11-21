@@ -49,15 +49,17 @@ function getterBuilder(type) {
     "officePlace": "pId",
     "office": "pId",
     "entry": "eId",
-    "relation": "rId"
+    "relation": "aId"
   }
   /**
    * @param  {Array,VueObject} 表格数据和vue实例
    * @return {Function} 对应表格类型的getter
    **/
+  //闭包
   return function(d, vm) {
     if (vm[type + "Field"].length === 0) vm[type + "Field"] = d['fields']
     let formData = vm["get" + capitalizeFirst(type) + "TableId"]
+    console.log(formData)
     let after = d['items'].filter(i => formData.indexOf(i[id[type]]) === -1);
     after.forEach(
       i => {
@@ -255,7 +257,7 @@ function returnRelation(code,vm){
           "aNameChn":"官場關係（平級）"
         },
         {
-          "ad":"0403",
+          "aId":"0403",
           "aNameChn":"官場關係（下屬）"
         },
         {

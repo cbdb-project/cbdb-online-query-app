@@ -67,7 +67,8 @@ import {
   appendListById,
   clearResultTable,
   getListByName,
-  returnRelation
+  returnRelation,
+  relationGetter
 } from '@/components/utility/utility-functions.js'
 export default {
   name: 'selectRelationship',

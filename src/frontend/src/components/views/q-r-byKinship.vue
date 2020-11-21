@@ -364,7 +364,7 @@ export default {
       }
       data = JSON.stringify(data)
       let query = `${vm.$store.state.global.apiAddress}query_relatives?RequestPlayload=${data}`
-      //console.log(query)
+      console.log(query)
       this.axios.post(query)
         .then(res => {
             vm.result = {}

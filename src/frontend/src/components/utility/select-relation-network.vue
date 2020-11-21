@@ -11,18 +11,6 @@
         <b-row>
             <b-col :cols = 4 style = "text-align:right">
                 <b-card>
-                    <b-form-group label-cols="4" :label="$t('selectRelationship.association')" label-for="select-relation-input">
-                        <b-form-input id="select-relation-input" v-model= "formData.aName"></b-form-input>
-                    </b-form-group>
-                    <b-form-group>
-                      <b-button variant="primary" @click="find">
-                        <b-spinner small v-if="isBusyFind">
-                        </b-spinner>
-                        <span v-else>Find</span>
-                      </b-button>
-                    </b-form-group>
-                </b-card>
-                <b-card>
                     <div style="height:400px; overflow:auto">
                         <tree-table listName="社會關係類目表" ref="recTree" :list.sync="treeDataSource" @handlerExpand="handlerExpand" @actionFunc="actionFunc"></tree-table>
                     </div>
@@ -36,12 +24,6 @@
                         <b-button v-if="!(this.items.length===this.selectedRelation.length)" @click="selectAllRows" variant="outline-secondary" size='sm' ><span>Select All</span></b-button>
                     </b-button-group>      
                 </b-form-group>
-                <b-row v-if="this.result.total!==undefined&&this.result.end!==undefined">
-                    <b-col>
-                        <b-link disabled>{{result.end}}</b-link><span style="color:#4D4D4D">&nbsp;of&nbsp;</span>
-                        <b-link disabled>{{result.total}}</b-link><span style="color:#4D4D4D">&nbsp;records are shown.</span>
-                    </b-col>
-                </b-row>
                 <b-table 
                     :items= "items" 
                     :fields= "fields" 
@@ -78,13 +60,15 @@
 </template>
 
 <script>
-import dataJson from '@/assets/relationData.json'
+import dataJson from '@/assets/relationDataNetwork.json'
 import treeTable from '../treeTable/tree-table.vue'
 import {
   getListById,
   appendListById,
   clearResultTable,
-  getListByName
+  getListByName,
+  returnRelation,
+  relationGetter
 } from '@/components/utility/utility-functions.js'
 export default {
   name: 'selectRelationship',
@@ -100,21 +84,10 @@ export default {
       isBusyFind: false,
       isBusyLoad: false,
       treeDataSource: dataJson,
-      result: {
-        query: undefined,
-        start: undefined,
-        end: undefined,
-        total: undefined
-      },
       /*表格子數據放這裡*/
       fields: [{
           key: 'aId',
           label: '社會關係代碼',
-          sortable: true
-        },
-        {
-          key: 'aName',
-          label: 'Assoc. Name',
           sortable: true
         },
         {
@@ -126,10 +99,7 @@ export default {
       //rId 相當於 C_ASSOC_CODE
       items: [],
       //选中的关系出现在这里
-      selectedRelation: [],
-      formData: {
-        aName: ''
-      }
+      selectedRelation: []
     }
   },
   components: {
@@ -157,7 +127,7 @@ export default {
       m.isExpand = !m.isExpand
     },
     actionFunc(m) {
-      getListById('get_assoc', m.Id, this)
+      returnRelation(m.Id,this);
     },
     handleTableScroll() {
       appendListById('get_assoc', this)

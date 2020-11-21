@@ -249,11 +249,12 @@ export default {
     },
     haveSelected: function() {
       //同步选中人物
-      console.log("成功");
+      //console.log("1");
       this.$emit('getPersonName', {
         fields: this.fields,
         items: this.selectedPerson
       });
+      //console.log("2")
       this.selectedPerson.splice(0, this.selectedPerson.length)
       this.close();
     },

@@ -49,15 +49,17 @@ function getterBuilder(type) {
     "officePlace": "pId",
     "office": "pId",
     "entry": "eId",
-    "relation": "rId"
+    "relation": "aId"
   }
   /**
    * @param  {Array,VueObject} 表格数据和vue实例
    * @return {Function} 对应表格类型的getter
    **/
+  //闭包
   return function(d, vm) {
     if (vm[type + "Field"].length === 0) vm[type + "Field"] = d['fields']
     let formData = vm["get" + capitalizeFirst(type) + "TableId"]
+    console.log(formData)
     let after = d['items'].filter(i => formData.indexOf(i[id[type]]) === -1);
     after.forEach(
       i => {
@@ -197,6 +199,191 @@ function clearResultTable(vm) {
   }
 }
 
+function returnRelation(code,vm){
+  switch(code)
+  {
+    case "02":
+    {
+      vm.items = 
+      [
+        {
+          "aId": "0202",
+          "aNameChn": "師生關係"
+        },
+        {
+          "aId": "0203",
+          "aNameChn": "學術交往"
+        },
+        {
+          "aId": "0204",
+          "aNameChn": "學術主題相近"
+        },
+        {
+          "aId":"0205",
+          "aNameChn":"同為成員"
+        },
+        {
+          "aId":"0206",
+          "aNameChn":"學術襄助"
+        },
+        {
+          "aId":"0207",
+          "aNameChn":"文學藝術交往"
+        },
+        {
+          "aId":"0208",
+          "aNameChn":"學術攻訐"
+        }     
+      ];
+      break;
+    }
+    case "03":
+    {
+      vm.items = 
+      [
+        {
+          "aId":"0301",
+          "aNameChn":"朋友關係"
+        }
+      ];
+      break;
+    }
+    case "04":
+    {
+      vm.items = 
+      [
+        {
+          "aId":"0402",
+          "aNameChn":"官場關係（平級）"
+        },
+        {
+          "aId":"0403",
+          "aNameChn":"官場關係（下屬）"
+        },
+        {
+          "aId":"0404",
+          "aNameChn":"官場關係（上司）"
+        },
+        {
+          "aId":"0405",
+          "aNameChn":"政治奥援"
+        },
+        {
+          "aId":"0406",
+          "aNameChn":"薦舉保任"
+        },
+        {
+          "aId":"0407",
+          "aNameChn":"政治對抗"
+        }
+      ];
+      break;
+    }
+    case "05":
+    {
+      vm.items = 
+      [
+        {
+          "aId":"0502",
+          "aNameChn":"記詠文字"
+        },
+        {
+          "aId":"0503",
+          "aNameChn":"墓誌文字"
+        },
+        {
+          "aId":"0504",
+          "aNameChn":"序跋文字"
+        },
+        {
+          "aId":"0505",
+          "aNameChn":"禮儀文字"
+        },
+        {
+          "aId":"0506",
+          "aNameChn":"传记文字"
+        },
+        {
+          "aId":"0507",
+          "aNameChn":"論說文字"
+        },
+        {
+          "aId":"0508",
+          "aNameChn":"箴銘文字"
+        },
+        {
+          "aId":"0509",
+          "aNameChn":"書札文字"
+        },
+        {
+          "aId":"0510",
+          "aNameChn":"應酬文字"
+        }        
+      ];
+      break;
+    }
+    case "06":
+    {
+      vm.items = 
+      [
+        {
+          "aId":"0602",
+          "aNameChn":"軍事支持"
+        },
+        {
+          "aId":"0603",
+          "aNameChn":"軍事對抗"
+        }       
+      ];
+      break;
+    }
+    case "07":
+    {
+      vm.items = 
+      [
+        {
+          "aId":"0701",
+          "aNameChn":"醫療關係"
+        }     
+      ];
+      break;      
+    }
+    case "08":
+    {
+      vm.items = 
+      [
+        {
+          "aId":"0801",
+          "aNameChn":"宗教關係"
+        }
+      ];
+      break;
+    }
+    case "09":
+    {
+      vm.items = 
+      [
+        {
+          "aId":"0901",
+          "aNameChn":"家庭關係"
+        }
+      ];
+      break;    
+    }
+    case "10":
+    {
+      vm.items = 
+      [
+        {
+          "aId":"1001",
+          "aNameChn":"財務關係"
+        }
+      ];
+      break;     
+    }
+  }
+}
+
 export {
   isNull as isNull,
   capitalizeFirst as capitalizeFirst,
@@ -211,5 +398,6 @@ export {
   getListById as getListById,
   getListByName as getListByName,
   kinshipOptions as kinshipOptions,
-  clearResultTable as clearResultTable
+  clearResultTable as clearResultTable,
+  returnRelation as returnRelation
 }

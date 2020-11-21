@@ -1,0 +1,38 @@
+[
+  {
+    "Id": "02",
+    "ObjectName": "學術關係類"
+  },
+  {
+    "Id":"03",
+    "ObjectName":"朋友關係類"
+  },
+  {
+    "Id":"04",
+    "ObjectName":"政治關係類"
+  },
+  {
+    "Id":"05",
+    "ObjectName":"著述關係類"
+  },
+  {
+    "Id":"06",
+    "ObjectName":"軍事關係類"
+  },
+  {
+    "Id":"07",
+    "ObjectName":"醫療關係類"
+  },
+  {
+    "Id":"08",
+    "ObjectName":"宗教關係類"
+  },
+  {
+    "Id":"09",
+    "ObjectName":"家庭關係類"
+  },
+  {
+    "Id":"10",
+    "ObjectName":"財務關係類"
+  }
+]

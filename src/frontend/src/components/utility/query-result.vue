@@ -137,7 +137,7 @@ export default {
           peopleList['data'].push(person);
       }      
       let link = document.createElement('a')
-      link.download = 'people_list'+ new Date().getTime().toString(36) +'.json'
+      link.download = 'people_list_'+ new Date().getTime().toString(36) +'.json'
       link.href = 'data:text/plain,' + JSON.stringify(peopleList)
       link.click()
     }

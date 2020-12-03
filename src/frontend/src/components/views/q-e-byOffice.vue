@@ -149,7 +149,13 @@
             </b-button>
         </b-col>
         <b-col></b-col>
-      </b-row>    
+      </b-row>  
+      <b-row v-if="isBusy">
+        <b-col>
+          <warning-text :text="this.$t('globalTerm.searchTimeLong')">
+          </warning-text>
+        </b-col>
+      </b-row>   
       <!--
       <template v-slot:footer>
         <em>Footer Slot</em>
@@ -188,6 +194,7 @@ import selectOffice from '@/components/utility/select-office.vue'
 import selectPlace from '@/components/utility/select-place.vue'
 //import importPlace from '@/components/utility/import-place.vue'
 import viewSelected from '@/components/utility/view-selected.vue'
+import warningText from '@/components/utility/warning-text.vue'
 export default {
   name: 'entityQueryByOffice',
   components: {
@@ -195,7 +202,8 @@ export default {
     selectOffice,
     selectPlace,
     //importPlace,
-    viewSelected
+    viewSelected,
+    warningText
   },
   data() {
     return {

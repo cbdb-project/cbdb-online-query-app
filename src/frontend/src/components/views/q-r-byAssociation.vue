@@ -113,7 +113,13 @@
           </a>
         </b-col>
         <b-col></b-col>
-      </b-row>    
+      </b-row>   
+      <b-row v-if="isBusy">
+        <b-col>
+          <warning-text :text="this.$t('globalTerm.searchTimeLong')">
+          </warning-text>
+        </b-col>
+      </b-row>   
     </b-card>
   </div>
   <div class="hello" v-if="result!==undefined">
@@ -138,6 +144,7 @@ import queryResult from '@/components/utility/query-result.vue'
 import selectRelation from '@/components/utility/select-relationship.vue'
 import selectPlace from '@/components/utility/select-place.vue'
 import viewSelected from '@/components/utility/view-selected.vue'
+import warningText from '@/components/utility/warning-text.vue'
 //import importPlace from '@/components/utility/import-place.vue'
 
 export default {
@@ -147,6 +154,7 @@ export default {
     selectRelation,
     selectPlace,
     viewSelected,
+    warningText
     //importPlace
   },
   data() {
@@ -350,7 +358,7 @@ export default {
       this.isBusy = true;
       let vm = this
       let f = vm.formData
-      console.log(vm.getRelationTableId)
+      //console.log(vm.getRelationTableId)
       let data = {
         "association": vm.getRelationTableId,
         "place": vm.getPeoplePlaceTableId,

@@ -108,6 +108,12 @@
           </a>
         </b-col>
         <b-col></b-col>
+      </b-row>
+      <b-row>
+        <b-col>
+          <warning-text :text="this.$t('globalTerm.searchTimeLong')">
+          </warning-text>
+        </b-col>
       </b-row>    
     </b-card>
   </div>
@@ -132,13 +138,15 @@ import {
 import queryResult from '@/components/utility/query-result.vue'
 import selectPerson from '@/components/utility/select-person.vue'
 import viewSelected from '@/components/utility/view-selected.vue'
+import WarningText from '../utility/warning-text.vue'
 //開發用的假數據
 export default {
   name: 'relationQueryByKinship',
   components: {
     queryResult,
     selectPerson,
-    viewSelected
+    viewSelected,
+    WarningText
   },
   data() {
     return {
@@ -149,7 +157,7 @@ export default {
         //用计算属性
         person: [],
         //MLoop太大會導致查詢時間非常長長長長長
-        MLoop: 5,
+        MLoop: 3,
         MAncGen: 1,
         MDecGen: 1,
         MColLink: 1,
@@ -364,7 +372,7 @@ export default {
       }
       data = JSON.stringify(data)
       let query = `${vm.$store.state.global.apiAddress}query_relatives?RequestPlayload=${data}`
-      console.log(query)
+      //console.log(query)
       this.axios.post(query)
         .then(res => {
             vm.result = {}

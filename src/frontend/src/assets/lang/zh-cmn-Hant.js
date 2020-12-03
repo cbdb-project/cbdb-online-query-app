@@ -128,6 +128,7 @@ module.exports = {
         selectFromDb:"從資料庫選取",
         custom:"自定義",
         parse:"解析",
+        searchTimeLong:"檢索時間可能較長，請您耐心等候"
     },
     entityQueryByPerson:{
         personId:"人物代碼",

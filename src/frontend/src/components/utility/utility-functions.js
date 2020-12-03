@@ -49,7 +49,8 @@ function getterBuilder(type) {
     "officePlace": "pId",
     "office": "pId",
     "entry": "eId",
-    "relation": "aId"
+    "relation": "aId",
+    "person":"personId"
   }
   /**
    * @param  {Array,VueObject} 表格数据和vue实例

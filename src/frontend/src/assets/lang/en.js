@@ -124,7 +124,8 @@ module.exports = {
         cnOrPy:"In Chinese or Pinyin",
         selectFromDb:"Select",
         custom:"Customization",
-        parse:"Parse"
+        parse:"Parse",
+        searchTimeLong:"The search may take a long time to return result, please sit back and relax"
     },
     entityQueryByPerson:{
         personId:"Person ID",

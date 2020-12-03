@@ -9,11 +9,13 @@ Vue.use(VueI18n)
 import router from './router'
 //store 用于處理全局變數
 import store from './store'
-import BootstrapVue from 'bootstrap-vue'
-  Vue.use(BootstrapVue)
+import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
+Vue.use(BootstrapVue)
 //引入 bootstrap-vue 的 css 檔
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import 'bootstrap-vue/dist/bootstrap-vue-icons.min.css'
+Vue.use(BootstrapVueIcons)
 //引入 axios 和 vue-axios
 import axios from 'axios'
 import VueAxios from 'vue-axios'

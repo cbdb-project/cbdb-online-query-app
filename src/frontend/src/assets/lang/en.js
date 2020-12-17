@@ -189,7 +189,8 @@ module.exports = {
         maxDescendGen:      "Max Descend Gen.",
         maxCollaternalLinks:"Max Collaternal Links",
         maxMarriageLinks:   "Max Marriage Links",
-        maxLoop:            "Max Loop"
+        maxLoop:            "Max Loop",
+        maxLoopInvalid: "Must be a postive interger less than 5"
     },
     relationQueryBySocialNetwork:{
         includeKinship:"Include Kinship",

@@ -10,6 +10,10 @@ function capitalizeFirst(s) {
 };
 
 //判斷年代輸入是否有效
+/**
+ * @param  {String} 指數年是startTime還是endTime
+ * @return {Boolean} null or false
+ **/
 function yearValidation(idx) {
   const stReg = /.*startTime/i
   const etReg = /.*endTime/i
@@ -17,7 +21,7 @@ function yearValidation(idx) {
   if (isNull(this.formData[idx])) return null;
   let year = /^\d{1,4}$/;
   //startTime 一欄只要輸入符合有且僅有1～4位數字的規則，視為有效
-  console.log(year.test(this.formData[idx]))
+  //console.log(year.test(this.formData[idx]))
   if (stReg.test(idx)) return year.test(this.formData[idx]) ? null : false;
   else if (etReg.test(idx)) {
     //先判斷 endTime 一欄是否符合有且僅有1～4位數字的規則，如果不符合，視為無效
@@ -35,6 +39,19 @@ function yearValidation(idx) {
       */
       return null
     } else return false;
+  }
+}
+
+/**
+ * @param  {Number} //maxLoop
+ * @return {Boolean}  //null or false
+ **/
+function maxLoopValidation(num,maxVal=5) {
+  let reg = /^\d$/;
+  if(reg.test(num) == false) return false;
+  else
+  {
+    return num < maxVal ? null : false;
   }
 }
 
@@ -400,5 +417,6 @@ export {
   getListByName as getListByName,
   kinshipOptions as kinshipOptions,
   clearResultTable as clearResultTable,
-  returnRelation as returnRelation
+  returnRelation as returnRelation,
+  maxLoopValidation as maxLoopValidation
 }

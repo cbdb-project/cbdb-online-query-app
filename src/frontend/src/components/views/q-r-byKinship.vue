@@ -109,7 +109,7 @@
         </b-col>
         <b-col></b-col>
       </b-row>
-      <b-row>
+      <b-row v-if="isBusy">
         <b-col>
           <warning-text :text="this.$t('globalTerm.searchTimeLong')">
           </warning-text>
@@ -138,8 +138,7 @@ import {
 import queryResult from '@/components/utility/query-result.vue'
 import selectPerson from '@/components/utility/select-person.vue'
 import viewSelected from '@/components/utility/view-selected.vue'
-import WarningText from '../utility/warning-text.vue'
-//開發用的假數據
+import WarningText from '@/components/utility/warning-text.vue'
 export default {
   name: 'relationQueryByKinship',
   components: {

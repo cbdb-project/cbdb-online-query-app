@@ -77,7 +77,7 @@ function getterBuilder(type) {
   return function(d, vm) {
     if (vm[type + "Field"].length === 0) vm[type + "Field"] = d['fields']
     let formData = vm["get" + capitalizeFirst(type) + "TableId"]
-    console.log(formData)
+    //console.log(formData)
     let after = d['items'].filter(i => formData.indexOf(i[id[type]]) === -1);
     after.forEach(
       i => {
@@ -129,15 +129,15 @@ function handleTableScroll(apiType, vm) {
  * api名称 作为查询依据的id 和vue实例
  **/
 function getListById(apiType, id, vm) {
-  console.log(id)
+  //console.log(id)
   let idType = apiType === 'get_assoc' ? 'aType' : 'id'
   if (vm.isBusy === false) {
     vm.isBusy = true
     let query = `${vm.$store.state.global.apiAddress}${apiType}?${idType}=${id}`
-    console.log(query)
+    //console.log(query)
     vm.axios.get(`${query}&start=1&list=100`)
       .then((r) => {
-          console.log(r.data)
+          //console.log(r.data)
           vm.items = r.data.data
           vm.result.query = query
           vm.result.start = parseInt(r.data.start)
@@ -155,11 +155,13 @@ function getListById(apiType, id, vm) {
 }
 
 function getListByName(apiType, arg, vm) {
-  //arg[0]:name
-  //arg[1]:accurate
-  //arg[2]:startTime
-  //arg[3]:endTime
-  console.log(arg[0])
+  /*
+  arg[0]:name
+  arg[1]:accurate
+  arg[2]:startTime
+  arg[3]:endTime
+  */
+  //console.log(arg[0])
   let dic = {
     "place_list": "name",
     "entry_list_by_name": "eName",
@@ -176,7 +178,7 @@ function getListByName(apiType, arg, vm) {
       query += `&startTime=${arg[2]}&endTime=${arg[3]}`
     vm.axios.get(`${query}&start=1&list=100`)
       .then((r) => {
-          console.log(r.data)
+          //console.log(r.data)
           vm.items = r.data.data
           vm.result.query = query
           vm.result.start = parseInt(r.data.start)

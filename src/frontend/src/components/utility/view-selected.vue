@@ -87,10 +87,10 @@
       },
       onRowSelected(items) {
         this.selected = items
-        console.log(this.name)
+        //console.log(this.name)
       },
       haveSelected: function() {
-        console.log(this.name)
+        //console.log(this.name)
       },
       selectAllRows() {
         this.$refs.selectableTable.selectAllRows()
@@ -102,7 +102,7 @@
     watch: {
       items(newVal) {
         this.$emit('update:items', newVal)
-        console.log(newVal)
+        //console.log(newVal)
       }
     }
   }

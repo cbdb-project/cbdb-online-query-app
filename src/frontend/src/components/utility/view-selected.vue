@@ -102,7 +102,6 @@
     watch: {
       items(newVal) {
         this.$emit('update:items', newVal)
-        //console.log(newVal)
       }
     }
   }

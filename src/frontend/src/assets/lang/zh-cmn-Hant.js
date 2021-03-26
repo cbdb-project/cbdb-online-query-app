@@ -192,7 +192,8 @@ module.exports = {
         maxDescendGen:      "最大後代距離(代)",
         maxCollaternalLinks:"最大同輩距離(代)",
         maxMarriageLinks:   "最大姻親距離(代)",
-        maxLoop:            "最大循环次数"
+        maxLoop:            "最大循環次數",
+        maxLoopInvalid: "需為一個小於5的正整數"
     },
     relationQueryBySocialNetwork:{
         includeKinship:"包含親屬關係",

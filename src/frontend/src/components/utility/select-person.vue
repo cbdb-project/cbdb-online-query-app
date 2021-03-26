@@ -81,6 +81,18 @@
                 <b-col :cols = 5 style = "text-align:right">
                   <b-card>
                     <div style = "text-align:left">
+                      <div class="mt-3">
+                       利用已有檢索結果
+                      </div>
+                    </div>
+                    <b-button class="mt-3"
+                    variant="primary" @click="importPerson"
+                      :disabled="!(localPL&&localPL.length)" style = "width:96px">
+                        <span>{{$t('globalTerm.parse')}}</span>
+                    </b-button>                    
+                  </b-card>
+                  <b-card>
+                    <div style = "text-align:left">
                       <b-form-file
                         ref = "upload"
                         v-model="file1"
@@ -170,6 +182,7 @@ export default {
   },
   data() {
     return {
+      localPL: localStorage.autoSavedPL,
       showSelect: false,
       showImport:false,
       isBusy: false,
@@ -282,6 +295,9 @@ export default {
       };
       reader.readAsText(this.file1);
       return;
+    },
+    importPerson:function(){
+      this.items = JSON.parse(this.localPL).data;
     }
   },
   computed: {

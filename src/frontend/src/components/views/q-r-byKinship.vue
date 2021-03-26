@@ -36,9 +36,9 @@
                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
               </label>
              <b-form-input id="max-loop" v-model="formData.MLoop" placeholder="" 
-             :state="validation('indexEndTime')" :disabled="false"></b-form-input>
-              <b-form-invalid-feedback :state="validation('indexEndTime')">
-                Invalid number
+             :state="maxLoopValidation(formData.MLoop)" :disabled="false"></b-form-input>
+              <b-form-invalid-feedback :state="maxLoopValidation(formData.MLoop)">
+                {{$t('relationQueryByKinship.maxLoopInvalid')}}
               </b-form-invalid-feedback>
            </b-col>
         </b-row>
@@ -61,33 +61,33 @@
           <b-col>
             <label for="max-ancestor-gen" class = "user-input-label">{{$t('relationQueryByKinship.maxAncestorGen')}}:</label>
             <b-form-input id="max-ancestor-gen" v-model="formData.MAncGen" placeholder="" 
-              :state="validation('indexStartTime')" :disabled="false"></b-form-input>
-              <b-form-invalid-feedback :state="validation('indexStartTime')">
-                Invalid number
+              :state="maxLoopValidation(formData.MAncGen)" :disabled="false"></b-form-input>
+              <b-form-invalid-feedback :state="maxLoopValidation(formData.MAncGen)">
+                {{$t('relationQueryByKinship.maxLoopInvalid')}}
               </b-form-invalid-feedback>
             </b-col>
           <b-col>
              <label for="max-descend-gen" class = "user-input-label">{{$t('relationQueryByKinship.maxDescendGen')}}:</label>
              <b-form-input id="max-descend-gen" v-model="formData.MDecGen" placeholder="" 
-             :state="validation('indexEndTime')" :disabled="false"></b-form-input>
-              <b-form-invalid-feedback :state="validation('indexEndTime')">
-                Invalid number
+             :state="maxLoopValidation(formData.MDecGen)" :disabled="false"></b-form-input>
+              <b-form-invalid-feedback :state="maxLoopValidation(formData.MDecGen)">
+                {{$t('relationQueryByKinship.maxLoopInvalid')}}
               </b-form-invalid-feedback>
            </b-col>
           <b-col>
             <label for="max-collaternal-links" class = "user-input-label">{{$t('relationQueryByKinship.maxCollaternalLinks')}}:</label>
             <b-form-input id="max-collaternal-links" v-model="formData.MColLink" placeholder="" 
-              :state="validation('indexStartTime')" :disabled="false"></b-form-input>
-              <b-form-invalid-feedback :state="validation('indexStartTime')">
-                Invalid number
+              :state="maxLoopValidation(formData.MColLink)" :disabled="false"></b-form-input>
+              <b-form-invalid-feedback :state="maxLoopValidation(formData.MColLink)">
+                {{$t('relationQueryByKinship.maxLoopInvalid')}}
               </b-form-invalid-feedback>
             </b-col>
           <b-col>
              <label for="max-marriage-links" class = "user-input-label">{{$t('relationQueryByKinship.maxMarriageLinks')}}:</label>
              <b-form-input id="max-marriage-links" v-model="formData.MMarLink" placeholder="" 
-             :state="validation('indexEndTime')" :disabled="false"></b-form-input>
-              <b-form-invalid-feedback :state="validation('indexEndTime')">
-                Invalid number 
+             :state="maxLoopValidation(formData.MMarLink)" :disabled="false"></b-form-input>
+              <b-form-invalid-feedback :state="maxLoopValidation(formData.MMarLink)">
+                {{$t('relationQueryByKinship.maxLoopInvalid')}}
               </b-form-invalid-feedback>
            </b-col>
         </b-row>
@@ -133,7 +133,8 @@ import {
   isNull,
   yearValidation,
   personGetter,
-  kinshipOptions
+  kinshipOptions,
+  maxLoopValidation
 } from '@/components/utility/utility-functions.js'
 import queryResult from '@/components/utility/query-result.vue'
 import selectPerson from '@/components/utility/select-person.vue'
@@ -349,6 +350,7 @@ export default {
     //判斷輸入欄是否為空
     isNull: isNull,
     validation: yearValidation,
+    maxLoopValidation:maxLoopValidation,
     handleGetPerson: function(i) {
       personGetter(i, this)
     },

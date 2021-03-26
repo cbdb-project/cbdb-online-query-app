@@ -123,8 +123,7 @@ export default {
       link.href = URL.createObjectURL(blob);
       link.click()
     },
-    exportID()
-    {
+    generatePeopleList() {
       let peopleList = {'creator':'cbdb-online-query-app','create_date':new Date().getTime().toString(),'data':[]}
       for (let i = 0; i < this.items.length; i++) {
           let person = 
@@ -135,11 +134,19 @@ export default {
             'indexYear': this.items[i]['IndexYear']
           };
           peopleList['data'].push(person);
-      }      
+      }  
+      return peopleList
+    },
+    exportID() {    
+      let peopleList = this.generatePeopleList();
       let link = document.createElement('a')
       link.download = 'people_list_'+ new Date().getTime().toString(36) +'.json'
       link.href = 'data:text/plain,' + JSON.stringify(peopleList)
       link.click()
+    },
+    saveID() {
+      let peopleList = this.generatePeopleList();
+      localStorage.autoSavedPL = JSON.stringify(peopleList);
     }
     /*
     async loadMore(){
@@ -170,6 +177,8 @@ export default {
     }
   },
   mounted() {
+    this.saveID();
+    //console.log(localStorage.autoSavedPL)
     //this.$refs['selectableTable-'+this.name].$el.addEventListener('scroll',this.loadMore, false)
   }
 } 

@@ -10,6 +10,10 @@ function capitalizeFirst(s) {
 };
 
 //判斷年代輸入是否有效
+/**
+ * @param  {String} 指數年是startTime還是endTime
+ * @return {Boolean} null or false
+ **/
 function yearValidation(idx) {
   const stReg = /.*startTime/i
   const etReg = /.*endTime/i
@@ -17,7 +21,7 @@ function yearValidation(idx) {
   if (isNull(this.formData[idx])) return null;
   let year = /^\d{1,4}$/;
   //startTime 一欄只要輸入符合有且僅有1～4位數字的規則，視為有效
-  console.log(year.test(this.formData[idx]))
+  //console.log(year.test(this.formData[idx]))
   if (stReg.test(idx)) return year.test(this.formData[idx]) ? null : false;
   else if (etReg.test(idx)) {
     //先判斷 endTime 一欄是否符合有且僅有1～4位數字的規則，如果不符合，視為無效
@@ -35,6 +39,19 @@ function yearValidation(idx) {
       */
       return null
     } else return false;
+  }
+}
+
+/**
+ * @param  {Number} //maxLoop
+ * @return {Boolean}  //null or false
+ **/
+function maxLoopValidation(num,maxVal=5) {
+  let reg = /^\d$/;
+  if(reg.test(num) == false) return false;
+  else
+  {
+    return num < maxVal ? null : false;
   }
 }
 
@@ -60,7 +77,7 @@ function getterBuilder(type) {
   return function(d, vm) {
     if (vm[type + "Field"].length === 0) vm[type + "Field"] = d['fields']
     let formData = vm["get" + capitalizeFirst(type) + "TableId"]
-    console.log(formData)
+    //console.log(formData)
     let after = d['items'].filter(i => formData.indexOf(i[id[type]]) === -1);
     after.forEach(
       i => {
@@ -112,15 +129,15 @@ function handleTableScroll(apiType, vm) {
  * api名称 作为查询依据的id 和vue实例
  **/
 function getListById(apiType, id, vm) {
-  console.log(id)
+  //console.log(id)
   let idType = apiType === 'get_assoc' ? 'aType' : 'id'
   if (vm.isBusy === false) {
     vm.isBusy = true
     let query = `${vm.$store.state.global.apiAddress}${apiType}?${idType}=${id}`
-    console.log(query)
+    //console.log(query)
     vm.axios.get(`${query}&start=1&list=100`)
       .then((r) => {
-          console.log(r.data)
+          //console.log(r.data)
           vm.items = r.data.data
           vm.result.query = query
           vm.result.start = parseInt(r.data.start)
@@ -138,11 +155,13 @@ function getListById(apiType, id, vm) {
 }
 
 function getListByName(apiType, arg, vm) {
-  //arg[0]:name
-  //arg[1]:accurate
-  //arg[2]:startTime
-  //arg[3]:endTime
-  console.log(arg[0])
+  /*
+  arg[0]:name
+  arg[1]:accurate
+  arg[2]:startTime
+  arg[3]:endTime
+  */
+  //console.log(arg[0])
   let dic = {
     "place_list": "name",
     "entry_list_by_name": "eName",
@@ -159,7 +178,7 @@ function getListByName(apiType, arg, vm) {
       query += `&startTime=${arg[2]}&endTime=${arg[3]}`
     vm.axios.get(`${query}&start=1&list=100`)
       .then((r) => {
-          console.log(r.data)
+          //console.log(r.data)
           vm.items = r.data.data
           vm.result.query = query
           vm.result.start = parseInt(r.data.start)
@@ -400,5 +419,6 @@ export {
   getListByName as getListByName,
   kinshipOptions as kinshipOptions,
   clearResultTable as clearResultTable,
-  returnRelation as returnRelation
+  returnRelation as returnRelation,
+  maxLoopValidation as maxLoopValidation
 }

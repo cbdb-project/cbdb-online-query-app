@@ -1,16 +1,22 @@
-# CBDB Online Query System - Developer Guide
-## Usage Guide
-https://github.com/yiruka114514/CBDBWebAppGuide/blob/master/CBDBWebGuide.pdf   、
+# 🧑‍🎓 User Guide/用户指南  
+## Quick Start in Local Server/在本地搭建服务器使用  
+📖[Quick start in local server/在本地搭建服务器使用](#qsdm)   
 
-## Contribution Guide
-* ⚠️请勿直接用 commit 向主分支提交修改 
-* ⚠️请先新建一个分支，将所有修改都只应用到此分支上。修改完成后，将此新建分支以 PR 提交到主分支上
-* ⚠️直接向主分支提交 commit 将不会触发持续集成自动部署代码
+## Guide for users/用户手册  
+📖[Guide for users/用户手册](https://github.com/yiruka114514/CBDBWebAppGuide/blob/master/CBDBWebGuide.pdf)   
 
-## API Document
-https://github.com/cbdb-project/cbdb-online-main-server/blob/develop/API.md  
+## API Document  
+📖[API Document/API文档](https://github.com/cbdb-project/cbdb-online-main-server/blob/develop/API.md)  
 
-## Project Structure
+# 🧑‍🔧 Contributor Guide/开发指南  
+## ⚠️ Important Notice/重要提示  
+❌ Do not modify the master branch directly! Committing directly to the master branch will not trigger automatic deployment of code for CI/CD.  
+⭕️ Please create a new branch first and develop on the new branch. When development is complete, initiate a `Pull Request` to merge that branch onto the master branch.  
+
+❌ 请勿直接修改主分支！直接向主分支提交(`commit`)将不会触发持续集成自动部署代码。  
+⭕️ 请先新建一个分支，并在新建的分支上进行开发。开发完成后，发起 `Pull Request` 将该分支合并到主分支上。  
+
+## 📚 Project Structure/项目结构  
 ```
 cbdb-online-query-app/
 ├── README.md
@@ -27,18 +33,18 @@ cbdb-online-query-app/
     ├── manage.py #django dev-server entrance. See Backend > Running the server
     └── requirements.txt
 ```
-## Backend
-### Python Environment
+## 📕 Backend/后端  
+### Python Environment  
 `3.6.x`
 
-### Requirements
+### Requirements/Python包依赖  
 `Django ==3.0.8`  
 `djangorestframework ==3.11.0`  
 `mysqlclient ==2.0.1`  
 `gunicorn==20.0.4`
 Please install above packages before running the server.  
 
-### Structure
+### 📚 Structure/结构  
 ```
 cbdbweb/
 ├── __init__.py
@@ -48,23 +54,26 @@ cbdbweb/
 └── wsgi.py
 ```
 
-### Running the Server
+### Running the Server locally/在本地运行服务器  
 
-If you just want to change the code in frontend, running the Node.js dev-server is strongly recommanded. See [Quick Start in Dev Mode](#qsdm)
+⚠️ If you just want to change the code of frontend, running the Webpack Dev Server is strongly recommanded. See [Quick start in local server/在本地搭建服务器使用](#qsdm)
+
+⚠️ 如果你只是想修改前端代码，强烈建议运行 Webpack 的开发服务器。参见[Quick start in local server/在本地搭建服务器使用](#qsdm)   
 
 #### Windows 
 ``` 
 cd src
 py manage.py runserver
 ```
+
 #### MacOS  
 ``` 
 cd src
 python manage.py runserver
 ```
 
-## Frontend
-### Structure  
+## 📕 Frontend/前端  
+### 📚 Structure/结构    
 
 ```
 frontend/
@@ -95,25 +104,41 @@ frontend/
 └── static
 ```
 
-### <span id = "qsdm">Quick Start in Dev Mode</span>
+### Useful Commands/实用指令
+
+#### 🛠 <span id = "qsdm">Quick Start in Dev Mode/在本地快速搭建开发服务器</span>
 ``` 
+# go to the directory of FE first
 cd src/frontend
 
-#install dependencies
+# install dependencies
 npm install
 
-#equivalent to: npm run dev
+# equivalent to: npm run dev
 npm start
-
 ```
 
-### Build Setup
+#### 🔧 Formatting Code/格式化代码
+```
+# go to the directory of FE first
+cd src/frontend
 
+# install dependencies
+npm install
+
+# install vue client globally. If it has already installed, skip this step. 
+npm install -g @vue/cli
+
+# Formatting code
+npm run lint
+```
+
+#### 🔧 Other Commands/其他指令
 ``` 
 #install dependencies
 npm install
 
-#serve with hot reload at localhost:8080
+#server with hot reload at localhost:8080
 npm run dev
 
 #build for production with minification
@@ -123,7 +148,7 @@ npm run build
 npm run build --report
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+For a detailed explain on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
 ### Important Virables & Methods
 #### 目录

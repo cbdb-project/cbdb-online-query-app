@@ -1,17 +1,29 @@
 <template>
-<div>
-  <b-navbar toggleable="lg" variant="faded" type="light" id = "navbar-body">
-    <b-navbar-brand href="/">
-     <img src="../../assets/logo.png" alt="Logo" id = "cbdb-logo" >
-     <span style = "position:absolute;left:80px;top:12px">{{$t('navbarTop.title')}}</span>
-    </b-navbar-brand>
+  <div>
+    <b-navbar toggleable="lg" variant="faded" type="light" id="navbar-body">
+      <b-navbar-brand href="/">
+        <img src="../../assets/logo.png" alt="Logo" id="cbdb-logo" />
+        <span style="position:absolute;left:80px;top:12px">{{
+          $t("navbarTop.title")
+        }}</span>
+      </b-navbar-brand>
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
-        <b-nav-item href="https://github.com/yiruka114514/CBDBWebAppGuide/blob/master/CBDBWebGuide.pdf" target="_blank">{{$t('navbarTop.help')}}</b-nav-item>
-        <b-nav-item href="https://github.com/cbdb-project/cbdb-online-query-app/issues" target="_blank">{{$t('navbarTop.report')}}</b-nav-item>
+        <b-nav-item
+          href="https://github.com/yiruka114514/CBDBWebAppGuide/blob/master/CBDBWebGuide.pdf"
+          target="_blank"
+          >{{ $t("navbarTop.help") }}</b-nav-item
+        >
+        <b-nav-item
+          href="https://github.com/cbdb-project/cbdb-online-query-app/issues"
+          target="_blank"
+          >{{ $t("navbarTop.report") }}</b-nav-item
+        >
         <b-nav-item-dropdown :text="$t('navbarTop.lang')" right>
-          <b-dropdown-item @click = "changeLang('en')">English</b-dropdown-item>
-          <b-dropdown-item @click = "changeLang('zh-cmn-Hant')">中文</b-dropdown-item>
+          <b-dropdown-item @click="changeLang('en')">English</b-dropdown-item>
+          <b-dropdown-item @click="changeLang('zh-cmn-Hant')"
+            >中文</b-dropdown-item
+          >
         </b-nav-item-dropdown>
         <!-- 用戶資訊
         <b-nav-item-dropdown right>
@@ -23,47 +35,42 @@
         </b-nav-item-dropdown>
         -->
       </b-navbar-nav>
-  </b-navbar>
-</div>
+    </b-navbar>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'navbarTop',
-  data () {
-    return {
+  name: "navbarTop",
+  data() {
+    return {};
+  },
+  computed: {
+    user() {
+      return this.$store.state.local.user;
     }
   },
-  computed:{
-    user(){
-      return this.$store.state.local.user
-    }
-  },
-  methods:{
-    changeLang: function(lang){
-      if(this.$i18n.locale != lang){
+  methods: {
+    changeLang: function(lang) {
+      if (this.$i18n.locale != lang) {
         this.$i18n.locale = lang;
-        localStorage.lang = lang
+        localStorage.lang = lang;
       }
     },
-    logOut:function(){
-
-    }
+    logOut: function() {}
   }
-}
+};
 </script>
 
 <style scoped>
-  #cbdb-logo{
-    position: absolute;
-    top:0;
-    left:8px;
-    width:56px;
-    height: 56px;
-    
-  }
-  #navbar-body{
-    margin-top:10px;
-  }
-
+#cbdb-logo {
+  position: absolute;
+  top: 0;
+  left: 8px;
+  width: 56px;
+  height: 56px;
+}
+#navbar-body {
+  margin-top: 10px;
+}
 </style>

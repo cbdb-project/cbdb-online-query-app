@@ -25,7 +25,7 @@
       "contributions": [
         "code",
         "data"
-        ]
+      ]
     },
     {
       "login": "IceCodeNew",
@@ -36,6 +36,15 @@
         "code",
         "infra",
         "maintenance"
+      ]
+    },
+    {
+      "login": "zhangliyuan2013",
+      "name": "zhangliyuan2013",
+      "avatar_url": "https://avatars.githubusercontent.com/u/41323296?v=4",
+      "profile": "https://github.com/zhangliyuan2013",
+      "contributions": [
+        "code"
       ]
     }
   ],

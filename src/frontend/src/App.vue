@@ -1,83 +1,76 @@
 <template>
   <div id="app">
-    <nav-top id = "nav-top"></nav-top>
-      <b-row>
-        <div class = "inline-element" id = "nav-left">
-          <nav-left></nav-left>
-        </div>
-        <div class = "inline-element" id = "main" style="min-width:800px;">
-          <router-view/>
-          <nav-bottom id = "nav-bottom"></nav-bottom>
-        </div>
-      </b-row>
+    <nav-top id="nav-top"></nav-top>
+    <b-row>
+      <div class="inline-element" id="nav-left">
+        <nav-left></nav-left>
+      </div>
+      <div class="inline-element" id="main" style="min-width:800px;">
+        <router-view />
+        <nav-bottom id="nav-bottom"></nav-bottom>
+      </div>
+    </b-row>
   </div>
 </template>
 
 <script>
-import NavTop from './components/global/nav-top.vue'
-import NavLeft from './components/global/nav-left.vue'
-import NavBottom from './components/global/nav-bottom.vue'
+import NavTop from "./components/global/nav-top.vue";
+import NavLeft from "./components/global/nav-left.vue";
+import NavBottom from "./components/global/nav-bottom.vue";
 export default {
-  components:
-  {
-      NavTop,
-      NavLeft,
-      NavBottom 
+  components: {
+    NavTop,
+    NavLeft,
+    NavBottom
   },
-  name: 'App'
-}
+  name: "App"
+};
 </script>
-
 
 <style>
 #app {
-  margin-top:0;
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  margin-top: 0;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  min-width:100%;
-  padding-bottom:8%;
+  min-width: 100%;
+  padding-bottom: 8%;
   /* 不加這個右邊有留白，很難看 */
-  padding-right:1px;
+  padding-right: 1px;
 }
-#nav-top{
-  border-style:solid;
+#nav-top {
+  border-style: solid;
   border-width: 0 0 1px 0;
-  border-color:#D4D4D4;
+  border-color: #d4d4d4;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  background-color: #FFFFFF;
-  position:fixed;/*固定作用*/
-  top:0;
-  width:100%;
-  height:80px;
-  z-index:100
+  background-color: #ffffff;
+  position: fixed; /*固定作用*/
+  top: 0;
+  width: 100%;
+  height: 80px;
+  z-index: 100;
 }
-#nav-left
-{
-  position:fixed;
-  top:80px;
-  width:18%;
-  height:100%;
-  min-width:150px;
-  border-style:solid;
+#nav-left {
+  position: fixed;
+  top: 80px;
+  width: 18%;
+  height: 100%;
+  min-width: 150px;
+  border-style: solid;
   border-width: 0 1px 0 0;
-  border-color:#D4D4D4;
-  background-color: #FFFFFF
+  border-color: #d4d4d4;
+  background-color: #ffffff;
 }
-#nav-bottom
-{
-  padding-top:32px;
+#nav-bottom {
+  padding-top: 32px;
 }
-#main{
-  position:relative;
-  top:80px;
+#main {
+  position: relative;
+  top: 80px;
   left: 8.3%;
   width: 73%;
   margin: 0 auto;
 }
-
-
-
 </style>

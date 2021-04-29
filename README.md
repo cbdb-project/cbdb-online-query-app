@@ -217,7 +217,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://github.com/pleviumtan"><img src="https://avatars.githubusercontent.com/u/39882329?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Łøçꝁë Tân</b></sub></a><br /><a href="#design-pleviumtan" title="Design">🎨</a></td>
+    <td align="center"><a href="https://github.com/pleviumtan"><img src="https://avatars.githubusercontent.com/u/39882329?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Łøçꝁë Tân</b></sub></a><br /><a href="#design-pleviumtan" title="Design">🎨</a> <a href="https://github.com/cbdb-project/cbdb-online-query-app/commits?author=pleviumtan" title="Code">💻</a> <a href="https://github.com/cbdb-project/cbdb-online-query-app/commits?author=pleviumtan" title="Documentation">📖</a> <a href="#ideas-pleviumtan" title="Ideas, Planning, & Feedback">🤔</a></td>
   </tr>
 </table>
 

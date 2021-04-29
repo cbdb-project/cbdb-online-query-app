@@ -25,6 +25,17 @@
       "contributions": [
         "code",
         "data"
+        ]
+    },
+    {
+      "login": "IceCodeNew",
+      "name": "IceCodeNew",
+      "avatar_url": "https://avatars.githubusercontent.com/u/32576256?v=4",
+      "profile": "https://github.com/IceCodeNew",
+      "contributions": [
+        "code",
+        "infra",
+        "maintenance"
       ]
     }
   ],

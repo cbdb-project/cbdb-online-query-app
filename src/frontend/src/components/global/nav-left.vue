@@ -41,7 +41,6 @@
         exact-active-class="active"
         v-b-tooltip.hover.right
         :title="$t('navbarLeft.entityQueryByPersonIntro')"
-        disabled
       >
         {{ $t("navbarLeft.entityQueryByPerson") }}
       </b-nav-item>

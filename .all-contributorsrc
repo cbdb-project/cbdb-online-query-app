@@ -16,6 +16,16 @@
         "doc",
         "ideas"
       ]
+    },
+    {
+      "login": "CasewardBen",
+      "name": "CasewardBen",
+      "avatar_url": "https://avatars.githubusercontent.com/u/48239811?v=4",
+      "profile": "https://github.com/CasewardBen",
+      "contributions": [
+        "code",
+        "data"
+      ]
     }
   ],
   "contributorsPerLine": 7,

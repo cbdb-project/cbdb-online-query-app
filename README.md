@@ -1,4 +1,7 @@
 # 🧑‍🎓 User Guide/用户指南  
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 ### Quick Start in Local Server/在本地搭建服务器使用  
 📖[Quick start in local server/在本地搭建服务器使用](#qsdm)   
 
@@ -204,3 +207,23 @@ For a detailed explain on how things work, check out the [guide](http://vuejs-te
 
 #### <span id = "select-office">src/components/utility/select-office.vue</span>
 WIP  
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/pleviumtan"><img src="https://avatars.githubusercontent.com/u/39882329?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Łøçꝁë Tân</b></sub></a><br /><a href="#design-pleviumtan" title="Design">🎨</a> <a href="https://github.com/cbdb-project/cbdb-online-query-app/commits?author=pleviumtan" title="Code">💻</a> <a href="https://github.com/cbdb-project/cbdb-online-query-app/commits?author=pleviumtan" title="Documentation">📖</a> <a href="#ideas-pleviumtan" title="Ideas, Planning, & Feedback">🤔</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!

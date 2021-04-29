@@ -1,0 +1,24 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "pleviumtan",
+      "name": "Łøçꝁë Tân",
+      "avatar_url": "https://avatars.githubusercontent.com/u/39882329?v=4",
+      "profile": "https://github.com/pleviumtan",
+      "contributions": [
+        "design"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "cbdb-online-query-app",
+  "projectOwner": "cbdb-project",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}

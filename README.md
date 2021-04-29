@@ -1,6 +1,6 @@
 # 🧑‍🎓 User Guide/用户指南  
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 ### Quick Start in Local Server/在本地搭建服务器使用  
 📖[Quick start in local server/在本地搭建服务器使用](#qsdm)   
@@ -218,6 +218,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="https://github.com/pleviumtan"><img src="https://avatars.githubusercontent.com/u/39882329?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Łøçꝁë Tân</b></sub></a><br /><a href="#design-pleviumtan" title="Design">🎨</a> <a href="https://github.com/cbdb-project/cbdb-online-query-app/commits?author=pleviumtan" title="Code">💻</a> <a href="https://github.com/cbdb-project/cbdb-online-query-app/commits?author=pleviumtan" title="Documentation">📖</a> <a href="#ideas-pleviumtan" title="Ideas, Planning, & Feedback">🤔</a></td>
+    <td align="center"><a href="https://github.com/CasewardBen"><img src="https://avatars.githubusercontent.com/u/48239811?v=4?s=100" width="100px;" alt=""/><br /><sub><b>CasewardBen</b></sub></a><br /><a href="https://github.com/cbdb-project/cbdb-online-query-app/commits?author=CasewardBen" title="Code">💻</a> <a href="#data-CasewardBen" title="Data">🔣</a></td>
   </tr>
 </table>
 

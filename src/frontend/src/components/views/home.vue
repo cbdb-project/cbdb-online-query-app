@@ -52,6 +52,98 @@
         </div>
       </b-card>
     </div>
+    <div class="hello">
+      <b-card header-tag="header" footer-tag="footer">
+        <template v-slot:header>
+          <h6 class="mb-0">{{ $t("home.contributors") }}</h6>
+        </template>
+        <table>
+          <tr>
+            <td align="center">
+              <a href="https://github.com/pleviumtan"
+                ><img
+                  src="https://avatars.githubusercontent.com/u/39882329?v=4?s=100"
+                  width="100px;"
+                  alt=""
+                /><br /><sub><b>Łøçꝁë Tân</b></sub></a
+              ><br /><a href="#design-pleviumtan" title="Design">🎨</a>
+              <a
+                href="https://github.com/cbdb-project/cbdb-online-query-app/commits?author=pleviumtan"
+                title="Code"
+                >💻</a
+              >
+              <a
+                href="https://github.com/cbdb-project/cbdb-online-query-app/commits?author=pleviumtan"
+                title="Documentation"
+                >📖</a
+              >
+              <a href="#ideas-pleviumtan" title="Ideas, Planning, & Feedback"
+                >🤔</a
+              >
+            </td>
+            <td align="center">
+              <a href="https://github.com/CasewardBen"
+                ><img
+                  src="https://avatars.githubusercontent.com/u/48239811?v=4?s=100"
+                  width="100px;"
+                  alt=""
+                /><br /><sub><b>CasewardBen</b></sub></a
+              ><br /><a
+                href="https://github.com/cbdb-project/cbdb-online-query-app/commits?author=CasewardBen"
+                title="Code"
+                >💻</a
+              >
+              <a href="#data-CasewardBen" title="Data">🔣</a>
+            </td>
+            <td align="center">
+              <a href="https://github.com/IceCodeNew"
+                ><img
+                  src="https://avatars.githubusercontent.com/u/32576256?v=4?s=100"
+                  width="100px;"
+                  alt=""
+                /><br /><sub><b>IceCodeNew</b></sub></a
+              ><br /><a
+                href="https://github.com/cbdb-project/cbdb-online-query-app/commits?author=IceCodeNew"
+                title="Code"
+                >💻</a
+              >
+              <a
+                href="#infra-IceCodeNew"
+                title="Infrastructure (Hosting, Build-Tools, etc)"
+                >🚇</a
+              >
+              <a href="#maintenance-IceCodeNew" title="Maintenance">🚧</a>
+            </td>
+            <td align="center">
+              <a href="https://github.com/zhangliyuan2013"
+                ><img
+                  src="https://avatars.githubusercontent.com/u/41323296?v=4?s=100"
+                  width="100px;"
+                  alt=""
+                /><br /><sub><b>zhangliyuan2013</b></sub></a
+              ><br /><a
+                href="https://github.com/cbdb-project/cbdb-online-query-app/commits?author=zhangliyuan2013"
+                title="Code"
+                >💻</a
+              >
+            </td>
+            <td align="center">
+              <a href="https://github.com/yuetieqi-meow"
+                ><img
+                  src="https://avatars.githubusercontent.com/u/44973544?v=4?s=100"
+                  width="100px;"
+                  alt=""
+                /><br /><sub><b>yuetieqi-meow</b></sub></a
+              ><br /><a
+                href="https://github.com/cbdb-project/cbdb-online-query-app/commits?author=yuetieqi-meow"
+                title="Code"
+                >💻</a
+              >
+            </td>
+          </tr>
+        </table>
+      </b-card>
+    </div>
   </div>
 </template>
 

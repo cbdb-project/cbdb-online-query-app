@@ -47,7 +47,8 @@ module.exports = {
       "We welcome all contributions to CBDB Online Query System🥺. For more information, please visit our ",
     contribution2:
       " and join in the development of  CBDB Online Query System🤗. ",
-    githubRepo: "Github repository"
+    githubRepo: "Github repository",
+    contributors: "Contributors"
   },
   selectPerson: {
     selectButton: "SELECT PERSON",

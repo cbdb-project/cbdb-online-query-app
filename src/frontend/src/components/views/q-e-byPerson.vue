@@ -30,22 +30,23 @@
         <b-row class="px-3 mb-3">
           <b-col></b-col>
           <b-col class="p-3">
-            <b-button
-              variant="primary"
-              style="width:100%;margin-top:16px"
-              :disabled="formData.personName.length === 0"
+            <a
+              class="search-person"
+              v-b-tooltip.hover
+              :href="
+                'https://cbdb.fas.harvard.edu/cbdbapi/person.php?name=' +
+                  formData.personName
+              "
+              target="_blank"
             >
-              <a
-                v-b-tooltip.hover
-                :href="
-                  'https://cbdb.fas.harvard.edu/cbdbapi/person.php?name=' +
-                    formData.personName
-                "
-                target="_blank"
+              <b-button
+                variant="primary"
+                style="width:100%;margin-top:16px"
+                :disabled="formData.personName.length === 0"
               >
                 <span>{{ $t("globalTerm.search") }}</span>
-              </a>
-            </b-button>
+              </b-button>
+            </a>
           </b-col>
           <b-col></b-col>
         </b-row>

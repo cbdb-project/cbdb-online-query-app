@@ -51,7 +51,8 @@ module.exports = {
     guide: "使用指南",
     contribution1: "我們歡迎諸位以各種方式完善CBDB在線查詢系統🥺。請訪問我們的",
     contribution2: "以獲得更多資訊，並加入到CBDB在線查詢系統的開發中🤗。",
-    githubRepo: "Github 程式碼倉庫"
+    githubRepo: "Github 程式碼倉庫",
+    contributors: "貢獻者"
   },
   selectPerson: {
     selectButton: "選取人物",

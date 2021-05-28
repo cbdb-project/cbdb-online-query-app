@@ -1,0 +1,407 @@
+[
+   {
+      "c_dy":0,
+      "c_dynasty_chn":"未詳",
+      "c_dynasty":"unknown"
+   },
+   {
+      "c_dy":1,
+      "c_dynasty_chn":"漢前",
+      "c_dynasty":"Pre-Han"
+   },
+   {
+      "c_dy":2,
+      "c_dynasty_chn":"秦漢",
+      "c_dynasty":"QinHan"
+   },
+   {
+      "c_dy":3,
+      "c_dynasty_chn":"三國",
+      "c_dynasty":"SanGuo"
+   },
+   {
+      "c_dy":4,
+      "c_dynasty_chn":"南北朝",
+      "c_dynasty":"NanBei Chao"
+   },
+   {
+      "c_dy":5,
+      "c_dynasty_chn":"隋",
+      "c_dynasty":"Sui"
+   },
+   {
+      "c_dy":6,
+      "c_dynasty_chn":"唐",
+      "c_dynasty":"Tang"
+   },
+   {
+      "c_dy":7,
+      "c_dynasty_chn":"五代",
+      "c_dynasty":"Five Dynasties"
+   },
+   {
+      "c_dy":8,
+      "c_dynasty_chn":"後蜀",
+      "c_dynasty":"Later Shu (10 states)"
+   },
+   {
+      "c_dy":9,
+      "c_dynasty_chn":"吳",
+      "c_dynasty":"Wu"
+   },
+   {
+      "c_dy":10,
+      "c_dynasty_chn":"南唐",
+      "c_dynasty":"Southern Tang (10 states)"
+   },
+   {
+      "c_dy":11,
+      "c_dynasty_chn":"吳越",
+      "c_dynasty":"WuYue (10 states)"
+   },
+   {
+      "c_dy":12,
+      "c_dynasty_chn":"閩國",
+      "c_dynasty":"Min (10 states)"
+   },
+   {
+      "c_dy":13,
+      "c_dynasty_chn":"南漢",
+      "c_dynasty":"Southern Han (10 states)"
+   },
+   {
+      "c_dy":14,
+      "c_dynasty_chn":"高麗",
+      "c_dynasty":"Koryo"
+   },
+   {
+      "c_dy":15,
+      "c_dynasty_chn":"宋",
+      "c_dynasty":"Song"
+   },
+   {
+      "c_dy":16,
+      "c_dynasty_chn":"遼",
+      "c_dynasty":"Liao"
+   },
+   {
+      "c_dy":17,
+      "c_dynasty_chn":"金",
+      "c_dynasty":"Jin"
+   },
+   {
+      "c_dy":18,
+      "c_dynasty_chn":"元",
+      "c_dynasty":"Yuan"
+   },
+   {
+      "c_dy":19,
+      "c_dynasty_chn":"明",
+      "c_dynasty":"Ming"
+   },
+   {
+      "c_dy":20,
+      "c_dynasty_chn":"清",
+      "c_dynasty":"Qing"
+   },
+   {
+      "c_dy":21,
+      "c_dynasty_chn":"中華民國",
+      "c_dynasty":"Republic of China"
+   },
+   {
+      "c_dy":22,
+      "c_dynasty_chn":"中華人民共和國",
+      "c_dynasty":"People's Republic of China"
+   },
+   {
+      "c_dy":23,
+      "c_dynasty_chn":"西晉",
+      "c_dynasty":"Western Jin"
+   },
+   {
+      "c_dy":24,
+      "c_dynasty_chn":"陳",
+      "c_dynasty":"Chen"
+   },
+   {
+      "c_dy":25,
+      "c_dynasty_chn":"東漢",
+      "c_dynasty":"Eastern Han"
+   },
+   {
+      "c_dy":26,
+      "c_dynasty_chn":"三國魏",
+      "c_dynasty":"SanGuo Wei"
+   },
+   {
+      "c_dy":27,
+      "c_dynasty_chn":"東晉",
+      "c_dynasty":"Eastern Jin"
+   },
+   {
+      "c_dy":28,
+      "c_dynasty_chn":"宋(劉)",
+      "c_dynasty":"Song (Liu)"
+   },
+   {
+      "c_dy":29,
+      "c_dynasty_chn":"西漢",
+      "c_dynasty":"Western Han"
+   },
+   {
+      "c_dy":30,
+      "c_dynasty_chn":"北魏",
+      "c_dynasty":"Northern Wei"
+   },
+   {
+      "c_dy":31,
+      "c_dynasty_chn":"北周",
+      "c_dynasty":"Northern Zhou"
+   },
+   {
+      "c_dy":32,
+      "c_dynasty_chn":"南齌",
+      "c_dynasty":"Southern Qi"
+   },
+   {
+      "c_dy":34,
+      "c_dynasty_chn":"後梁",
+      "c_dynasty":"Later Liang (5 dynasties)"
+   },
+   {
+      "c_dy":35,
+      "c_dynasty_chn":"北齊",
+      "c_dynasty":"Northern Qi"
+   },
+   {
+      "c_dy":36,
+      "c_dynasty_chn":"吳(楊)",
+      "c_dynasty":"Wu (Yang: 10 states)"
+   },
+   {
+      "c_dy":37,
+      "c_dynasty_chn":"西梁",
+      "c_dynasty":"Western Liang"
+   },
+   {
+      "c_dy":38,
+      "c_dynasty_chn":"楚(馬)",
+      "c_dynasty":"Chu (Ma:10 states)"
+   },
+   {
+      "c_dy":39,
+      "c_dynasty_chn":"前燕",
+      "c_dynasty":"Former Yan (16 states)"
+   },
+   {
+      "c_dy":40,
+      "c_dynasty_chn":"西魏",
+      "c_dynasty":"Western Wei"
+   },
+   {
+      "c_dy":41,
+      "c_dynasty_chn":"東魏",
+      "c_dynasty":"Eastern Wei"
+   },
+   {
+      "c_dy":42,
+      "c_dynasty_chn":"三國吳",
+      "c_dynasty":"SanGuo Wu"
+   },
+   {
+      "c_dy":44,
+      "c_dynasty_chn":"南梁",
+      "c_dynasty":"Southern Liang"
+   },
+   {
+      "c_dy":45,
+      "c_dynasty_chn":"後秦",
+      "c_dynasty":"Later Qin (16 states)"
+   },
+   {
+      "c_dy":46,
+      "c_dynasty_chn":"新",
+      "c_dynasty":"Xin (Wang Mang)"
+   },
+   {
+      "c_dy":47,
+      "c_dynasty_chn":"後唐",
+      "c_dynasty":"Later Tang (5 dynasties)"
+   },
+   {
+      "c_dy":48,
+      "c_dynasty_chn":"後晉",
+      "c_dynasty":"Later Jin (5 dynasties)"
+   },
+   {
+      "c_dy":49,
+      "c_dynasty_chn":"後周",
+      "c_dynasty":"Later Zhou (5 dynasties)"
+   },
+   {
+      "c_dy":50,
+      "c_dynasty_chn":"南燕",
+      "c_dynasty":"Southern Yan (16 states)"
+   },
+   {
+      "c_dy":51,
+      "c_dynasty_chn":"前涼",
+      "c_dynasty":"Former Liang (16 states)"
+   },
+   {
+      "c_dy":52,
+      "c_dynasty_chn":"後漢",
+      "c_dynasty":"Later Han (5 dynasties)"
+   },
+   {
+      "c_dy":53,
+      "c_dynasty_chn":"三國蜀",
+      "c_dynasty":"SanGuo Shu"
+   },
+   {
+      "c_dy":55,
+      "c_dynasty_chn":"南平",
+      "c_dynasty":"Nanping (10 states)"
+   },
+   {
+      "c_dy":56,
+      "c_dynasty_chn":"西涼",
+      "c_dynasty":"Western Liang (16 states)"
+   },
+   {
+      "c_dy":57,
+      "c_dynasty_chn":"偽齊",
+      "c_dynasty":"Qi (Wei Qi)"
+   },
+   {
+      "c_dy":58,
+      "c_dynasty_chn":"高麗",
+      "c_dynasty":"Korea"
+   },
+   {
+      "c_dy":59,
+      "c_dynasty_chn":"西遼",
+      "c_dynasty":"Qara-Khitay"
+   },
+   {
+      "c_dy":60,
+      "c_dynasty_chn":"北燕",
+      "c_dynasty":"Northern Yan (16 states)"
+   },
+   {
+      "c_dy":61,
+      "c_dynasty_chn":"贏秦",
+      "c_dynasty":"Ying Qin"
+   },
+   {
+      "c_dy":62,
+      "c_dynasty_chn":"北涼",
+      "c_dynasty":"Northern Liang (16 states"
+   },
+   {
+      "c_dy":63,
+      "c_dynasty_chn":"後燕",
+      "c_dynasty":"Later Yan (16 states)"
+   },
+   {
+      "c_dy":64,
+      "c_dynasty_chn":"後趙",
+      "c_dynasty":"Later Zhao (16 states)"
+   },
+   {
+      "c_dy":65,
+      "c_dynasty_chn":"前秦",
+      "c_dynasty":"Former Qin (16 states)"
+   },
+   {
+      "c_dy":66,
+      "c_dynasty_chn":"北漢",
+      "c_dynasty":"Northern Han (10 states)"
+   },
+   {
+      "c_dy":67,
+      "c_dynasty_chn":"新羅",
+      "c_dynasty":"Xinluo (Korea)"
+   },
+   {
+      "c_dy":68,
+      "c_dynasty_chn":"東梁",
+      "c_dynasty":"Eastern Liang (North. Dy)"
+   },
+   {
+      "c_dy":69,
+      "c_dynasty_chn":"前趙",
+      "c_dynasty":"Former Zhao (16 states)"
+   },
+   {
+      "c_dy":70,
+      "c_dynasty_chn":"成漢",
+      "c_dynasty":"Cheng Han (16 states)"
+   },
+   {
+      "c_dy":71,
+      "c_dynasty_chn":"夏",
+      "c_dynasty":"Xia (16 states)"
+   },
+   {
+      "c_dy":72,
+      "c_dynasty_chn":"西秦",
+      "c_dynasty":"Western Qin (16 states)"
+   },
+   {
+      "c_dy":73,
+      "c_dynasty_chn":"後涼",
+      "c_dynasty":"Later Liang (16 states)"
+   },
+   {
+      "c_dy":74,
+      "c_dynasty_chn":"南涼",
+      "c_dynasty":"Southern Liang (16 states)"
+   },
+   {
+      "c_dy":75,
+      "c_dynasty_chn":"前蜀",
+      "c_dynasty":"Former Shu (10 states)"
+   },
+   {
+      "c_dy":76,
+      "c_dynasty_chn":"西燕",
+      "c_dynasty":"Western Yan (16 states)"
+   },
+   {
+      "c_dy":77,
+      "c_dynasty_chn":"周",
+      "c_dynasty":"Zhou (Wu Zetian)"
+   },
+   {
+      "c_dy":78,
+      "c_dynasty_chn":"西夏",
+      "c_dynasty":"Western Xia"
+   },
+   {
+      "c_dy":79,
+      "c_dynasty_chn":"北元",
+      "c_dynasty":"Northern Yuan"
+   },
+   {
+      "c_dy":80,
+      "c_dynasty_chn":"南明",
+      "c_dynasty":"Soutthern Ming"
+   },
+   {
+      "c_dy":81,
+      "c_dynasty_chn":"鄭（王世充）",
+      "c_dynasty":"Zheng (Wang Shichong)"
+   },
+   {
+      "c_dy":82,
+      "c_dynasty_chn":"晉",
+      "c_dynasty":"Jin"
+   },
+   {
+      "c_dy":83,
+      "c_dynasty_chn":"漢",
+      "c_dynasty":"Han"
+   }
+ ]

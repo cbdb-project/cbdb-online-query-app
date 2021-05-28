@@ -126,6 +126,7 @@
             </b-col>
           </b-row>
           <!-- 日期 -->
+          <!-- 开关 -->
           <b-row class="px-3 mb-3">
             <b-card-text class="card-item-title mt-3">
               <b-form-checkbox
@@ -141,6 +142,7 @@
               </b-form-checkbox>
             </b-card-text>
           </b-row>
+          <!-- 日期类型 -->
           <b-row class="px-3 mb-3" v-if="formData.useDate === '1'">
             <b-col cols="6" style="text-align:left">
               <b-form-radio-group
@@ -155,7 +157,11 @@
             </b-col>
             <b-col cols="6"> </b-col>
           </b-row>
-          <b-row class="px-3 mb-3" v-if="formData.useDate === '1'">
+          <!-- 年份输入框 -->
+          <b-row
+            class="px-3 mb-3"
+            v-if="formData.useDate === '1' && formData.dateType !== 'dynasty'"
+          >
             <b-col>
               <label for="date-start-time" class="user-input-label"
                 >{{ $t("globalTerm.startTime") }}:</label
@@ -185,6 +191,57 @@
               <b-form-invalid-feedback :state="validation('dateEndTime')">
                 Invalid year
               </b-form-invalid-feedback>
+            </b-col>
+            <b-col cols="4"></b-col>
+          </b-row>
+          <!-- 朝代输入框 -->
+          <b-row
+            class="px-3 mb-3"
+            v-if="formData.useDate === '1' && formData.dateType === 'dynasty'"
+          >
+            <b-col>
+              <label for="date-start-time" class="user-input-label"
+                >{{ $t("globalTerm.startTime") }}:</label
+              >
+              <b-form-select>
+                <option
+                  v-for="d in dynasty"
+                  :key="d.c_dy"
+                  :value="
+                    $i18n.locale === 'zh-cmn-Hant'
+                      ? d.c_dynasty_chn
+                      : d.c_dynasty
+                  "
+                >
+                  {{
+                    $i18n.locale === "zh-cmn-Hant"
+                      ? d.c_dynasty_chn
+                      : d.c_dynasty
+                  }}
+                </option>
+              </b-form-select>
+            </b-col>
+            <b-col>
+              <label for="date-end-time" class="user-input-label"
+                >{{ $t("globalTerm.endTime") }}:</label
+              >
+              <b-form-select>
+                <option
+                  v-for="d in dynasty"
+                  :key="d.c_dy"
+                  :value="
+                    $i18n.locale === 'zh-cmn-Hant'
+                      ? d.c_dynasty_chn
+                      : d.c_dynasty
+                  "
+                >
+                  {{
+                    $i18n.locale === "zh-cmn-Hant"
+                      ? d.c_dynasty_chn
+                      : d.c_dynasty
+                  }}
+                </option>
+              </b-form-select>
             </b-col>
             <b-col cols="4"></b-col>
           </b-row>
@@ -255,6 +312,7 @@ import {
   peoplePlaceGetter,
   entryGetter
 } from "@/components/utility/utility-functions.js";
+import dynastyJson from "@/assets/dynastyData.json";
 import queryResult from "@/components/utility/query-result.vue";
 import selectEntry from "@/components/utility/select-entry.vue";
 import selectPlace from "@/components/utility/select-place.vue";
@@ -287,6 +345,7 @@ export default {
         useXy: "1",
         locationType: "peAddr"
       },
+      dynasty: dynastyJson,
       entryField: [],
       entryTable: [],
       peoplePlaceField: [],
@@ -491,15 +550,15 @@ export default {
     locationOptions() {
       return [
         {
-          text: "Household addr. only",
+          text: this.$t("entityQueryByEntry.householdAddrOnly"),
           value: "pAddr"
         },
         {
-          text: "Entry location addr. only",
+          text: this.$t("entityQueryByEntry.entryAddrOnly"),
           value: "eAddr"
         },
         {
-          text: "Household & Entry location addr.",
+          text: this.$t("entityQueryByEntry.householdEntry"),
           value: "peAddr"
         }
       ];
@@ -511,8 +570,12 @@ export default {
           value: "entry"
         },
         {
-          text: this.$t("entityQueryByEntry.indexYear"),
+          text: this.$t("globalTerm.indexYear"),
           value: "index"
+        },
+        {
+          text: this.$t("entityQueryByPerson.result.dynasty"),
+          value: "dynasty"
         }
       ];
     },

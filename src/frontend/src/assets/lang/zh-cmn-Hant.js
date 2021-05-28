@@ -192,7 +192,9 @@ module.exports = {
   },
   entityQueryByEntry: {
     entryYear: "入仕年",
-    indexYear: "指數年"
+    householdAddrOnly: "僅戶籍地點",
+    entryAddrOnly: "僅入仕地點",
+    householdEntry: "戶籍地點和入仕地點"
   },
   relationQueryByKinship: {
     maxAncestorGen: "最大祖先距離(代)",

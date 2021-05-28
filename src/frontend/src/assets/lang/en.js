@@ -192,7 +192,9 @@ module.exports = {
   },
   entityQueryByEntry: {
     entryYear: "Entry Year",
-    indexYear: "Index Year"
+    householdAddrOnly: "Household addr. only",
+    entryAddrOnly: "Entry location addr. only",
+    householdEntry: "Household & Entry location addr."
   },
   relationQueryByKinship: {
     maxAncestorGen: "Max Ancestor Gen.",

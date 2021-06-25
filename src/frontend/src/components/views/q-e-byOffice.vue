@@ -172,24 +172,40 @@
           <!-- 日期 -->
           <b-row class="px-3 mb-3">
             <b-card-text class="card-item-title mt-3">
+              <!-- 开关 -->
               <b-form-checkbox
                 switch
                 size="lg"
                 id="checkbox-2"
-                v-model="formData.indexYear"
+                v-model="formData.useDate"
                 name="checkbox-2"
                 value="1"
                 unchecked-value="0"
               >
-                <span style="font-size:16px"
-                  >{{ $t("globalTerm.date") }}({{
-                    $t("globalTerm.indexYear")
-                  }})</span
-                >
+                <span style="font-size:16px">{{ $t("globalTerm.date") }}</span>
               </b-form-checkbox>
             </b-card-text>
           </b-row>
-          <b-row class="px-3 mb-3" v-if="formData.indexYear === '1'">
+          <!-- 日期类型 -->
+          <b-row class="px-3 mb-3" v-if="formData.useDate === '1'">
+            <b-col cols="6" style="text-align:left">
+              <b-form-radio-group
+                id="btn-radios"
+                v-model="formData.dateType"
+                :options="dateOptions"
+                size="sm"
+                buttons
+                button-variant="outline-primary"
+                name="radio-btn-outline"
+              ></b-form-radio-group>
+            </b-col>
+            <b-col cols="6"> </b-col>
+          </b-row>
+          <!-- 年份输入框 -->
+          <b-row
+            class="px-3 mb-3"
+            v-if="formData.useDate === '1' && formData.dateType !== 'dynasty'"
+          >
             <b-col>
               <label for="index-start-time" class="user-input-label"
                 >{{ $t("globalTerm.startTime") }}:</label
@@ -199,7 +215,7 @@
                 v-model="formData.indexStartTime"
                 placeholder=""
                 :state="validation('indexStartTime')"
-                :disabled="formData.indexYear === '0' ? true : false"
+                :disabled="formData.useDate === '0' ? true : false"
               ></b-form-input>
               <b-form-invalid-feedback :state="validation('indexStartTime')">
                 Invalid year
@@ -214,11 +230,46 @@
                 v-model="formData.indexEndTime"
                 placeholder=""
                 :state="validation('indexEndTime')"
-                :disabled="formData.indexYear === '0' ? true : false"
+                :disabled="formData.useDate === '0' ? true : false"
               ></b-form-input>
               <b-form-invalid-feedback :state="validation('indexEndTime')">
                 Invalid year
               </b-form-invalid-feedback>
+            </b-col>
+            <b-col cols="4"></b-col>
+          </b-row>
+          <!-- 朝代输入框 -->
+          <b-row
+            class="px-3 mb-3"
+            v-if="formData.useDate === '1' && formData.dateType === 'dynasty'"
+          >
+            <b-col>
+              <label for="date-start-time" class="user-input-label"
+                >{{ $t("globalTerm.startTime") }}:</label
+              >
+              <b-form-select v-model="formData.dynStart">
+                <option v-for="d in dynasty" :key="d.c_dy" :value="d.c_dy">
+                  {{
+                    $i18n.locale === "zh-cmn-Hant"
+                      ? d.c_dynasty_chn
+                      : d.c_dynasty
+                  }}
+                </option>
+              </b-form-select>
+            </b-col>
+            <b-col>
+              <label for="date-end-time" class="user-input-label"
+                >{{ $t("globalTerm.endTime") }}:</label
+              >
+              <b-form-select v-model="formData.dynEnd">
+                <option v-for="d in dynasty" :key="d.c_dy" :value="d.c_dy">
+                  {{
+                    $i18n.locale === "zh-cmn-Hant"
+                      ? d.c_dynasty_chn
+                      : d.c_dynasty
+                  }}
+                </option>
+              </b-form-select>
             </b-col>
             <b-col cols="4"></b-col>
           </b-row>
@@ -301,6 +352,7 @@ import {
   officePlaceGetter,
   officeGetter
 } from "@/components/utility/utility-functions.js";
+import dynastyJson from "@/assets/dynastyData.json";
 import queryResult from "@/components/utility/query-result.vue";
 import selectOffice from "@/components/utility/select-office.vue";
 import selectPlace from "@/components/utility/select-place.vue";
@@ -320,6 +372,7 @@ export default {
   data() {
     return {
       isBusy: false,
+      dynasty: dynastyJson,
       /*表單數據放這裡*/
       formData: {
         //office officePlace peoplePlace 在表单提交之前都是空的
@@ -329,8 +382,11 @@ export default {
         //peoplePlace:[],
         indexStartTime: "",
         indexEndTime: "",
+        dynStart: "",
+        dynEnd: "",
         //是否使用可选条件以布尔值为准！！！
-        indexYear: "0",
+        useDate: "0",
+        dateType: "index",
         useOfficePlace: "0",
         usePeoplePlace: "0",
         useXy: "1"
@@ -532,9 +588,12 @@ export default {
           officePlace: vm.getOfficePlaceTableId,
           usePeoplePlace: parseInt(f.usePeoplePlace),
           peoplePlace: vm.getPeoplePlaceTableId,
-          indexYear: parseInt(f.indexYear, 10),
+          useDate: parseInt(f.useDate, 10),
+          dateType: f.dateType,
           indexStartTime: parseInt(f.indexStartTime, 10),
           indexEndTime: parseInt(f.indexEndTime, 10),
+          dynStart: parseInt(f.dynStart, 10),
+          dynEnd: parseInt(f.dynEnd, 10),
           useXy: useXy,
           start: 0,
           list: 65535
@@ -582,6 +641,18 @@ export default {
         this.validation("indexStartTime") === false ||
         this.validation("indexEndTime") === false
       );
+    },
+    dateOptions() {
+      return [
+        {
+          text: this.$t("globalTerm.indexYear"),
+          value: "index"
+        },
+        {
+          text: this.$t("entityQueryByPerson.result.dynasty"),
+          value: "dynasty"
+        }
+      ];
     },
     tableLength(name) {
       return this.formData[name].length;

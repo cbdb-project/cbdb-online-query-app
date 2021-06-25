@@ -203,16 +203,8 @@
               <label for="date-start-time" class="user-input-label"
                 >{{ $t("globalTerm.startTime") }}:</label
               >
-              <b-form-select>
-                <option
-                  v-for="d in dynasty"
-                  :key="d.c_dy"
-                  :value="
-                    $i18n.locale === 'zh-cmn-Hant'
-                      ? d.c_dynasty_chn
-                      : d.c_dynasty
-                  "
-                >
+              <b-form-select v-model="formData.dynStart">
+                <option v-for="d in dynasty" :key="d.c_dy" :value="d.c_dy">
                   {{
                     $i18n.locale === "zh-cmn-Hant"
                       ? d.c_dynasty_chn
@@ -225,16 +217,8 @@
               <label for="date-end-time" class="user-input-label"
                 >{{ $t("globalTerm.endTime") }}:</label
               >
-              <b-form-select>
-                <option
-                  v-for="d in dynasty"
-                  :key="d.c_dy"
-                  :value="
-                    $i18n.locale === 'zh-cmn-Hant'
-                      ? d.c_dynasty_chn
-                      : d.c_dynasty
-                  "
-                >
+              <b-form-select v-model="formData.dynEnd">
+                <option v-for="d in dynasty" :key="d.c_dy" :value="d.c_dy">
                   {{
                     $i18n.locale === "zh-cmn-Hant"
                       ? d.c_dynasty_chn
@@ -339,6 +323,8 @@ export default {
         peoplePlace: [],
         dateStartTime: "",
         dateEndTime: "",
+        dynStart: "",
+        dynEnd: "",
         dateType: "entry",
         useDate: "0",
         usePeoplePlace: "0",
@@ -523,11 +509,14 @@ export default {
         dateType: f.dateType,
         dateStartTime: parseInt(f.dateStartTime, 10),
         dateEndTime: parseInt(f.dateEndTime, 10),
+        dynStart: parseInt(f.dynStart, 10),
+        dynEnd: parseInt(f.dynEnd, 10),
         useXy: useXy,
         start: 0,
         list: 65535
       };
       data = JSON.stringify(data);
+      console.log(data);
       let query = `${vm.$store.state.global.apiAddress}query_entry_postings?RequestPlayload=${data}`;
       //console.log(query)
       this.axios

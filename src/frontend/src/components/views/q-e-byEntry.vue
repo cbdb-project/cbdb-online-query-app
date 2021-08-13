@@ -363,6 +363,14 @@ export default {
           sortable: true
         },
         {
+          key: "dynasty",
+          label: "Dynasty"
+        },
+        {
+          key: "dynastyChn",
+          label: "朝代"
+        },
+        {
           key: "EntryDesc",
           label: "入仕途徑",
           sortable: true
@@ -524,6 +532,7 @@ export default {
         .then(
           res => {
             vm.result = {};
+            console.log(res.data.data);
             vm.result.entry = res.data.data;
           },
           error => {

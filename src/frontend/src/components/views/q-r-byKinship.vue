@@ -257,56 +257,6 @@ export default {
           sortable: true
         },
         {
-          key: "pId",
-          label: "人物ID",
-          sortable: true
-        },
-        {
-          key: "pName",
-          label: "Person Name",
-          sortable: true
-        },
-        {
-          key: "pNameChn",
-          label: "人物姓名",
-          sortable: true
-        },
-        {
-          key: "pAddrID",
-          label: "人物地點ID",
-          sortable: true
-        },
-        {
-          key: "pAddrType",
-          label: "Address Type",
-          sortable: true
-        },
-        {
-          key: "pAddrTypeChn",
-          label: "人物地點類型",
-          sortable: true
-        },
-        {
-          key: "pAddrName",
-          label: "Address Name",
-          sortable: true
-        },
-        {
-          key: "pAddrNameChn",
-          label: "人物地點名",
-          sortable: true
-        },
-        {
-          key: "pX",
-          label: "人物地點經度",
-          sortable: true
-        },
-        {
-          key: "pY",
-          label: "人物地點緯度",
-          sortable: true
-        },
-        {
           key: "Id",
           label: "親屬代碼",
           sortable: true
@@ -329,11 +279,6 @@ export default {
         {
           key: "IndexYear",
           label: "親屬指数年",
-          sortable: true
-        },
-        {
-          key: "pkinship",
-          label: "親屬关系",
           sortable: true
         },
         {
@@ -394,11 +339,6 @@ export default {
         {
           key: "Y",
           label: "親屬人物地點緯度",
-          sortable: true
-        },
-        {
-          key: "pDistance",
-          label: "与亲属地點距離",
           sortable: true
         },
         {

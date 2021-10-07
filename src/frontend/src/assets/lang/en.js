@@ -192,7 +192,9 @@ module.exports = {
   },
   entityQueryByEntry: {
     entryYear: "Entry Year",
-    indexYear: "Index Year"
+    householdAddrOnly: "Household addr. only",
+    entryAddrOnly: "Entry location addr. only",
+    householdEntry: "Household & Entry location addr."
   },
   relationQueryByKinship: {
     maxAncestorGen: "Max Ancestor Gen.",
@@ -206,6 +208,16 @@ module.exports = {
     includeKinship: "Include Kinship",
     maxNodeDistance: "Max Node Distance",
     maxLoop: "Max Loop"
+  },
+  relationQueryByPlace: {
+    locationType: "Location Type",
+    individual: "Individual",
+    entry: "Entry",
+    association: "Association",
+    officePosting: "Office Posting",
+    institutional: "Institutional",
+    kinship: "Kinship",
+    associate: "Associate"
   },
   visualization: {
     selectFromSystem: "Import from System",

@@ -101,7 +101,6 @@
         exact-active-class="active"
         v-b-tooltip.hover.right
         :title="$t('navbarLeft.entityQueryByPlace')"
-        disabled
       >
         {{ $t("navbarLeft.entityQueryByPlace") }}
       </b-nav-item>
@@ -139,6 +138,7 @@
         exact-active-class="active"
         v-b-tooltip.hover.right
         :title="$t('navbarLeft.relationQueryBySocialNetwork')"
+        disabled
       >
         {{ $t("navbarLeft.relationQueryBySocialNetwork") }}
       </b-nav-item>

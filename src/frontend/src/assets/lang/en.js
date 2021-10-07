@@ -209,6 +209,16 @@ module.exports = {
     maxNodeDistance: "Max Node Distance",
     maxLoop: "Max Loop"
   },
+  relationQueryByPlace: {
+    locationType: "Location Type",
+    individual: "Individual",
+    entry: "Entry",
+    association: "Association",
+    officePosting: "Office Posting",
+    institutional: "Institutional",
+    kinship: "Kinship",
+    associate: "Associate"
+  },
   visualization: {
     selectFromSystem: "Import from System",
     localUpload: "Import from Local Files"

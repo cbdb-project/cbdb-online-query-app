@@ -62,11 +62,13 @@
           <b-row class="py-3 my-3">
             <b-col style="text-align:left">
               <b-form-group>
-                <b-card-text class="card-item-title">Location Type</b-card-text>
+                <b-card-text class="card-item-title">{{
+                  $t("relationQueryByPlace.locationType")
+                }}</b-card-text>
                 <b-form-checkbox-group
                   id="checkbox-group-1"
                   v-model="formData.placeType"
-                  :options="options"
+                  :options="qOptions"
                   name="place-type"
                 ></b-form-checkbox-group>
               </b-form-group>
@@ -78,6 +80,7 @@
         }}</b-card-text>
         <div class="card-item-body px-3">
           <!-- 日期 -->
+          <!-- 开关 -->
           <b-row class="px-3 mb-3">
             <b-card-text class="card-item-title mt-3">
               <b-form-checkbox
@@ -93,7 +96,26 @@
               </b-form-checkbox>
             </b-card-text>
           </b-row>
+          <!-- 日期类型 -->
           <b-row class="px-3 mb-3" v-if="formData.useDate === '1'">
+            <b-col cols="6" style="text-align:left">
+              <b-form-radio-group
+                id="btn-radios"
+                v-model="formData.dateType"
+                :options="dateOptions"
+                size="sm"
+                buttons
+                button-variant="outline-primary"
+                name="radio-btn-outline"
+              ></b-form-radio-group>
+            </b-col>
+            <b-col cols="6"> </b-col>
+          </b-row>
+          <!-- 年份输入框 -->
+          <b-row
+            class="px-3 mb-3"
+            v-if="formData.useDate === '1' && formData.dateType !== 'dynasty'"
+          >
             <b-col>
               <label for="date-start-time" class="user-input-label"
                 >{{ $t("globalTerm.startTime") }}:</label
@@ -123,6 +145,41 @@
               <b-form-invalid-feedback :state="validation('dateEndTime')">
                 Invalid year
               </b-form-invalid-feedback>
+            </b-col>
+            <b-col cols="4"></b-col>
+          </b-row>
+          <!-- 朝代输入框 -->
+          <b-row
+            class="px-3 mb-3"
+            v-if="formData.useDate === '1' && formData.dateType === 'dynasty'"
+          >
+            <b-col>
+              <label for="date-start-time" class="user-input-label"
+                >{{ $t("globalTerm.startTime") }}:</label
+              >
+              <b-form-select v-model="formData.dynStart">
+                <option v-for="d in dynasty" :key="d.c_dy" :value="d.c_dy">
+                  {{
+                    $i18n.locale === "zh-cmn-Hant"
+                      ? d.c_dynasty_chn
+                      : d.c_dynasty
+                  }}
+                </option>
+              </b-form-select>
+            </b-col>
+            <b-col>
+              <label for="date-end-time" class="user-input-label"
+                >{{ $t("globalTerm.endTime") }}:</label
+              >
+              <b-form-select v-model="formData.dynEnd">
+                <option v-for="d in dynasty" :key="d.c_dy" :value="d.c_dy">
+                  {{
+                    $i18n.locale === "zh-cmn-Hant"
+                      ? d.c_dynasty_chn
+                      : d.c_dynasty
+                  }}
+                </option>
+              </b-form-select>
             </b-col>
             <b-col cols="4"></b-col>
           </b-row>
@@ -170,7 +227,11 @@
         <template v-slot:header>
           <h6 class="mb-0">{{ $t("globalTerm.resultShow") }}</h6>
         </template>
-        <query-result></query-result>
+        <query-result
+          name="place-result"
+          :items="result.place"
+          :fields="resultField"
+        ></query-result>
       </b-card>
     </div>
   </div>
@@ -182,8 +243,8 @@ import {
   yearValidation,
   peoplePlaceGetter
 } from "@/components/utility/utility-functions.js";
+import dynastyJson from "@/assets/dynastyData.json";
 import queryResult from "@/components/utility/query-result.vue";
-import selectEntry from "@/components/utility/select-entry.vue";
 import selectPlace from "@/components/utility/select-place.vue";
 import importPlace from "@/components/utility/import-place.vue";
 import viewSelected from "@/components/utility/view-selected.vue";
@@ -191,7 +252,6 @@ export default {
   name: "entityQueryByPlace",
   components: {
     queryResult,
-    selectEntry,
     selectPlace,
     importPlace,
     viewSelected
@@ -206,19 +266,106 @@ export default {
         placeType: [],
         dateStartTime: "",
         dateEndTime: "",
+        dynStart: "",
+        dynEnd: "",
+        dateType: "index",
         useDate: "0",
         useXy: "1"
       },
+      dynasty: dynastyJson,
       peoplePlaceField: [],
       peoplePlaceTable: [],
-      options: [
-        { text: "Individual", value: "Individual" },
-        { text: "Entry", value: "Entry" },
-        { text: "Association", value: "Association" },
-        { text: "Office Posting", value: "Office Posting" },
-        { text: "Institutional", value: "Institutional" },
-        { text: "Kinship", value: "Kinship" },
-        { text: "Associate", value: "Associate" }
+      resultField: [
+        {
+          key: "Name",
+          label: "Name",
+          sortable: true
+        },
+        {
+          key: "NameChn",
+          label: "人物姓名",
+          sortable: true
+        },
+        {
+          key: "IndexYear",
+          label: "Index Year",
+          sortable: true
+        },
+        {
+          key: "AddrName",
+          label: "Address Name",
+          sortable: true
+        },
+        {
+          key: "AddrChn",
+          label: "地址名稱",
+          sortable: true
+        },
+        {
+          key: "AssoName",
+          label: "Associate Name",
+          sortable: true
+        },
+        {
+          key: "AssocChn",
+          label: "社會關係人姓名",
+          sortable: true
+        },
+        {
+          key: "AssocFirstYear",
+          label: "First Year",
+          sortable: true
+        },
+        {
+          key: "AssocLastYear",
+          label: "Last Year",
+          sortable: true
+        },
+        {
+          key: "Category",
+          label: "Category",
+          sortable: true
+        },
+        {
+          key: "Relation",
+          label: "Relation",
+          sortable: true
+        },
+        {
+          key: "RelationChn",
+          label: "地址關係詳細類別",
+          sortable: true
+        },
+        {
+          key: "pX",
+          label: "地點經度",
+          sortable: true
+        },
+        {
+          key: "pY",
+          label: "地點緯度",
+          sortable: true
+        },
+        {
+          key: "IndexYearType",
+          label: "Index Year Type",
+          sortable: true
+        },
+        {
+          key: "IndexYearTypeChn",
+          label: "指數年類型",
+          sortable: true
+        },
+        {
+          key: "IndexYearTypeCode",
+          label: "指數年類型代碼",
+          sortable: true
+        },
+        {
+          key: "Notes",
+          label: "_______備註______",
+          sortable: true
+        }
       ],
       result: undefined
     };
@@ -230,10 +377,6 @@ export default {
     //获取人物籍贯信息
     handleGetPeoplePlace: function(i) {
       peoplePlaceGetter(i, this);
-    },
-    //获取入仕途径信息
-    handleGetEntry: function(i) {
-      entryGetter(i, this);
     },
     async handleSubmit() {
       //提交表单的时候先清空原有數據
@@ -278,8 +421,37 @@ export default {
     },
     dateOptions() {
       return [
-        { text: this.$t("entityQueryByEntry.entryYear"), value: "entry" },
-        { text: this.$t("entityQueryByEntry.indexYear"), value: "index" }
+        {
+          text: this.$t("globalTerm.indexYear"),
+          value: "index"
+        },
+        {
+          text: this.$t("entityQueryByPerson.result.dynasty"),
+          value: "dynasty"
+        }
+      ];
+    },
+    qOptions() {
+      return [
+        {
+          text: this.$t("relationQueryByPlace.individual"),
+          value: "individual"
+        },
+        { text: this.$t("relationQueryByPlace.entry"), value: "entry" },
+        {
+          text: this.$t("relationQueryByPlace.association"),
+          value: "association"
+        },
+        {
+          text: this.$t("relationQueryByPlace.officePosting"),
+          value: "officePosting"
+        },
+        {
+          text: this.$t("relationQueryByPlace.institutional"),
+          value: "institutional"
+        },
+        { text: this.$t("relationQueryByPlace.kinship"), value: "kinship" },
+        { text: this.$t("relationQueryByPlace.associate"), value: "associate" }
       ];
     },
     isInvalid() {

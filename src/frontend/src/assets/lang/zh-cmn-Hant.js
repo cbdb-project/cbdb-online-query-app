@@ -209,6 +209,16 @@ module.exports = {
     maxNodeDistance: "距離限制",
     maxLoop: "循環數限制"
   },
+  relationQueryByPlace: {
+    locationType: "地點類型",
+    individual: "人",
+    entry: "入仕",
+    association: "社會關係",
+    officePosting: "職官",
+    institutional: "社交機構",
+    kinship: "親屬",
+    associate: "社會關係的人"
+  },
   visualization: {
     selectFromSystem: "從系統加載",
     localUpload: "從本地加載"

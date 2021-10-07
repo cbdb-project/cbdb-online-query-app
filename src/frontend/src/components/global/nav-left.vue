@@ -101,7 +101,6 @@
         exact-active-class="active"
         v-b-tooltip.hover.right
         :title="$t('navbarLeft.entityQueryByPlace')"
-        disabled
       >
         {{ $t("navbarLeft.entityQueryByPlace") }}
       </b-nav-item>

@@ -600,7 +600,7 @@ export default {
         };
         data = JSON.stringify(data);
         let query = `${vm.$store.state.global.apiAddress}query_office_postings?RequestPlayload=${data}`;
-        //console.log(query)
+        console.log(query);
         this.axios
           .post(query)
           .then(

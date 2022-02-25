@@ -1,15 +1,15 @@
 <template>
   <div id="app">
     <nav-top id="nav-top"></nav-top>
-    <b-row>
-      <div class="inline-element" id="nav-left">
-        <nav-left></nav-left>
-      </div>
-      <div class="inline-element" id="main" style="min-width:800px;">
+    <div id="nav-left">
+      <nav-left></nav-left>
+    </div>
+    <div class="main-wrapper">
+      <div id="main">
         <router-view />
         <nav-bottom id="nav-bottom"></nav-bottom>
       </div>
-    </b-row>
+    </div>
   </div>
 </template>
 
@@ -28,6 +28,9 @@ export default {
 </script>
 
 <style>
+:root {
+  --myGap: 32px;
+}
 #app {
   margin-top: 0;
   font-family: "Avenir", Helvetica, Arial, sans-serif;
@@ -37,8 +40,6 @@ export default {
   color: #2c3e50;
   min-width: 100%;
   padding-bottom: 8%;
-  /* 不加這個右邊有留白，很難看 */
-  padding-right: 1px;
 }
 #nav-top {
   border-style: solid;
@@ -54,10 +55,8 @@ export default {
 }
 #nav-left {
   position: fixed;
-  top: 80px;
-  width: 18%;
-  height: 100%;
-  min-width: 150px;
+  width: 200px;
+  height: 100vh;
   border-style: solid;
   border-width: 0 1px 0 0;
   border-color: #d4d4d4;
@@ -69,8 +68,14 @@ export default {
 #main {
   position: relative;
   top: 80px;
-  left: 8.3%;
-  width: 73%;
+  width: calc((100vw - 200px) - var(--myGap) * 2);
+  min-width: 500px;
   margin: 0 auto;
+}
+.main-wrapper {
+  position: absolute;
+  display: flex;
+  left: 200px;
+  margin-left: var(--myGap);
 }
 </style>

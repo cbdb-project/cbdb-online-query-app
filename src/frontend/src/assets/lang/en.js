@@ -134,6 +134,7 @@ module.exports = {
     selectFromDb: "Select",
     custom: "Customization",
     parse: "Parse",
+    none: "None",
     searchTimeLong:
       "The search may take a long time to return result, please sit back and relax"
   },

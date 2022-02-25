@@ -3,12 +3,10 @@
     <b-navbar toggleable="lg" variant="faded" type="light" id="navbar-body">
       <b-navbar-brand href="/">
         <img src="../../assets/logo.png" alt="Logo" id="cbdb-logo" />
-        <span style="position:absolute;left:80px;top:12px">{{
-          $t("navbarTop.title")
-        }}</span>
+        <span id="cbdb-title">{{ $t("navbarTop.title") }}</span>
       </b-navbar-brand>
       <!-- Right aligned nav items -->
-      <b-navbar-nav class="ml-auto">
+      <b-nav id="nav-list">
         <b-nav-item
           href="https://github.com/yiruka114514/CBDBWebAppGuide/blob/master/CBDBWebGuide.pdf"
           target="_blank"
@@ -34,7 +32,7 @@
           <b-dropdown-item @click = "logOut">{{$t('navbarTop.user.logOut')}}</b-dropdown-item>
         </b-nav-item-dropdown>
         -->
-      </b-navbar-nav>
+      </b-nav>
     </b-navbar>
   </div>
 </template>
@@ -64,13 +62,20 @@ export default {
 
 <style scoped>
 #cbdb-logo {
-  position: absolute;
-  top: 0;
-  left: 8px;
   width: 56px;
   height: 56px;
 }
 #navbar-body {
-  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+}
+#cbdb-title {
+  line-height: 56px;
+  padding: 15px;
+}
+#nav-list {
+  display: flex;
+  justify-content: flex-start;
 }
 </style>
